@@ -1,4 +1,12 @@
-import { Repository, EntityMetadata, DataSource, type Logger, type QueryRunner } from "typeorm";
+import {
+  Repository,
+  EntityMetadata,
+  DataSource,
+  type Logger,
+  type QueryRunner,
+  type EntityTarget,
+  type ObjectType,
+} from "typeorm";
 import { config, logger } from "..";
 import { LoggerFactory } from "typeorm/logger/LoggerFactory.js";
 import { User } from "../tables/user";
@@ -91,5 +99,9 @@ export default class Database {
 
   public getRepository(entityName: string): Repository<any> {
     return this.connection.getRepository(entityName);
+  }
+
+  public getEntityRepository<T>(entityClass: ObjectType<T>) {
+    return this.connection.getRepository(entityClass);
   }
 }

@@ -7,7 +7,7 @@ import {
 import BaseCommand from "../base/Base";
 import { userService } from "../..";
 
-export default class PlayersCommand extends BaseCommand {
+export default class LookupCommand extends BaseCommand {
   data = {
     name: "lookup",
     description: "Find as user by their discord.",

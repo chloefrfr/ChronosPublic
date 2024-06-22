@@ -9,11 +9,11 @@ export class Hype {
   name!: string;
 
   @Column()
-  min_required_hype!: number;
+  minimum_required_hype!: number;
 
   @Column()
   division!: number;
 
-  @Column()
-  maximum_required_hype!: number;
+  @Column({ type: "bigint" })
+  maximum_required_hype!: string;
 }

@@ -1,4 +1,4 @@
-import { accountService, app, userService } from "..";
+import { accountService, app, hypeService, userService } from "..";
 import { Validation } from "../middleware/validation";
 import errors from "../utilities/errors";
 import path from "node:path";
@@ -97,6 +97,16 @@ export default function () {
       "epicgames_Arena_S13_Solo:Arena_S13_Division10_Solo": [user.accountId],
     };
 
+    await hypeService.create();
+
+    const hype = await hypeService.getAll();
+
+    const hypeTokens: string[] = [];
+
+    hype.forEach((token, limit) => {
+      if (account.arenaHype >= limit) hypeTokens.push(token.name);
+    });
+
     return c.json({
       events,
       player: {
@@ -112,7 +122,7 @@ export default function () {
           floatingHype: [],
           ...teams,
         },
-        tokens: [],
+        tokens: hypeTokens,
       },
       templates: arenaTemplates,
     });
