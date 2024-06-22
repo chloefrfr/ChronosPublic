@@ -7,6 +7,12 @@ import fetch from "node-fetch";
 import createTournamentInfo from "../utilities/createTournamentInfo";
 import createPlaylistInfo from "../utilities/createPlaylistInfo";
 
+interface Background {
+  stage: string;
+  _type: string;
+  key: string;
+}
+
 export default function () {
   app.get("/content/api/pages/fortnite-game", async (c) => {
     const useragent = c.req.header("User-Agent");
@@ -25,10 +31,6 @@ export default function () {
         errors.createError(400, c.req.url, "Failed to parse User-Agent.", timestamp),
         400,
       );
-
-    const request = await fetch(
-      "https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game",
-    ).then((res) => res.json() as any);
 
     const seasonImages = {
       13: {
@@ -84,36 +86,118 @@ export default function () {
       ],
     };
 
-    /// TODO - VaultBackgrounds (ShopBackgrounds) & Emergencynotices & Battleroyalenews
-
-    request.dynamicbackgrounds = {
-      "jcr:isCheckedOut": true,
-      backgrounds: {
-        backgrounds: [
-          {
-            stage: uahelper.season === 10 ? uahelper.SeasonX : `season${uahelper.season}`,
-            _type: "DynamicBackground",
-            key: "lobby",
-          },
-          {
-            stage: uahelper.season === 10 ? uahelper.SeasonX : `season${uahelper.season}`,
-            _type: "DynamicBackground",
-            key: "vault",
-          },
-        ],
-        _type: "DynamicBackgroundList",
+    const backgrounds: Background[] = [
+      {
+        stage: uahelper.season === 10 ? uahelper.SeasonX : `season${uahelper.season}`,
+        _type: "DynamicBackground",
+        key: "lobby",
       },
-      _title: "dynamicbackgrounds",
-      _noIndex: false,
-      "jcr:baseVersion": "a7ca237317f1e71f17852c-bccd-4be6-89a0-1bb52672a444",
-      _activeDate: new Date(),
-      lastModified: new Date(),
-      _locale: "en-US",
-    };
-    request.tournamentinformation = createTournamentInfo();
-    request.playlistinformation = createPlaylistInfo(playlists, uahelper.season);
-    request.subgameinfo.battleroyale = {};
+      {
+        stage: uahelper.season === 10 ? uahelper.SeasonX : `season${uahelper.season}`,
+        _type: "DynamicBackground",
+        key: "vault",
+      },
+    ];
 
-    return c.json(request);
+    const vaultBackground = {
+      stage: backgrounds[1].stage,
+      _type: "DynamicBackground",
+      key: "vault",
+    };
+
+    return c.json({
+      "jcr:isCheckedOut": true,
+      _title: "Fortnite Game",
+      "jcr:baseVersion": "a7ca237317f1e74e4b8154-226a-4450-a3cd-c77af841e798",
+      _activeDate: new Date().toISOString(),
+      lastModified: new Date().toISOString(),
+      _locale: "en-US",
+      creative: {
+        _type: "CommonUI Simple Message",
+        message: {
+          image: "https://cdn2.unrealengine.com/subgameselect-cr-512x1024-371f42541731.png",
+          hidden: false,
+          messagetype: "normal",
+          _type: "CommonUI Simple Message Base",
+          title: "New Featured Islands!",
+          body: "Your Island. Your Friends. Your Rules.\n\nDiscover new ways to play Fortnite, play community made games with friends and build your dream island.",
+          spotlight: false,
+        },
+      },
+      dynamicbackgrounds: {
+        "jcr:isCheckedOut": true,
+        backgrounds: {
+          backgrounds,
+          _type: "DynamicBackgroundList",
+        },
+        _title: "dynamicbackgrounds",
+        _noIndex: false,
+        "jcr:baseVersion": "a7ca237317f1e74e4b8154-226a-4450-a3cd-c77af841e798",
+        _activeDate: new Date().toISOString(),
+        lastModified: new Date().toISOString(),
+        _locale: "en-US",
+      },
+      shopSections: {
+        sectionList: {
+          sections: [
+            {
+              bSortOffersByOwnership: false,
+              bShowIneligibleOffersIfGiftable: false,
+              bEnableToastNotification: true,
+              background: vaultBackground,
+              _type: "ShopSection",
+              landingPriority: 0,
+              bHidden: false,
+              sectionId: "Featured",
+              bShowTimer: true,
+              sectionDisplayName: "Featured",
+              bShowIneligibleOffers: true,
+            },
+            {
+              bSortOffersByOwnership: false,
+              bShowIneligibleOffersIfGiftable: false,
+              bEnableToastNotification: true,
+              background: vaultBackground,
+              _type: "ShopSection",
+              landingPriority: 1,
+              bHidden: false,
+              sectionId: "Daily",
+              bShowTimer: true,
+              sectionDisplayName: "Daily",
+              bShowIneligibleOffers: true,
+            },
+            {
+              bSortOffersByOwnership: false,
+              bShowIneligibleOffersIfGiftable: false,
+              bEnableToastNotification: false,
+              background: vaultBackground,
+              _type: "ShopSection",
+              landingPriority: 2,
+              bHidden: false,
+              sectionId: "Battlepass",
+              bShowTimer: false,
+              sectionDisplayName: "Battle Pass",
+              bShowIneligibleOffers: false,
+            },
+          ],
+        },
+        lastModified: "9999-12-12T00:00:00.000Z",
+      },
+      tournamentinformation: createTournamentInfo(),
+      playlistinformation: {
+        frontend_matchmaking_header_style: "None",
+        _title: "playlistinformation",
+        frontend_matchmaking_header_text: "",
+        playlist_info: {
+          _type: "Playlist Information",
+          // @ts-ignore
+          playlists: playlists[uahelper.season],
+        },
+        _noIndex: false,
+        _activeDate: "2018-04-25T15:05:39.956Z",
+        lastModified: "2019-10-29T14:05:17.030Z",
+        _locale: "en-US",
+      },
+    });
   });
 }
