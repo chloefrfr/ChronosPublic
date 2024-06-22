@@ -116,8 +116,13 @@ export default function () {
 
     const hypeTokens: string[] = [];
 
-    hype.forEach((token, limit) => {
-      if (account.arenaHype >= limit) hypeTokens.push(token.name);
+    hype.forEach((token) => {
+      if (
+        account.arenaHype >= token.minimum_required_hype &&
+        account.arenaHype <= parseInt(token.maximum_required_hype)
+      ) {
+        hypeTokens.push(token.name);
+      }
     });
 
     return c.json({
