@@ -11,18 +11,7 @@ export default class HypeService {
   }
 
   public async create() {
-    const divisions = [
-      { name: "ARENA_S13_Division1", min: 0, max: 250 },
-      { name: "ARENA_S13_Division2", min: 250, max: 500 },
-      { name: "ARENA_S13_Division3", min: 500, max: 1000 },
-      { name: "ARENA_S13_Division4", min: 1000, max: 1500 },
-      { name: "ARENA_S13_Division5", min: 1500, max: 2500 },
-      { name: "ARENA_S13_Division6", min: 2500, max: 4000 },
-      { name: "ARENA_S13_Division7", min: 4000, max: 6000 },
-      { name: "ARENA_S13_Division8", min: 6000, max: 12000 },
-      { name: "ARENA_S13_Division9", min: 12000, max: 16000 },
-      { name: "ARENA_S13_Division10", min: 16000, max: "9007199254740991" },
-    ];
+    const divisions = [{ name: "ARENA_S13_Division1", min: 0, max: 400 }];
 
     const hypeEntities = divisions.map(({ name, min, max }, index) => ({
       name,

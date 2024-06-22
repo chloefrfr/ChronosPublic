@@ -47,8 +47,13 @@ export default async function (c: Context) {
 
     const profile = await ProfileHelper.getProfile(profileId);
 
+    logger.debug(`Requested profileId: ${profileId}`);
+
     if (!profile && profileId !== "athena" && profileId !== "common_core")
-      return c.json(MCPResponses.generate({ rvn }, [], profileId));
+      return c.json(
+        errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
+        404,
+      );
 
     if (profileId === "athena") {
       profile.stats.attributes.season_num = uahelper.season;
@@ -115,6 +120,8 @@ export default async function (c: Context) {
         profile,
       },
     ];
+
+    await Bun.write(`profile-${profileId}.json`, JSON.stringify(applyProfileChanges, null, 2));
 
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
   } catch (error) {

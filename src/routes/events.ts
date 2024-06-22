@@ -21,7 +21,7 @@ interface Event {
 }
 
 export default function () {
-  app.get("/api/v1/events/Fortnite/download/:accountId", Validation.verifyToken, async (c) => {
+  app.get("/api/v1/events/Fortnite/download/:accountId", async (c) => {
     const accountId = c.req.param("accountId");
     const timestamp = new Date().toISOString();
     const useragent = c.req.header("User-Agent");
