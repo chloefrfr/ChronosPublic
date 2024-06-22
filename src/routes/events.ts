@@ -131,10 +131,7 @@ export default function () {
         persistentScores: {
           Hype: account.arenaHype,
         },
-        teams: {
-          floatingHype: [],
-          ...teams,
-        },
+        teams,
         tokens: hypeTokens,
       },
       templates: arenaTemplates,
