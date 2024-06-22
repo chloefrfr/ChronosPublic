@@ -77,10 +77,8 @@ NumTestsPerRegion=1
 PingTimeout=3.0
 !RegionDefinitions=ClearArray
 +RegionDefinitions=(DisplayName="Chronos NA", RegionId="NAE", bEnabled=true, bVisible=true, bAutoAssignable=true)
-+RegionDefinitions=(DisplayName="Chronos NA Central LateGame", RegionId="NAW", bEnabled=true, bVisible=true, bAutoAssignable=true)
-+RegionDefinitions=(DisplayName="Chronos NA East LateGame", RegionId="NAELG", bEnabled=true, bVisible=true, bAutoAssignable=true)
 +RegionDefinitions=(DisplayName="Chronos EU", RegionId="EU", bEnabled=true, bVisible=true, bAutoAssignable=true)
-+RegionDefinitions=(DisplayName="Chronos EU LateGame", RegionId="EULG", bEnabled=true, bVisible=true, bAutoAssignable=true)`;
+`;
 }
 
 export function GetDefaultGame(version: number): string {
@@ -249,7 +247,7 @@ DefaultMaxPartySize=16`;
   if (version === 4) {
     def.replace(
       `+FrontEndPlaylistData=(PlaylistName=Playlist_BattleLab, PlaylistAccess=(bEnabled=False, bIsDefaultPlaylist=false, bVisibleWhenDisabled=true, bDisplayAsNew=false, CategoryIndex=1, bDisplayAsLimitedTime=false, DisplayPriority=16))`,
-      `+FrontEndPlaylistData=(PlaylistName=Playlist_Playground, PlaylistAccess=(bEnabled=True, bIsDefaultPlaylist=true, bVisibleWhenDisabled=false, bDisplayAsNew=true, CategoryIndex=1, bDisplayAsLimitedTime=false, DisplayPriority=16))`
+      `+FrontEndPlaylistData=(PlaylistName=Playlist_Playground, PlaylistAccess=(bEnabled=True, bIsDefaultPlaylist=true, bVisibleWhenDisabled=false, bDisplayAsNew=true, CategoryIndex=1, bDisplayAsLimitedTime=false, DisplayPriority=16))`,
     );
   }
 
