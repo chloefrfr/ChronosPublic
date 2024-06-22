@@ -97,7 +97,7 @@ export default class GrantallCommand extends BaseCommand {
 
     const All = await Bun.file(path.join(__dirname, "..", "..", "memory", "all.json")).json();
 
-    athena.items = All;
+    athena.items = { ...athena.items, ...All };
 
     const embed = new EmbedBuilder()
       .setTitle("Success")

@@ -121,8 +121,6 @@ export default async function (c: Context) {
       },
     ];
 
-    await Bun.write(`profile-${profileId}.json`, JSON.stringify(applyProfileChanges, null, 2));
-
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
   } catch (error) {
     void logger.error(`Error in QueryProfile: ${error}`);
