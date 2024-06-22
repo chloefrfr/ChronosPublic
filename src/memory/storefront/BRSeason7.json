@@ -1,0 +1,269 @@
+{
+    "name": "BRSeason7",
+    "catalogEntries": [
+        {
+            "offerId": "347A90158C64424980E8C1B3DC088F37",
+            "devName": "BR.Season7.BattleBundle.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 4700,
+                    "finalPrice": 2800,
+                    "saleType": "PercentOff",
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 2800
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "601C6830460BFED07506F5A6D2C4CE7B",
+                    "minQuantity": 1
+                }
+            ],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 0,
+            "title": {
+                "de": "Battle-Pass-Paket",
+                "ru": "Боевой комплект",
+                "ko": "배틀번들",
+                "zh-hant": "戰鬥套組",
+                "pt-br": "Pacotão de Batalha",
+                "en": "Battle Bundle",
+                "it": "Bundle battaglia",
+                "fr": "Pack de combat",
+                "zh-cn": "战斗套组",
+                "es": "Lote de batalla",
+                "ar": "Battle Bundle",
+                "ja": "バトルバンドル",
+                "pl": "Zestaw bojowy",
+                "es-419": "Paquete de batalla",
+                "tr": "Savaş Paketi"
+            },
+            "shortDescription": {
+                "de": "Battle Pass + 25 Stufen!",
+                "ru": "Боевой пропуск + 25 уровней!",
+                "ko": "배틀패스 + 25티어!",
+                "zh-hant": "英雄季卡增加25戰階！",
+                "pt-br": "Passe de Batalha + 25 categorias!",
+                "en": "Battle Pass + 25 tiers!",
+                "it": "Pass battaglia + 25 livelli!",
+                "fr": "Passe de combat + 25 paliers !",
+                "zh-cn": "英雄季卡增加25战阶！",
+                "es": "¡Pase de batalla y 25 niveles!",
+                "ar": "Battle Pass + 25 tiers!",
+                "ja": "バトルパス+25ティア！",
+                "pl": "Karnet bojowy + 25 stopni!",
+                "es-419": "¡Pase de batalla + 25 niveles!",
+                "tr": "Savaş Bileti + 25 aşama!"
+            },
+            "description": {
+                "de": "Saison 7: Ab sofort bis 28. Februar\n\nErhalte sofort diese Gegenstände <Bold>im Wert von über 10.000 V-Bucks</>.\n  • <ItemName>Zenit</> (aufrüstbares Outfit)\n  • <ItemName>Luchs</> (aufrüstbares Outfit)\n  • <ItemName>Sgt. Winter</> (Outfit und Stilherausforderungen)\n  • <ItemName>Hamirez</> (Gefährte)\n  • <ItemName>Taktischer Schlitten</> (Hängegleiter)\n  • <ItemName>Arktistarnung</> (Lackierung)\n  • <ItemName>Perfektes Geschenk</> (Rücken-Accessoire)\n  • <ItemName>Lichterkette</> (Kondensstreifen)\n  • 300 V-Bucks\n  • 1 Musikstück\n  • <Bold>+70 %</> Saison-Match-EP\n  • <Bold>+20 %</> Saison-Match-EP für Freunde\n  • <Bold>zusätzliche wöchentliche Herausforderungen</>\n  • und noch mehr!\n\nSpiele weiter und stufe deinen Battle Pass auf, um <Bold>über 75 Belohnungen</> freizuschalten (im Normalfall werden dafür 75 bis 150 Spielstunden benötigt).\n  • <Bold>4 weitere Outfits</>\n  • <Bold>1.300 V-Bucks</>\n  • 6 Emotes\n  • 3 Hängegleiter\n  • 4 Rücken-Accessoires\n  • 4 Lackierungen\n  • 4 Erntwerkzeuge\n  • 4 Kondensstreifen\n  • 1 Gefährte\n  • 12 Spraymotive\n  • 2 Musikstücke\n  • und noch eine ganze Menge mehr!\nDas dauert dir zu lange? Du kannst dir mit V-Bucks jederzeit Stufen kaufen!",
+                "ru": "Седьмой сезон: до 28 февраля\n\nСразу же получите предметы <Bold>стоимостью более 10 000 В-баксов!</>\n  • улучшаемая экипировка <ItemName>Снежного снайпера</>;\n  • улучшаемая экипировка <ItemName>Неоновой Рыси</>;\n  • экипировка <ItemName>генерала Мороза</> и испытания стиля;\n  • питомец <ItemName>Хома</>;\n  • дельтаплан <ItemName>«Боевые сани»</>;\n  • обёртка <ItemName>«Арктический камуфляж»</>;\n  • украшение на спину <ItemName>«Подарочки»</>;\n  • воздушный след <ItemName>«Гирлянда»</>;\n  • 300 В-баксов;\n  • 1 музыкальная композиция;\n  • <Bold>+70% к опыту</> за матчи сезона;\n  • <Bold>+20% к опыту</> друзей за матчи сезона;\n  • <Bold>дополнительные еженедельные испытания</>\n и многое другое.\n\nИграйте, повышайте уровень боевого пропуска — и вас ждут <Bold>более 75 наград</>. Обычно, чтобы открыть все награды, требуется 75–150 часов игры.\n  • <Bold>ещё 4 костюма;</>\n  • <Bold>1300 В-баксов</>;\n  • 6 эмоций\n;  • 3 дельтаплана;\n  • 4 украшения на спину;\n  • 4 обёртки;\n  • 4 инструмента;\n  • 4 воздушных следа;\n  • 1 питомец;\n  • 12 граффити;\n  • 2 музыкальные композиции;\n    и это ещё не всё!\nНе хотите ждать? Уровни можно быстро получить за В-баксы!",
+                "ko": "시즌 7: 2월 28일 종료\n\n<Bold>10,000 V-Bucks 이상의 가치</>가 있는 여러 아이템을 즉시 받아가세요.\n  • <ItemName>제니스</> 진화형 의상\n  • <ItemName>링스</> 진화형 의상\n  • <ItemName>윈터 병장</> 의상 및 스타일 도전\n  • <ItemName>하미레스</> 애완동물\n  • <ItemName>전술 썰매</> 글라이더\n  • <ItemName>극지방 위장 패턴</> 외관\n  • <ItemName>완벽한 선물</> 등 장신구\n  • <ItemName>줄조명</> 스카이다이빙 트레일\n  • 300 V-Bucks\n  • 음악 트랙 1개\n  • <Bold>70% 보너스</> 시즌 매치 XP\n  • <Bold>20% 보너스</> 시즌 친구 매치 XP\n  • <Bold>추가 주간 도전</>\n  • 기타 보상!\n\n배틀패스 티어를 올려서 <Bold>75개 이상의 보상</>을 획득해보세요(보통 75-150시간 소요).\n  • <Bold>의상 4개</>\n  • <Bold>1,300 V-Bucks</>\n  • 이모트 6개\n  • 글라이더 3개\n  • 등 장신구 4개\n  • 외관 4개\n  • 수확 도구 4개\n  • 스카이다이빙 트레일 4개\n  • 애완동물 1개\n  • 스프레이 12개\n  • 음악 트랙 2개\n  • 그 외 많은 혜택!\n더 빨리 보상을 얻고 싶으신가요? V-Bucks를 사용해서 언제든지 티어를 구매할 수 있습니다!",
+                "zh-hant": "第七賽季：現在起至2月28日\n\n立即獲得這些價值10000V幣的物品。\n  • <ItemName>蒼穹</>可進化服裝\n  • <ItemName>山貓</>可進化服裝\n  • <ItemName>冬軍衛士</>服裝與風格挑戰\n  • <ItemName>竹鼠</>寵物\n  • <ItemName>戰術雪橇</>滑翔傘\n  • <ItemName>極地迷彩</> 皮膚\n• <ItemName>完美禮物</>背部裝飾\n  • <ItemName>燈串</>滑翔軌跡\n  • 300 V幣\n  • 1個音樂盒\n  • 70%額外賽季比賽經驗\n  • 20%額外賽季好友比賽經驗\n  • 額外每週挑戰\n  • 以及更多獎勵！\n\n通過遊玩提升英雄季卡戰階，解鎖至少75個獎勵（通常需要75到150個小時的遊玩時間）。\n  • <Bold>4個額外服裝</>\n  • <Bold>1,300V幣</>\n  • 6個姿勢\n  • 3個滑翔傘\n  • 4個背包\n  • 4 個皮膚\n  • 4個稿\n  • 4個滑翔軌跡\n  • 1個寵物\n  • 12個塗鴉\n  • 2個音樂盒\n  •以及更多獎勵！\n希望更快嗎？你可以隨時使用V幣購買戰階！",
+                "pt-br": "Temporada 7: De hoje até 28 de fevereiro\n\nReceba instantaneamente estes itens <Bold>avaliados em mais de 10.000 V-Bucks</>:\n  • Traje Progressivo <ItemName>Zênite</>\n  • Traje Progressivo <ItemName>Lince</>\n  • Traje e Desafios Estilo <ItemName>Sargento Inverno</>\n  • Mascote <ItemName>Hamsterzínea</>\n  • Asa-delta <ItemName>Trenó Tático</>\n  • Envelopamento <ItemName>Camuflagem Ártica</>\n  • Acessório para as Costas <ItemName>Presente Perfeito</>\n  • Rastro de Fumaça <ItemName>Pisca-Pisca</>\n  • 300 V-Bucks\n  • 1 Faixa Musical\n  • <Bold>70% de Bônus</> de EXP da Temporada em Partidas\n  • <Bold>20% de Bônus</> de EXP da Temporada em Partidas com Amigos\n  • <Bold>Desafios Semanais Extras</>\n  • e mais!\n\nJogue para subir o nível do seu Passe de Batalha, desbloqueando <Bold>mais de 75 recompensas</> (leva em média de 75 a 150 horas de jogo).\n  • <Bold>Mais 4 Trajes</>\n  • <Bold>1.300 V-Bucks</>\n  • 6 Gestos\n  • 3 Asas-deltas\n  • 4 Acessórios para as Costas\n  • 4 Envelopamentos\n  • 4 Ferramentas de Coleta\n  • 4 Rastros de Fumaça\n  • 1 Mascote\n  • 12 Sprays\n  • 2 Faixas Musicais\n  • e muito mais!\nQuer obter tudo mais rápido? Você pode comprar categorias com V-Bucks a qualquer hora!",
+                "en": "Season 7: Now thru Feb 28\n\nInstantly get these items <Bold>valued at over 10,000 V-Bucks</>.\n  • <ItemName>Zenith</> Progressive Outfit\n  • <ItemName>Lynx</> Progressive Outfit\n  • <ItemName>Sgt. Winter</> Outfit and Style Challenges\n  • <ItemName>Hamirez</> Pet\n  • <ItemName>Tactical Sleigh</> Glider\n  • <ItemName>Arctic Camo</> Wrap\n  • <ItemName>Perfect Present</> Back Bling\n  • <ItemName>String Lights</> Contrail\n  • 300 V-Bucks\n  • 1 Music Track\n  • <Bold>70% Bonus</> Season Match XP\n  • <Bold>20% Bonus</> Season Friend Match XP\n  • <Bold>Extra Weekly Challenges</>\n  • and more!\n\nPlay to level up your Battle Pass, unlocking <Bold>over 75 rewards</> (typically takes 75 to 150 hours of play).\n  • <Bold>4 more Outfits</>\n  • <Bold>1,300 V-Bucks</>\n  • 6 Emotes\n  • 3 Gliders\n  • 4 Back Blings\n  • 4 Wraps\n  • 4 Harvesting Tools\n  • 4 Contrails\n  • 1 Pet\n  • 12 Sprays\n  • 2 Music Tracks\n  • and so much more!\nWant it all faster? You can use V-Bucks to buy tiers any time!",
+                "it": "Stagione 7: Fino al 28 febbraio\n\nOttieni subito questi oggetti <Bold>dal valore di oltre 10.000 V-buck</>!\n• Costume progressivo <ItemName>Zenith</>\n• Costume progressivo <ItemName>Lynx</>\n• Costume e sfide stile <ItemName>sergente Bruma</>\n• Piccolo amico <ItemName>Hamirez</>\n• Deltaplano <ItemName>Slitta tattica</>\n• Copertura <ItemName>mimetica artica</>\n• Dorso decorativo <ItemName>Regalo perfetto</>\n• Scia <ItemName>Luci a filo</>\n• 300 V-buck\n• 1 brano musicale\n• <Bold>Bonus del 70%</> dei PE partite stagionali\n• <Bold>Bonus del 20%</> dei PE partite amico stagionali\n• <Bold>Sfide settimanali extra</>\n• E altro ancora!\n\nGioca per aumentare di livello il tuo Pass battaglia, sbloccando <Bold>più di 75 ricompense</> (per un totale indicativo di 75-150 ore di gioco).\n• <Bold>4 costumi in più</>\n• <Bold>1.300 V-buck</>\n• 6 emote\n• 3 deltaplani\n• 4 dorsi decorativi\n• 4 coperture\n• 4 strumenti di raccolta\n• 4 scie\n• 1 piccolo amico\n• 12 spray\n• 2 brani musicali\n• E altro ancora!\nVuoi tutto e subito? Puoi acquistare livelli usando V-buck in qualsiasi momento!",
+                "fr": "Saison 7 : jusqu'au 28 février\n\nRecevez immédiatement ces objets <Bold>d'une valeur supérieure à 10 000 V-bucks</>.\n  • Tenue évolutive <ItemName>Zénith</>\n  • Tenue évolutive <ItemName>Lynx</>\n  • Tenue évolutive <ItemName>Sergent Frimas</> et défis de style\n  • Le compagnon <ItemName>Hamirez</>\n  • Planeur <ItemName>Traîneau tactique</>\n  • Revêtement <ItemName>Camouflage arctique</>\n  • Accessoire de dos <ItemName>Cadeau idéal</>\n  • Traînée de condensation <ItemName>Guirlandes électriques</>\n  • 300 V-bucks\n  • 1 piste musicale\n  • Bonus d'EXP de saison de 70%\n  • Bonus d'EXP de saison de 20% pour des amis\n  • <Bold>Des défis hebdomadaires supplémentaires</>\n  • Et plus !\n\nJouez pour augmenter le niveau de votre Passe de combat et déverrouiller <Bold>plus de 75 récompenses</> (nécessitant de 75 à 150 heures de jeu).\n  • <Bold>4 autres tenues</>\n  • <Bold>1300 V-bucks</>\n  • 6 emotes\n  • 3 planeurs\n  • 4 accessoires de dos\n  • 4 revêtements\n  • 4 pioches\n  • 4 traînées de condensation\n  • 1 compagnon\n  • 12 aérosols\n  • 2 pistes musicales\n  • Et plus !\nEnvie d'aller plus vite ? Utilisez vos V-bucks pour acheter des niveaux à tout moment !",
+                "zh-cn": "第七赛季：现在起至2月28日\n\n立即获得这些价值10000V币的物品。\n  • <ItemName>苍穹</>可进化服装\n  • <ItemName>山猫</>可进化服装\n  • <ItemName>冬军卫士</>服装与风格挑战\n  • <ItemName>竹鼠</>宠物\n  • <ItemName>战术雪橇</>滑翔伞\n  • <ItemName>极地迷彩</> 皮肤\n• <ItemName>完美礼物</>背部装饰\n  • <ItemName>灯串</>滑翔轨迹\n  • 300 V币\n  • 1个音乐盒\n  • 70%额外赛季比赛经验\n  • 20%额外赛季好友比赛经验\n  • 额外每周挑战\n  • 以及更多奖励！\n\n通过游玩提升英雄季卡战阶，解锁至少75个奖励（通常需要75到150个小时的游玩时间）。\n  • <Bold>4个额外服装</>\n  • <Bold>1,300V币</>\n  • 6个姿势\n  • 3个滑翔伞\n  • 4个背包\n  • 4 个皮肤\n  • 4个稿\n  • 4个滑翔轨迹\n  • 1个宠物\n  • 12个涂鸦\n  • 2个音乐盒\n  •以及更多奖励！\n希望更快吗？你可以随时使用V币购买战阶！",
+                "es": "Temporada 7: Desde ahora hasta el 28 de febrero\n\nConsigue instantáneamente estos objetos <Bold>valorados en más de 10 000 paVos</>.\n  • Traje progresivo de <ItemName>Cénit</>.\n  • Traje progresivo de <ItemName>Lince</>.\n  • Traje y desafíos de estilo del <ItemName>General Invierno</>.\n  • Mascota <ItemName>Hamírez</>.\n  • Ala delta <ItemName>Trineo táctico</>.\n  • Envoltorio <ItemName>Camuflaje ártico</>.\n  • Accesorio mochilero <ItemName>Presente perfecto</>.\n  • Estela <ItemName>Luces de colores</>.\n  • 300 paVos.\n  • 1 pista musical.\n  • <Bold>70 % adicional</> de PE de partida de temporada.\n  • <Bold>20 % adicional</> de PE de partida amistosa de temporada.\n  • <Bold>Desafíos semanales adicionales</>.\n  • ¡Y mucho más!\n\nJuega para subir de nivel tu pase de batalla y desbloquea <Bold>más de 75 recompensas</> (suele llevar entre 75 y 150 horas de juego).\n  • <Bold>4 trajes más</>.\n  • <Bold>1300 paVos</>.\n  • 6 gestos.\n  • 3 alas delta.\n  • 4 accesorios mochileros.\n  • 4 envoltorios.\n  • 4 herramientas de recolección.\n  • 4 estelas.\n  • 1 mascota.\n  • 12 grafitis.\n  • 2 pistas musicales.\n  • ¡Y muchísimo más!\n¿Lo quieres más rápido? ¡Puedes usar paVos para comprar niveles siempre que quieras!",
+                "ar": "Season 7: Now thru Feb 28\n\nInstantly get these items <Bold>valued at over 10,000 V-Bucks</>.\n  • <ItemName>Zenith</> Progressive Outfit\n  • <ItemName>Lynx</> Progressive Outfit\n  • <ItemName>Sgt. Winter</> Outfit and Style Challenges\n  • <ItemName>Hamirez</> Pet\n  • <ItemName>Tactical Sleigh</> Glider\n  • <ItemName>Arctic Camo</> Wrap\n  • <ItemName>Perfect Present</> Back Bling\n  • <ItemName>String Lights</> Contrail\n  • 300 V-Bucks\n  • 1 Music Track\n  • <Bold>70% Bonus</> Season Match XP\n  • <Bold>20% Bonus</> Season Friend Match XP\n  • <Bold>Extra Weekly Challenges</>\n  • and more!\n\nPlay to level up your Battle Pass, unlocking <Bold>over 75 rewards</> (typically takes 75 to 150 hours of play).\n  • <Bold>4 more Outfits</>\n  • <Bold>1,300 V-Bucks</>\n  • 6 Emotes\n  • 3 Gliders\n  • 4 Back Blings\n  • 4 Wraps\n  • 4 Harvesting Tools\n  • 4 Contrails\n  • 1 Pet\n  • 12 Sprays\n  • 2 Music Tracks\n  • and so much more!\nWant it all faster? You can use V-Bucks to buy tiers any time!",
+                "ja": "シーズン7: 2月28日まで\n\n<Bold>10,000 V-Bucks以上の価値</>があるアイテムを今すぐ手に入れましょう。\n  • <ItemName>「ゼニス」</>プログレッシブコスチューム\n  • <ItemName>「リンクス」</>プログレッシブコスチューム\n  • <ItemName>「サージェント ウィンター」</>コスチューム及びスタイルチャレンジ\n  • <ItemName>「ハミレス」</>ペット\n  • <ItemName>「タクティカルスレイ」グライダー</>\n  • <ItemName>「アークティックカモ」</>ラップ\n  • <ItemName>「パーフェクトプレゼント」</>バックアクセサリー\n  • <ItemName>「ストリングライト」</>コントレイル\n  • 300 V-Bucks\n  • ミュージックx1\n  • シーズンマッチXPの<Bold>70%ボーナス</>\n  • シーズンフレンドマッチXPの<Bold>20%ボーナス</>\n  • <Bold>追加のウィークリーチャレンジ</>\n  • 他にも色々！\n\nプレイしてバトルパスのレベルを上げると、<Bold>75個以上の報酬</>をアンロックできます(通常、プレイにかかる時間は75～150時間程度)。\n  • <Bold>コスチュームx4以上</>\n  • <Bold>1,300 V-Bucks</>\n  • エモートx6\n  • グライダーx3\n  • バックアクセサリーx4\n  • ラップx4\n  • 収集ツールx4\n  • コントレイルx4\n  • ペットx1\n  • スプレーx12\n  • ミュージックトラックx2\n  • 他にも色々！\nもっと早く報酬を全部集めたいなら、V-Bucksでいつでもティアを購入できます！",
+                "pl": "Sezon 7: od teraz do 28 lutego\n\nOtrzymasz od razu poniższe przedmioty <Bold>o wartości ponad 10 000 V-dolców</>:\n  • Strój progresywny: <ItemName>Zenit</>\n  • Strój progresywny: <ItemName>Puma</>\n  • Strój i wyzwania stylów <ItemName>Sierżant Zima</>\n  • Pupil <ItemName>Chomirez</>\n  • Lotnia <ItemName>Sanie Szturmowe</>\n  • Malowanie <ItemName>Zimowy kamuflaż</>\n  • Plecak <ItemName>Przemyślany Prezent</>\n  • Smuga <ItemName>Sznur lampek</>\n  • 300 V-dolców\n  • 1 tło muzyczne\n  • Sezonowa <Bold>premia +70% PD za grę</>\n  • Sezonowa <Bold>premia +20% PD za grę ze znajomymi</>\n  • Dostęp do <Bold>dodatkowych wyzwań tygodniowych</>\n  • I nie tylko!\n\nGraj, aby awansować karnet bojowy i zdobyć <Bold>ponad 75 nagród</> (ich zebranie zajmuje zwykle od 75 do 150 godz. gry).\n  • <Bold>4 dodatkowe stroje</>\n  • <Bold>1300 V-dolców</>\n  • 6 emotek\n  • 3 lotnie\n  • 4 plecaki\n  • 4 malowania\n  • 4 zbieraki\n  • 4 smugi\n  • 1 pupil\n  • 12 graffiti\n  • 2 tła muzyczne\n  • I dużo więcej!\nChcesz rozwijać się szybciej? W każdej chwili możesz kupić stopnie za V-dolce!",
+                "es-419": "Temporada 7: Ahora hasta el 28 de febrero\n\nObtén al instante estos objetos <Bold>que cuestan más de 10 000 monedas V</>.\n  • Atuendo progresivo <ItemName>Cenit</>\n  • Atuendo progresivo <ItemName>Lince</>\n  • Atuendo y desafíos de estilo de <ItemName>Sargento Invierno</>\n  • Mascota <ItemName>Hamírez</>\n  • Planeador <ItemName>Trineo táctico</>\n  • Papel <ItemName>Camu ártico</>\n  • Mochila retro <ItemName>Regalo perfecto</>\n  • Estela <ItemName>Luces colgantes</>\n  • 300 monedas V\n  • 1 pista de música\n  • <Bold>70 % de bonificación</> de PE para partidas en la temporada\n  • <Bold>20 % de bonificación</> de PE para partidas con amigos en la temporada\n  • <Bold>Desafíos semanales adicionales</>\n  • ¡Y mucho más!\n\nJuega para subir de nivel el pase de batalla y desbloquear <Bold>más de 75 recompensas</> (esto lleva entre 75 y 150 horas de juego).\n  • <Bold>4 atuendos más</>\n  • <Bold>1300 monedas V</>\n  • 6 gestos\n  • 3 planeadores\n  • 4 mochilas retro\n  • 4 papeles\n  • 4 herramientas de recolección\n  • 4 estelas\n  • 1 mascota\n  • 12 aerosoles\n  • 2 pistas de música\n  • ¡Y mucho más!\n¿Lo quieres todo más rápido? ¡Puedes usar las monedas V para comprar niveles cuando quieras!",
+                "tr": "7. Sezon: Şu andan 28 Şubat’a kadar\n\n<Bold>10.000 V-Papel’in üzerinde değeri olan</> bu içerikleri hemen kap.\n  • İlerlemeli <ItemName>Karakulak</> Kıyafeti\n  • İlerlemeli <ItemName>Kutup Dağcısı</> Kıyafeti\n  • <ItemName>Kış Çavuşu</> Kıyafeti ve Tarz Görevleri\n  • Sadık Dost <ItemName>Hamirez</>\n  • <ItemName>Roketli Kızak Planörü</>\n  • <ItemName>Kutup Kamuflajı</> Kaplaması\n  • <ItemName>Mükemmel Hediye</> Sırt Süsü\n  • <ItemName>Yılbaşı Işıkları</> Dalış İzi\n  • 300 V-Papel\n  • 1 Müzik Parçası\n  • <Bold>%70 Bonus</> sezonluk Maç TP’si\n  • Arkadaşların için <Bold>%20 Bonus</> Sezonluk Maç TP’si\n  • <Bold>İlave Haftalık Görevler</>\n  • ve çok daha fazlası!\n\nBattle Royale oynayarak Savaş Bileti’nin aşamasını yükselt ve <Bold>75’ten fazla ödülü</> aç (genelde 75 ila 150 saat oynama gerektirir).\n  • <Bold>4 Kıyafet daha</>\n  • <Bold>1.300 V-Papel</>\n  • 6 İfade\n  • 3 Planör\n  • 4 Sırt Süsü\n  • 4 Kaplama\n  •  4 Toplama Aleti\n  • 4 Dalış İzi\n  • 1 Sadık Dost\n  • 12 Sprey\n  • 2 Müzik Parçası\n  • ve çok daha fazlası!\nHepsini daha hızlı almak mı istiyorsun? V-Papel karşılığında istediğin zaman aşama açabilirsin!"
+            },
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season7_BattlePassWithLevels.DA_BR_Season7_BattlePassWithLevels",
+            "itemGrants": []
+        },
+        {
+            "offerId": "3A3C99847F144AF3A030DB5690477F5A",
+            "devName": "BR.Season7.BattlePass.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 950,
+                    "finalPrice": 950,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 950
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "601C6830460BFED07506F5A6D2C4CE7B",
+                    "minQuantity": 1
+                }
+            ],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 1,
+            "title": {
+                "de": "Battle Pass",
+                "ru": "Боевой пропуск",
+                "ko": "배틀패스",
+                "zh-hant": "英雄季卡",
+                "pt-br": "Passe de Batalha",
+                "en": "Battle Pass",
+                "it": "Pass battaglia",
+                "fr": "Passe de combat",
+                "zh-cn": "英雄季卡",
+                "es": "Pase de batalla",
+                "ar": "Battle Pass",
+                "ja": "バトルパス",
+                "pl": "Karnet bojowy",
+                "es-419": "Pase de batalla",
+                "tr": "Savaş Bileti"
+            },
+            "shortDescription": {
+                "de": "Saison 7",
+                "ru": "Седьмой сезон",
+                "ko": "시즌 7",
+                "zh-hant": "第七賽季",
+                "pt-br": "Temporada 7",
+                "en": "Season 7",
+                "it": "Stagione 7",
+                "fr": "Saison 7",
+                "zh-cn": "第七赛季",
+                "es": "Temporada 7",
+                "ar": "Season 7",
+                "ja": "シーズン7",
+                "pl": "Sezon 7",
+                "es-419": "Temporada 7",
+                "tr": "7. Sezon"
+            },
+            "description": {
+                "de": "Saison 7: Ab sofort bis 28. Februar\n\nErhalte sofort diese Gegenstände <Bold>im Wert von über 3.500 V-Bucks</>.\n  • <ItemName>Zenit</> (aufrüstbares Outfit)\n  • <ItemName>Luchs</> (aufrüstbares Outfit)\n  • <Bold>+50 %</> Saison-Match-EP\n  • <Bold>+10 %</> Saison-Match-EP für Freunde\n  • <Bold>zusätzliche wöchentliche Herausforderungen</>\n\nSpiele weiter und stufe deinen Battle Pass auf, um <Bold>über 100 Belohnungen</> freizuschalten (im Normalfall werden dafür 75 bis 150 Spielstunden benötigt).\n  • <ItemName>Sgt. Winter</> und <Bold>4 weitere Outfits</>\n  • <Bold>1.300 V-Bucks</>\n  • 2 Gefährten\n  • 6 Lackierungen\n  • 4 Erntewerkzeuge\n  • 7 Emotes\n  • 2 Spielsachen\n  • 4 Hängegleiter\n  • 6 Rücke-Accessoires\n  • 5 Kondensstreifen\n  • 13 Spraymotive\n  • 3 Musikstücke\n  • und noch eine ganze Menge mehr!\nDas dauert dir zu lange? Du kannst dir mit V-Bucks jederzeit Stufen kaufen!",
+                "ru": "Седьмой сезон: до 28 февраля\n\nСразу же получите предметы <Bold>стоимостью более 3500 В-баксов!</>\n  • улучшаемая экипировка <ItemName>Снежного снайпера</>;\n  • улучшаемая экипировка <ItemName>Неоновой Рыси</>;\n  • <Bold>+50% к опыту</> за матчи сезона;\n  • <Bold>+10% к опыту</> друзей за матчи сезона;\n  • <Bold>дополнительные еженедельные испытания.</>\n\nИграйте, повышайте уровень боевого пропуска — и вас ждут <Bold>более 100 наград</>. Обычно, чтобы открыть все награды, требуется 75–150 часов игры.\n  • экипировка <ItemName>генерала Мороза</> и <Bold>ещё 4 костюма;</>\n  • <Bold>1300 В-баксов;</>\n  • 2 питомца;\n  • 6 обёрток;\n  • 4 инструмента;\n  • 7 эмоций;\n  • 2 игрушки;\n  • 4 дельтаплана;\n  • 6 украшений на спину;\n  • 5 воздушных следов;\n  • 13 граффити;\n  • 3 музыкальные композиции;\n    и это ещё не всё!\nНе хотите ждать? Уровни можно быстро получить за В-баксы!",
+                "ko": "시즌 7: 2월 28일 종료\n\n<Bold>3,500 V-Bucks 이상의 가치</>가 있는 여러 아이템을 즉시 받아가세요.\n  • <ItemName>제니스</> 진화형 의상\n  • <ItemName>링스</> 진화형 의상\n  • <Bold>50% 보너스</> 시즌 매치 XP\n  • <Bold>10% 보너스</> 시즌 친구 매치 XP\n  • <Bold>추가 주간 도전</>\n\n  • 게임을 플레이하고 배틀패스 티어를 올려서 <Bold>100개 이상의 보상</>을 획득해보세요(보통 75-150시간 소요).\n  • <ItemName>윈터 병장</> 외 <Bold>의상 4개</>\n  • <Bold>1,300 V-Bucks</>\n  • 애완동물 2개\n  • 외관 6개\n  • 수확 도구 4개\n  • 이모트 7개\n  • 장난감 2개\n  • 글라이더 4개\n  • 등 장신구 6개\n  • 스카이다이빙 트레일 5개\n  • 스프레이 13개\n  • 음악 트랙 3개\n  • 그 외 많은 혜택!\n더 빨리 보상을 얻고 싶으신가요? V-Bucks를 사용해서 언제든지 티어를 구매할 수 있습니다!",
+                "zh-hant": "第七賽季：現在起至2月28日\n\n立即獲得這些<Bold>價值3500V幣</>的物品。\n  • <ItemName>蒼穹</>可進化服裝\n  • <ItemName>山貓</>可進化服裝\n  • <Bold>50%額外</>賽季比賽經驗\n  • <Bold>10%額外</>賽季好友比賽經驗\n  • <Bold>額外每週挑戰</>\n\n通過遊玩提升英雄季卡戰階，解鎖<Bold>百餘獎勵</>（通常需要75到150個小時的遊玩時間）。\n  • <ItemName>冬軍衛士</>和<Bold>至少4套服裝</>\n  • <Bold>1300V幣</>\n  • 2個寵物\n  • 6個包裝\n  • 4個採集工具\n  • 7個姿勢\n  • 2個玩具\n  • 4個滑翔傘\n  • 6個背部裝飾\n  • 5個滑翔軌跡\n  • 13個塗鴉\n  • 3個音軌\n  • 以及更多獎勵！\n希望更快得到嗎？你可以隨時使用V幣購買戰階！",
+                "pt-br": "Temporada 7: De hoje até 28 de fevereiro\n\nReceba instantaneamente estes itens <Bold>avaliados em mais de 3.500 V-Bucks</>:\n  • Traje Progressivo <ItemName>Zênite</>\n  • Traje Progressivo <ItemName>Lince</>\n  • <Bold>50% de Bônus</> de EXP da Temporada em Partidas\n  • <Bold>10% de Bônus</> de EXP da Temporada em Partidas com Amigos\n  • <Bold>Desafios Semanais Extras</>\n\nJogue para subir o nível do seu Passe de Batalha, desbloqueando <Bold>mais de 100 recompensas</> (leva em média de 75 a 150 horas de jogo).\n  • <ItemName>Sargento Inverno</> e <Bold>mais 4 Trajes</>\n  • <Bold>1.300 V-Bucks</>\n  • 2 Mascotes\n  • 6 Envelopamentos\n  • 4 Ferramentas de Coleta\n  • 7 Gestos\n  • 2 Brinquedos\n  • 4 Asas-deltas\n  • 6 Acessórios para as Costas\n  • 5 Rastros de Fumaça\n  • 13 Sprays\n  • 3 Faixas Musicais\n  • e muito mais!\nQuer obter tudo mais rápido? Você pode comprar categorias com V-Bucks a qualquer hora!",
+                "en": "Season 7: Now thru Feb 28\n\nInstantly get these items <Bold>valued at over 3,500 V-Bucks</>.\n  • <ItemName>Zenith</> Progressive Outfit\n  • <ItemName>Lynx</> Progressive Outfit\n  • <Bold>50% Bonus</> Season Match XP\n  • <Bold>10% Bonus</> Season Friend Match XP\n  • <Bold>Extra Weekly Challenges</>\n\nPlay to level up your Battle Pass, unlocking <Bold>over 100 rewards</> (typically takes 75 to 150 hours of play).\n  • <ItemName>Sgt. Winter</> and <Bold>4 more Outfits</>\n  • <Bold>1,300 V-Bucks</>\n  • 2 Pets\n  • 6 Wraps\n  • 4 Harvesting Tools\n  • 7 Emotes\n  • 2 Toys\n  • 4 Gliders\n  • 6 Back Blings\n  • 5 Contrails\n  • 13 Sprays\n  • 3 Music Tracks\n  • and so much more!\nWant it all faster? You can use V-Bucks to buy tiers any time!",
+                "it": "Stagione 7: Fino al 28 febbraio\n\nOttieni subito questi oggetti <Bold>dal valore di oltre 3.500 V-buck</>!\n• Costume progressivo <ItemName>Zenith</>\n• Costume progressivo <ItemName>Lynx</>\n• <Bold>Bonus del 50%</> dei PE partite stagionali\n• <Bold>Bonus del 10%</> dei PE partite amico stagionali\n• <Bold>Sfide settimanali extra</>\n\nGioca per aumentare di livello il tuo Pass battaglia, sbloccando <Bold>più di 100 ricompense</> (per un totale indicativo di 75-150 ore di gioco).\n<ItemName>Sergente Bruma</> e <Bold>altri 4 costumi</>\n• <Bold>1.300 V-buck</>\n• 2 piccoli amici\n• 6 coperture\n• 4 strumenti di raccolta\n• 7 emote\n• 2 giocattoli\n• 4 deltaplani\n• 6 dorsi decorativi\n• 5 scie\n• 13 spray\n• 3 brani musicali\n • E altro ancora!\nVuoi tutto e subito? Puoi acquistare livelli usando V-buck in qualsiasi momento!",
+                "fr": "Saison 7 : jusqu'au 28 février\n\nRecevez immédiatement ces objets <Bold>d'une valeur supérieure à 3500 V-bucks</>.\n  • Tenue évolutive <ItemName>Zénith</>\n  • Tenue évolutive <ItemName>Lynx</>\n  • Bonus d'EXP de saison de 50%\n  • Bonus d'EXP de saison de 10% pour des amis\n  • <Bold>Des défis hebdomadaires supplémentaires</>\n\n Jouez pour augmenter le niveau de votre Passe de combat et déverrouiller <Bold>plus de 100 récompenses</> (nécessitant de 75 à 150 heures de jeu).\n  • <ItemName>Sergent Frimas</> plus <Bold>4 autres tenues</>\n  • <Bold>1300 V-bucks</>\n  • 2 compagnons\n  • 6 revêtements\n  • 4 pioches\n  • 7 emotes\n  • 2 jouets\n  • 4 planeurs\n  • 6 accessoires de dos\n  • 5 traînées de condensation\n  • 13 aérosols\n  • 3 pistes musicales\n  • Et plus !\nEnvie d'aller plus vite ? Utilisez vos V-bucks pour acheter des niveaux à tout moment !",
+                "zh-cn": "第七赛季：现在起至2月28日\n\n立即获得这些<Bold>价值3500V币</>的物品。\n  • <ItemName>苍穹</>可进化服装\n  • <ItemName>山猫</>可进化服装\n  • <Bold>50%额外</>赛季比赛经验\n  • <Bold>10%额外</>赛季好友比赛经验\n  • <Bold>额外每周挑战</>\n\n通过游玩提升英雄季卡战阶，解锁<Bold>百余奖励</>（通常需要75到150个小时的游玩时间）。\n  • <ItemName>冬军卫士</>和<Bold>至少4套服装</>\n  • <Bold>1300V币</>\n  • 2个宠物\n  • 6个包装\n  • 4个采集工具\n  • 7个姿势\n  • 2个玩具\n  • 4个滑翔伞\n  • 6个背部装饰\n  • 5个滑翔轨迹\n  • 13个涂鸦\n  • 3个音轨\n  • 以及更多奖励！\n希望更快得到吗？你可以随时使用V币购买战阶！",
+                "es": "Temporada 7: Desde ahora hasta el 28 de febrero\n\nConsigue instantáneamente estos objetos <Bold>valorados en más de 3500 paVos</>.\n  • Traje progresivo de <ItemName>Cénit</>.\n  • Traje progresivo de <ItemName>Lince</>.\n  • <Bold>50 % adicional</> de PE de partida de temporada.\n  • <Bold>10 % adicional</> de PE de partida amistosa de temporada.\n  • <Bold>Desafíos semanales adicionales</>.\n\nJuega para subir de nivel tu pase de batalla y desbloquea <Bold>más de 100 recompensas</> (suele llevar entre 75 y 150 horas de juego).\n  • <ItemName>General Invierno</> y <Bold>4 trajes más</>.\n  • <Bold>1300 paVos</>.\n  • 2 mascotas.\n  • 6 envoltorios.\n  • 4 herramientas de recolección.\n  • 7 gestos.\n  • 2 juguetes.\n  • 4 alas delta.\n  • 6 accesorios mochileros.\n  • 5 estelas.\n  • 13 grafitis.\n  • 3 pistas musicales.\n  • ¡Y muchísimo más!\n¿Lo quieres más rápido? ¡Puedes usar paVos para comprar niveles siempre que quieras!",
+                "ar": "Season 7: Now thru Feb 28\n\nInstantly get these items <Bold>valued at over 3,500 V-Bucks</>.\n  • <ItemName>Zenith</> Progressive Outfit\n  • <ItemName>Lynx</> Progressive Outfit\n  • <Bold>50% Bonus</> Season Match XP\n  • <Bold>10% Bonus</> Season Friend Match XP\n  • <Bold>Extra Weekly Challenges</>\n\nPlay to level up your Battle Pass, unlocking <Bold>over 100 rewards</> (typically takes 75 to 150 hours of play).\n  • <ItemName>Sgt. Winter</> and <Bold>4 more Outfits</>\n  • <Bold>1,300 V-Bucks</>\n  • 2 Pets\n  • 6 Wraps\n  • 4 Harvesting Tools\n  • 7 Emotes\n  • 2 Toys\n  • 4 Gliders\n  • 6 Back Blings\n  • 5 Contrails\n  • 13 Sprays\n  • 3 Music Tracks\n  • and so much more!\nWant it all faster? You can use V-Bucks to buy tiers any time!",
+                "ja": "シーズン7: 2月28日まで\n\n<Bold>3,500 V-Bucks以上の価値</>があるアイテムを今すぐ手に入れましょう。• <ItemName>「ゼニス」</>プログレッシブコスチューム\n  • <ItemName>「リンクス」</>プログレッシブコスチューム\n  • シーズンマッチXPの<Bold>50%ボーナス</>\n  • シーズンフレンドマッチXPの<Bold>10%ボーナス</>\n  • <Bold>追加のウィークリーチャレンジ</>\n\nプレイしてバトルパスのレベルを上げると、<Bold>100以上の報酬</>をアンロックできます(通常、プレイにかかる時間は75～150時間程度)。\n  •<ItemName>「サージェント ウィンター」</>及びコスチューム<Bold>x4以上</>\n  • <Bold>1,300 V-Bucks</>\n  • ペットx2\n  • ラップx6\n  • 収集ツールx4\n  • エモートx7\n  • おもちゃx2\n  • グライダーx4\n  • バックアクセサリーx6\n  • コントレイルx5\n  • スプレーx13\n  • ミュージックトラックx3\n • 他にも色々！\nもっと早く報酬を全部集めたいなら、V-Bucksでいつでもティアを購入できます！",
+                "pl": "Sezon 7: od teraz do 28 lutego\n\nOtrzymasz od razu poniższe przedmioty <Bold>o wartości ponad 3500 V-dolców</>:\n  • Strój progresywny: <ItemName>Zenit</>\n  • Strój progresywny: <ItemName>Puma</>\n  • Sezonowa <Bold>premia +50% PD za grę</>\n  • Sezonowa <Bold>premia +10% PD za grę ze znajomymi</>\n  • Dostęp do <Bold>dodatkowych wyzwań tygodniowych</>\n\nGraj, aby awansować karnet bojowy i zdobyć <Bold>ponad 100 nagród</> (ich zebranie zajmuje zwykle od 75 do 150 godz. gry).\n  • <ItemName>Sierżant Zima</> i <Bold>4 inne stroje</>\n  • <Bold>1300 V-dolców</>\n  • 2 pupile\n  • 6 malowań\n  • 4 zbieraki\n  • 7 emotek\n  • 2 zabawki\n  • 4 lotnie\n  • 6 plecaków\n  • 5 smug\n  • 13 graffiti\n  • 3 tła muzyczne\n  • I dużo więcej!\nChcesz rozwijać się szybciej? W każdej chwili możesz kupić stopnie za V-dolce!",
+                "es-419": "Temporada 7: Ahora hasta el 28 de febrero\n\nObtén al instante estos objetos <Bold>que cuestan más de 3500 monedas V</>.\n  • Atuendo progresivo <ItemName>Cenit</>\n  • Atuendo progresivo <ItemName>Lince</>\n  • <Bold>50 % de bonificación</> de PE para partidas de la temporada\n  • <Bold>10 % de bonificación</> de PE para partidas con amigos en la temporada\n  • <Bold>Desafíos semanales adicionales</>\n\nJuega para subir de nivel el pase de batalla y desbloquear <Bold>más de 100 recompensas</> (esto lleva entre 75 y 150 horas de juego).\n  • <ItemName>Sargento Invierno</> y <Bold>4 atuendos más</>\n  • <Bold>1300 monedas V</>\n  • 2 mascotas\n  • 6 papeles\n  • 4 herramientas de recolección\n  • 7 gestos\n  • 2 juguetes\n  • 4 planeadores\n  • 6 mochilas retro\n  • 5 estelas\n  • 13 aerosoles\n  • 3 pistas de música\n  • ¡Y mucho más!\n¿Lo quieres todo más rápido? ¡Puedes usar las monedas V para comprar niveles cuando quieras!",
+                "tr": "7. Sezon: Şu andan 28 Şubat’a kadar\n\n<Bold>3.500 V-Papel’in üzerinde değeri olan</> bu içerikleri hemen kap.\n  • İlerlemeli <ItemName>Kutup Dağcısı</> Kıyafeti\n  • İlerlemeli <ItemName>Karakulak</> Kıyafeti\n  • <Bold>%50 Bonus</> Sezonluk Maç TP’si\n  • Arkadaşların için <Bold>%10 Bonus</> Sezonluk Maç TP’si\n  • <Bold>İlave Haftalık Görevler</>\n\nBattle Royale oynayarak Savaş Bileti’nin aşamasını yükselt ve <Bold>100’den fazla ödülü</> aç (genelde 75 ila 150 saat oynama gerektirir).\n  • <ItemName>Kış Çavuşu</> ve <Bold>4 Kıyafet</> daha\n  • <Bold>1,300 V-Papel</>\n  • 2 Sadık Dost\n  • 6 Kaplama\n  • 4 Toplama Aleti\n  • 7 İfade\n  • 2 Oyuncak\n  • 4 Planör\n  • 6 Sırt Süsü\n  • 5 Dalış İzi\n  • 13 Sprey\n  • 3 Müzik Parçası\n  • ve çok daha fazlası!\nHepsini daha hızlı mı almak istiyorsun? V-Papel karşılığında istediğin zaman aşama açabilirsin!"
+            },
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season7_BattlePass.DA_BR_Season7_BattlePass",
+            "itemGrants": []
+        },
+        {
+            "offerId": "64A3020B098841A7805EE257D68C554F",
+            "devName": "BR.Season7.SingleTier.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 150,
+                    "finalPrice": 150,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 150
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 0,
+            "title": {
+                "de": "Battle-Pass-Stufe",
+                "ru": "Уровень боевого пропуска",
+                "ko": "배틀패스 티어",
+                "zh-hant": "英雄季卡戰階",
+                "pt-br": "Categoria de Passe de Batalha",
+                "en": "Battle Pass Tier",
+                "it": "Livello Pass battaglia",
+                "fr": "Palier du Passe de combat",
+                "zh-cn": "英雄季卡战阶",
+                "es": "Nivel del pase de batalla",
+                "ar": "Battle Pass Tier",
+                "ja": "バトルパスティア",
+                "pl": "Stopień karnetu bojowego",
+                "es-419": "Nivel de pase de batalla",
+                "tr": "Savaş Bileti Aşaması"
+            },
+            "shortDescription": "",
+            "description": {
+                "de": "Hol dir jetzt tolle Belohnungen!",
+                "ru": "Получите отличные награды!",
+                "ko": "지금 푸짐한 보상을 얻어보세요!",
+                "zh-hant": "現在獲得豐厚獎勵！",
+                "pt-br": "Ganhe recompensas ótimas agora!",
+                "en": "Get great rewards now!",
+                "it": "Ricevi subito magnifiche ricompense!",
+                "fr": "Obtenez de grandes récompenses !",
+                "zh-cn": "现在获得丰厚奖励！",
+                "es": "¡Consigue recompensas increíbles!",
+                "ar": "Get great rewards now!",
+                "ja": "ステキな報酬を今すぐゲット！",
+                "pl": "Zdobądź super nagrody już teraz!",
+                "es-419": "¡Consigue grandes recompensas ahora!",
+                "tr": "Harika ödüllerin sahibi ol!"
+            },
+            "displayAssetPath": "",
+            "itemGrants": []
+        }
+    ]
+}

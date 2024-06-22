@@ -1,0 +1,269 @@
+{
+    "name": "BRSeason4",
+    "catalogEntries": [
+        {
+            "offerId": "884CE68998C44AC58D85C5A9883DE1A6",
+            "devName": "BR.Season4.BattleBundle.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 4700,
+                    "finalPrice": 2800,
+                    "saleType": "PercentOff",
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 2800
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "2B4936F24F3179416FEFD49DA5C4B64A",
+                    "minQuantity": 1
+                }
+            ],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 0,
+            "title": {
+                "de": "Battle-Pass-Paket",
+                "ru": "Боевой комплект",
+                "ko": "배틀번들",
+                "zh-hant": "戰鬥套組",
+                "pt-br": "Pacotão de Batalha",
+                "en": "Battle Bundle",
+                "it": "Bundle battaglia",
+                "fr": "Pack de combat",
+                "zh-cn": "战斗套组",
+                "es": "Lote de batalla",
+                "ar": "Battle Bundle",
+                "ja": "バトルバンドル",
+                "pl": "Zestaw bojowy",
+                "es-419": "Paquete de batalla",
+                "tr": "Savaş Paketi"
+            },
+            "shortDescription": {
+                "de": "Battle Pass + 25 Stufen!",
+                "ru": "Боевой пропуск + 25 уровней!",
+                "ko": "배틀패스 + 25티어!",
+                "zh-hant": "英雄季卡增加25戰階！",
+                "pt-br": "Passe de Batalha + 25 categorias!",
+                "en": "Battle Pass + 25 tiers!",
+                "it": "Pass battaglia + 25 livelli!",
+                "fr": "Passe de combat + 25 paliers !",
+                "zh-cn": "英雄季卡增加25战阶！",
+                "es": "¡Pase de batalla y 25 niveles!",
+                "ar": "Battle Pass + 25 tiers!",
+                "ja": "バトルパス+25ティア！",
+                "pl": "Karnet bojowy + 25 stopni!",
+                "es-419": "¡Pase de batalla + 25 niveles!",
+                "tr": "Savaş Bileti + 25 aşama!"
+            },
+            "description": {
+                "de": "Saison 4: Ab sofort bis 9. Juli\n\nErhalte sofort diese Gegenstände im Wert von über 10.000 V-Bucks.\n  • Carbide (Outfit)\n  • Kriegsfalke (Outfit)\n  • Teknique (Outfit) \n  • Orkanhacke (Spitzhacke)\n  • Zuckerschock (Hängegleiter)\n  • Standardausführung (Rücken-Accessoire)\n  • 4 Spraymotive\n  • Retro-Science-Fiction (Flugspur)\n  • +70 % Saison-Match-EP\n  • +20 % Saison-Match-EP für Freunde\n  • Zugang zu Wöchentlichen Herausforderungen\n  • Zugang zu Blockbuster-Herausforderungen\n  • Zugang zu Carbide-Herausforderungen\n  • und mehr!\n\nSpiele weiter und stufe deinen Battle Pass auf, um über 75 Belohnungen freizuschalten (im Normalfall werden dafür 75 bis 150 Spielstunden benötigt). Das dauert dir zu lange? Mit V-Bucks kannst du jederzeit Stufen kaufen!\n\n  • Omega und 3 weitere Outfits\n  • 3 Spitzhacken\n  • 4 Emotes\n  • 2 Hängegleiter\n  • 1 Rücken-Accessoire\n  • 4 Flugspuren\n  • 16 Spraymotive\n  • 1.300 V-Bucks\n  • und noch eine ganze Menge mehr!",
+                "ru": "Четвёртый сезон: до 9 июля\n\nСразу же получите предметы стоимостью более 10 000 В-баксов!\n  • экипировка Карбида;\n  • экипировка Боевого ястреба;\n  • экипировка мисс Бэнкси;\n  • кирка «Штормовая мощь»;\n  • дельтаплан «Конфетка»;\n  • украшение на спину «Верный стандарт»;\n  • 4 граффити;\n  • воздушный след «Ретрофутуризм»;\n  • +70% к опыту за матчи сезона;\n  • +20% к опыту друзей за матчи сезона;\n  • доступ к еженедельным испытаниям;\n  • доступ к испытаниям Карбида;\n  • доступ к испытаниям события «Убойное кино»;\n  • и это ещё не всё!\n\nИграйте, повышайте уровень боевого пропуска — и вас ждут более 75 наград. Обычно, чтобы открыть все награды, требуется 75–150 часов игры; но если вы не хотите ждать, этот процесс можно ускорить за В-баксы.\n  • экипировка Омеги и ещё 3 костюма;\n  • 3 кирки;\n  • 4 эмоции;\n  • 2 дельтаплана;\n  • 1 украшение на спину;\n  • 4 воздушных следа;\n  • 16 граффити;\n  • 1300 В-баксов;\n  • и это ещё не всё!",
+                "ko": "시즌4: 7월 9일 종료\n\n10,000 V-Bucks 이상의 가치가 있는 여러 아이템을 즉시 받아가세요.\n  • 카바이드 의상\n  • 배틀호크 의상\n  • 테크니크 아티스트 의상\n  • 강풍 곡괭이\n  • 슈가 크래시 글라이더\n  • 보급품 배낭 등 장신구\n  • 스프레이 4개\n  • 복고풍 공상 과학 스카이다이빙 트레일\n  • 70% 보너스 시즌 매치 XP\n  • 20% 보너스 시즌 친구 매치 XP\n  • 주간 도전 이용 권한\n  • 블록버스터 도전 이용 권한\n  • 카바이드 도전 이용 권한\n\n배틀패스 티어를 올려서 75개 이상의 보상을 획득해보세요(보통 75-150시간 소요). 더 빨리 보상을 얻고 싶으신가요? V-Bucks를 사용해서 언제든지 티어를 구매할 수 있습니다!\n  • 오메가 및 다른 의상 3개\n  • 곡괭이 3개\n  • 이모트 4개\n  • 글라이더 2개\n  • 등 장신구 1개\n  • 스카이다이빙 트레일 4개\n  • 스프레이 16개\n  • 1,300 V-Bucks\n  • 그 외 많은 혜택!",
+                "zh-hant": "第4賽季：現在起至7月9日\n\n立即獲得這些價值10000V幣的物品。\n  • 碳化合金服裝\n  • 戰鷹服裝\n  • 技巧服裝\n  • 蓋爾力量鋤頭\n  • 糖果風暴滑翔傘\n  • 制式裝備背包\n  • 4個塗鴉\n  • 復古科幻滑翔軌跡\n  • 70% 額外賽季比賽經驗\n  • 20%額外賽季好友比賽經驗\n  • 獲得每週挑戰許可權\n  • 獲得爆紅挑戰許可權\n  • 獲得碳化合金挑戰許可權\n  • 以及更多！\n\n通過遊玩提升英雄季卡戰階，解鎖75多個獎勵(通常需要75到150個小時的遊玩時間)。希望更快嗎？你可以隨時使用V幣購買戰階！\n  •歐米伽以及其他3套服裝\n  •3個鋤頭\n  • 4個姿勢\n  • 2個滑翔傘\n  • 1個背部裝飾\n  • 4個滑翔軌跡\n  • 16個塗鴉\n  • 1300V幣\n  • 以及更多獎勵！",
+                "pt-br": "Temporada 4: de hoje até 9 de julho\n\nReceba instantaneamente estes itens avaliados em mais de 10.000 V-Bucks.\n  • Traje Carboneto\n  • Traje Gavião Guerreiro\n  • Traje Téknica \n  • Picareta Rajada\n  • Asa-delta Pancada Açucarada\n  • Acessório para as Costas Padrão\n  • 4 Sprays\n  • Rastro de Queda Livre Ficção Científica Retrô\n  • 70% de Bônus de EXP da Temporada em Partidas\n  • 20% de Bônus de EXP da Temporada em Partidas com Amigos\n  • Acesso a Desafios Semanais\n  • Acesso a Desafios de Filmaço\n  • Acesso a Desafios Carboneto\n  • e mais!\n\nJogue para subir o nível do seu Passe de Batalha, desbloqueando mais de 75 recompensas (leva em média 75 a 150 horas de jogo). Quer mais rápido? Você pode usar V-Bucks para comprar categorias a qualquer momento!\n\n  • O Ômega e mais 3 outros trajes\n  • 3 Picaretas\n  • 4 Gestos\n  • 2 Asas-deltas\n  • 1 Acessórios para as Costas\n  • 4 Rastros de Queda Livre\n  • 16 Sprays\n  • 1.300 V-Bucks\n  • e muito mais!",
+                "en": "Season 4: Now thru July 9\n\nInstantly get these items valued at over 10,000 V-Bucks.\n  • Carbide Outfit\n  • Battlehawk Outfit\n  • Teknique Outfit \n  • Gale Force Pickaxe\n  • Sugar Crash Glider\n  • Standard Issue Back Bling\n  • 4 Sprays\n  • Retro Sci-fi Skydiving Trail\n  • 70% Bonus Season Match XP\n  • 20% Bonus Season Friend Match XP\n  • Access to Weekly Challenges\n  • Access to Blockbuster Challenges\n  • Access to Carbide Challenges\n  • and more!\n\nPlay to level up your Battle Pass, unlocking up to 75+ more rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\n\n  • Omega plus 3 other outfits\n  • 3 Pickaxes\n  • 4 Emotes\n  • 2 Gliders\n  • 1 Back Bling\n  • 4 Skydiving Trails\n  • 16 Sprays\n  • 1300 V-Bucks\n  • and so much more!",
+                "it": "Stagione 4: fino al 9 luglio\n\nOttieni subito questi oggetti dal valore di oltre 10,000 V-buck!\n  • Costume Carburo\n  • Costume Battlehawk\n  • Costume Teknica\n  • Piccone Uragano\n  • Deltaplano Crash zucchero\n  • Dorso decorativo Standard\n  • 4 spray\n  • Scia skydive Fantascienza rétro\n  • Bonus del 70% dei PE partite stagionali\n  • Bonus del 20% dei PE partite amico\n  • Accesso alle sfide settimanali\n  • Accesso alle sfide spaccatutto\n  • Accesso alle sfide Carburo\n  • ...e tanto altro!\n\nGioca per aumentare di livello il tuo Pass battaglia, sbloccando oltre 75 ricompense (necessarie tra le 75-150 ore di gioco). Vuoi tutto più in fretta? Puoi usare i V-buck per acquistare i livelli in qualsiasi momento!\n\n  • Omega e altri 3 costumi\n  • 3 picconi\n  • 2 deltaplani\n  • 1 Dorso decorativo\n  • 4 Scie Skydive\n  • 16 spray\n  • 1300 V-buck\n  • ...e molto altro ancora!",
+                "fr": "Saison 4 : jusqu'au 9 juillet\n\n Recevez immédiatement ces objets d'une valeur supérieure à 10 000 V-bucks.\n  • Tenue Carburo\n  • Tenue Le Faucon\n  • Tenue Graffeuse \n  • Pioche Zéphyr\n  • Planeur Friandise\n  • Accessoire de dos Sac réglementaire\n  • 4 aérosols\n  • Traînée de condensation Rétrofuturiste\n  • Bonus d'EXP de saison de 70%\n  • Bonus d'EXP de saison de 20% pour des amis\n  • L'accès aux défis hebdomadaires\n  • L'accès aux défis Superproduction\n  • L'accès aux défis de Carburo\n  • Et plus !\n\nJouez pour augmenter le niveau de votre Passe de combat et déverrouiller plus de 75 récompenses (nécessitant de 75 à 150 heures de jeu). Envie d'aller plus vite ? Utilisez vos V-bucks pour acheter des niveaux à tout moment !\n\n  • Oméga plus 3 autres tenues\n  • 3 pioches\n  • 4 emotes\n  • 2 planeurs\n  • 1 accessoire de dos\n  • 4 traînées de condensation\n  • 16 aérosols\n  • 1300 V-bucks\n  • Et plus !",
+                "zh-cn": "第4赛季：现在起至7月9日\n\n立即获得这些价值10000V币的物品。\n  • 碳化合金服装\n  • 战鹰服装\n  • 技巧服装\n  • 盖尔力量锄头\n  • 糖果风暴滑翔伞\n  • 制式装备背包\n  • 4个涂鸦\n  • 复古科幻滑翔轨迹\n  • 70% 额外赛季比赛经验\n  • 20%额外赛季好友比赛经验\n  • 获得每周挑战权限\n  • 获得爆红挑战权限\n  • 获得碳化合金挑战权限\n  • 以及更多！\n\n通过游玩提升英雄季卡战阶，解锁75多个奖励(通常需要75到150个小时的游玩时间)。希望更快吗？你可以随时使用V币购买战阶！\n  •欧米伽以及其他3套服装\n  •3个锄头\n  • 4个姿势\n  • 2个滑翔伞\n  • 1个背部装饰\n  • 4个滑翔轨迹\n  • 16个涂鸦\n  • 1300V币\n  • 以及更多奖励！",
+                "es": "Temporada 4: Desde ahora hasta el 9 de julio\n\nConsigue instantáneamente estos objetos valorados en más de 10 000 paVos.\n  • Traje de Carburo\n  • Traje de halcón bélico\n  • Traje de Téknica \n  • Pico fuerza de la tempestad\n  • Ala delta subidón de azúcar\n  • Accesorio mochilero modelo estándar\n  • 4 grafitis\n  • Estela de descenso ciencia ficción retro\n  • Bonificación de PE de partida de temporada del 70%\n  • Bonificación de PE de partida amistosa de temporada del 20%.\n  • Acceso a los desafíos semanales.\n  • Acceso a los desafíos de Taquillazo.\n  • Acceso a los desafíos de Carburo.\n  • ¡Y mucho más!\n\nJuega para subir de nivel tu pase de batalla y desbloquea más de 75 recompensas (suele llevar entre 75 y 150 horas de juego). ¿Lo quieres más rápido? ¡Puedes usar paVos para comprar niveles siempre que quieras!\n\n  • Omega más otros 3 trajes.\n  • 3 picos.\n  • 4 gestos\n  • 2 alas delta\n  • 1 accesorio mochilero\n  • 4 estelas de descenso\n  • 16 grafitis\n  • 1300 paVos\n  • ¡Y mucho más!",
+                "ar": "Season 4: Now thru July 9\n\nInstantly get these items valued at over 10,000 V-Bucks.\n  • Carbide Outfit\n  • Battlehawk Outfit\n  • Teknique Outfit \n  • Gale Force Pickaxe\n  • Sugar Crash Glider\n  • Standard Issue Back Bling\n  • 4 Sprays\n  • Retro Sci-fi Skydiving Trail\n  • 70% Bonus Season Match XP\n  • 20% Bonus Season Friend Match XP\n  • Access to Weekly Challenges\n  • Access to Blockbuster Challenges\n  • Access to Carbide Challenges\n  • and more!\n\nPlay to level up your Battle Pass, unlocking up to 75+ more rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\n\n  • Omega plus 3 other outfits\n  • 3 Pickaxes\n  • 4 Emotes\n  • 2 Gliders\n  • 1 Back Bling\n  • 4 Skydiving Trails\n  • 16 Sprays\n  • 1300 V-Bucks\n  • and so much more!",
+                "ja": "シーズン4: 7月9日まで\n\n10,000 V-Bucks以上の価値があるアイテムをすぐに手に入れましょう\n  ・カーバイドコスチューム\n  ・バトルホークコスチューム\n  ・テクニークコスチューム\n  ・ゲイルフォースツルハシ\n  ・シュガークラッシュグライダー\n  ・標準仕様バックアクセサリー\n  ・スプレー4点\n  ・レトロなSFチックスカイダイビングトレイル\n  ・シーズンマッチXPの70%ボーナス\n  ・シーズンフレンドマッチXPの20%ボーナス\n  ・ウィークリーチャレンジへの挑戦権\n  ・ブロックバスターチャレンジへの挑戦権\n  ・カーバイドチャレンジへの挑戦権\n  ・他にも色々！\n\nプレイしてバトルパスのレベルを上げると、75以上の報酬をアンロックできます(通常、プレイにかかる時間は75～150時間程度)。もっと早く報酬を全部集めたい？ V-Bucksでいつでもティアを購入できます！\n\n  ・オメガコスチュームとさらに他のコスチュームx3\n  ・ツルハシx3\n  ・エモートx4\n  ・グライダーx2\n  バックアクセサリーx1\n  スカイダイビングトレイルx4\n  ・スプレーx16\n  ・1300 V-Bucks\n  他にも色々！",
+                "pl": "Sezon 4: potrwa do 9 lipca\n\nOtrzymasz od razu poniższe przedmioty o wartości ponad 10 000 V-dolców:\n  • Strój: Karbid\n  • Strój: Bojowy Jastrząb\n  • Strój: Teknique\n   • Kilof: Sztormowiec\n  • Lotnia: Słodki Spadek\n  • Plecak: Standardowe Wyposażenie\n  • 4 graffiti\n  • Smuga lotni: Retro-SF\n  • Sezonowa premia +70% PD za grę\n  • Sezonowa premia +20% za grę ze znajomym\n  • Dostęp do wyzwań tygodnia\n  • Dostęp do wyzwań Hitu Ekranu\n  • Dostęp do wyzwań Karbida\n  • I jeszcze więcej!\n\nGraj dalej, aby awansować karnet bojowy i zdobyć ponad 75 kolejnych nagród (ich zebranie normalnie zajmuje od 75 do 150 godz. gry). Chcesz się rozwijać szybciej? W każdej chwili możesz kupić poziomy za V-dolce!\n\n  • Omega plus 3 inne stroje\n  • 3 kilofy\n  • 4 emotki\n  • 2 lotnie\n  • 1 sprzęt na plecy\n  • 4 smugi lotni\n  • 16 graffiti\n  • 1300 V-dolców\n  • I dużo więcej!",
+                "es-419": "Temporada 4: Ahora hasta el 9 de julio\n\n¡Obtén al instante estos objetos que cuestan más de 10 000 monedas V!\n  • Atuendo Carburo\n  • Atuendo Halcón de combate\n  • Atuendo Téknica \n  • Pico Fuerza huracanada\n  • Planeador Bajón de azúcar\n  • Mochila retro Edición básica\n  • 4 aerosoles\n  • Rastro de caída libre Ciencia ficción retro\n  • 70 % de PE de bonificación para partidas de la temporada\n  • 20 % de PE de bonificación para partidas con amigos en la temporada\n  • Acceso a los desafíos semanales\n  • Acceso a los desafíos de Taquillazo\n  • Acceso a los desafíos de Carburo\n  • ¡Y mucho más!\n\nJuega para subir de nivel tu pase de batalla y desbloquear más de 75 recompensas (esto lleva entre 75 y 150 horas de juego). ¿Lo quieres todo más rápido? ¡Puedes utilizar monedas V para comprar niveles cuando quieras!\n\n  • Omega más otros 3 atuendos\n  • 3 picos\n  • 4 gestos\n  • 2 planeadores\n  • 1 mochila retro\n  • 4 rastros de caída libre\n  • 16 aerosoles\n  • 1300 monedas V\n  • ¡Y mucho más!",
+                "tr": "4. Sezon: Şu andan 9 Temmuz’a kadar\n\n10.000 V-Papel’in üzerinde değeri olan bu içerikleri hemen edin.\n • Demir Maske Kıyafeti\n  • Savaş Şahini Kıyafeti\n  • Asi Grafitici Kıyafeti\n  • Kraliçenin Gücü Kazması\n  • Şeker Koması Planörü\n  • Standart Ekipman Sırt Süsü\n  • 4 Sprey\n  • Retro Bilimkurgu Hava Dalışı İzi\n  • %70 Bonus Sezonluk Maç TP’si\n  • %20 Bonus Sezonluk Arkadaşlar için Maç TP’si\n  • Haftalık Görevlere Erişim\n  • Gişe Rekortmeni Görevlerine Erişim\n  • Demir Maske Görevlerine Erişim\n  • ve fazlası!\n\nBattle Royale oynayarak Savaş Bileti’nin seviyesini yükselt ve 75’ten fazla ödülü aç (genelde 75 ila 150 saat oynama gerektirir). Hepsini daha hızlı almak mı istiyorsun? V-Papel karşılığında istediğin zaman aşama açabilirsin!\n\n  • Omega artı 3 kıyafet daha\n  • 3 Kazma\n  • 4 İfade\n  • 2 Planör\n  • 1 Sırt Süsü\n  • 4 Hava Dalışı İzi\n  • 16 Sprey\n  • 1300 V-Papel\n  • ve çok daha fazlası!"
+            },
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season4_BattlePassWithLevels.DA_BR_Season4_BattlePassWithLevels",
+            "itemGrants": []
+        },
+        {
+            "offerId": "76EA7FE9787744B09B79FF3FC5E39D0C",
+            "devName": "BR.Season4.BattlePass.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 950,
+                    "finalPrice": 950,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 950
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "2B4936F24F3179416FEFD49DA5C4B64A",
+                    "minQuantity": 1
+                }
+            ],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 1,
+            "title": {
+                "de": "Battle Pass",
+                "ru": "Боевой пропуск",
+                "ko": "배틀패스",
+                "zh-hant": "英雄季卡",
+                "pt-br": "Passe de Batalha",
+                "en": "Battle Pass",
+                "it": "Pass battaglia",
+                "fr": "Passe de combat",
+                "zh-cn": "英雄季卡",
+                "es": "Pase de batalla",
+                "ar": "Battle Pass",
+                "ja": "バトルパス",
+                "pl": "Karnet bojowy",
+                "es-419": "Pase de batalla",
+                "tr": "Savaş Bileti"
+            },
+            "shortDescription": {
+                "de": "Saison 4",
+                "ru": "Сезон 4",
+                "ko": "시즌 4",
+                "zh-hant": "第4賽季",
+                "pt-br": "Temporada 4",
+                "en": "Season 4",
+                "it": "Stagione 4",
+                "fr": "Saison 4",
+                "zh-cn": "第4赛季",
+                "es": "Temporada 4",
+                "ar": "Season 4",
+                "ja": "シーズン4",
+                "pl": "Sezon 4",
+                "es-419": "Temporada 4",
+                "tr": "4. Sezon"
+            },
+            "description": {
+                "de": "Saison 4: Ab sofort bis 9. Juli\n\nErhalte sofort diese Gegenstände im Wert von über 3.500 V-Bucks.\n  • Carbide (Outfit)\n  • Kriegsfalke (Outfit)\n  • +50 % Saison-Match-EP\n  • +10 % Saison-Match-EP für Freunde\n  • Zugang zu Wöchentlichen Herausforderungen\n  • Zugang zu Blockbuster-Herausforderungen\n  • Zugang zu Carbide-Herausforderungen\n\nSpiele weiter und stufe deinen Battle Pass auf, um über 100 Belohnungen freizuschalten (im Normalfall werden dafür 75 bis 150 Spielstunden benötigt). Das dauert dir zu lange? Mit V-Bucks kannst du jederzeit Stufen kaufen!\n  • Omega und 4 weitere Outfits\n  • 4 Spitzhacken\n  • 5 Emotes\n  • 3 Hängegleiter\n  • 2 Rücken-Accessoires\n  • 5 Flugspuren\n  • 20 Spraymotive\n  • 1.300 V-Bucks\n  • und noch eine ganze Menge mehr!",
+                "ru": "Четвёртый сезон: до 9 июля\n\nСразу же получите предметы стоимостью более 3500 В-баксов!\n  • экипировка Карбида;\n  • экипировка Боевого ястреба;\n  • +50% к опыту за матчи сезона;\n  • +10% к опыту друзей за матчи сезона;\n  • доступ к еженедельным испытаниям;\n  • доступ к испытаниям Карбида;\n  • доступ к испытаниям события «Убойное кино».\n\nИграйте, повышайте уровень боевого пропуска — и вас ждут до 100 наград. Обычно, чтобы открыть все награды, требуется 75–150 часов игры; но если вы не хотите ждать, этот процесс можно ускорить за В-баксы.\n  • экипировка Омеги и ещё 4 костюма;\n  • 4 кирки;\n  • 5 эмоций;\n  • 3 дельтаплана;\n  • 2 украшения на спину;\n  • 5 воздушных следов;\n  • 20 граффити;\n  • 1300 В-баксов;\n  • и это ещё не всё!",
+                "ko": "시즌4: 7월 9일 종료\n\n3,500 V-Bucks 이상의 가치가 있는 여러 아이템을 즉시 받아가세요.\n  • 카바이드 의상\n  • 배틀호크 의상\n  • 50% 보너스 시즌 매치 XP\n  • 10% 보너스 시즌 친구 매치 XP\n  • 주간 도전 이용 권한\n  • 블록버스터 도전 이용 권한\n  • 카바이드 도전 이용 권한\n\n배틀패스 티어를 올려서 100개 이상의 보상을 획득해보세요(보통 75-150시간 소요). 더 빨리 보상을 얻고 싶으신가요? V-Bucks를 사용해서 언제든지 티어를 구매할 수 있습니다!\n  • 오메가 및 다른 의상 4개\n  • 곡괭이 4개\n  • 이모트 5개\n  • 글라이더 3개\n  • 등 장신구 2개\n  • 스카이다이빙 트레일 5개\n  • 스프레이 20개\n  • 1,300 V-Bucks\n  • 그 외 많은 혜택!",
+                "zh-hant": "第4賽季：現在起至7月9日\n\n立即獲得這些價值3500V幣的物品。\n  • 碳化合金服裝\n  • 戰鷹服裝\n  • 50% 額外賽季比賽經驗\n  • 10%額外賽季好友比賽經驗\n  • 獲得每週挑戰許可權\n  • 獲得爆紅挑戰許可權\n  • 獲得碳化合金挑戰許可權\n\n通過遊玩提升英雄季卡戰階，解鎖100多個獎勵(通常需要75到150個小時的遊玩時間)。希望更快嗎？你可以隨時使用V幣購買戰階！\n  •歐米伽以及其他4套服裝\n  •4個鋤頭\n  • 5個姿勢\n  • 3個滑翔傘\n  • 2個背部裝飾\n  • 5個滑翔軌跡\n  • 20個小塗鴉\n  • 1300V幣\n  • 以及更多獎勵！",
+                "pt-br": "Temporada 4: de hoje até 9 de julho\n\nReceba instantaneamente estes itens avaliados em mais de 3.500 V-Bucks.\n  • Traje Carboneto\n  • Traje Gavião Guerreiro\n  • 50% de Bônus de EXP da Temporada em Partidas\n  • 10% de Bônus de EXP da Temporada em Partidas com Amigos\n  • Acesso a Desafios Semanais\n  • Acesso a Desafios de Filmaço\n  • Acesso a Desafios Carboneto\n\nJogue para subir o nível do seu Passe de Batalha, desbloqueando mais de 100 recompensas (leva em média 75 a 150 horas de jogo). Quer mais rápido? Você pode usar V-Bucks para comprar categorias a qualquer momento!\n  • O Ômega e mais 4 outros trajes\n  • 4 Picaretas\n  • 5 Gestos\n  • 3 Asas-deltas\n  • 2 Acessórios para as Costas\n  • 5 Rastros de Queda Livre\n  • 20 Sprays\n  • 1.300 V-Bucks\n  • e muito mais!",
+                "en": "Season 4: Now thru July 9\n\nInstantly get these items valued at over 3,500 V-Bucks.\n  • Carbide Outfit\n  • Battlehawk Outfit\n  • 50% Bonus Season Match XP\n  • 10% Bonus Season Friend Match XP\n  • Access to Weekly Challenges\n  • Access to Blockbuster Challenges\n  • Access to Carbide Challenges\n\nPlay to level up your Battle Pass, unlocking over  100 rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\n  • Omega plus 4 other outfits\n  • 4 Pickaxes\n  • 5 Emotes\n  • 3 Gliders\n  • 2 Back Blings\n  • 5 Skydiving Trails\n  • 20 Sprays\n  • 1300 V-Bucks\n  • and so much more!",
+                "it": "Stagione 4: fino al 9 luglio\n\nOttieni subito questi oggetti dal valore di oltre 3.500 V-buck!\n  • Costume Carburo\n  • Costume Battlehawk\n  • Bonus del 50% dei PE partite stagionali\n  • Bonus del 10% dei PE partite amico\n  • Accesso alle sfide settimanali\n  • Accesso alle sfide spaccatutto\n  • Accesso alle sfide Carburo\n\nGioca per aumentare di livello il tuo Pass battaglia, sbloccando fino a 100 ricompense (necessarie tra le 75-150 ore di gioco). Vuoi tutto più in fretta? Puoi usare i V-buck per acquistare i livelli in qualsiasi momento!\n  • Omega e altri 4 costumi\n  • 4 picconi\n  • 3 deltaplani\n  • 2 Dorso decorativo\n  • 5 Scie Skydive\n  • 20 Spray\n  • 1300 V-buck\n  • ...e molto altro ancora!",
+                "fr": "Saison 4 : jusqu'au 9 juillet\n\nRecevez immédiatement ces objets d'une valeur supérieure à 3 500 V-bucks.\n  • Tenue Carburo\n  • Tenue Le Faucon\n  • Bonus d'EXP de saison de 50%\n  • Bonus d'EXP de saison de 10% pour des amis\n  • L'accès aux défis hebdomadaires\n  • L'accès aux défis Superproduction\n  • L'accès aux défis de Carburo\n\n Jouez pour augmenter le niveau de votre Passe de combat et déverrouiller plus de 100 récompenses (nécessitant de 75 à 150 heures de jeu). Envie d'aller plus vite ? Utilisez vos V-bucks pour acheter des niveaux à tout moment !\n  • Oméga plus 4 autres tenues\n  • 4 pioches\n  • 5 emotes\n  • 3 planeurs\n  • 2 accessoires de dos\n  • 5 traînées de condensation\n  • 20 aérosols\n  • 1300 V-bucks\n  • Et plus !",
+                "zh-cn": "第4赛季：现在起至7月9日\n\n立即获得这些价值3500V币的物品。\n  • 碳化合金服装\n  • 战鹰服装\n  • 50% 额外赛季比赛经验\n  • 10%额外赛季好友比赛经验\n  • 获得每周挑战权限\n  • 获得爆红挑战权限\n  • 获得碳化合金挑战权限\n\n通过游玩提升英雄季卡战阶，解锁100多个奖励(通常需要75到150个小时的游玩时间)。希望更快吗？你可以随时使用V币购买战阶！\n  •欧米伽以及其他4套服装\n  •4个锄头\n  • 5个姿势\n  • 3个滑翔伞\n  • 2个背部装饰\n  • 5个滑翔轨迹\n  • 20个小涂鸦\n  • 1300V币\n  • 以及更多奖励！",
+                "es": "Temporada 4: Desde ahora hasta el 9 de julio\n\nConsigue instantáneamente estos objetos valorados en más de 3500 paVos.\n  • Traje de Carburo\n  • Traje de halcón bélico\n  • Bonificación de PE de partida de temporada del 50%.\n  • Bonificación de PE de partida amistosa de temporada del 10%.\n  • Acceso a los desafíos semanales.\n  • Acceso a los desafíos de Taquillazo.\n  • Acceso a los desafíos de Carburo.\n\nJuega para subir de nivel tu pase de batalla y desbloquea más de 100 recompensas (suele llevar entre 75 y 150 horas de juego). ¿Lo quieres más rápido? ¡Puedes usar paVos para comprar niveles siempre que quieras!\n  • Omega más otros 4 trajes.\n  • 4 picos.\n  • 5 gestos.\n  • 3 alas delta.\n  • 2 accesorios mochileros.\n  • 5 estelas de descenso.\n  • 20 grafitis.\n  • 1300 paVos\n  • ¡Y mucho más!",
+                "ar": "Season 4: Now thru July 9\n\nInstantly get these items valued at over 3,500 V-Bucks.\n  • Carbide Outfit\n  • Battlehawk Outfit\n  • 50% Bonus Season Match XP\n  • 10% Bonus Season Friend Match XP\n  • Access to Weekly Challenges\n  • Access to Blockbuster Challenges\n  • Access to Carbide Challenges\n\nPlay to level up your Battle Pass, unlocking over  100 rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\n  • Omega plus 4 other outfits\n  • 4 Pickaxes\n  • 5 Emotes\n  • 3 Gliders\n  • 2 Back Blings\n  • 5 Skydiving Trails\n  • 20 Sprays\n  • 1300 V-Bucks\n  • and so much more!",
+                "ja": "シーズン4: 7月9日まで\n\n3,500 V-Bucks以上の価値があるアイテムをすぐに手に入れましょう\n  ・カーバイドコスチューム\n  ・バトルホークコスチューム\n  ・シーズンマッチXPの50%ボーナス\n  ・シーズンフレンドマッチXPの10%ボーナス\n  ・ウィークリーチャレンジへの挑戦権\n  ・ブロックバスターチャレンジへの挑戦権\n  ・カーバイドチャレンジへの挑戦権\n\nプレイしてバトルパスのレベルを上げると、100個以上の報酬をアンロックできます(通常、プレイにかかる時間は75～150時間程度)。もっと早く報酬を全部集めたい？ V-Bucksでいつでもティアを購入できます！\n  ・オメガコスチュームとさらに他のコスチュームx4\n  ・ツルハシx4\n  ・エモートx5\n  ・グライダーx3\n  ・バックアクセサリーx2\n  ・スカイダイビングトレイルx5\n  ・スプレーx20\n  ・1300 V-Bucks\n  ・他にも色々！",
+                "pl": "Sezon 4: potrwa do 9 lipca\n\nOtrzymasz od razu poniższe przedmioty o wartości ponad 3 500 V-dolców:\n  • Strój: Karbid\n  • Strój: Bojowy Jastrząb\n  • Sezonowa premia +50% PD za grę\n  • Sezonowa premia +10% PD za grę ze znajomym\n  • Dostęp do wyzwań tygodnia\n  • Dostęp do wyzwań Hitu Ekranu\n  • Dostęp do wyzwań Karbida\n\nGraj dalej, aby awansować karnet bojowy i zdobyć łącznie ponad 100 nagród (ich zebranie normalnie zajmuje od 75 do 150 godz. gry). Chcesz się rozwijać szybciej? W każdej chwili możesz kupić poziomy za V-dolce!\n  • Omega plus 4 inne stroje\n  • 4 kilofy\n  • 5 emotek\n  • 3 lotnie\n  • 2 plecaki\n  • 5 smug lotni\n  • 20 graffiti\n  • 1300 V-dolców\n  • I dużo więcej!",
+                "es-419": "Temporada 4: Ahora hasta el 9 de julio\n\n¡Obtén al instante estos objetos que cuestan más de 3500 monedas V!\n  • Atuendo Carburo\n  • Atuendo Halcón de combate\n  • 50 % de PE de bonificación para partidas de la temporada\n  • 10 % de PE de bonificación para partidas con amigos en la temporada\n  • Acceso a los desafíos semanales\n  • Acceso a los desafíos de Taquillazo\n  • Acceso a los desafíos de Carburo\n\nJuega para subir de nivel tu pase de batalla y desbloquear más de 100 recompensas (esto lleva entre 75 y 150 horas de juego). ¿Lo quieres todo más rápido? ¡Puedes utilizar monedas V para comprar niveles cuando quieras!\n  • Omega más otros 4 atuendos\n • 4 picos\n • 5 gestos\n  • 3 planeadores\n  • 2 mochilas retro\n  • 5 rastros de caída libre\n  • 20 aerosoles\n  • 1300 monedas V\n  • ¡Y mucho más!",
+                "tr": "4. Sezon: Şu andan 9 Temmuz’a kadar\n\n3.500 V-Papel’in üzerinde değeri olan bu içerikleri hemen edin.\n • Demir Maske Kıyafeti\n  • Savaş Şahini Kıyafeti\n  • %50 Bonus Sezonluk Maç TP’si\n  • %10 Bonus Sezonluk Arkadaşlar için Maç TP’si\n  • Haftalık Görevlere Erişim\n  • Gişe Rekortmeni Görevlerine Erişim\n  • Demir Maske Görevlerine Erişim\n\nBattle Royale oynayarak Savaş Bileti’nin seviyesini yükselt ve 100’den fazla ödülü aç (yaklaşık 75 ila 150 saat oynama gerektirir). Hepsini daha hızlı mı almak istiyorsun? V-Papel karşılığında istediğin zaman aşama açabilirsin!\n  • Omega artı 4 kıyafet daha\n  • 4 Kazma\n  • 5 İfade\n  • 3 Planör\n  • 2 Sırt Süsü\n  • 5 Hava Dalışı İzi\n  • 20 Sprey\n  • 1300 V-Papel\n  • ve çok daha fazlası!"
+            },
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season4_BattlePass.DA_BR_Season4_BattlePass",
+            "itemGrants": []
+        },
+        {
+            "offerId": "E9527AF46F4B4A9CAE98D91F2AA53CB6",
+            "devName": "BR.Season4.SingleTier.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 150,
+                    "finalPrice": 150,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 150
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 0,
+            "title": {
+                "de": "Battle-Pass-Stufe",
+                "ru": "Уровень боевого пропуска",
+                "ko": "배틀패스 티어",
+                "zh-hant": "英雄季卡戰階",
+                "pt-br": "Categoria de Passe de Batalha",
+                "en": "Battle Pass Tier",
+                "it": "Livello Pass battaglia",
+                "fr": "Palier du Passe de combat",
+                "zh-cn": "英雄季卡战阶",
+                "es": "Nivel del pase de batalla",
+                "ar": "Battle Pass Tier",
+                "ja": "バトルパスティア",
+                "pl": "Stopień karnetu bojowego",
+                "es-419": "Nivel de pase de batalla",
+                "tr": "Savaş Bileti Aşaması"
+            },
+            "shortDescription": "",
+            "description": {
+                "de": "Hol dir jetzt tolle Belohnungen!",
+                "ru": "Получите отличные награды!",
+                "ko": "지금 푸짐한 보상을 얻어보세요!",
+                "zh-hant": "現在獲得豐厚獎勵！",
+                "pt-br": "Ganhe recompensas ótimas agora!",
+                "en": "Get great rewards now!",
+                "it": "Ricevi subito magnifiche ricompense!",
+                "fr": "Obtenez de grandes récompenses !",
+                "zh-cn": "现在获得丰厚奖励！",
+                "es": "¡Consigue recompensas increíbles!",
+                "ar": "Get great rewards now!",
+                "ja": "素晴らしい報酬を今すぐゲット！",
+                "pl": "Zdobądź super nagrody już teraz!",
+                "es-419": "¡Consigue grandes recompensas ahora!",
+                "tr": "Harika ödüllerin sahibi ol!"
+            },
+            "displayAssetPath": "",
+            "itemGrants": []
+        }
+    ]
+}

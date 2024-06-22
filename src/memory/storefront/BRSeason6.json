@@ -1,0 +1,269 @@
+{
+    "name": "BRSeason6",
+    "catalogEntries": [
+        {
+            "offerId": "19D4A5ACC90B4CDF88766A0C8A6D13FB",
+            "devName": "BR.Season6.BattleBundle.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 4700,
+                    "finalPrice": 2800,
+                    "saleType": "PercentOff",
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 2800
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "854FAED044783BF137181887C325FFD2",
+                    "minQuantity": 1
+                }
+            ],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 0,
+            "title": {
+                "de": "Battle-Pass-Paket",
+                "ru": "Боевой комплект",
+                "ko": "배틀번들",
+                "zh-hant": "戰鬥套組",
+                "pt-br": "Pacotão de Batalha",
+                "en": "Battle Bundle",
+                "it": "Bundle battaglia",
+                "fr": "Pack de combat",
+                "zh-cn": "战斗套组",
+                "es": "Lote de batalla",
+                "ar": "Battle Bundle",
+                "ja": "バトルバンドル",
+                "pl": "Zestaw bojowy",
+                "es-419": "Paquete de batalla",
+                "tr": "Savaş Paketi"
+            },
+            "shortDescription": {
+                "de": "Battle Pass + 25 Stufen!",
+                "ru": "Боевой пропуск + 25 уровней!",
+                "ko": "배틀패스 + 25티어!",
+                "zh-hant": "英雄季卡增加25戰階！",
+                "pt-br": "Passe de Batalha + 25 categorias!",
+                "en": "Battle Pass + 25 tiers!",
+                "it": "Pass battaglia + 25 livelli!",
+                "fr": "Passe de combat + 25 paliers !",
+                "zh-cn": "英雄季卡增加25战阶！",
+                "es": "¡Pase de batalla y 25 niveles!",
+                "ar": "Battle Pass + 25 tiers!",
+                "ja": "バトルパス+25ティア！",
+                "pl": "Karnet bojowy + 25 stopni!",
+                "es-419": "¡Pase de batalla + 25 niveles!",
+                "tr": "Savaş Bileti + 25 aşama!"
+            },
+            "description": {
+                "de": "Saison 6: Ab sofort bis 6. Dezember\n\nErhalte sofort diese Gegenstände im Wert von über 10.000 V-Bucks.\n  • Calamity (Outfit)\n  • DJ Yonder (Outfit)\n  • Aufgesattelt (Outfit)\n  • Krachender Mix (Spitzhacke)\n  • Picknick (Hängegleiter)\n  • Märchenumhang (Rücken-Accessoire)\n  • 3 Spraymotive\n  • Wuffel (Gefährte)\n  • Düsen (Flugspur)\n  • +70 % Saison-Match-EP\n  • +20 % Saison-Match-EP für Freunde\n  • zusätzliche Wöchentliche Herausforderungen\n  • Calamity-Herausforderungen  • und mehr!\n\nSpiele weiter und stufe deinen Battle Pass auf, um über 75 weitere Belohnungen freizuschalten (im Normalfall werden dafür 75 bis 150 Spielstunden benötigt). Das dauert dir zu lange? Mit V-Bucks kannst du jederzeit Stufen kaufen!\n  • Wolf und 3 weitere Outfits\n  • 2 Gefährten\n  • 2 Spitzhacken\n  • 4 Emotes\n  • 2 Hängegleiter\n  • 4 Rücken-Accessoires\n  • 4 Flugspuren\n  • 11 Spraymotive\n  • 1.300 V-Bucks\n  • und noch eine ganze Menge mehr!",
+                "ru": "Шестой сезон: до 6 декабря\n\nСразу же получите предметы стоимостью более 10 000 В-баксов!\n  • экипировка Тёмного рейнджера;\n  • экипировка Эм Си Ламы;\n  • экипировка Наездника;\n  • кирка «Эквалайзер»;\n  • дельтаплан «Гостинец»;\n  • украшение на спину «Красный плащ»;\n  • 3 граффити;\n  • питомец Дружок;\n  • воздушный след «Выхлоп»;\n  • +70% к опыту за матчи сезона;\n  • +20% к опыту друзей за матчи сезона;\n  • дополнительные еженедельные испытания;\n  • испытания Тёмного рейнджера;\n  • и это ещё не всё!\n\nИграйте, повышайте уровень боевого пропуска — и вас ждут более 75 наград. Обычно, чтобы открыть все награды, требуется 75–150 часов игры; но если вы не хотите ждать, этот процесс можно ускорить за В-баксы.\n  • экипировка Оборотня и ещё 3 костюма;\n  • 2 питомца;\n  • 2 кирки;\n  • 4 эмоции;\n  • 2 дельтаплана;\n  • 4 украшения на спину;\n  • 4 воздушных следов;\n  • 11 граффити;\n  • 1 300 В-баксов;\n  • и это ещё не всё!",
+                "ko": "시즌 6: 12월 6일 종료\n\n10,000 V-Bucks 이상의 가치가 있는 여러 아이템을 즉시 받아가세요.\n  • 캘러미티 의상\n  • DJ 욘더 의상\n  • 라마 라이더 의상\n  • 스매시 업 곡괭이\n  • 피크닉 글라이더\n  • 빨간 망토 등 장신구\n  • 스프레이 3개\n  • 보니 애완동물\n  • 엔진 불꽃 스카이다이빙 트레일\n  • 70% 보너스 시즌 매치 XP\n  • 20% 보너스 시즌 친구 매치 XP\n  • 추가 주간 도전\n  • 캘러미티 연속 도전\n  • 그 외 혜택!\n\n배틀패스 티어를 올려서 75개 이상의 보상을 획득해보세요(보통 75-150시간 소요). 더 빨리 보상을 얻고 싶으신가요? V-Bucks를 사용해서 언제든지 티어를 구매할 수 있습니다!\n  • 다이어 외 의상 3개\n  • 애완동물 2개\n  • 곡괭이 2개\n  • 이모트 4개\n  • 글라이더 2개\n  • 등 장신구 4개\n  • 스카이다이빙 트레일 4개\n  • 스프레이 11개\n  • 1,300 V-Bucks\n  • 그 외 많은 혜택!",
+                "zh-hant": "第六賽季：現在起至12月6日\n\n立即獲得以下總價值逾10000V幣的物品。\n  • 災厄俠客服裝\n  • 金碟鐵馬服裝\n  • 策馬奔騰服裝\n  • 粉碎鎬\n  • 野餐滑翔傘\n  • 寓言斗篷背部裝飾\n  • 3個塗鴉\n  • 犬崽寵物\n  • 助力推進滑翔軌跡\n  • 70%額外賽季匹配經驗\n  • 20%額外賽季好友匹配經驗\n  • 額外每週挑戰\n  • 災厄俠客挑戰\n  • 及其他獎勵！\n\n通過遊玩提升英雄勳章戰階，解鎖百餘獎勵（通常需要75到150個小時的遊玩時間）。希望更快嗎？你可以隨時使用V幣購買戰階！\n  • 驚懼狼人與其他三種服裝\n  • 2只寵物\n  • 2個鎬\n  • 4個姿勢\n  • 2個滑翔傘\n  • 4個背部裝飾\n  • 4個滑翔軌跡\n  • 11個塗鴉\n  • 1300V幣\n  • 及其他獎勵！",
+                "pt-br": "Temporada 6: de hoje até 6 de dezembro\n\nGanhe instantaneamente esses itens avaliados em mais de 10.000 V-Bucks.\n  • Traje Calamidade\n  • Traje DJ Além\n  • Traje Lhaminha\n  • Picareta Quebra Tudo\n  • Asa-delta Piquenique\n  • Acessório para as Costas Capa Fabulosa\n  • 3 Sprays\n  • Mascote Ossíneo\n  • Rastro de Queda Livre Exaustor\n  • 70% de Bônus de EXP da Temporada em Partidas\n  • 20% de Bônus de EXP da Temporada em Partidas com Amigos\n  • Desafios Semanais Extras\n  • Desafios Calamidade\n  • e mais!\n\nJogue para subir o nível do seu Passe de Batalha, desbloqueando mais de 75 recompensas (leva em média 75 a 150 horas de jogo). Quer mais rápido? Você pode usar V-Bucks para comprar categorias a qualquer momento!\n  • Lupino e mais 3 outros trajes\n  • 2 Mascotes\n  • 2 Picaretas\n  • 4 Gestos\n  • 2 Asas-deltas\n  • 4 Acessórios para as Costas\n  • 4 Rastros de Queda Livre\n  • 11 Sprays\n  • 1.300 V-Bucks\n  • e muito mais!",
+                "en": "Season 6: Now thru Dec 6\n\nInstantly get these items valued at over 10,000 V-Bucks.\n  • Calamity Outfit\n  • DJ Yonder Outfit\n  • Giddy-up Outfit\n  • Smash-Up Pickaxe\n  • Picnic Glider\n  • Fabled Cape Back Bling\n  • 3 Sprays\n  • Bonesy Pet\n  • Exhaust Skydiving Trail\n  • 70% Bonus Season Match XP\n  • 20% Bonus Season Friend Match XP\n  • Extra Weekly Challenges\n  • Calamity Challenges\n  • and more!\n\nPlay to level up your Battle Pass, unlocking up to 75+ more rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\n  • Dire plus 3 other outfits\n  • 2 Pets\n  • 2 Pickaxes\n  • 4 Emotes\n  • 2 Gliders\n  • 4 Back Blings\n  • 4 Skydiving Trails\n  • 11 Sprays\n  • 1,300 V-Bucks\n  • and so much more!",
+                "it": "Stagione 6: da ora al 6 dicembre\n\nOttieni subito questi oggetti, per un valore di oltre 10.000 V-buck.\n  • Costume Calamity\n  • Costume DJ Yonder\n  • Costume Giddy-up\n  • Piccone Smash-Up\n  • Deltaplano Picnic\n  • Dorso decorativo Fabled Cape\n  • 3 spray\n  • Piccolo amico Bonesy\n  • Scia skydive Exhaust\n  • 70% di bonus ai PE partita stagione\n  • 20% di bonus ai PE partita amichevole stagione\n  • Sfide settimanali extra\n  • Sfide Calamity\n  • E altro ancora!\n\nGioca per far salire di livello il tuo Pass battaglia e sblocca fino a 75+ altre ricompense (tipicamente occorrono da 75 a 150 ore di gioco). Vuoi tutto più in fretta? Puoi usare i V-buck per comprare livelli in qualsiasi momento!\n  • Manny più 3 altri costumi\n  • 2 Piccoli amici\n  • 2 picconi\n  • 4 emote\n  • 2 deltaplani\n  • 4 dorsi decorativi\n  • 4 scie skydive\n  • 11 spray\n  • 1300 V-buck\n  • E molto altro ancora!",
+                "fr": "Saison 6 : jusqu'au 6 décembre\n\nRecevez immédiatement ces objets d'une valeur supérieure à 10 000 V-bucks.\n  • Tenue Calamité\n  • Tenue DJ Lama\n  • Tenue Fier destrier\n  • Pioche Contrôleur DJ\n  • Planeur Pique-nique\n  • Accessoire de dos Cape rouge\n  • 3 aérosols\n  • Le compagnon Ticaillou\n  • Traînée de condensation Gaz d'échappement\n  • Bonus d'EXP de saison de 70%\n  • Bonus d'EXP de saison de 20% pour des amis\n  • Des défis hebdomadaires supplémentaires\n  • Les défis progressifs de Calamité\n  • Et plus !\n\nJouez pour augmenter le niveau de votre Passe de combat et déverrouiller plus de 75 récompenses (nécessitant de 75 à 150 heures de jeu). Envie d'aller plus vite ? Utilisez vos V-bucks pour acheter des niveaux à tout moment !\n  • Lycan plus 3 autres tenues\n  • 2 compagnons\n  • 2 pioches\n  • 4 emotes\n  • 2 planeurs\n  • 4 accessoires de dos\n  • 4 traînées de condensation\n  • 11 aérosols\n  • 1 300 V-bucks\n  • Et plus !",
+                "zh-cn": "第六赛季：现在起至12月6日\n\n立即获得以下总价值逾10000V币的物品。\n  • 灾厄侠客服装\n  • 金碟铁马服装\n  • 策马奔腾服装\n  • 粉碎镐\n  • 野餐滑翔伞\n  • 寓言斗篷背部装饰\n  • 3个涂鸦\n  • 犬崽宠物\n  • 助力推进滑翔轨迹\n  • 70%额外赛季匹配经验\n  • 20%额外赛季好友匹配经验\n  • 额外每周挑战\n  • 灾厄侠客挑战\n  • 及其他奖励！\n\n通过游玩提升英雄勋章战阶，解锁百余奖励（通常需要75到150个小时的游玩时间）。希望更快吗？你可以随时使用V币购买战阶！\n  • 惊惧狼人与其他三种服装\n  • 2只宠物\n  • 2个镐\n  • 4个姿势\n  • 2个滑翔伞\n  • 4个背部装饰\n  • 4个滑翔轨迹\n  • 11个涂鸦\n  • 1300V币\n  • 及其他奖励！",
+                "es": "Temporada 6: Desde ahora hasta el 6 de diciembre.\n\nConsigue instantáneamente estos objetos valorados en más de 10 000 paVos.\n  • Traje de Calamidad.\n  • Traje de Llama DJ.\n  • Traje de Galopante.\n  • Pico Pico de mezclas.\n  • Ala delta Picnic.\n  • Accesorio mochilero Capa de Fábula.\n  • 3 grafitis.\n  • Mascota Huesete.\n  • Estela de descenso Tubo de escape.\n  • Bonificación de PE de partida de temporada del 70 %.\n  • Bonificación de PE de partida amistosa de temporada del 20 %.\n  • Desafíos semanales adicionales.\n  • Desafíos de Calamidad.\n  • ¡Y mucho más!\n\nJuega para subir de nivel el pase de batalla y desbloquea más de 75 recompensas adicionales (suele llevar entre 75 y 150 horas de juego). ¿Lo quieres más rápido? ¡Puedes usar paVos para comprar niveles siempre que quieras!\n  •  Lobuno más otros 3 trajes.\n  • 2 mascotas.\n  • 2 picos.\n  • 4 gestos.\n  • 2 alas delta.\n  • 4 accesorios mochileros.\n  • 4 estelas de descenso.\n  • 11 grafitis.\n  • 1300 paVos.\n  • ¡Y mucho más!",
+                "ar": "Season 6: Now thru Dec 6\n\nInstantly get these items valued at over 10,000 V-Bucks.\n  • Calamity Outfit\n  • DJ Yonder Outfit\n  • Giddy-up Outfit\n  • Smash-Up Pickaxe\n  • Picnic Glider\n  • Fabled Cape Back Bling\n  • 3 Sprays\n  • Bonesy Pet\n  • Exhaust Skydiving Trail\n  • 70% Bonus Season Match XP\n  • 20% Bonus Season Friend Match XP\n  • Extra Weekly Challenges\n  • Calamity Challenges\n  • and more!\n\nPlay to level up your Battle Pass, unlocking up to 75+ more rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\n  • Dire plus 3 other outfits\n  • 2 Pets\n  • 2 Pickaxes\n  • 4 Emotes\n  • 2 Gliders\n  • 4 Back Blings\n  • 4 Skydiving Trails\n  • 11 Sprays\n  • 1,300 V-Bucks\n  • and so much more!",
+                "ja": "シーズン6: 12月6日まで\n\n10,000 V-Bucks以上の価値があるアイテムを今すぐ手に入れましょう。\n  • 「カラミティ」コスチューム\n  • 「DJ ヨンダー」コスチューム\n  • 「ギディーアップ」コスチューム\n  • 「スマッシュアップ」ツルハシ\n  • 「ピクニック」グライダー\n  • 「寓話のケープ」バックアクセサリー\n  • スプレーx3\n  • 「ボーンジー」ペット\n  • 「エグゾースト」スカイダイビングトレイル\n  • シーズンマッチXPの70%ボーナス\n  • シーズンフレンドマッチXPの20%ボーナス\n  • 追加のウィークリーチャレンジ\n  • カラミティチャレンジ\n  • 他にも色々！\n\nプレイしてバトルパスのレベルを上げると、75個以上の報酬をアンロックできます(通常、プレイにかかる時間は75～150時間程度)。もっと早く報酬を全部集めたい？ V-Bucksでいつでもティアを購入できます！\n  • ダイアとその他コスチュームx3\n  • ペットx2\n  • ツルハシx2\n  • エモートx4\n  • グライダーx2\n  • バックアクセサリーx4\n  • スカイダイビングトレイルx4\n  • スプレーx11\n  • 1,300 V-Bucks\n  • 他にも色々！",
+                "pl": "Sezon 6: od teraz do 6 grudnia\n\nOtrzymasz od razu poniższe przedmioty o wartości ponad 10 000 V-dolców:\n  • Strój: Kowbojka\n  • Strój: DJ Jak-mu-tam\n  • Strój: Jazda\n  • Kilof: Ostry Rytm\n • Lotnia: Piknik\n • Plecak: Bajkowy Kapturek\n  • 3 graffiti\n  • Pupil: Kostek\n  • Smuga: Spaliny\n  • Sezonowa premia +70% PD za grę\n  • Sezonowa premia +20% PD za grę ze znajomymi\n  • Dostęp do dodatkowych wyzwań tygodnia\n  • Dostęp do wyzwań Kowbojki\n  • I nie tylko!\n\nGraj, aby awansować karnet bojowy i zdobyć do 75 nagród (ich zebranie zajmuje zwykle od 75 do 150 godz. gry). Chcesz rozwijać się szybciej? W każdej chwili możesz kupić stopnie za V-dolce!\n  • Straszliwiec plus 3 inne stroje\n  • 2 pupile\n  • 2 kilofy\n  • 4 emotki\n  • 2 lotnie\n  • 4 plecaki\n  • 4 smugi\n  • 11 graffiti\n  • 1300 V-dolców\n  • I dużo więcej!",
+                "es-419": "Temporada 6: Ahora hasta el 6 de diciembre\n\nObtén al instante estos objetos que cuestan más de 10 000 monedas V.\n  • Atuendo Calamidad\n  • Atuendo DJ Llama\n  • Atuendo Arre llama\n  • Pico Mezclador\n  • Planeador Pícnic\n  • Mochila retro Capa de Fábula\n  • 3 Aerosoles\n  • Mascota Huesitos\n  • Rastro de caída libre Escape\n  • 70% de bonificación de PE para partidas de la temporada\n  • 20% de PE de bonificación para partidas con amigos en la temporada\n  • Desafíos semanales adicionales\n  • Desafíos de Calamidad\n  • ¡y mucho más!\n\nJuega para subir de nivel el pase de batalla y desbloquear más de 75 recompensas (esto lleva entre 75 y 150 horas de juego). ¿Lo quieres todo más rápido? ¡Usa monedas V para comprar niveles en cualquier momento!\n  • Amenaza inminente más otros 3 atuendos\n  • 2 mascotas\n  • 2 picos\n  • 4 gestos\n  • 2 planeadores\n  • 4 mochilas retro\n  • 4 rastros de caída libre\n  • 11 aerosoles\n  • 1300 monedas V\n  • ¡y mucho más!",
+                "tr": "6. Sezon: Şu andan 6 Aralık’a kadar\n\n10.000 V-Papel’in üzerinde değeri olan bu içerikleri hemen edin.\n  • Belalı Kovboy Kıyafeti\n  • DJ Lama Kıyafeti\n  • Dıgıdık Kıyafeti\n  • Miks Kazması\n  • Piknik Sepeti Planörü\n  • Masal Pelerini Sırt Süsü\n  • 3 Sprey\n  • Sadık Dost Şanslı\n  • İniş Motoru Hava Dalışı İzi\n  • %70 Bonus Sezonluk Maç TP’si\n  • %20 Bonus Sezonluk Arkadaşlar için Maç TP’si\n  • İlave Haftalık Görevlere Erişim\n  • Belalı Kovboy Görevleri\n  • ve çok daha fazlası!\n\nBattle Royale oynayarak Savaş Bileti’nin aşamasını yükselt ve 75’ten fazla ödülü aç (genelde 75 ila 150 saat oynama gerektirir). Hepsini daha hızlı almak mı istiyorsun? V-Papel karşılığında istediğin zaman aşama açabilirsin!\n  • Kurtadam artı 3 kıyafet daha\n  • 2 Sadık Dost\n  • 2 Kazma\n  • 4 İfade\n  • 2 Planör\n  • 4 Sırt Süsü\n  • 4 Hava Dalışı İzi\n  • 11 Sprey\n  • 1.300 V-Papel\n  • ve çok daha fazlası!"
+            },
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season6_BattlePassWithLevels.DA_BR_Season6_BattlePassWithLevels",
+            "itemGrants": []
+        },
+        {
+            "offerId": "A6FE59C497B844068E1B5D84396F19BA",
+            "devName": "BR.Season6.SingleTier.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 150,
+                    "finalPrice": 150,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 150
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 0,
+            "title": {
+                "de": "Battle-Pass-Stufe",
+                "ru": "Уровень боевого пропуска",
+                "ko": "배틀패스 티어",
+                "zh-hant": "英雄季卡戰階",
+                "pt-br": "Categoria de Passe de Batalha",
+                "en": "Battle Pass Tier",
+                "it": "Livello Pass battaglia",
+                "fr": "Palier du Passe de combat",
+                "zh-cn": "英雄季卡战阶",
+                "es": "Nivel del pase de batalla",
+                "ar": "Battle Pass Tier",
+                "ja": "バトルパスティア",
+                "pl": "Stopień karnetu bojowego",
+                "es-419": "Nivel de pase de batalla",
+                "tr": "Savaş Bileti Aşaması"
+            },
+            "shortDescription": "",
+            "description": {
+                "de": "Hol dir jetzt tolle Belohnungen!",
+                "ru": "Получите отличные награды!",
+                "ko": "지금 푸짐한 보상을 얻어보세요!",
+                "zh-hant": "現在獲得豐厚獎勵！",
+                "pt-br": "Ganhe recompensas ótimas agora!",
+                "en": "Get great rewards now!",
+                "it": "Ricevi subito magnifiche ricompense!",
+                "fr": "Obtenez de grandes récompenses !",
+                "zh-cn": "现在获得丰厚奖励！",
+                "es": "¡Consigue recompensas increíbles!",
+                "ar": "Get great rewards now!",
+                "ja": "素晴らしい報酬を今すぐゲット！",
+                "pl": "Zdobądź super nagrody już teraz!",
+                "es-419": "¡Consigue grandes recompensas ahora!",
+                "tr": "Harika ödüllerin sahibi ol!"
+            },
+            "displayAssetPath": "",
+            "itemGrants": []
+        },
+        {
+            "offerId": "9C8D0323775A4F59A1D4283E3FDB356C",
+            "devName": "BR.Season6.BattlePass.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 950,
+                    "finalPrice": 950,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 950
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "854FAED044783BF137181887C325FFD2",
+                    "minQuantity": 1
+                }
+            ],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 1,
+            "title": {
+                "de": "Battle Pass",
+                "ru": "Боевой пропуск",
+                "ko": "배틀패스",
+                "zh-hant": "英雄季卡",
+                "pt-br": "Passe de Batalha",
+                "en": "Battle Pass",
+                "it": "Pass battaglia",
+                "fr": "Passe de combat",
+                "zh-cn": "英雄季卡",
+                "es": "Pase de batalla",
+                "ar": "Battle Pass",
+                "ja": "バトルパス",
+                "pl": "Karnet bojowy",
+                "es-419": "Pase de batalla",
+                "tr": "Savaş Bileti"
+            },
+            "shortDescription": {
+                "de": "Saison 6",
+                "ru": "Сезон 6",
+                "ko": "시즌 6",
+                "zh-hant": "第6賽季",
+                "pt-br": "Temporada 6",
+                "en": "Season 6",
+                "it": "Stagione 6",
+                "fr": "Saison 6",
+                "zh-cn": "第6赛季",
+                "es": "Temporada 6",
+                "ar": "Season 6",
+                "ja": "シーズン6",
+                "pl": "Sezon 6",
+                "es-419": "Temporada 6",
+                "tr": "6. Sezon"
+            },
+            "description": {
+                "de": "Saison 6: Ab sofort bis 6. Dezember\n\nErhalte sofort diese Gegenstände im Wert von über 3.500 V-Bucks.\n  • Calamity (Outfit)\n  • DJ Yonder (Outfit)\n  • +50 % Saison-Match-EP\n  • +10 % Saison-Match-EP für Freunde\n  • zusätzliche wöchentliche Herausforderungen\n  • fortschreitende Calamity-Herausforderungen\n\nSpiele weiter und stufe deinen Battle Pass auf, um über 100 Belohnungen freizuschalten (im Normalfall werden dafür 75 bis 150 Spielstunden benötigt). Das dauert dir zu lange? Mit V-Bucks kannst du jederzeit Stufen kaufen!\n  • Wolf und 4 weitere Outfits\n  • 3 Gefährten\n  • 3 Spitzhacken\n  • 5 Emotes\n  • 4 Hängegleiter\n  • 4 Rücken-Accessoires\n  • 5 Flugspuren\n  • 14 Spraymotive\n  • 2 Spielsachen\n  • 3 Songs\n  • 1.300 V-Bucks\n  • und noch eine ganze Menge mehr!",
+                "ru": "Шестой сезон: до 6 декабря\n\nСразу же получите предметы стоимостью более 3500 В-баксов!\n  • экипировка Тёмного рейнджера;\n  • экипировка Эм Си Ламы;\n  • +50% к опыту за матчи сезона;\n  • +10% к опыту друзей за матчи сезона;\n  • дополнительные еженедельные испытания;\n  • последовательные испытания Тёмного рейнджера.\n\nИграйте, повышайте уровень боевого пропуска — и вас ждут более 100 наград. Обычно, чтобы открыть все награды, требуется 75–150 часов игры; но если вы не хотите ждать, этот процесс можно ускорить за В-баксы.\n  • экипировка Оборотня и ещё 4 костюма;\n  • 3 питомца;\n  • 3 кирки;\n  • 5 эмоций;\n  • 4 дельтаплана;\n  • 4 украшения на спину;\n  • 5 воздушных следов;\n  • 14 граффити;\n  • 2 игрушки;\n  • 3 музыкальных композиции;\n  • 1300 В-баксов;\n  • и многое другое!",
+                "ko": "시즌 6: 12월 6일 종료\n\n3,500 V-Bucks 이상의 가치가 있는 여러 아이템을 즉시 받아가세요.\n  • 캘러미티 의상\n  • DJ 욘더 의상\n  • 50% 보너스 시즌 매치 XP\n  • 10% 보너스 시즌 친구 매치 XP\n  • 추가 주간 도전\n  • 캘러미티 연속 도전\n\n게임을 플레이하고 배틀패스 티어를 올려서 100개 이상의 보상을 획득해보세요(보통 75-150시간 소요). 더 빨리 보상을 얻고 싶으신가요? V-Bucks를 사용해서 언제든지 티어를 구매할 수 있습니다!\n  • 다이어 외 의상 4개\n  • 애완동물 3개\n  • 곡괭이 3개\n  • 이모트 5개\n  • 글라이더 4개\n  • 등 장신구 4개\n  • 스카이다이빙 트레일 5개\n  • 스프레이 14개\n  • 장난감 2개\n  • 음악 트랙 3개\n  • 1,300 V-Bucks\n  • 그 외 많은 혜택!",
+                "zh-hant": "第六賽季：現在起至12月6日\n\n立即獲得這些價值3500V幣的物品。\n  • 災厄俠客服裝\n  • 金碟鐵馬服裝\n  • 50%額外賽季比賽經驗\n  • 10%額外賽季好友比賽經驗\n  • 額外每週挑戰\n  • 災厄俠客可進化挑戰\n\n通過遊玩提升英雄季卡戰階，解鎖百餘獎勵（通常需要75到150個小時的遊玩時間）。希望更快嗎？你可以隨時使用V幣購買戰階！\n  • 驚懼狼人及其他4套服裝\n  • 3個寵物\n  • 3個鋤頭\n  • 5個姿勢\n  • 4個滑翔傘\n  • 4個背部裝飾\n  • 5個滑翔軌跡\n  • 14個塗鴉\n  • 2個玩具\n  • 3個音軌\n  • 1300V幣\n  • 以及更多獎勵！",
+                "pt-br": "Temporada 6: de hoje até 6 de dezembro\n\nGanhe instantaneamente esses itens avaliados em mais de 3.500 V-Bucks.\n  • Traje Calamidade\n  • Traje DJ Além\n  • 50% de Bônus de EXP da Temporada em Partidas\n  • 10% de Bônus de EXP da Temporada em Partidas com Amigos\n  • Desafios Semanais Extras\n  • Desafios Calamidade Progressivos\n\nJogue para subir o nível do seu Passe de Batalha, desbloqueando mais de 100 recompensas (leva em média 75 a 150 horas de jogo). Quer mais rápido? Você pode usar V-Bucks para comprar categorias a qualquer momento!\n  • Lupino e mais 4 outros trajes\n  • 3 Mascotes\n  • 3 Picaretas\n  • 5 Gestos\n  • 4 Asas-deltas\n  • 4 Acessórios para as Costas\n  • 5 Rastros de Queda Livre\n  • 14 Sprays\n  • 2 Brinquedos\n  • 3 Faixas Musicais\n • 1.300 V-Bucks\n  • e muito mais!",
+                "en": "Season 6: Now thru Dec 6\n\nInstantly get these items valued at over 3,500 V-Bucks.\n  • Calamity Outfit\n  • DJ Yonder Outfit\n  • 50% Bonus Season Match XP\n  • 10% Bonus Season Friend Match XP\n  • Extra Weekly Challenges\n  • Calamity Progressive Challenges\n\nPlay to level up your Battle Pass, unlocking over  100 rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\n  • Dire plus 4 other outfits\n  • 3 Pets\n  • 3 Pickaxes\n  • 5 Emotes\n  • 4 Gliders\n  • 4 Back Blings\n  • 5 Skydiving Trails\n  • 14 Sprays\n  • 2 Toys\n  • 3 Music Tracks\n  • 1,300 V-Bucks\n  • and so much more!",
+                "it": "Stagione 6: Fino al 6 dicembre\n\nOttieni subito questi oggetti dal valore di oltre 3.500 V-buck!\n• Costume Calamity\n• Costume DJ Yonder\n• Bonus del 50% dei PE partite stagionali\n• Bonus del 10% dei PE partite amico stagionali\n• Sfide settimanali extra\n• Sfide progressive Calamity\n\nGioca per aumentare di livello il tuo Pass battaglia, sbloccando più di 100 ricompense (per un totale indicativo di 75-150 ore di gioco). Vuoi tutto e subito? Puoi usare i V-buck per acquistare livelli in qualsiasi momento!\n• Manny e altri 4 costumi\n• 3 piccoli amici\n• 3 picconi\n• 5 emote\n• 4 deltaplani\n• 4 dorsi decorativi\n• 5 scie skydive\n• 14 spray\n• 2 giocattoli\n• 3 brani musicali\n• 1.300 V-buck\n• E tanto altro!",
+                "fr": "Saison 6 : jusqu'au 6 décembre\n\nRecevez immédiatement ces objets d'une valeur supérieure à 3500 V-bucks.\n  • Tenue Calamité\n  • Tenue DJ Lama\n  • Bonus d'EXP de saison de 50%\n  • Bonus d'EXP de saison de 10% pour des amis\n  • Des défis hebdomadaires supplémentaires\n  • Les défis progressifs de Calamité\n\n Jouez pour augmenter le niveau de votre Passe de combat et déverrouiller plus de 100 récompenses (nécessitant de 75 à 150 heures de jeu). Envie d'aller plus vite ? Utilisez vos V-bucks pour acheter des niveaux à tout moment !\n  • Lycan plus 4 autres tenues\n  • 3 compagnons\n  • 3 pioches\n  • 5 emotes\n  • 4 planeurs\n  • 4 accessoires de dos\n  • 5 traînées de condensation\n  • 14 aérosols\n  • 2 jouets\n  • 3 pistes musicales\n  • 1300 V-bucks\n  • Et plus !",
+                "zh-cn": "第六赛季：现在起至12月6日\n\n立即获得这些价值3500V币的物品。\n  • 灾厄侠客服装\n  • 金碟铁马服装\n  • 50%额外赛季比赛经验\n  • 10%额外赛季好友比赛经验\n  • 额外每周挑战\n  • 灾厄侠客可进化挑战\n\n通过游玩提升英雄季卡战阶，解锁百余奖励（通常需要75到150个小时的游玩时间）。希望更快吗？你可以随时使用V币购买战阶！\n  • 惊惧狼人及其他4套服装\n  • 3个宠物\n  • 3个锄头\n  • 5个姿势\n  • 4个滑翔伞\n  • 4个背部装饰\n  • 5个滑翔轨迹\n  • 14个涂鸦\n  • 2个玩具\n  • 3个音轨\n  • 1300V币\n  • 以及更多奖励！",
+                "es": "Temporada 6: desde ahora hasta el 6 de diciembre.\n\nConsigue instantáneamente estos objetos valorados en más de 3500 paVos.\n  • Traje de Calamidad.\n  • Traje de Llama DJ.\n  • Bonificación de PE de partida de temporada del 50 %.\n  • Bonificación de PE de partida amistosa de temporada del 10 %.\n  • Desafíos semanales adicionales.\n  • Desafíos progresivos de Calamidad.\n\nJuega para subir de nivel tu pase de batalla y desbloquea más de 100 recompensas (suele llevar entre 75 y 150 horas de juego). ¿Lo quieres más rápido? ¡Puedes usar paVos para comprar niveles siempre que quieras!\n  • Lobuno más otros 4 trajes.\n  • 3 mascotas.\n  • 3 picos.\n  • 5 gestos.\n  • 4 alas delta.\n  • 4 accesorios mochileros.\n  • 5 estelas de descenso.\n  • 14 grafitis.\n  • 2 juguetes.\n  • 3 pistas musicales.\n  • 1300 paVos.\n  • ¡Y mucho más!",
+                "ar": "Season 6: Now thru Dec 6\n\nInstantly get these items valued at over 3,500 V-Bucks.\n  • Calamity Outfit\n  • DJ Yonder Outfit\n  • 50% Bonus Season Match XP\n  • 10% Bonus Season Friend Match XP\n  • Extra Weekly Challenges\n  • Calamity Progressive Challenges\n\nPlay to level up your Battle Pass, unlocking over  100 rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\n  • Dire plus 4 other outfits\n  • 3 Pets\n  • 3 Pickaxes\n  • 5 Emotes\n  • 4 Gliders\n  • 4 Back Blings\n  • 5 Skydiving Trails\n  • 14 Sprays\n  • 2 Toys\n  • 3 Music Tracks\n  • 1,300 V-Bucks\n  • and so much more!",
+                "ja": "シーズン6: 12月6日まで\n\n3,500 V-Bucks以上の価値があるアイテムを今すぐ手に入れましょう。• 「カラミティ」コスチューム\n  • 「DJ ヨンダー」コスチューム\n  • シーズンマッチXPの50%ボーナス\n  • シーズンフレンドマッチXPの10%ボーナス\n  • 追加のウィークリーチャレンジ\n  • カラミティプログレッシブチャレンジ\n\nプレイしてバトルパスのレベルを上げると、100以上の報酬をアンロックできます(通常、プレイにかかる時間は75～150時間程度)。もっと早く報酬を全部集めたい？ V-Bucksでいつでもティアを購入できます！\n  • ダイアとその他コスチュームx4\n  • ペットx3\n  • ツルハシx3\n  • エモートx5\n  • グライダーx4\n  • バックアクセサリーx4\n  • スカイダイビングトレイルx5\n  • スプレーx14\n  • おもちゃx2\n  • ミュージックx3\n  • 1,300 V-Bucks\n  • 他にも色々！",
+                "pl": "Sezon 6: od teraz do 6 grudnia\n\nOtrzymasz od razu poniższe przedmioty o wartości ponad 3500 V-dolców:\n  • Strój: Kowbojka\n  • Strój: DJ Jak-mu-tam\n  • Sezonowa premia +50% PD za grę\n  • Sezonowa premia +10% PD za grę ze znajomymi\n  • Dostęp do dodatkowych wyzwań tygodnia\n  • Dostęp do wyzwań Kowbojki\n\nGraj, aby awansować karnet bojowy i zdobyć łącznie ponad 100 nagród (ich zebranie zajmuje zwykle od 75 do 150 godz. gry). Chcesz się rozwijać szybciej? W każdej chwili możesz kupić stopnie za V-dolce!\n  • Straszliwiec plus 4 inne stroje\n  • 3 pupile\n  • 3 kilofy\n  • 5 emotek\n  • 4 lotnie\n  • 4 plecaki\n  • 5 smug\n  • 14 graffiti\n  • 2 zabawki\n  • 3 tła muzyczne\n  • 1300 V-dolców\n  • I dużo więcej!",
+                "es-419": "Temporada 6: Ahora hasta el 6 de diciembre\n\nObtén al instante estos objetos que cuestan más de 3500 monedas V.\n  • Atuendo Calamidad\n  • Atuendo DJ Llama\n  • 50% de bonificación de PE para partidas de la temporada\n  • 10% de PE de bonificación para partidas con amigos en la temporada\n  • Desafíos semanales adicionales\n  • Desafíos progresivos de Calamidad\n\nJuega para subir de nivel el pase de batalla y desbloquear más de 100 recompensas (esto lleva entre 75 y 150 horas de juego). ¿Lo quieres todo más rápido? ¡Usa monedas V para comprar niveles en cualquier momento!\n  • Amenaza inminente más otros 4 atuendos\n  • 3 mascotas\n  • 3 picos\n  • 5 gestos\n  • 4 planeadores\n  • 4 mochilas retro\n  • 5 rastros de caída libre\n  • 14 aerosoles\n  • 2 juguetes\n  • 3 pistas de música\n  • 1300 monedas V\n  • ¡y mucho más!",
+                "tr": "6. Sezon: Şu andan 6 Aralık’a kadar\n\n3.500 V-Papel’in üzerinde değeri olan bu içerikleri hemen edin.\n  • Belalı Kovboy Kıyafeti\n  • DJ Lama Kıyafeti\n  • %50 Bonus Sezonluk Maç TP’si\n  • %10 Bonus Sezonluk Arkadaşlar için Maç TP’si\n  • İlave Haftalık Görevler\n  • İlerlemeli Belalı Kovboy Görevleri\n\nBattle Royale oynayarak Savaş Bileti’nin aşamasını yükselt ve 100’den fazla ödülü aç (yaklaşık 75 ila 150 saat oynama gerektirir). Hepsini daha hızlı mı almak istiyorsun? V-Papel karşılığında istediğin zaman aşama açabilirsin!\n  • Kurtadam artı 4 kıyafet daha\n  • 3 Sadık Dost\n  • 3 Kazma\n  • 5 İfade\n  • 4 Planör\n  • 4 Sırt Süsü\n  • 5 Dalış İzi\n  • 14 Sprey\n  • 2 Oyuncak\n  • 3 Müzik Parçası\n  • 1.300 V-Papel\n  • ve çok daha fazlası!"
+            },
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season6_BattlePass.DA_BR_Season6_BattlePass",
+            "itemGrants": []
+        }
+    ]
+}

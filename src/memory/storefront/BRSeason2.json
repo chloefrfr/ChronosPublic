@@ -1,0 +1,158 @@
+{
+    "name": "BRSeason2",
+    "catalogEntries": [
+        {
+            "offerId": "C3BA14F04F4D56FC1D490F8011B56553",
+            "devName": "BR.Season2.BattlePass.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 1800,
+                    "finalPrice": 950,
+                    "saleType": "PercentOff",
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 950
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "2B4936F24F3179416FEFD49DA5C4B64C",
+                    "minQuantity": 1
+                }
+            ],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 1,
+            "title": {
+                "de": "Battle Pass",
+                "ru": "Боевой пропуск",
+                "ko": "배틀패스",
+                "zh-hant": "英雄季卡",
+                "pt-br": "Passe de Batalha",
+                "en": "Battle Pass",
+                "it": "Pass battaglia",
+                "fr": "Passe de combat",
+                "zh-cn": "英雄季卡",
+                "es": "Pase de batalla",
+                "ar": "Battle Pass",
+                "ja": "バトルパス",
+                "pl": "Karnet bojowy",
+                "es-419": "Pase de batalla",
+                "tr": "Savaş Bileti"
+            },
+            "shortDescription": "",
+            "description": {
+                "de": "Saison 2: 14. Dezember - 20. Februar\r\n\r\nErhalte sofort diese Gegenstände im Wert von über 2.000 V-Bucks!\r\n  • Blauer Knappe (Outfit)\r\n  • +50 % Saison-Match-EP\r\n  • +10 % Saison-Match-EP für Freunde\r\n  • Zusätzliche tägliche Battle-Pass-Herausforderung\r\n\r\nSpiele weiter und levele deinen Battle Pass auf, um über 65 Belohnungen im Wert von 12.000 V-Bucks freizuschalten (im Normalfall werden 75 bis 150 Spielstunden benötigt). Das dauert dir zu lange? Mit V-Bucks kannst du jederzeit Level kaufen!\r\n  • Schwarzer Ritter und 2 weitere Outfits\r\n  • 3 Erntewerkzeuge\r\n  • 2 Hängegleiter\r\n  • 1.000 V-Bucks\r\n  • +60 % Saison-Match-EP\r\n  • +20 % Saison-Match-EP für Freunde\r\n  • 2 animierte Emotes\r\n  • 13 2D-Emoticons\r\n  • und vieles mehr!",
+                "ru": "Второй сезон: 14 декабря — 20 февраля\r\n\r\nСразу же получите предметы стоимостью более 2000 В-баксов!\r\n  • Экипировка Синего оруженосца;\r\n  • +50% к опыту за матчи сезона;\r\n  • +10% к опыту друзей за матчи сезона;\r\n  • дополнительное ежедневное испытание по боевому пропуску.\r\n\r\nИграйте, повышайте уровень боевого пропуска — и вас ждут более 65 наград суммарной стоимостью 12 000 В-баксов! Обычно, чтобы открыть все награды, требуется 75–120 часов игры; но если вы не хотите ждать, этот процесс можно ускорить за В-баксы.\r\n  • Экипировка Чёрного рыцаря и ещё 2 костюма;\r\n  • 3 кирки;\r\n  • 2 дельтаплана;\r\n  • 1000 В-баксов;\r\n  • +60% к опыту за матчи сезона;\r\n  • +20% к опыту друзей за матчи сезона;\r\n  • 2 анимированных эмоции;\r\n  • 13 эмотиконов;\r\n  • и это ещё не всё!",
+                "ko": "시즌 2: 12월 14일 - 2월 20일\r\n\r\n2000 V-Bucks 이상의 가치가 있는 아이템을 즉시 받아가세요.\r\n  • 청색 견습기사 의상\r\n  • 50% 보너스 시즌 매치 경험치\r\n  • 10% 보너스 시즌 친구 매치 경험치\r\n  • 배틀패스 일일 도전 추가\r\n\r\n게임을 플레이하면서 배틀패스 레벨을 올려보세요. 12,000 V-Bucks의 가치가 있는 65개 이상의 보상을 얻을 수 있습니다(보통 75-150시간 정도 소요). 더 빠르게 달성하고 싶으신가요? V-Bucks를 사용해서 언제든지 레벨을 구매할 수 있습니다!\r\n  • 흑기사 및 의상 2개\r\n  • 수확 도구 3개\r\n  • 글라이더 2개\r\n  • 1000 V-Bucks\r\n  • 60% 보너스 시즌 매치 경험치\r\n  • 20% 보너스 시즌 친구 매치 경험치\r\n  • 애니메이션 이모트 2개\r\n  • 2D 이모트 13개\r\n  • 그 외 혜택!",
+                "zh-hant": "第2賽季：12月14日-2月20日\r\n\r\n立即獲得總值超過2000V幣的下列物品！\r\n•堡壘騎士服裝\r\n•額外50%賽季匹配經驗\r\n•額外10%好友賽季匹配經驗\r\n•追加英雄季卡每日挑戰\r\n\r\n遊玩升級英雄季卡，解鎖價值12000V幣的65個以上獎勵(遊戲時間通常為75至150小時)。想要儘早獲得？你也可以使用V幣隨時購買升級！\r\n•3套服裝\r\n•3個採集工具\r\n•2架滑翔傘\r\n•1000V幣\r\n•額外60%賽季匹配經驗\r\n•額外20%好友賽季匹配經驗\r\n•2個動畫表情\r\n•13個2D表情符號\r\n•還有更多獎勵！",
+                "pt-br": "Temporada 2: 14 de dezembro — 20 de fevereiro\r\n\r\nReceba instantaneamente estes itens avaliados em mais de 2.000 V-Bucks!\r\n  • Traje Escudeiro Azul\r\n  • 50% de Bônus de EXP da Temporada em Partidas\r\n  • 10% de Bônus de EXP da Temporada em Partidas com Amigos\r\n  • Desafio Diário de Passe de Batalha Extra\r\n\r\nJogue para subir o nível do seu Passe de Batalha, desbloqueando mais de 65 recompensas avaliadas em 12.000 V-Bucks (leva em média 75 a 150 horas de jogo). Quer mais rápido? Você pode usar V-Bucks para comprar níveis a qualquer momento!\r\n  • Cavaleiro Negro e mais 2 outros trajes\r\n  • 3 Ferramentas de Coleta\r\n  • 2 Asas-deltas\r\n  • 1.000 V-Bucks\r\n  • 60% de Bônus de EXP da Temporada em Partidas\r\n  • 20% de Bônus de EXP da Temporada em Partidas com Amigos\r\n  • 2 Gestos Animados\r\n  • 13 Gestos 2D\r\n  • e mais!",
+                "en": "Season 2: Dec 14 - Feb 20\r\n\r\nInstantly get these items valued at over 2000 V-Bucks.\r\n  • Blue Squire Outfit\r\n  • 50% Bonus Season Match XP\r\n  • 10% Bonus Season Friend Match XP\r\n  • Extra Battle Pass Daily Challenge\r\n\r\nPlay to level up your Battle Pass, unlocking up to 65+ rewards worth 12,000 V-Bucks (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy levels any time!\r\n  • Black Knight plus 2 other outfits\r\n  • 3 Harvesting Tools\r\n  • 2 Gliders\r\n  • 1000 V-Bucks\r\n  • 60% Bonus Season Match XP\r\n  • 20% Bonus Season Friend Match XP\r\n  • 2 Animated Emotes\r\n  • 13 2D Emotes\r\n  • and more!",
+                "it": "Stagione 2: 14 dic. - 20 feb.\r\n\r\nOttieni subito una valutazione di questi oggetti a 2000 V-buck!\r\n  • Costume Scudiero blu\r\n  • Bonus del 50% dei PE partite stagionali\r\n  • Bonus del 10% dei PE partite amico\r\n  • Sfida giornaliera Pass battaglia extra\r\n\r\nGioca per aumentare di livello il tuo Pass battaglia, sbloccando fino a 65+ ricompense dal valore di 12.000 V-buck (necessarie tra le 75-150 ore di gioco). Vuoi tutto più in fretta? Puoi usare i V-buck per acquistare i livelli in qualsiasi momento!\r\n  • Cavaliere nero e altri 2 costumi\r\n  • 3 strumenti di raccolta\r\n  • 2 deltaplani\r\n  • 1000 V-buck\r\n  • Bonus del 60% dei PE partite stagionali\r\n  • Bonus del 20% dei PE partite amico\r\n  • 2 emoticon animate\r\n  • 13 emoticon 2D\r\n  • e molto altro ancora!",
+                "fr": "Saison 2 : 14 déc. - 20 fév.\r\n\r\nRecevez immédiatement ces objets d'une valeur supérieure à 2000 V-bucks.\r\n • Tenue d'écuyer bleu\r\n • Bonus d'EXP de saison de 50%\r\n • Bonus d'EXP de saison de 10% pour des amis\r\n • Un défi quotidien du Passe de combat supplémentaire\r\n\r\nJouez pour augmenter le niveau de votre Passe de combat et déverrouiller plus de 65 récompenses d'une valeur de 12 000 V-bucks (nécessitant de 75 à 150 heures de jeu). Envie d'aller plus vite ? Utilisez vos V-bucks pour acheter des niveaux à tout moment !\r\n • Chevalier noir, ainsi que deux autres tenues\r\n • 3 outils de collecte\r\n • 2 planeurs\r\n • 1000 V-bucks\r\n • Bonus d'EXP de saison de 60%\r\n • Bonus d'EXP de saison de 20% pour des amis\r\n • 2 emotes animées\r\n • 13 emotes en 2D\r\n • Et plus !",
+                "zh-cn": "第2赛季：12月14日-2月20日\r\n\r\n立即获得总值超过2000V币的下列物品！\r\n•堡垒骑士服装\r\n•额外50%赛季匹配经验\r\n•额外10%好友赛季匹配经验\r\n•追加英雄季卡每日挑战\r\n\r\n游玩升级英雄季卡，解锁价值12000V币的65个以上奖励(游戏时间通常为75至150小时)。想要尽早获得？你也可以使用V币随时购买升级！\r\n•3套服装\r\n•3个采集工具\r\n•2架滑翔伞\r\n•1000V币\r\n•额外60%赛季匹配经验\r\n•额外20%好友赛季匹配经验\r\n•2个动画表情\r\n•13个2D表情符号\r\n•还有更多奖励！ ",
+                "es": "Temporada 2: 14 dic - 20 feb\r\n\r\nConsigue instantáneamente estos objetos valorados en más de 2000 paVos.\r\n  • Traje de escudero azul.\r\n  • Bonificación de PE de partida de temporada del 50%.\r\n  • Bonificación de PE de partida amistosa de temporada del 10%.\r\n  • Desafío diario del pase de batalla adicional.\r\n\r\nJuega para subir de nivel tu pase de batalla y desbloquea más de 65 recompensas con un valor de 12000 paVos (suele llevar entre 75 y 150 horas de juego). ¿Lo quieres más rápido? ¡Puedes usar paVos para subir de nivel siempre que quieras!\r\n  • Caballero negro más otros 2 trajes.\r\n  • 3 herramientas de recolección.\r\n  • 2 alas delta.\r\n  • 1000 paVos.\r\n  • Bonificación de PE de partida de temporada del 60%.\r\n  • Bonificación de PE de partida amistosa de temporada del 20%.\r\n  • 2 gestos animados.\r\n  • 13 gestos 2D.\r\n  • ¡Y mucho más!",
+                "ar": "Season 2: Dec 14 - Feb 20\r\n\r\nInstantly get these items valued at over 2000 V-Bucks.\r\n  • Blue Squire Outfit\r\n  • 50% Bonus Season Match XP\r\n  • 10% Bonus Season Friend Match XP\r\n  • Extra Battle Pass Daily Challenge\r\n\r\nPlay to level up your Battle Pass, unlocking up to 65+ rewards worth 12,000 V-Bucks (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy levels any time!\r\n  • Black Knight plus 2 other outfits\r\n  • 3 Harvesting Tools\r\n  • 2 Gliders\r\n  • 1000 V-Bucks\r\n  • 60% Bonus Season Match XP\r\n  • 20% Bonus Season Friend Match XP\r\n  • 2 Animated Emotes\r\n  • 13 2D Emotes\r\n  • and more!",
+                "ja": "シーズン2: 12月14日～2月20日\r\n\r\n2000 V-Bucks分のアイテムをすぐに入手しましょう。\r\n  ・ブルースクワイアー\r\n  ・シーズンマッチXPの50%ボーナス\r\n  ・シーズンフレンドマッチXPの10%ボーナス\r\n  ・追加のバトルパス・デイリーチャレンジ\r\n\r\nプレイしてバトルパスのレベルを上げると、12000 V-Bucks分の報酬を最大65個以上アンロックできます(およそ75～150時間程度のプレイが必要)。すぐに報酬が欲しい場合は、V-Bucksでいつでもティアを購入することができます！\r\n  ・ブラックナイトコスチュームとさらに他のコスチューム2点\r\n  ・収集ツールx3\r\n  ・グライダーx2\r\n  ・1000 V-Bucks\r\n  ・シーズンマッチXPの60%ボーナス\r\n  ・シーズンフレンドマッチXPの20%ボーナス\r\n  • 動くエモートx2\r\n  ・2Dエモートx13\r\n  ・他にも色々！",
+                "pl": "Sezon 2: 14 grudnia - 20 lutego\r\n\r\nOtrzymasz od razu poniższe przedmioty o wartości ponad 2000 V-dolców!\r\n  • Strój: „Niebieski Giermek”\r\n  • Sezonowa premia +50% PD za grę\r\n  • Sezonowa premia +10% PD za grę ze znajomym\r\n  • Dodatkowe wyzwanie dnia z karnetu bojowego\r\n\r\nGraj dalej, aby awansować karnet bojowy i zdobyć ponad 65 kolejnych nagród o wartości ponad 12 000 V-dolców (ich zebranie normalnie zajmuje od 75 do 150 godz. gry). Chcesz się rozwijać szybciej? W każdej chwili możesz kupić poziomy za V-dolce!\r\n  • Czarny Rycerz plus 2 inne stroje\r\n  • 3 zbieraki\r\n  • 2 lotnie\r\n  • 1000 V-dolców\r\n  • Sezonowa premia +60% PD za grę\r\n  • Sezonowa premia +20% PD za grę ze znajomym\r\n  • 2 animowane emotki\r\n  • 13 emotek 2D\r\n  • I dużo więcej!",
+                "es-419": "Temporada 2: 14 dic - 20 feb\r\n\r\n¡Obtén al instante estos objetos que cuestan más de 2000 monedas V!\r\n  • Atuendo Escudero azul\r\n  • 50 % de bonificación de PE para partidas de la temporada\r\n  • 10 % de bonificación de PE para partidas con amigos en la temporada\r\n  • Desafío diario de pase de batalla adicional\r\n\r\nJuega para subir de nivel tu pase de batalla y desbloquea hasta más de 65 recompensas con un valor de 12.000 monedas V (esto lleva entre 75 y 150 horas de juego). ¿Lo quieres todo más rápido? ¡Puedes utilizar monedas V para comprar niveles cuando quieras!\r\n  • Caballero negro más otros 2 atuendos\r\n  • 3 herramientas de recolección\r\n  • 2 planeadores\r\n  • 1000 monedas V\r\n  • 60 % de bonificación de PE para partidas de la temporada\r\n  • 20 % de bonificación de PE para partidas con amigos en la temporada\r\n  • 2 gestos animados\r\n  • 13 gestos 2D\r\n  • ¡Y mucho más!",
+                "tr": "2. Sezon: 14 Aralık - 20 Şubat\r\n\r\n2000 V-Papel’in üzerinde değeri olan bu içeriklere hemen sahip ol.\r\n  • Mavi Şövalye Kıyafeti\r\n  • %50 Bonus Sezonluk Maç TP'si\r\n  • %10 Bonus Sezonluk Arkadaş Maçı TP'si\r\n  • İlave Savaş Bileti Günlük Görevi\r\n\r\nOynayarak Savaş Bileti’nin seviyesini yükselt ve 12.000 V-Papel değerindeki (normalde 75-150 saat oynayarak elde edilebilen) 65'in üzerinde ödülün kilidini aç. Hepsine daha çabuk mu sahip olmak istiyorsun? İstediğin zaman aşama satın almak için V-Papel kullanabilirsin!\r\n  • Kara Şövalye ve 2 kıyafet daha\r\n  • 3 Toplama Aleti\r\n  • 2 Planör\r\n  • 1000 V-Papel\r\n  • %60 Bonus Sezonluk Maç TP'si\r\n  • %20 Bonus Sezonluk Arkadaş Maçı TP'si\r\n  • 2 Animasyonlu İfade\r\n  • 13 2B İfade\r\n  • ve daha fazlası!"
+            },
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season2_BattlePass.DA_BR_Season2_BattlePass",
+            "itemGrants": []
+        },
+        {
+            "offerId": "F86AC2ED4B3EA4B2D65EF1B2629572A0",
+            "devName": "BR.Season2.SingleTier.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 150,
+                    "finalPrice": 150,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 150
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 0,
+            "title": {
+                "de": "Battle-Pass-Level",
+                "ru": "Уровень боевого пропуска",
+                "ko": "배틀패스 레벨",
+                "zh-hant": "英雄季卡戰階",
+                "pt-br": "Nível de Passe de Batalha",
+                "en": "Battle Pass Level",
+                "it": "Livello Pass battaglia",
+                "fr": "Niveau de Passe de combat",
+                "zh-cn": "英雄季卡战阶",
+                "es": "Pase de batalla de nivel",
+                "ar": "Battle Pass Level",
+                "ja": "バトルバスレベル",
+                "pl": "Poziom karnetu bojowego",
+                "es-419": "Nivel de pase de batalla",
+                "tr": "Savaş Bileti Aşaması"
+            },
+            "shortDescription": "",
+            "description": {
+                "de": "Hol dir jetzt tolle Belohnungen!",
+                "ru": "Получите отличные награды!",
+                "ko": "지금 푸짐한 보상을 얻어보세요!",
+                "zh-hant": "現在獲得豐厚獎勵！",
+                "pt-br": "Ganhe recompensas ótimas agora!",
+                "en": "Get great rewards now!",
+                "it": "Ricevi subito magnifiche ricompense!",
+                "fr": "Obtenez de grandes récompenses !",
+                "zh-cn": "现在获得丰厚奖励！",
+                "es": "¡Consigue recompensas increíbles!",
+                "ar": "Get great rewards now!",
+                "ja": "ステキな報酬を今すぐゲット！",
+                "pl": "Zdobądź super nagrody już teraz!",
+                "es-419": "¡Consigue grandes recompensas ahora!",
+                "tr": "Harika ödüllerin sahibi ol!"
+            },
+            "displayAssetPath": "",
+            "itemGrants": []
+        }
+    ]
+}

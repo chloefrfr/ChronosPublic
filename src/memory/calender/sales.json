@@ -1,0 +1,107 @@
+[
+    {
+        "@./Calendars/Snippets/BattleRoyale/Store/AthenaGlider/glider_id_327_nucleusmale_55hfk_f.json": "@./Calendars/Snippets/BattleRoyale/Store/AthenaGlider/glider_id_327_nucleusmale_55hfk_f.json:\n&quot;offer.category&quot;:&quot;Panel 38&quot;",
+        "&quot;offer.sort&quot;": "&quot;offer.sort&quot;:-10",
+        "&quot;offer.meta.SectionId&quot;": "&quot;offer.meta.SectionId&quot;: &quot;Marvel20B&quot;",
+        "&quot;offer.meta.TileSize&quot;": "&quot;offer.meta.TileSize&quot;: &quot;Small&quot;",
+        "&quot;offer.meta.AnalyticOfferGroupId&quot;": "&quot;offer.meta.AnalyticOfferGroupId&quot;:33",
+        "storefront": "storefront: &quot;BRSpecialFeatured&quot;",
+        "&quot;offer.meta.FirstSeen&quot;": "&quot;offer.meta.FirstSeen&quot;: &quot;3/5/2023&quot;\n\n@./Calendars/Snippets/BattleRoyale/Store/featured_timer.json:\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:&quot;operations[0].key&quot;:&quot;sectionStoreEnds.Marvel19B&quot;\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:&quot;operations[0].key&quot;:&quot;sectionStoreEnds.Marvel20B&quot;",
+        "&quot;offer.meta.ViolatorTag&quot;": "&quot;offer.meta.ViolatorTag&quot;:&quot;SurfingGlider&quot;",
+        "&quot;offer.meta.ViolatorIntensity&quot;": "&quot;offer.meta.ViolatorIntensity&quot;:&quot;High&quot;"
+    },
+    {
+        "@./Calendars/Snippets/BattleRoyale/Store/AthenaBundles/b_dragonfruit.json": "@./Calendars/Snippets/BattleRoyale/Store/AthenaBundles/b_dragonfruit.json:\n\"offer.category\":\"Panel 38\"",
+        "offer.sort": "\"offer.sort\":-3",
+        "offer.meta.SectionId": "\"offer.meta.SectionId\": \"Marvel19B\"",
+        "offer.meta.TileSize": "\"offer.meta.TileSize\": \"Normal\"",
+        "offer.meta.AnalyticOfferGroupId": "\"offer.meta.AnalyticOfferGroupId\":32",
+        "storefront": "storefront: \"BRSpecialFeatured\"",
+        "offer.meta.FirstSeen": "\"offer.meta.FirstSeen\": \"3/5/2023\"\n\n@./Calendars/Snippets/BattleRoyale/Store/featured_timer.json:\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel15B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel16B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel17B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel18B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel19B\"",
+        "offer.meta.ViolatorTag": "\"offer.meta.ViolatorTag\":\"SurfingGlider\"",
+        "offer.meta.ViolatorIntensity": "\"offer.meta.ViolatorIntensity\":\"High\""
+    },
+    {
+        "@./Calendars/Snippets/BattleRoyale/Store/AthenaBundles/B_xforcegearbundle.json": "@./Calendars/Snippets/BattleRoyale/Store/AthenaBundles/B_xforcegearbundle.json:\n\"offer.category\":\"Panel 25\"",
+        "offer.sort": "\"offer.sort\":-5",
+        "offer.meta.SectionId": "\"offer.meta.SectionId\": \"Marvel14B\"",
+        "offer.meta.TileSize": "\"offer.meta.TileSize\": \"Small\"",
+        "offer.meta.AnalyticOfferGroupId": "\"offer.meta.AnalyticOfferGroupId\":27",
+        "storefront": "storefront: \"BRSpecialFeatured\"",
+        "offer.meta.FirstSeen": "\"offer.meta.FirstSeen\": \"3/5/2023\"\n\n@./Calendars/Snippets/BattleRoyale/Store/featured_timer.json:\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel11B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel12B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel13B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel14B\"",
+        "offer.meta.ViolatorTag": "\"offer.meta.ViolatorTag\":\"SurfingGlider\"",
+        "offer.meta.ViolatorIntensity": "\"offer.meta.ViolatorIntensity\":\"High\""
+    },
+    {
+        "@./Calendars/Snippets/BattleRoyale/Store/AthenaDance/eid_donut2_f.json": "@./Calendars/Snippets/BattleRoyale/Store/AthenaDance/eid_donut2_f.json:\n\"offer.category\":\"Panel 21\"",
+        "offer.sort": "\"offer.sort\":-4",
+        "offer.meta.SectionId": "\"offer.meta.SectionId\": \"Marvel11B\"",
+        "offer.meta.TileSize": "\"offer.meta.TileSize\": \"Small\"",
+        "offer.meta.AnalyticOfferGroupId": "\"offer.meta.AnalyticOfferGroupId\":24",
+        "storefront": "storefront: \"BRSpecialFeatured\"",
+        "offer.meta.FirstSeen": "\"offer.meta.FirstSeen\": \"3/5/2023\"\n\n@./Calendars/Snippets/BattleRoyale/Store/featured_timer.json:\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel8B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel9B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel10B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel11B\"",
+        "offer.meta.ViolatorTag": "\"offer.meta.ViolatorTag\":\"PickaxeIncluded\"",
+        "offer.meta.ViolatorIntensity": "\"offer.meta.ViolatorIntensity\":\"High\""
+    },
+    {
+        "@./Calendars/Snippets/BattleRoyale/Store/AthenaDance/eid_basilstrong_f.json": "@./Calendars/Snippets/BattleRoyale/Store/AthenaDance/eid_basilstrong_f.json:\n\"offer.category\":\"Panel 17\"",
+        "offer.sort": "\"offer.sort\":-7",
+        "offer.meta.SectionId": "\"offer.meta.SectionId\": \"Marvel8B\"",
+        "offer.meta.TileSize": "\"offer.meta.TileSize\": \"Small\"",
+        "offer.meta.AnalyticOfferGroupId": "\"offer.meta.AnalyticOfferGroupId\":21",
+        "storefront": "storefront: \"BRSpecialFeatured\"",
+        "offer.meta.FirstSeen": "\"offer.meta.FirstSeen\": \"3/5/2023\"\n\n@./Calendars/Snippets/BattleRoyale/Store/featured_timer.json:\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel5B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel6B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel7B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel8B\"",
+        "offer.meta.ViolatorTag": "\"offer.meta.ViolatorTag\":\"SurfingGlider\"",
+        "offer.meta.ViolatorIntensity": "\"offer.meta.ViolatorIntensity\":\"High\""
+    },
+    {
+        "@./Calendars/Snippets/BattleRoyale/Store/AthenaItemWrap/wrap_darkazeala_f.json": "@./Calendars/Snippets/BattleRoyale/Store/AthenaItemWrap/wrap_darkazeala_f.json:\n\"offer.category\":\"Panel 13\"",
+        "offer.sort": "\"offer.sort\":-3",
+        "offer.meta.SectionId": "\"offer.meta.SectionId\": \"Marvel5B\"",
+        "offer.meta.TileSize": "\"offer.meta.TileSize\": \"Small\"",
+        "offer.meta.AnalyticOfferGroupId": "\"offer.meta.AnalyticOfferGroupId\":18",
+        "storefront": "storefront: \"BRSpecialFeatured\"",
+        "offer.meta.FirstSeen": "\"offer.meta.FirstSeen\": \"3/5/2023\"\n\n@./Calendars/Snippets/BattleRoyale/Store/featured_timer.json:\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel0B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.MarvelB\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel2B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel3B\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel4\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel5B\"",
+        "offer.meta.ViolatorTag": "\"offer.meta.ViolatorTag\":\"CustomizeWithSprays\"",
+        "offer.meta.ViolatorIntensity": "\"offer.meta.ViolatorIntensity\":\"High\""
+    },
+    {
+        "@./Calendars/Snippets/BattleRoyale/Store/AthenaBundles/b_architect_raveninja.json": "@./Calendars/Snippets/BattleRoyale/Store/AthenaBundles/b_architect_raveninja.json:\n\"offer.category\":\"Panel 01\"",
+        "offer.sort": "\"offer.sort\":-4",
+        "offer.meta.SectionId": "\"offer.meta.SectionId\": \"Marvel0B\"",
+        "offer.meta.TileSize": "\"offer.meta.TileSize\": \"Small\"",
+        "offer.meta.AnalyticOfferGroupId": "\"offer.meta.AnalyticOfferGroupId\":13",
+        "storefront": "storefront: \"BRSpecialFeatured\"",
+        "offer.meta.FirstSeen": "\"offer.meta.FirstSeen\": \"3/5/2023\"\n\n@./Calendars/Snippets/BattleRoyale/Store/featured_timer.json:\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.HeadShotChickB\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.CreedB\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.HorizonZeroDawnB\"\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:\"operations[0].key\":\"sectionStoreEnds.Marvel0B\"",
+        "offer.meta.ViolatorTag": "\"offer.meta.ViolatorTag\":\"10custom\"",
+        "offer.meta.ViolatorIntensity": "\"offer.meta.ViolatorIntensity\":\"High\""
+    },
+    {
+        "@./Calendars/Snippets/BattleRoyale/Store/AthenaBundles/b_multibot.json": "@./Calendars/Snippets/BattleRoyale/Store/AthenaBundles/b_multibot.json:\n&quot;offer.category&quot;:&quot;Panel 01&quot;",
+        "&quot;offer.sort&quot;": "&quot;offer.sort&quot;:-4",
+        "&quot;offer.meta.SectionId&quot;": "&quot;offer.meta.SectionId&quot;: &quot;Featured3&quot;",
+        "&quot;offer.meta.TileSize&quot;": "&quot;offer.meta.TileSize&quot;: &quot;Normal&quot;",
+        "&quot;offer.meta.AnalyticOfferGroupId&quot;": "&quot;offer.meta.AnalyticOfferGroupId&quot;:3",
+        "&quot;offer.meta.StoreToastHeader&quot;": "&quot;offer.meta.StoreToastHeader&quot;:&quot;Back&quot;",
+        "&quot;offer.meta.StoreToastBody&quot;": "&quot;offer.meta.StoreToastBody&quot;:&quot;ItemAvailableNow&quot;\n\n@./Calendars/Snippets/BattleRoyale/Store/AthenaGlider/glider_id_366_multibotpinkmale_f.json:\n&quot;offer.category&quot;:&quot;Panel 01&quot;",
+        "&quot;offer.meta.ViolatorTag&quot;": "&quot;offer.meta.ViolatorTag&quot;:&quot;PromoBanner4&quot;",
+        "&quot;offer.meta.ViolatorIntensity&quot;": "&quot;offer.meta.ViolatorIntensity&quot;:&quot;High&quot;\n\n@./Calendars/Snippets/BattleRoyale/Store/featured_timer.json:\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:&quot;operations[0].key&quot;:&quot;sectionStoreEnds.Featured&quot;\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:&quot;operations[0].key&quot;:&quot;sectionStoreEnds.Featured2&quot;\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:&quot;operations[0].key&quot;:&quot;sectionStoreEnds.Featured3&quot;"
+    },
+    {
+        "@./Calendars/Snippets/BattleRoyale/Store/AthenaCharacter/cid_514_athena_commando_f_toxickitty_d.json": "@./Calendars/Snippets/BattleRoyale/Store/AthenaCharacter/cid_514_athena_commando_f_toxickitty_d.json:\n&quot;offer.category&quot;:&quot;zzDaily 01&quot;",
+        "&quot;offer.sort&quot;": "&quot;offer.sort&quot;:-6",
+        "&quot;offer.meta.SectionId&quot;": "&quot;offer.meta.SectionId&quot;: &quot;Daily&quot;",
+        "&quot;offer.meta.TileSize&quot;": "&quot;offer.meta.TileSize&quot;: &quot;Small&quot;",
+        "&quot;offer.meta.AnalyticOfferGroupId&quot;": "&quot;offer.meta.AnalyticOfferGroupId&quot;:9\n\n@./Calendars/Snippets/BattleRoyale/Store/daily_timer.json:$min_build: &quot;8.00&quot;\n@./Calendars/Snippets/BattleRoyale/Store/cataba_timer.json:&quot;operations[0].key&quot;:&quot;sectionStoreEnds.Daily&quot;",
+        "&quot;offer.meta.FirstSeen&quot;": "&quot;offer.meta.FirstSeen&quot;: &quot;3/9/2023&quot;\n\n@./Calendars/Snippets/BattleRoyale/Store/AthenaMusicPack/musicpack_028_llamabell_d.json:\n&quot;offer.category&quot;:&quot;zzDaily 06&quot;"
+    },
+    {
+        "className": "&quot;BasicEvent&quot;",
+        "&quot;$min_build&quot;": "&quot;$min_build&quot;:&quot;24.00&quot;",
+        "channel": "channel: &quot;rotational-content-mcp&quot;",
+        "wipeNumber": "wipeNumber: 0",
+        "operations": "operations: [\n \n op: &quot;AddFlag&quot;",
+        "key": "key: &quot;activeStorefronts&quot;",
+        "value": "value: &quot;BRSeason24.InGameSeasonPass&quot;\n \n ]"
+    }
+]
