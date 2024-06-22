@@ -13,6 +13,7 @@ const configSchema = z.object({
   guild_id: z.string(),
   client_secret: z.string(),
   currentSeason: z.number(),
+  webhook_url: z.string(),
 });
 
 export default class Config {
@@ -26,6 +27,7 @@ export default class Config {
       guild_id: Bun.env.guild_id,
       client_secret: Bun.env.client_secret,
       currentSeason: parseInt(Bun.env.currentSeason as string, 10),
+      webhook_url: Bun.env.webhook_url,
     });
 
     // Check if parsing was successful

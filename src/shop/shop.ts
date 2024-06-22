@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import fs from "node:fs/promises";
 import type { JSONResponse, CosmeticSet } from "./interfaces/FortniteAPI";
 import { config, logger } from "..";
 import { CosmeticTypes } from "./enums/CosmeticTypes";
@@ -24,6 +25,25 @@ export namespace ShopGenerator {
   export const shop = ShopHelper.createShop();
 
   export async function generate() {
+    const date = new Date().toISOString().split('T')[0];
+    const filePath = path.join(__dirname, "..", "memory", "storefront", `pastshop-${date}.json`);
+
+    try {
+      await fs.writeFile(filePath, JSON.stringify(shop, null, 2));
+    } catch (error) {
+      logger.error(`Failed to save old shops! Error : ${error}`);
+    }
+    try {
+      const files = await fs.readdir(path.join(__dirname, "..", "memory"));
+      const pastShopFiles = files.filter(file => file.startsWith("pastshop-")).sort().reverse();
+      
+      for (let i = 5; i < pastShopFiles.length; i++) {
+        await fs.unlink(path.join(__dirname, "..", "memory", "storefront", pastShopFiles[i]));
+      }
+    } catch (error) {
+      logger.error(`Failed to delete old shops! Error : ${error}`);
+    }
+
     const request = await fetch("https://fortnite-api.com/v2/cosmetics/br").then(
       async (res) => (await res.json()) as any,
     );

@@ -73,11 +73,11 @@ LogPhysics=Verbose
 LogStreaming=Error
 
 [/Script/Qos.QosRegionManager]
-NumTestsPerRegion=1
+NumTestsPerRegion=2
 PingTimeout=3.0
-!RegionDefinitions=ClearArray
-+RegionDefinitions=(DisplayName="Chronos NA", RegionId="NAE", bEnabled=true, bVisible=true, bAutoAssignable=true)
-+RegionDefinitions=(DisplayName="Chronos EU", RegionId="EU", bEnabled=true, bVisible=true, bAutoAssignable=true)
+!DatacenterDefinitions=ClearArray
++DatacenterDefinitions=(Id="VA", RegionId="NAE", bEnabled=true, Servers[0]=(Address="ping-nae.ds.on.epicgames.com", Port=22222))
++DatacenterDefinitions=(Id="DE", RegionId="EU", bEnabled=true, Servers[0]=(Address="ping-eu.ds.on.epicgames.com", Port=22222))
 `;
 }
 
