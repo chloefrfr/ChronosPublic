@@ -99,6 +99,7 @@ export default class RegisterCommand extends BaseCommand {
 
             battlepass: ProfileHelper.createBattlePassTemplate(),
             stats: ProfileHelper.createStatsTemplate(),
+            arenaHype: 0,
           });
 
           await profilesService.create({

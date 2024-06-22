@@ -44,4 +44,7 @@ export class Account extends BaseEntity {
 
   @Column({ type: "json", nullable: false, default: {} })
   stats!: Stats;
+
+  @Column({ type: "number", nullable: false, default: 0 })
+  arenaHype!: number;
 }
