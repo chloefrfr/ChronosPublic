@@ -13,7 +13,8 @@ export default async function handleAuthentication(
     if (!root || !root.content) return socket.close(1008, "Invalid XML");
 
     const decodedNodeContent = atob(root.content);
-    if (decodedNodeContent.includes("\u0000")) return socket.close(1008, "Invalid XML");
+    if (!decodedNodeContent.includes("\u0000")) return socket.close(1008, "Invalid XML");
+
     const authenticationFields = decodedNodeContent.split("\u0000");
 
     if (authenticationFields.length !== 3 || !Array.isArray(authenticationFields))
