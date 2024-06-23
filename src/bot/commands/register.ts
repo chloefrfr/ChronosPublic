@@ -6,7 +6,7 @@ import {
   type CacheType,
 } from "discord.js";
 import BaseCommand from "../base/Base";
-import { accountService, logger, profilesService, userService } from "../..";
+import { accountService, friendsService, logger, profilesService, userService } from "../..";
 import { v4 as uuid } from "uuid";
 import ProfileHelper from "../../utilities/profiles";
 
@@ -113,6 +113,10 @@ export default class RegisterCommand extends BaseCommand {
           await profilesService.create({
             type: "common_public",
             profile: common_core,
+          });
+
+          await friendsService.create({
+            accountId: newUser.accountId,
           });
         });
 

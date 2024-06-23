@@ -2,6 +2,7 @@ import type { ServerWebSocket } from "bun";
 import type { ChronosSocket } from "../xmpp/server";
 import { XmppService } from "../xmpp/service";
 import xmlbuilder from "xmlbuilder";
+import { friendsService } from "..";
 
 /* 
 {
@@ -43,7 +44,30 @@ export namespace XmppUtilities {
     sender.lastPresenceUpdate.status = status;
     sender.lastPresenceUpdate.away = away;
 
-    /// TODO - Loop through accepted friends and send the socket message.
+    const friends = await friendsService.findFriendByAccountId(sender.accountId);
+
+    if (!friends) return;
+
+    friends.accepted.forEach((friend) => {
+      const client = XmppService.xmppClients.get(friend.accountId);
+      if (!client) return;
+
+      let xmlMessage = xmlbuilder
+        .create("presence")
+        .attribute("to", client.jid)
+        .attribute("xmlns", "jabber:client")
+        .attribute("from", sender.jid)
+        .attribute("type", offline ? "unavailable" : "available");
+
+      if (sender.lastPresenceUpdate.away)
+        xmlMessage = xmlMessage
+          .element("show", "away")
+          .element("status", sender.lastPresenceUpdate.status)
+          .up();
+      else xmlMessage = xmlMessage.element("status", sender.lastPresenceUpdate.status).up();
+
+      client.socket.send(xmlMessage.toString({ pretty: true }));
+    });
   }
 
   export async function GetUserPresence(offline: boolean, senderId: string, receiverId: string) {
