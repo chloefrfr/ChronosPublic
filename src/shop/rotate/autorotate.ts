@@ -15,13 +15,12 @@ export default async function rotate(now: boolean) {
         nextRun.setDate(nextRun.getDate() + 1);
 
         logger.info(`Next shop generates at ${nextRun}`);
+        logger.info("Successfully generated storefront.");
       },
       {
         timezone: "America/Phoenix",
       },
     );
-
-    logger.info("Successfully generated storefront.");
   } else {
     await ShopGenerator.generate();
     logger.info("Successfully generated storefront.");
