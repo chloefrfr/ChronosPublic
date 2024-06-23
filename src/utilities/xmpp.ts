@@ -3,6 +3,7 @@ import type { ChronosSocket } from "../xmpp/server";
 import { XmppService } from "../xmpp/service";
 import xmlbuilder from "xmlbuilder";
 import { friendsService } from "..";
+import xmlparser from "xml-parser";
 
 /* 
 {
@@ -91,5 +92,24 @@ export namespace XmppUtilities {
     else xmlMessage = xmlMessage.element("status", sender.lastPresenceUpdate.status).up();
 
     receiver.socket.send(xmlMessage.toString({ pretty: true }));
+  }
+
+  export async function SendMessageToClient(jid: string, body: string, root: xmlparser.Node) {
+    const receiver = XmppService.xmppClients.get(root.attributes.to.split("@")[0]);
+
+    if (!receiver) return;
+    if (receiver.jid.split("/")[0] !== jid) return;
+
+    receiver.socket.send(
+      xmlbuilder
+        .create("message")
+        .attribute("from", jid)
+        .attribute("xmlns", "jabber:client")
+        .attribute("to", receiver.jid)
+        .attribute("id", root.attributes.id)
+        .element("body", body)
+        .up()
+        .toString({ pretty: true }),
+    );
   }
 }
