@@ -2,8 +2,9 @@ import type { ServerWebSocket } from "bun";
 import type { ChronosSocket } from "../xmpp/server";
 import { XmppService } from "../xmpp/service";
 import xmlbuilder from "xmlbuilder";
-import { friendsService } from "..";
+import { friendsService, userService } from "..";
 import xmlparser from "xml-parser";
+import { Friends } from "../tables/friends";
 
 /* 
 {
@@ -143,5 +144,117 @@ export namespace XmppUtilities {
         .up()
         .toString({ pretty: true }),
     );
+  }
+
+  export async function SendFriendRequest(accountId: string, friendId: string) {
+    const frienduser = await friendsService.findFriendByAccountId(accountId);
+    const friendInList = await friendsService.findFriendByAccountId(friendId);
+
+    const user = await userService.findUserByAccountId(accountId);
+    const friend = await userService.findUserByAccountId(friendId);
+
+    if (!frienduser || !friendInList || !user || !friend) return false;
+    if (user.banned || friend.banned) return false;
+
+    frienduser.outgoing.push({
+      accountId: friend.accountId,
+      createdAt: new Date().toISOString(),
+      alias: "",
+    });
+
+    SendMessageToId(
+      JSON.stringify({
+        payload: {
+          accountId: friend.accountId,
+          status: "PENDING",
+          direction: "OUTBOUND",
+          created: new Date().toISOString(),
+          favorite: false,
+        },
+        type: "com.epicgames.friends.core.apiobjects.Friend",
+        timestamp: new Date().toISOString(),
+      }),
+      user.accountId,
+    );
+
+    friendInList.incoming.push({
+      accountId: user.accountId,
+      createdAt: new Date().toISOString(),
+      alias: "",
+    });
+
+    SendMessageToId(
+      JSON.stringify({
+        payload: {
+          accountId: user.accountId,
+          status: "PENDING",
+          direction: "INBOUND",
+          created: new Date().toISOString(),
+          favorite: false,
+        },
+        type: "com.epicgames.friends.core.apiobjects.Friend",
+        timestamp: new Date().toISOString(),
+      }),
+      friend.accountId,
+    );
+
+    await Friends.createQueryBuilder()
+      .update(Friends)
+      .set({ outgoing: frienduser.outgoing })
+      .where("accountId = :accountId", { accountId: user.accountId })
+      .execute();
+
+    await Friends.createQueryBuilder()
+      .update(Friends)
+      .set({ incoming: friendInList.incoming })
+      .where("accountId = :accountId", { accountId: friend.accountId })
+      .execute();
+
+    return true;
+  }
+
+  export async function AcceptFriendRequest(accountId: string, friendId: string) {
+    const frienduser = await friendsService.findFriendByAccountId(accountId);
+    const friendInList = await friendsService.findFriendByAccountId(friendId);
+
+    const user = await userService.findUserByAccountId(accountId);
+    const friend = await userService.findUserByAccountId(friendId);
+
+    if (!frienduser || !friendInList || !user || !friend) return false;
+    if (user.banned || friend.banned) return false;
+
+    const incomingFriendsIndex = frienduser.incoming.findIndex(
+      (incoming) => incoming.accountId === friend.accountId,
+    );
+
+    frienduser.incoming.splice(incomingFriendsIndex, 1);
+    frienduser.accepted.push({
+      accountId: friend.accountId,
+      createdAt: new Date().toISOString(),
+      alias: "",
+    });
+
+    SendMessageToId(
+      JSON.stringify({
+        payload: {
+          accountId: friend.accountId,
+          status: "ACCEPTED",
+          direction: "OUTBOUND",
+          created: new Date().toISOString(),
+          favorite: false,
+        },
+        type: "com.epicgames.friends.core.apiobjects.Friend",
+        timestamp: new Date().toISOString(),
+      }),
+      user.accountId,
+    );
+
+    await Friends.createQueryBuilder()
+      .update(Friends)
+      .set({ accepted: frienduser.accepted, incoming: frienduser.incoming })
+      .where("accountId = :accountId", { accountId: user.accountId })
+      .execute();
+
+    return true;
   }
 }

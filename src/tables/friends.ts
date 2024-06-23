@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 interface Friend {
   accountId: string;
@@ -7,7 +7,7 @@ interface Friend {
 }
 
 @Entity()
-export class Friends {
+export class Friends extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
