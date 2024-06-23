@@ -104,14 +104,17 @@ export default class RegisterCommand extends BaseCommand {
 
           await profilesService.create({
             type: "athena",
+            accountId: newUser.accountId,
             profile: athena,
           });
           await profilesService.create({
             type: "common_core",
+            accountId: newUser.accountId,
             profile: common_core,
           });
           await profilesService.create({
             type: "common_public",
+            accountId: newUser.accountId,
             profile: common_core,
           });
 

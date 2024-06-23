@@ -6,6 +6,9 @@ export class Profiles extends BaseEntity {
   id!: string;
 
   @Column()
+  accountId!: string;
+
+  @Column()
   type!: string;
 
   @Column({ type: "json", nullable: false, default: {} })

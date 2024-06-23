@@ -64,4 +64,15 @@ export default class UserService {
       return null;
     }
   }
+
+  public async delete(accountId: string): Promise<boolean> {
+    try {
+      const result = await this.userRepository.delete({ accountId });
+      if (result.affected === 1) return true;
+      return false;
+    } catch (error) {
+      logger.error(`Error deleting user: ${error}`);
+      return false;
+    }
+  }
 }

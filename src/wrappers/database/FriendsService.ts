@@ -33,4 +33,15 @@ export default class FriendsService {
       return null;
     }
   }
+
+  public async delete(accountId: string): Promise<boolean> {
+    try {
+      const result = await this.friendsRepository.delete({ accountId });
+      if (result.affected === 1) return true;
+      return false;
+    } catch (error) {
+      logger.error(`Error deleting friends: ${error}`);
+      return false;
+    }
+  }
 }

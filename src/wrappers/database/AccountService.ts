@@ -49,6 +49,17 @@ export default class AccountService {
     }
   }
 
+  public async delete(accountId: string): Promise<boolean> {
+    try {
+      const result = await this.accountRepository.delete({ accountId });
+      if (result.affected === 1) return true;
+      return false;
+    } catch (error) {
+      logger.error(`Error deleting account: ${error}`);
+      return false;
+    }
+  }
+
   // public async update(accountId: string, profileId: ProfileId, newData: any) {
   //   try {
   //     const existingProfile = await this.findUserByAccountId(accountId);
