@@ -52,7 +52,7 @@ export default class ProfilesService {
   public async delete(accountId: string): Promise<boolean> {
     try {
       const result = await this.profilesRepository.delete({ accountId });
-      if (result.affected === 1) return true;
+      if (result.affected === 3) return true;
       return false;
     } catch (error) {
       logger.error(`Error deleting profile: ${error}`);

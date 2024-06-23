@@ -26,20 +26,38 @@ export default class DeleteCommand extends BaseCommand {
     try {
       const discordId = interaction.user.id as string;
       const user = await userService.findUserByDiscordId(discordId);
-      const account = await accountService.findUserByAccountId(discordId);
+      const account = await accountService.findUserByDiscordId(discordId);
 
       if (!user || !account) {
-        throw new Error("Failed to find user or account.");
+        const embed = new EmbedBuilder()
+          .setTitle("Failed to find user")
+          .setDescription("User not found.")
+          .setColor("#FF0000")
+          .setTimestamp();
+
+        return await interaction.editReply({ embeds: [embed] });
       }
 
       const profile = await profilesService.findByAccountId(user.accountId);
       if (!profile) {
-        throw new Error("Failed to find profile.");
+        const embed = new EmbedBuilder()
+          .setTitle("Failed to find profile")
+          .setDescription("Profle not found.")
+          .setColor("#FF0000")
+          .setTimestamp();
+
+        return await interaction.editReply({ embeds: [embed] });
       }
 
       const friends = await friendsService.findFriendByAccountId(user.accountId);
       if (!friends) {
-        throw new Error("Failed to find friends.");
+        const embed = new EmbedBuilder()
+          .setTitle("Failed to find friends")
+          .setDescription("Friends not found.")
+          .setColor("#FF0000")
+          .setTimestamp();
+
+        return await interaction.editReply({ embeds: [embed] });
       }
 
       const confirmButton = new ButtonBuilder()
@@ -126,7 +144,7 @@ export default class DeleteCommand extends BaseCommand {
         .setColor("#FF0000")
         .setTimestamp();
 
-      await interaction.editReply({ embeds: [embed] });
+      return await interaction.editReply({ embeds: [embed] });
     }
   }
 }
