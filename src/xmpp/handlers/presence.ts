@@ -18,11 +18,6 @@ export default async function handleSocketEvent(
   const { type, to } = root.attributes;
   const { children } = root;
 
-  if (!XmppService.isConnectionActive) {
-    socket.close();
-    return;
-  }
-
   switch (type) {
     case "unavailable":
       return;

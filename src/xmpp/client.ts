@@ -56,7 +56,7 @@ export default class XmppClient {
       const clientInfo = this.getClientInfo();
 
       if (clientInfo) {
-        XmppService.xmppClients.set(clientInfo.displayName, clientInfo);
+        XmppService.xmppClients.set(clientInfo.accountId, clientInfo);
         XmppService.isConnectionActive = true;
       }
     }
