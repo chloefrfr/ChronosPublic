@@ -6,13 +6,24 @@ export default async function rotate(now: boolean) {
   if (!now) {
     logger.info("Waiting for storefront generation.");
 
-    cron.schedule("0 0 * * *", async () => {
-      await ShopGenerator.generate();
-      const now = new Date();
-      now.setUTCHours(0, 0, 0, 0);
-      now.setUTCDate(now.getUTCDate() + 1);
+    cron.schedule(
+      "0 17 * * *",
+      async () => {
+        await ShopGenerator.generate();
+        const nextRun = new Date();
+        nextRun.setHours(17, 0, 0, 0);
+        nextRun.setDate(nextRun.getDate() + 1);
 
-      logger.info(`Next shop generates at ${now}`);
-    });
-  } else await ShopGenerator.generate();
+        logger.info(`Next shop generates at ${nextRun}`);
+      },
+      {
+        timezone: "America/Phoenix",
+      },
+    );
+
+    logger.info("Successfully generated storefront.");
+  } else {
+    await ShopGenerator.generate();
+    logger.info("Successfully generated storefront.");
+  }
 }
