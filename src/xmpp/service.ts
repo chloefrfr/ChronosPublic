@@ -7,13 +7,24 @@ export interface ClientInfo {
   token: string;
   jid: string;
   resource: string;
+  socket: ServerWebSocket<ChronosSocket>;
   lastPresenceUpdate: {
     away: boolean;
     status: string;
   };
 }
 
+export interface MUCInfo {
+  members: MUCMember[];
+}
+
+interface MUCMember {
+  accountId: string;
+}
+
 export namespace XmppService {
-  export const xmppClients: Map<ServerWebSocket<ChronosSocket>, ClientInfo> = new Map();
+  export const xmppClients: Map<string, ClientInfo> = new Map();
+  export const xmppMucs: Map<string, MUCInfo> = new Map();
+  export const joinedMUCs: string[] = [];
   export let isConnectionActive: boolean = false;
 }

@@ -56,7 +56,7 @@ export default class XmppClient {
       const clientInfo = this.getClientInfo();
 
       if (clientInfo) {
-        XmppService.xmppClients.set(this.socket, clientInfo);
+        XmppService.xmppClients.set(clientInfo.displayName, clientInfo);
         XmppService.isConnectionActive = true;
       }
     }
@@ -72,6 +72,7 @@ export default class XmppClient {
       token,
       jid,
       resource,
+      socket: this.socket,
       lastPresenceUpdate: {
         away: false,
         status: "{}",

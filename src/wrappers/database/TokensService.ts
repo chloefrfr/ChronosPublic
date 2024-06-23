@@ -42,11 +42,12 @@ export default class TokensService {
     }
   }
 
-  public async getTokenByType(type: string) {
+  public async getTokenByTypeAndAccountId(type: string, accountId: string) {
     try {
       const token = await this.tokensRepository
         .createQueryBuilder("tokens")
         .where("tokens.type = :type", { type })
+        .andWhere("tokens.accountId = :accountId", { accountId })
         .getOne();
       return token;
     } catch (error) {
