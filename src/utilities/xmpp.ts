@@ -32,6 +32,38 @@ import xmlparser from "xml-parser";
 */
 
 export namespace XmppUtilities {
+  export function SendMessageToId(body: string, receiverId: string) {
+    const receiver = XmppService.xmppClients.get(receiverId);
+
+    if (!receiver) return;
+
+    receiver.socket.send(
+      xmlbuilder
+        .create("message")
+        .attribute("from", "xmpp-admin@prod.ol.epicgames.com")
+        .attribute("to", receiver.jid)
+        .attribute("xmlns", "jabber:client")
+        .element("body", `${body}`)
+        .up()
+        .toString({ pretty: true }),
+    );
+  }
+
+  export function refresh(accountId: string) {
+    const client = XmppService.xmppClients.get(accountId);
+
+    if (!client) return;
+
+    SendMessageToId(
+      JSON.stringify({
+        type: "com.epicgames.gift.received",
+        payload: {},
+        timestamp: new Date().toISOString(),
+      }),
+      client.accountId,
+    );
+  }
+
   export async function UpdateClientPresence(
     socket: ServerWebSocket<ChronosSocket>,
     status: string,
