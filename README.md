@@ -30,8 +30,8 @@
 
 - [ ] Account Refresh command
 - [ ] Vbucks command
-- [ ] Stats command
+- [x] Stats command
 - [ ] Arena leaderboard command
 - [ ] Tournament leaderboard command
 - [ ] Player count command
-- [ ] User lookup command
+- [x] User lookup command
