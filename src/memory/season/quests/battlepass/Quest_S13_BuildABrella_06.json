@@ -1,0 +1,27 @@
+[
+    {
+        "Type": "FortQuestItemDefinition",
+        "Name": "Quest_S13_BuildABrella_06",
+        "Class": "UScriptClass'FortQuestItemDefinition'",
+        "Properties": {
+            "DisplayName": "Outlast opponents in Solos, Duos, or Squads",
+            "Description": "Outlast opponents in Solos, Duos, or Squads",
+            "SeasonXP": "14000",
+            "SeasonBattleStars": 0,
+            "Objectives": [
+                {
+                    "BackendName": "Quest_S13_BuildABrella_06",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Outlast opponents in Solos, Duos, or Squads",
+                    "HudShortDescription": "Outlast opponents in Solos, Duos, or Squads",
+                    "Count": 500,
+                    "Stage": -1,
+                    "bHidden": false
+                }
+            ]
+        }
+    }
+]

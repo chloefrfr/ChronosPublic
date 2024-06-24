@@ -1,0 +1,27 @@
+[
+    {
+        "Type": "FortQuestItemDefinition",
+        "Name": "Quest_S13_BuildABrella_09",
+        "Class": "UScriptClass'FortQuestItemDefinition'",
+        "Properties": {
+            "DisplayName": "Survive Storm phases",
+            "Description": "Survive Storm phases",
+            "SeasonXP": "14000",
+            "SeasonBattleStars": 0,
+            "Objectives": [
+                {
+                    "BackendName": "Quest_S13_BuildABrella_09",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Survive Storm phases",
+                    "HudShortDescription": "Survive Storm phases",
+                    "Count": 50,
+                    "Stage": -1,
+                    "bHidden": false
+                }
+            ]
+        }
+    }
+]

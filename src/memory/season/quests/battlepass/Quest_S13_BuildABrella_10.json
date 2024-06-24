@@ -1,0 +1,27 @@
+[
+    {
+        "Type": "FortQuestItemDefinition",
+        "Name": "Quest_S13_BuildABrella_10",
+        "Class": "UScriptClass'FortQuestItemDefinition'",
+        "Properties": {
+            "DisplayName": "Gain health or shields from Foraged Items",
+            "Description": "Gain health or shields from Foraged Items",
+            "SeasonXP": "14000",
+            "SeasonBattleStars": 0,
+            "Objectives": [
+                {
+                    "BackendName": "Quest_S13_BuildABrella_10",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Gain health or shields from Foraged Items",
+                    "HudShortDescription": "Gain health or shields from Foraged Items",
+                    "Count": 500,
+                    "Stage": -1,
+                    "bHidden": false
+                }
+            ]
+        }
+    }
+]

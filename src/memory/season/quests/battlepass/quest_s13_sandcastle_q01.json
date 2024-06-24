@@ -1,0 +1,27 @@
+[
+    {
+        "Type": "FortQuestItemDefinition",
+        "Name": "quest_s13_sandcastle_q01",
+        "Class": "UScriptClass'FortQuestItemDefinition'",
+        "Properties": {
+            "DisplayName": "Use a Whirlpool at The Fortilla",
+            "Description": "Use a Whirlpool at The Fortilla",
+            "SeasonXP": "14000",
+            "SeasonBattleStars": 0,
+            "Objectives": [
+                {
+                    "BackendName": "quest_s13_sandcastle_q01_obj0",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Use a Whirlpool at The Fortilla",
+                    "HudShortDescription": "Use a Whirlpool at The Fortilla",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                }
+            ]
+        }
+    }
+]
