@@ -157,11 +157,10 @@ export namespace XmppUtilities {
     });
 
     const entityManager = db.getRepository("friends").manager;
-    await entityManager.transaction(async (transactionalEntityManager) => {
       await entityManager.transaction(async (transactionalEntityManager) => {
         await transactionalEntityManager.save(frienduser);
       });
-    });
+    
 
     SendMessageToId(
       JSON.stringify({
