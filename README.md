@@ -10,9 +10,10 @@
 - [x] Auto shop
 - [ ] Battle Pass & Levelling Up
 - [ ] Challenges (Quests)
-- [ ] Friends
+- [x] Friends
 - [ ] Matchmaker & XMPP
-- [ ] Parties (V1 & V2)
+- [x] Party V1
+- [ ] Party V2
 - [ ] Daily rewards
 - [ ] Gifting
 - [x] Purchasing from item shop

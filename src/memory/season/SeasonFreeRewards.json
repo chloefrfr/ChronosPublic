@@ -1,0 +1,112 @@
+[
+    {
+        "TemplateId": "AthenaDance:eid_superherobackflip",
+        "Quantity": 1,
+        "Tier": 2
+    },
+    {
+        "TemplateId": "Currency:mtxgiveaway",
+        "Quantity": 100,
+        "Tier": 4
+    },
+    {
+        "TemplateId": "AthenaBackpack:bid_534_oceanrider",
+        "Quantity": 1,
+        "Tier": 6
+    },
+    {
+        "TemplateId": "AthenaLoadingScreen:lsid_236_oceanrider",
+        "Quantity": 1,
+        "Tier": 9
+    },
+    {
+        "TemplateId": "AthenaDance:emoji_s13_oceanrider",
+        "Quantity": 1,
+        "Tier": 13
+    },
+    {
+        "TemplateId": "AthenaItemWrap:wrap_250_tacticalscuba",
+        "Quantity": 1,
+        "Tier": 18
+    },
+    {
+        "TemplateId": "AthenaBackpack:bid_537_tacticalscuba",
+        "Quantity": 1,
+        "Tier": 23
+    },
+    {
+        "TemplateId": "AthenaDance:spid_213_seasonspray1",
+        "Quantity": 1,
+        "Tier": 28
+    },
+    {
+        "TemplateId": "AthenaDance:eid_dontbesquare",
+        "Quantity": 1,
+        "Tier": 33
+    },
+    {
+        "TemplateId": "AthenaPickaxe:pickaxe_id_417_tacticalscubamale1h",
+        "Quantity": 1,
+        "Tier": 38
+    },
+    {
+        "TemplateId": "AthenaSkyDiveContrail:trails_id_090_constellation",
+        "Quantity": 1,
+        "Tier": 43
+    },
+    {
+        "TemplateId": "AthenaMusicPack:musicpack_051_headbanger",
+        "Quantity": 1,
+        "Tier": 48
+    },
+    {
+        "TemplateId": "Currency:mtxgiveaway",
+        "Quantity": 100,
+        "Tier": 53
+    },
+    {
+        "TemplateId": "AthenaLoadingScreen:lsid_243_floatilla",
+        "Quantity": 1,
+        "Tier": 58
+    },
+    {
+        "TemplateId": "AthenaBackpack:bid_539_racerzero",
+        "Quantity": 1,
+        "Tier": 63
+    },
+    {
+        "TemplateId": "BannerToken:bannertoken_050_s13_professorpup",
+        "Quantity": 1,
+        "Tier": 68
+    },
+    {
+        "TemplateId": "AthenaGlider:glider_id_223_spacesuit",
+        "Quantity": 1,
+        "Tier": 73
+    },
+    {
+        "TemplateId": "Token:athena_s13_nobattlebundleoption_token",
+        "Quantity": 1,
+        "Tier": 76
+    },
+    {
+        "TemplateId": "BannerToken:bannertoken_053_s13_spacewanderer",
+        "Quantity": 1,
+        "Tier": 78
+    },
+    {
+        "TemplateId": "AthenaDance:spid_207_blackknight",
+        "Quantity": 1,
+        "Tier": 85
+    },
+    {
+        "TemplateId": "AthenaItemWrap:wrap_241_blackknightfemale",
+        "Quantity": 1,
+        "Tier": 92
+    },
+    {
+        "TemplateId": "Currency:mtxgiveaway",
+        "Quantity": 100,
+        "Tier": 99
+    }
+]
