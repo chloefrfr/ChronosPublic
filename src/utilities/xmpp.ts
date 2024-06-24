@@ -1,4 +1,4 @@
-import { db, friendsService, userService } from "..";
+import { db, friendsService, logger, userService } from "..";
 import { Friends } from "../tables/friends";
 import xmlbuilder from "xmlbuilder";
 import { XmppService } from "../xmpp/service";
@@ -94,16 +94,8 @@ export namespace XmppUtilities {
 
     const entityManager = db.getRepository("friends").manager;
     await entityManager.transaction(async (transactionalEntityManager) => {
-      await transactionalEntityManager.update(
-        Friends,
-        { accountId: user.accountId },
-        { outgoing: frienduser.outgoing },
-      );
-      await transactionalEntityManager.update(
-        Friends,
-        { accountId: friend.accountId },
-        { incoming: friendInList.incoming },
-      );
+      await transactionalEntityManager.save(frienduser);
+      await transactionalEntityManager.save(friendInList);
     });
 
     SendMessageToId(
@@ -155,6 +147,8 @@ export namespace XmppUtilities {
       (incoming) => incoming.accountId === friend.accountId,
     );
 
+    if (incomingFriendsIndex === -1) return false;
+
     frienduser.incoming.splice(incomingFriendsIndex, 1);
     frienduser.accepted.push({
       accountId: friend.accountId,
@@ -164,11 +158,9 @@ export namespace XmppUtilities {
 
     const entityManager = db.getRepository("friends").manager;
     await entityManager.transaction(async (transactionalEntityManager) => {
-      await transactionalEntityManager.update(
-        Friends,
-        { accountId: user.accountId },
-        { incoming: frienduser.incoming, accepted: frienduser.accepted },
-      );
+      await entityManager.transaction(async (transactionalEntityManager) => {
+        await transactionalEntityManager.save(frienduser);
+      });
     });
 
     SendMessageToId(
@@ -206,5 +198,7 @@ export namespace XmppUtilities {
         .up()
         .toString({ pretty: true }),
     );
+
+    logger.info(`Sent XMPP message to accountId: ${receiver.accountId}`);
   }
 }
