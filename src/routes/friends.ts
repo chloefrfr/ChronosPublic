@@ -283,7 +283,7 @@ export default function () {
       return c.json(errors.createError(400, c.req.url, "Failed to find friends.", timestamp), 400);
 
     const user = await userService.findUserByAccountId(frienduser.accountId);
-    const friend = await userService.findUserByAccountId(frienduser.accountId);
+    const friend = await userService.findUserByAccountId(friendInList.accountId);
 
     if (!user || !friend)
       return c.json(
@@ -331,7 +331,8 @@ export default function () {
         400,
       );
 
-    if (user.accountId === friend.accountId) return;
+    if (user.accountId === friend.accountId)
+      return c.json(errors.createError(400, c.req.url, "You cannot add yourself.", timestamp), 400);
 
     if (incomingFriends) {
       if (!(await XmppUtilities.AcceptFriendRequest(user.accountId, friend.accountId)))
@@ -342,13 +343,17 @@ export default function () {
 
       await XmppUtilities.GetUserPresence(false, user.accountId, friend.accountId);
       await XmppUtilities.GetUserPresence(false, friend.accountId, user.accountId);
-    } else if (!(await XmppUtilities.SendFriendRequest(user.accountId, friend.accountId)))
-      return c.json(
-        errors.createError(400, c.req.url, "Failed to send friend request.", timestamp),
-        400,
-      );
 
-    return c.body(null, 200);
+      return c.json([]);
+    } else {
+      if (!(await XmppUtilities.SendFriendRequest(user.accountId, friend.accountId)))
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to send friend request.", timestamp),
+          400,
+        );
+
+      return c.json([]);
+    }
   });
 
   app.post(

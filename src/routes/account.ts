@@ -94,4 +94,24 @@ export default function () {
 
     return c.json(response);
   });
+
+  app.get(
+    "/account/api/public/account/displayName/:username",
+    Validation.verifyToken,
+    async (c) => {
+      const username = c.req.param("username");
+      const timestamp = new Date().toISOString();
+
+      const user = await userService.findUserByUsername(username);
+
+      if (!user)
+        return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
+
+      return c.json({
+        id: user.accountId,
+        displayName: user.username,
+        externalAuths: {},
+      });
+    },
+  );
 }

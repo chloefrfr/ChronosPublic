@@ -5,10 +5,7 @@ import xmlbuilder from "xmlbuilder";
 import { logger, tokensService, userService } from "../..";
 import { XmppService } from "../service";
 
-export default async function handleAuthentication(
-  socket: ServerWebSocket<ChronosSocket>,
-  root: xmlparser.Node,
-) {
+export default async function (socket: ServerWebSocket<ChronosSocket>, root: xmlparser.Node) {
   try {
     if (!root || !root.content) return socket.close(1008, "Invalid XML");
 
@@ -22,6 +19,7 @@ export default async function handleAuthentication(
 
     const accountId = authenticationFields[1];
 
+    console.log(isUserConnected(accountId));
     if (isUserConnected(accountId)) return socket.close(1008, "User already connected.");
 
     const user = await userService.findUserByAccountId(accountId);
@@ -36,16 +34,35 @@ export default async function handleAuthentication(
     if (accessToken) {
       socket.data.token = accessToken.token;
     }
-    socket.data.isAuthenticated = true;
 
-    socket.send(
-      xmlbuilder
-        .create("success")
-        .attribute("xmlns", "urn:ietf:params:xml:ns:xmpp-sasl")
-        .toString(),
-    );
+    if (
+      decodedNodeContent &&
+      socket.data.accountId &&
+      socket.data.displayName &&
+      authenticationFields.length === 3
+    ) {
+      socket.data.isAuthenticated = true;
+      logger.info(`Socket Client with the username ${socket.data.displayName} has connected.`);
 
-    logger.info(`Socket Client with the username ${socket.data.displayName} has connected.`);
+      socket.send(
+        xmlbuilder
+          .create("success")
+          .attribute("xmlns", "urn:ietf:params:xml:ns:xmpp-sasl")
+          .toString(),
+      );
+    } else {
+      socket.send(
+        xmlbuilder
+          .create("failure")
+          .attribute("xmlns", "urn:ietf:params:xml:ns:xmpp-sasl")
+          .ele("not-authorized")
+          .ele("text")
+          .attribute("xml:lang", "eng")
+          .text("Password not verified")
+          .end()
+          .toString(),
+      );
+    }
   } catch (error) {
     socket.send(
       xmlbuilder

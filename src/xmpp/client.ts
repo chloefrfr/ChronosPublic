@@ -10,6 +10,10 @@ interface ClientOptions {
   message?: string | Buffer;
 }
 
+interface SocketHandler {
+  handler: (socket: ServerWebSocket<ChronosSocket>, root: xmlparser.Node) => Promise<void>;
+}
+
 export default class XmppClient {
   private socket: ServerWebSocket<ChronosSocket>;
   private message: string | Buffer;
@@ -40,13 +44,19 @@ export default class XmppClient {
 
     logger.debug(`Requested root: ${name}`);
 
-    const handlerPath = path.join(__dirname, "handlers", `${name}.ts`);
-    const handlerModule = await import(handlerPath);
+    const handlers: SocketHandler[] = [];
+    const handlerModule = await import(path.join(__dirname, "handlers", `${name}.ts`));
 
-    const handler = handlerModule.default;
+    if (typeof handlerModule === "function") {
+      const handlerFunction = handlerModule.default;
 
-    if (handler) await handler(this.socket, this.clientData!.root);
-    else logger.error(`Root with the name '${name}' does not exist.`);
+      handlers.push({ handler: handlerFunction });
+    }
+
+    for (const handler of handlers) {
+      if (handler.handler) await handler.handler(this.socket, this.clientData!.root);
+      else logger.error(`Root with the name '${name}} does not exist.`);
+    }
 
     this.handleValidConnection();
   }
@@ -56,7 +66,7 @@ export default class XmppClient {
       const clientInfo = this.getClientInfo();
 
       if (clientInfo) {
-        XmppService.xmppClients.set(clientInfo.accountId, clientInfo);
+        XmppService.xmppClients.set(this.socket.data.accountId as string, clientInfo);
         XmppService.isConnectionActive = true;
       }
     }

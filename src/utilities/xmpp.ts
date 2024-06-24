@@ -1,70 +1,11 @@
+import { db, friendsService, userService } from "..";
+import { Friends } from "../tables/friends";
+import xmlbuilder from "xmlbuilder";
+import { XmppService } from "../xmpp/service";
 import type { ServerWebSocket } from "bun";
 import type { ChronosSocket } from "../xmpp/server";
-import { XmppService } from "../xmpp/service";
-import xmlbuilder from "xmlbuilder";
-import { friendsService, userService } from "..";
-import xmlparser from "xml-parser";
-import { Friends } from "../tables/friends";
-
-/* 
-{
-  Status: "Battle Royale Lobby - 1 / 16",
-  bIsPlaying: false,
-  bIsJoinable: false,
-  bHasVoiceSupport: false,
-  SessionId: "",
-  Properties: {
-    KairosProfile_s: "{\r\n}",
-    FortBasicInfo_j: {
-      homeBaseRating: 0,
-    },
-    FortLFG_I: "0",
-    FortPartySize_i: 1,
-    FortSubGame_i: 1,
-    InUnjoinableMatch_b: false,
-    FortGameplayStats_j: {
-      state: "",
-      playlist: "None",
-      numKills: 0,
-      bFellToDeath: false,
-    },
-  },
-}
-*/
 
 export namespace XmppUtilities {
-  export function SendMessageToId(body: string, receiverId: string) {
-    const receiver = XmppService.xmppClients.get(receiverId);
-
-    if (!receiver) return;
-
-    receiver.socket.send(
-      xmlbuilder
-        .create("message")
-        .attribute("from", "xmpp-admin@prod.ol.epicgames.com")
-        .attribute("to", receiver.jid)
-        .attribute("xmlns", "jabber:client")
-        .element("body", `${body}`)
-        .up()
-        .toString({ pretty: true }),
-    );
-  }
-
-  export function refresh(accountId: string) {
-    const client = XmppService.xmppClients.get(accountId);
-
-    if (!client) return;
-
-    SendMessageToId(
-      JSON.stringify({
-        type: "com.epicgames.gift.received",
-        payload: {},
-        timestamp: new Date().toISOString(),
-      }),
-      client.accountId,
-    );
-  }
-
   export async function UpdateClientPresence(
     socket: ServerWebSocket<ChronosSocket>,
     status: string,
@@ -127,39 +68,42 @@ export namespace XmppUtilities {
     receiver.socket.send(xmlMessage.toString({ pretty: true }));
   }
 
-  export async function SendMessageToClient(jid: string, body: string, root: xmlparser.Node) {
-    const receiver = XmppService.xmppClients.get(root.attributes.to.split("@")[0]);
+  export async function SendFriendRequest(accountId: string, friendId: string): Promise<boolean> {
+    const [frienduser, friendInList, user, friend] = await Promise.all([
+      friendsService.findFriendByAccountId(accountId),
+      friendsService.findFriendByAccountId(friendId),
+      userService.findUserByAccountId(accountId),
+      userService.findUserByAccountId(friendId),
+    ]);
 
-    if (!receiver) return;
-    if (receiver.jid.split("/")[0] !== jid) return;
-
-    receiver.socket.send(
-      xmlbuilder
-        .create("message")
-        .attribute("from", jid)
-        .attribute("xmlns", "jabber:client")
-        .attribute("to", receiver.jid)
-        .attribute("id", root.attributes.id)
-        .element("body", body)
-        .up()
-        .toString({ pretty: true }),
-    );
-  }
-
-  export async function SendFriendRequest(accountId: string, friendId: string) {
-    const frienduser = await friendsService.findFriendByAccountId(accountId);
-    const friendInList = await friendsService.findFriendByAccountId(friendId);
-
-    const user = await userService.findUserByAccountId(accountId);
-    const friend = await userService.findUserByAccountId(friendId);
-
-    if (!frienduser || !friendInList || !user || !friend) return false;
-    if (user.banned || friend.banned) return false;
+    if (!frienduser || !friendInList || !user || !friend || user.banned || friend.banned) {
+      return false;
+    }
 
     frienduser.outgoing.push({
       accountId: friend.accountId,
       createdAt: new Date().toISOString(),
       alias: "",
+    });
+
+    friendInList.incoming.push({
+      accountId: user.accountId,
+      createdAt: new Date().toISOString(),
+      alias: "",
+    });
+
+    const entityManager = db.getRepository("friends").manager;
+    await entityManager.transaction(async (transactionalEntityManager) => {
+      await transactionalEntityManager.update(
+        Friends,
+        { accountId: user.accountId },
+        { outgoing: frienduser.outgoing },
+      );
+      await transactionalEntityManager.update(
+        Friends,
+        { accountId: friend.accountId },
+        { incoming: friendInList.incoming },
+      );
     });
 
     SendMessageToId(
@@ -177,12 +121,6 @@ export namespace XmppUtilities {
       user.accountId,
     );
 
-    friendInList.incoming.push({
-      accountId: user.accountId,
-      createdAt: new Date().toISOString(),
-      alias: "",
-    });
-
     SendMessageToId(
       JSON.stringify({
         payload: {
@@ -198,30 +136,20 @@ export namespace XmppUtilities {
       friend.accountId,
     );
 
-    await Friends.createQueryBuilder()
-      .update(Friends)
-      .set({ outgoing: frienduser.outgoing })
-      .where("accountId = :accountId", { accountId: user.accountId })
-      .execute();
-
-    await Friends.createQueryBuilder()
-      .update(Friends)
-      .set({ incoming: friendInList.incoming })
-      .where("accountId = :accountId", { accountId: friend.accountId })
-      .execute();
-
     return true;
   }
 
-  export async function AcceptFriendRequest(accountId: string, friendId: string) {
-    const frienduser = await friendsService.findFriendByAccountId(accountId);
-    const friendInList = await friendsService.findFriendByAccountId(friendId);
+  export async function AcceptFriendRequest(accountId: string, friendId: string): Promise<boolean> {
+    const [frienduser, friendInList, user, friend] = await Promise.all([
+      friendsService.findFriendByAccountId(accountId),
+      friendsService.findFriendByAccountId(friendId),
+      userService.findUserByAccountId(accountId),
+      userService.findUserByAccountId(friendId),
+    ]);
 
-    const user = await userService.findUserByAccountId(accountId);
-    const friend = await userService.findUserByAccountId(friendId);
-
-    if (!frienduser || !friendInList || !user || !friend) return false;
-    if (user.banned || friend.banned) return false;
+    if (!frienduser || !friendInList || !user || !friend || user.banned || friend.banned) {
+      return false;
+    }
 
     const incomingFriendsIndex = frienduser.incoming.findIndex(
       (incoming) => incoming.accountId === friend.accountId,
@@ -232,6 +160,15 @@ export namespace XmppUtilities {
       accountId: friend.accountId,
       createdAt: new Date().toISOString(),
       alias: "",
+    });
+
+    const entityManager = db.getRepository("friends").manager;
+    await entityManager.transaction(async (transactionalEntityManager) => {
+      await transactionalEntityManager.update(
+        Friends,
+        { accountId: user.accountId },
+        { incoming: frienduser.incoming, accepted: frienduser.accepted },
+      );
     });
 
     SendMessageToId(
@@ -249,12 +186,25 @@ export namespace XmppUtilities {
       user.accountId,
     );
 
-    await Friends.createQueryBuilder()
-      .update(Friends)
-      .set({ accepted: frienduser.accepted, incoming: frienduser.incoming })
-      .where("accountId = :accountId", { accountId: user.accountId })
-      .execute();
-
     return true;
+  }
+
+  export function SendMessageToId(body: string, receiverId: string) {
+    const receiver = XmppService.xmppClients.get(receiverId);
+
+    if (typeof body === "object") body = JSON.stringify(body);
+
+    if (!receiver) return;
+
+    receiver.socket.send(
+      xmlbuilder
+        .create("message")
+        .attribute("from", "xmpp-admin@prod.ol.epicgames.com")
+        .attribute("to", receiver.jid)
+        .attribute("xmlns", "jabber:client")
+        .element("body", `${body}`)
+        .up()
+        .toString({ pretty: true }),
+    );
   }
 }

@@ -11,7 +11,7 @@ interface XmppMuc {
   members: { accountId: string }[];
 }
 
-export default async function handleSocketEvent(
+export default async function (
   socket: ServerWebSocket<ChronosSocket>,
   root: xmlparser.Node,
 ): Promise<void> {

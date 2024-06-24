@@ -1,13 +1,13 @@
 export function GetDefaultEngine(): string {
   return `[OnlineSubsystemMcp.Xmpp]
 bUseSSL=false
-ServerAddr="ws://127.0.0.1:8314"
+ServerAddr="ws://26.166.13.159:8314"
 ServerPort=8314
 
 [OnlineSubsystemMcp.Xmpp Prod]
 bUseSSL=false
 
-ServerAddr="ws://127.0.0.1:8314"
+ServerAddr="ws://26.166.13.159:8314"
 ServerPort=8314
 
 [OnlineSubsystemMcp]
