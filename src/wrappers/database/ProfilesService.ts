@@ -19,12 +19,11 @@ export default class ProfilesService {
 
   public async findByType(accountId: string, type: string): Promise<Profiles | null> {
     try {
-      const profile = await this.profilesRepository.findOne({
-        where: {
-          accountId: accountId,
-          type: type,
-        },
-      });
+      const profile = await this.profilesRepository
+        .createQueryBuilder("profiles")
+        .where("profiles.type = :type", { type })
+        .andWhere("profiles.accountId = :accountId", { accountId })
+        .getOne();
 
       return profile || null;
     } catch (error) {

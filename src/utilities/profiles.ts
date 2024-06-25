@@ -24,15 +24,15 @@ export default class ProfileHelper {
     return profile_template;
   }
 
-  static async getProfile(accountId: string, type: string) {
+  static async getProfile(accountId: string, type: ProfileId | string) {
     try {
-      const profilePromise = profilesService.findByType(accountId, type);
+      const profile = await profilesService.findByType(accountId, type);
 
-      const profile = await profilePromise;
+      if (!profile) return null;
 
-      return profile ? (profile.profile as any) : null;
+      return profile.profile as any;
     } catch (error) {
-      logger.error(`Failed to get profile for accountId ${accountId} and type ${type}: ${error}`);
+      return void logger.error(`failed to get profile of type ${type}: ${error}`);
       return null;
     }
   }

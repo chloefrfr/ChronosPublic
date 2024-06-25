@@ -6,7 +6,7 @@
 ## Planned Features
 
 - [ ] Vbucks on kill/win
-- [ ] Easy setup
+- [x] Easy setup
 - [x] Auto shop
 - [ ] Battle Pass & Levelling Up
 - [ ] Challenges (Quests)
@@ -21,7 +21,7 @@
 - [ ] HWID Bans
 - [ ] Refunding
 - [ ] Save the World
-- [ ] Arena
+- [x] Arena
 - [ ] Tournaments
 - [ ] Proper Gamesessions
 - [ ] Seasonal Rewards
@@ -31,7 +31,7 @@
 ## Planned Bot Commands
 
 - [ ] Account Refresh command
-- [ ] Vbucks command
+- [x] Vbucks command
 - [x] Stats command
 - [ ] Arena leaderboard command
 - [ ] Tournament leaderboard command

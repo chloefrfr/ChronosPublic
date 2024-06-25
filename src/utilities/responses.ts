@@ -15,6 +15,33 @@ export default class MCPResponses {
     };
   }
 
+  static generateRefundResponse(
+    profile: any,
+    athena: any,
+    applyProfileChanges: object[],
+    multiUpdates: object[],
+    profileId: ProfileId,
+  ) {
+    return {
+      profileRevision: profile.rvn,
+      profileId,
+      profileChangesBaseRevision: profile.rvn - 1,
+      profileChanges: applyProfileChanges,
+      profileCommandRevision: profile.commandRevision,
+      serverTime: new Date().toISOString(),
+      multiUpdate: [
+        {
+          profileRevision: athena.rvn,
+          profileId: "athena",
+          profileChangesBaseRevision: athena.rvn - 1,
+          profileChanges: multiUpdates,
+          profileCommandRevision: athena.commandRevision,
+        },
+      ],
+      responseVersion: 1,
+    };
+  }
+
   static generatePurchaseResponse(
     profile: any,
     athena: any,

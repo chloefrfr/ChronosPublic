@@ -108,7 +108,7 @@ export default async function (c: Context) {
       await Profiles.createQueryBuilder()
         .update()
         .set({ profile })
-        .where("type = :type", { type: profileId })
+        .where("type = :type", { type: "athena" })
         .execute();
     }
 

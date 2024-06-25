@@ -1,7 +1,7 @@
 import type { Context } from "hono";
 import type { ProfileId } from "../utilities/responses";
 import errors from "../utilities/errors";
-import { accountService, logger, userService } from "..";
+import { accountService, itemStorageService, logger, userService } from "..";
 import ProfileHelper from "../utilities/profiles";
 import { ShopHelper } from "../shop/helpers/shophelper";
 import type { Entries } from "../shop/interfaces/Declarations";
@@ -10,6 +10,27 @@ import { Account } from "../tables/account";
 import uaparser from "../utilities/uaparser";
 import MCPResponses from "../utilities/responses";
 import { Profiles } from "../tables/profiles";
+
+export interface Purchase {
+  purchaseId: string;
+  offerId: string;
+  purchaseDate: string;
+  undoTimeout: string;
+  freeRefundEligible: boolean;
+  fulfillments: any[];
+  lootResult: LootResult[];
+  totalMtxPaid: number;
+  metadata: any;
+  gameContext: string;
+}
+
+interface LootResult {
+  itemType: string;
+  itemGuid: string;
+  bundledItems: string[];
+  itemProfile: string;
+  quantity: number;
+}
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -87,14 +108,17 @@ export default async function (c: Context) {
     return c.json(errors.createError(400, c.req.url, "Invalid request.", timestamp), 400);
 
   let currentActiveStorefront: Entries | null = null;
-  const currentShop = ShopHelper.getCurrentShop();
+  const currentShop = await itemStorageService.getItemByType("storefront");
+
+  if (!currentShop)
+    return c.json(errors.createError(400, c.req.url, "Failed to get storefront", timestamp), 400);
 
   let sections: any = {
     BRDailyStorefront: [],
     BRWeeklyStorefront: [],
   };
 
-  for (const section of currentShop.storefronts) {
+  for (const section of currentShop.data.storefronts) {
     if (section.name === "BRDailyStorefront") {
       sections.BRDailyStorefront.push(...section.catalogEntries);
     } else if (section.name === "BRWeeklyStorefront") {
@@ -192,7 +216,37 @@ export default async function (c: Context) {
     quantity: profile.items["Currency:MtxPurchased"].quantity,
   });
 
-  /// TODO - Refunding
+  const { purchases } = profile.stats.attributes.mtx_purchase_history;
+
+  itemQuantitiesByTemplateId.forEach((quantity, templateId) => {
+    const profileType = itemProfilesByTemplateId.get(templateId)!;
+
+    const existingPurchaseIndex = purchases.findIndex(
+      (purchase: Purchase) => purchase.lootResult[0].itemType === templateId,
+    );
+
+    if (existingPurchaseIndex !== -1) purchases.splice(existingPurchaseIndex, 1);
+
+    purchases.push({
+      purchaseId: templateId,
+      offerId: `v2:/${offerId}`,
+      purchaseDate: new Date().toISOString(),
+      undoTimeout: "9999-12-12T00:00:00.000Z",
+      freeRefundEligible: false,
+      fulfillments: [],
+      lootResult: [
+        {
+          itemType: templateId,
+          itemGuid: templateId,
+          itemProfile: profileType,
+          quantity,
+        },
+      ],
+      totalMtxPaid: currentActiveStorefront.prices[0].finalPrice,
+      metadata: {},
+      gameContext: "",
+    });
+  });
 
   owned = true;
 
