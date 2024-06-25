@@ -8,6 +8,7 @@ import type {
   BattlePassStorefront,
   ItemGrants,
   Set,
+  Shop,
 } from "./interfaces/Declarations";
 import { ShopHelper } from "./helpers/shophelper";
 import path from "node:path";
@@ -20,9 +21,23 @@ import { getPrice } from "./helpers/itemprices";
 import getRandomFullSetLength from "./functions/getRandomFullSetLength";
 
 export namespace ShopGenerator {
+  export function createShop(): Shop {
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setUTCDate(today.getUTCDate() + 1);
+
+    return {
+      expiration: tomorrow.toISOString(),
+      refreshIntervalHrs: 1,
+      dailyPurchaseHrs: 24,
+      storefronts: [],
+    };
+  }
+
   export const items: Record<string, JSONResponse> = {};
   export const sets: Record<string, Set> = {};
-  export const shop = ShopHelper.createShop();
+  export const shop = createShop();
 
   export async function generate() {
     const date = new Date().toISOString().split("T")[0];

@@ -17,6 +17,8 @@
 - [ ] Daily rewards
 - [ ] Gifting
 - [x] Purchasing from item shop
+- [ ] IP Bans
+- [ ] HWID Bans
 - [ ] Refunding
 - [ ] Save the World
 - [ ] Arena

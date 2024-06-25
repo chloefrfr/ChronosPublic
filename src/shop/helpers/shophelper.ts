@@ -11,20 +11,6 @@ import { createBattlePassEntryTemplate } from "./template";
 import { ShopGenerator } from "../shop";
 
 export namespace ShopHelper {
-  export function createShop(): Shop {
-    const today = new Date();
-    today.setUTCHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setUTCDate(today.getUTCDate() + 1);
-
-    return {
-      expiration: tomorrow.toISOString(),
-      refreshIntervalHrs: 1,
-      dailyPurchaseHrs: 24,
-      storefronts: [],
-    };
-  }
-
   export function createStorefront(sectionName: string): Storefronts {
     return {
       name: sectionName,

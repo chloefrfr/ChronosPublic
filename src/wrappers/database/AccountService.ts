@@ -1,24 +1,40 @@
-import type { Repository, UpdateResult } from "typeorm";
+import { Repository } from "typeorm";
 import Database from "../Database.wrapper";
 import { logger } from "../..";
-import type { Account } from "../../tables/account";
-import type { ProfileId } from "../../utilities/responses";
+import { Account } from "../../tables/account";
 import NodeCache from "node-cache";
 
 export default class AccountService {
   private accountRepository: Repository<Account>;
+  private cache: NodeCache;
 
   constructor(private database: Database) {
     this.accountRepository = this.database.getRepository("account");
+    this.cache = new NodeCache();
+  }
+
+  private getRandomTTL(): number {
+    return Math.floor(Math.random() * (300 - 60 + 1)) + 60;
   }
 
   public async findUserByAccountId(accountId: string): Promise<Account | null> {
     try {
-      const account = await this.accountRepository
-        .createQueryBuilder("account")
-        .where("account.accountId = :accountId", { accountId })
-        .getOne();
-      return account;
+      const cachedAccount = this.cache.get<Account>(`account_${accountId}`);
+      if (cachedAccount) {
+        return cachedAccount;
+      } else {
+        const account = await this.accountRepository
+          .createQueryBuilder("account")
+          .where("account.accountId = :accountId", { accountId })
+          .getOne();
+
+        if (account) {
+          const ttl = this.getRandomTTL();
+          this.cache.set(`account_${accountId}`, account, ttl);
+        }
+
+        return account || null;
+      }
     } catch (error) {
       logger.error(`Error finding account: ${error}`);
       return null;
@@ -27,11 +43,22 @@ export default class AccountService {
 
   public async findUserByDiscordId(discordId: string): Promise<Account | null> {
     try {
-      const account = await this.accountRepository
-        .createQueryBuilder("account")
-        .where("account.discordId = :discordId", { discordId })
-        .getOne();
-      return account;
+      const cachedAccount = this.cache.get<Account>(`account_discord_${discordId}`);
+      if (cachedAccount) {
+        return cachedAccount;
+      } else {
+        const account = await this.accountRepository
+          .createQueryBuilder("account")
+          .where("account.discordId = :discordId", { discordId })
+          .getOne();
+
+        if (account) {
+          const ttl = this.getRandomTTL();
+          this.cache.set(`account_discord_${discordId}`, account, ttl);
+        }
+
+        return account || null;
+      }
     } catch (error) {
       logger.error(`Error finding account: ${error}`);
       return null;
@@ -52,27 +79,10 @@ export default class AccountService {
   public async delete(accountId: string): Promise<boolean> {
     try {
       const result = await this.accountRepository.delete({ accountId });
-      if (result.affected === 1) return true;
-      return false;
+      return result.affected === 1;
     } catch (error) {
       logger.error(`Error deleting account: ${error}`);
       return false;
     }
   }
-
-  // public async update(accountId: string, profileId: ProfileId, newData: any) {
-  //   try {
-  //     const existingProfile = await this.findUserByAccountId(accountId);
-
-  //     if (existingProfile) {
-  //       existingProfile.athena = newData;
-  //       await this.accountRepository.save(existingProfile);
-  //     }
-
-  //     return existingProfile;
-  //   } catch (error) {
-  //     logger.error(`Error updating account: ${error}`);
-  //     return null;
-  //   }
-  // }
 }

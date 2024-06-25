@@ -14,6 +14,7 @@ import ProfilesService from "./wrappers/database/ProfilesService";
 import fetch from "node-fetch";
 import HypeService from "./wrappers/database/HypeService";
 import FriendsService from "./wrappers/database/FriendsService";
+import { ItemStorageService } from "./wrappers/database/ItemStorageService";
 
 export const app = new Hono({ strict: false });
 export const logger = new Logger(LogLevel.DEBUG);
@@ -37,13 +38,14 @@ export const tokensService = new TokensService(db);
 export const profilesService = new ProfilesService(db);
 export const hypeService = new HypeService(db);
 export const friendsService = new FriendsService(db);
+export const itemStorageService = new ItemStorageService(db);
 
 await loadRoutes(path.join(__dirname, "routes"), app);
 
 import("./bot/deployment");
 import("./bot/bot");
 
-await rotate(false);
+await rotate();
 
 Bun.serve({
   port: config.port,

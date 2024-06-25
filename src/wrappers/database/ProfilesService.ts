@@ -1,39 +1,66 @@
-import type { Repository } from "typeorm";
-import type Database from "../Database.wrapper";
-import type { Profiles } from "../../tables/profiles";
+import { Repository } from "typeorm";
+import Database from "../Database.wrapper";
 import { logger } from "../..";
+import { Profiles } from "../../tables/profiles";
+import NodeCache from "node-cache";
 
 export default class ProfilesService {
   private profilesRepository: Repository<Profiles>;
+  private cache: NodeCache;
 
   constructor(private database: Database) {
     this.profilesRepository = this.database.getRepository("profiles");
+    this.cache = new NodeCache();
+  }
+
+  private getRandomTTL(): number {
+    return Math.floor(Math.random() * (300 - 60 + 1)) + 60;
   }
 
   public async findByType(type: string): Promise<Profiles | null> {
     try {
-      const profile = await this.profilesRepository
-        .createQueryBuilder("profiles")
-        .where("profiles.type = :type", { type })
-        .getOne();
+      const cachedProfile = this.cache.get<Profiles>(`profile_type_${type}`);
+      if (cachedProfile) {
+        return cachedProfile;
+      } else {
+        const profile = await this.profilesRepository
+          .createQueryBuilder("profiles")
+          .where("profiles.type = :type", { type })
+          .getOne();
 
-      return profile;
+        if (profile) {
+          const ttl = this.getRandomTTL();
+          this.cache.set(`profile_type_${type}`, profile, ttl);
+        }
+
+        return profile || null;
+      }
     } catch (error) {
-      logger.error(`Error finding profile: ${error}`);
+      logger.error(`Error finding profile by type: ${error}`);
       return null;
     }
   }
 
   public async findByAccountId(accountId: string): Promise<Profiles | null> {
     try {
-      const profile = await this.profilesRepository
-        .createQueryBuilder("profiles")
-        .where("profiles.accountId = :accountId", { accountId })
-        .getOne();
+      const cachedProfile = this.cache.get<Profiles>(`profile_accountId_${accountId}`);
+      if (cachedProfile) {
+        return cachedProfile;
+      } else {
+        const profile = await this.profilesRepository
+          .createQueryBuilder("profiles")
+          .where("profiles.accountId = :accountId", { accountId })
+          .getOne();
 
-      return profile;
+        if (profile) {
+          const ttl = this.getRandomTTL();
+          this.cache.set(`profile_accountId_${accountId}`, profile, ttl);
+        }
+
+        return profile || null;
+      }
     } catch (error) {
-      logger.error(`Error finding profile: ${error}`);
+      logger.error(`Error finding profile by accountId: ${error}`);
       return null;
     }
   }
@@ -52,8 +79,7 @@ export default class ProfilesService {
   public async delete(accountId: string): Promise<boolean> {
     try {
       const result = await this.profilesRepository.delete({ accountId });
-      if (result.affected === 3) return true;
-      return false;
+      return result.affected === 1;
     } catch (error) {
       logger.error(`Error deleting profile: ${error}`);
       return false;

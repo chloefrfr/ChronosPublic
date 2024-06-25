@@ -1,4 +1,4 @@
-import { app, userService } from "..";
+import { app, itemStorageService, userService } from "..";
 import axios from "axios";
 import uaparser from "../utilities/uaparser";
 import errors from "../utilities/errors";
@@ -29,6 +29,8 @@ export default function () {
         400,
       );
 
-    return c.json(ShopHelper.getCurrentShop());
+    const storefrontData = await itemStorageService.getItemByType("storefront");
+
+    return c.json(storefrontData?.data);
   });
 }

@@ -47,8 +47,6 @@ export default async function (c: Context) {
 
     const profile = await ProfileHelper.getProfile(profileId);
 
-    logger.debug(`Requested profileId: ${profileId}`);
-
     if (!profile && profileId !== "athena" && profileId !== "common_core")
       return c.json(
         errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
