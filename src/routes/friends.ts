@@ -1,12 +1,7 @@
 import { app, friendsService, userService } from "..";
 import { Validation } from "../middleware/validation";
+import { Friends, type Friend } from "../tables/friends";
 import errors from "../utilities/errors";
-import { XmppUtilities } from "../utilities/xmpp";
-
-interface Friend {
-  accountId: string;
-  createdAt: string;
-}
 
 interface FriendList {
   accountId: string;
@@ -38,6 +33,7 @@ export default function () {
       list.push({
         accountId: blocked.accountId,
         createdAt: new Date().toISOString(),
+        alias: "",
       });
     }
 
@@ -334,115 +330,6 @@ export default function () {
     if (user.accountId === friend.accountId)
       return c.json(errors.createError(400, c.req.url, "You cannot add yourself.", timestamp), 400);
 
-    if (incomingFriends) {
-      if (!(await XmppUtilities.AcceptFriendRequest(user.accountId, friend.accountId)))
-        return c.json(
-          errors.createError(400, c.req.url, "Failed to accept friend request.", timestamp),
-          400,
-        );
-
-      await XmppUtilities.GetUserPresence(false, user.accountId, friend.accountId);
-      await XmppUtilities.GetUserPresence(false, friend.accountId, user.accountId);
-
-      return c.json([]);
-    } else {
-      if (!(await XmppUtilities.SendFriendRequest(user.accountId, friend.accountId)))
-        return c.json(
-          errors.createError(400, c.req.url, "Failed to send friend request.", timestamp),
-          400,
-        );
-
-      return c.json([]);
-    }
+    return c.json([]);
   });
-
-  app.post(
-    "/friends/api/public/friends/:accountId/:friendId",
-    Validation.verifyToken,
-    async (c) => {
-      const accountId = c.req.param("accountId");
-      const friendId = c.req.param("friendId");
-      const timestamp = new Date().toISOString();
-
-      if (!accountId || !friendId)
-        return c.json(errors.createError(400, c.req.url, "Missing parameters.", timestamp), 400);
-
-      const frienduser = await friendsService.findFriendByAccountId(accountId);
-      const friendInList = await friendsService.findFriendByAccountId(friendId);
-
-      if (!frienduser || !friendInList)
-        return c.json(
-          errors.createError(400, c.req.url, "Failed to find friends.", timestamp),
-          400,
-        );
-
-      const user = await userService.findUserByAccountId(frienduser.accountId);
-      const friend = await userService.findUserByAccountId(frienduser.accountId);
-
-      if (!user || !friend)
-        return c.json(
-          errors.createError(400, c.req.url, "Failed to find user or friend.", timestamp),
-          400,
-        );
-
-      if (user.banned || friend.banned)
-        return c.json(
-          errors.createError(403, c.req.url, "Friend or User is banned.", timestamp),
-          403,
-        );
-
-      const acceptedFriends = frienduser.accepted.find(
-        (accepted) => accepted.accountId === friend.accountId,
-      );
-
-      const incomingFriends = frienduser.incoming.find(
-        (incoming) => incoming.accountId === friend.accountId,
-      );
-
-      const outgoingFriends = frienduser.outgoing.find(
-        (outgoing) => outgoing.accountId === friend.accountId,
-      );
-
-      if (acceptedFriends)
-        return c.json(
-          errors.createError(
-            400,
-            c.req.url,
-            `Friendship between ${user.accountId} and ${friend.accountId} already exists.`,
-            timestamp,
-          ),
-          400,
-        );
-
-      if (outgoingFriends)
-        return c.json(
-          errors.createError(
-            400,
-            c.req.url,
-            `Friendship request has already been sent to ${friend.accountId}`,
-            timestamp,
-          ),
-          400,
-        );
-
-      if (user.accountId === friend.accountId) return;
-
-      if (incomingFriends) {
-        if (!(await XmppUtilities.AcceptFriendRequest(user.accountId, friend.accountId)))
-          return c.json(
-            errors.createError(400, c.req.url, "Failed to accept friend request.", timestamp),
-            400,
-          );
-
-        await XmppUtilities.GetUserPresence(false, user.accountId, friend.accountId);
-        await XmppUtilities.GetUserPresence(false, friend.accountId, user.accountId);
-      } else if (!(await XmppUtilities.SendFriendRequest(user.accountId, friend.accountId)))
-        return c.json(
-          errors.createError(400, c.req.url, "Failed to send friend request.", timestamp),
-          400,
-        );
-
-      return c.body(null, 200);
-    },
-  );
 }

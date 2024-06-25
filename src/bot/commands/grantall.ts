@@ -12,7 +12,6 @@ import { Account } from "../../tables/account";
 import ProfileHelper from "../../utilities/profiles";
 import { User } from "../../tables/user";
 import { Profiles } from "../../tables/profiles";
-import { XmppUtilities } from "../../utilities/xmpp";
 
 export default class GrantallCommand extends BaseCommand {
   data = {
@@ -117,8 +116,6 @@ export default class GrantallCommand extends BaseCommand {
       .set({ has_all_items: true })
       .where("accountId = :accountId", { accountId: user.accountId })
       .execute();
-
-    XmppUtilities.refresh(user.accountId);
 
     return await interaction.editReply({ embeds: [embed] });
   }

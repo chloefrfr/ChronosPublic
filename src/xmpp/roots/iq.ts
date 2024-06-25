@@ -2,9 +2,8 @@ import xmlbuilder from "xmlbuilder";
 import xmlparser from "xml-parser";
 import type { ServerWebSocket } from "bun";
 import type { ChronosSocket } from "../server";
-import { XmppService } from "../service";
 import { friendsService } from "../..";
-import { XmppUtilities } from "../../utilities/xmpp";
+import { XmppService } from "../saved/XmppServices";
 
 export default async function (socket: ServerWebSocket<ChronosSocket>, root: xmlparser.Node) {
   const attributeId = root.attributes.id;
@@ -16,7 +15,7 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, root: xml
       if (socket.data.resource || !socket.data.accountId) return;
       if (!binder) return;
 
-      if (XmppService.xmppClients.find((client) => client.accountId === socket.data.accountId)) {
+      if (XmppService.clients.find((client) => client.accountId === socket.data.accountId)) {
         socket.send(
           xmlbuilder
             .create("close")
@@ -55,7 +54,7 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, root: xml
       socket.send(
         xmlbuilder
           .create("iq")
-          .attribute("to", (socket as any).jid)
+          .attribute("to", socket.data.jid)
           .attribute("from", "prod.ol.epicgames.com")
           .attribute("id", "_xmpp_session1")
           .attribute("xmlns", "jabber:client")
@@ -68,30 +67,26 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, root: xml
       if (!user) return socket.close();
 
       user.accepted.forEach(async (friend) => {
-        const client = XmppService.xmppClients.find(
-          (client) => client.accountId === friend.accountId,
-        );
+        const client = XmppService.clients.find((client) => client.accountId === friend.accountId);
 
         if (!client) return;
 
-        let xaml = xmlbuilder
-          .create("message")
-          .attribute("to", (socket as any).jid)
+        let xml = xmlbuilder
+          .create("presence")
+          .attribute("to", socket.data.jid)
           .attribute("xmlns", "jabber:client")
           .attribute("from", client.jid)
           .attribute("type", "available");
 
-        if (client.lastPresenceUpdate.away) {
-          xaml = xaml
+        if (client.lastPresenceUpdate.away)
+          xml = xml
             .element("show", "away")
             .up()
             .element("status", client.lastPresenceUpdate.status)
             .up();
-        }
+        else xml = xml.element("status", client.lastPresenceUpdate.status).up();
 
-        xaml = xaml.element("status", client.lastPresenceUpdate.status).up();
-
-        socket.send(xaml.toString({ pretty: true }));
+        socket.send(xml.toString({ pretty: true }));
       });
 
       break;

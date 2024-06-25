@@ -2,14 +2,9 @@ import type { ServerWebSocket } from "bun";
 import type { ChronosSocket } from "../server";
 import xmlparser from "xml-parser";
 import xmlbuilder from "xmlbuilder";
-import { v4 as uuid } from "uuid";
-import { XmppService } from "../service";
 import { logger } from "../..";
-import { XmppUtilities } from "../../utilities/xmpp";
-
-interface XmppMuc {
-  members: { accountId: string }[];
-}
+import { XmppService } from "../saved/XmppServices";
+import { XmppUtilities } from "../utilities/XmppUtilities";
 
 export default async function (
   socket: ServerWebSocket<ChronosSocket>,
@@ -21,6 +16,7 @@ export default async function (
 
   switch (rootType) {
     case "unavailable":
+      console.log("unavailable");
       if (
         to.endsWith("@muc.prod.ol.epicgames.com") ||
         to.split("/")[0].endsWith("@muc.prod.ol.epicgames.com")
@@ -154,7 +150,7 @@ export default async function (
         );
 
         XmppService.xmppMucs[roomName].members.forEach(async (member: { accountId: string }) => {
-          const client = XmppService.xmppClients.find(
+          const client = XmppService.clients.find(
             (client) => client.accountId === member.accountId,
           );
 
@@ -227,27 +223,35 @@ export default async function (
 
         return;
       }
-
-      const statusElement = root.children.find((child) => child.name === "status");
-
-      if (!statusElement || !statusElement.content) return;
-
-      if (!socket.data.accountId) {
-        console.log("accoutnId is undefined?");
-        return;
-      }
-
-      if (!JSON.parse(statusElement.content)) return;
-
-      console.log("testy west");
-      console.log(socket.data.accountId);
-
-      await XmppUtilities.UpdateClientPresence(
-        socket,
-        statusElement.content,
-        root.children.find((child) => child.name === "show") ? true : false,
-        false,
-      );
-      await XmppUtilities.GetUserPresence(false, socket.data.accountId, socket.data.accountId);
+      break;
   }
+
+  const findStatus = root.children.find((child) => child.name === "status");
+
+  if (!findStatus || !findStatus.content) return;
+
+  let parsedStatus: string = "";
+
+  try {
+    parsedStatus = JSON.parse(findStatus.content);
+  } catch (error) {
+    return void logger.error(`Failed to parse status: ${error}`);
+  }
+
+  if (!parsedStatus) return void logger.error(`ParsedStatus is undefined.`);
+
+  const status = findStatus.content;
+
+  let away: boolean = false;
+  if (root.children.some((child) => child.name === "show")) away = true;
+
+  console.log(findStatus);
+  logger.debug(`IsAway: ${away}`);
+
+  await XmppUtilities.UpdatePresenceForFriend(socket, status, false, away);
+  await XmppUtilities.GetUserPresence(
+    false,
+    socket.data.accountId as string,
+    socket.data.accountId as string,
+  );
 }

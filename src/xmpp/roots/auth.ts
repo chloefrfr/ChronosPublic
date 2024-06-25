@@ -3,7 +3,7 @@ import type { ChronosSocket } from "../server";
 import xmlparser from "xml-parser";
 import xmlbuilder from "xmlbuilder";
 import { logger, tokensService, userService } from "../..";
-import { XmppService } from "../service";
+import { XmppService } from "../saved/XmppServices";
 
 export default async function (socket: ServerWebSocket<ChronosSocket>, clientData: xmlparser.Node) {
   if (!clientData || !clientData.content) return socket.close(1008, "Invalid XML");
@@ -15,8 +15,7 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, clientDat
 
   const accessToken = await tokensService.getTokenByTypeAndAccountId("accesstoken", accountId);
 
-  if (XmppService.xmppClients.some((client) => client.accountId === accountId))
-    return socket.close();
+  if (XmppService.clients.some((client) => client.accountId === accountId)) return socket.close();
 
   const user = await userService.findUserByAccountId(accountId);
 
@@ -37,7 +36,7 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, clientDat
   ) {
     socket.data.isAuthenticated = true;
 
-    logger.info(`XMPP Client with the displayName ${socket.data.displayName} has logged in.`);
+    logger.info(`New XMPP Client logged in as ${user.username}`);
 
     socket.send(
       xmlbuilder
