@@ -39,32 +39,16 @@ export class Client {
     this.socket = socket;
     this.message = message;
 
-    const decoder = new TextDecoder("utf-8");
-
-    let receivedMessage = "";
-
-    receivedMessage += decoder.decode(this.message as Uint8Array);
-
     if (typeof message !== "string") {
       logger.error("Received non-text WebSocket message.");
       return;
     }
 
-    logger.info(`Received WebSocket message: ${receivedMessage}`);
-
-    this.handle(receivedMessage);
+    this.handle();
   }
 
-  private async handle(receivedMessage: string) {
-    try {
-      let parsedMessage = JSON.parse(receivedMessage);
-
-      logger.error("Disconnecting user as fake response");
-      receivedMessage = "";
-      return;
-    } catch {}
-
-    let xmlDoc = xmlparser(receivedMessage);
+  private async handle() {
+    let xmlDoc = xmlparser(this.message as string);
 
     const { name } = xmlDoc.root;
 
@@ -110,6 +94,5 @@ export class Client {
 
       XmppService.isUserLoggedIn = true;
     }
-    receivedMessage = "";
   }
 }

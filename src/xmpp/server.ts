@@ -1,6 +1,8 @@
 import type { ServerWebSocket } from "bun";
 import { logger } from "..";
 import { Client } from "./client";
+import { XmppService } from "./saved/XmppServices";
+import { XmppUtilities } from "./utilities/XmppUtilities";
 
 export interface ChronosSocket extends ServerWebSocket {
   isAuthenticated?: boolean;
@@ -27,7 +29,28 @@ export const xmppServer = Bun.serve<ChronosSocket>({
       new Client(socket, message);
     },
     async close(socket) {
-      /// TODO
+      XmppService.isUserLoggedIn = false;
+      const clientIndex = XmppService.clients.findIndex((client) => client.socket === socket);
+      const client = XmppService.clients[clientIndex];
+      if (clientIndex === -1) return;
+
+      await XmppUtilities.UpdatePresenceForFriend(socket, "{}", true, false);
+      XmppService.clients.splice(clientIndex, 1);
+
+      for (let muc of XmppService.joinedMUCs) {
+        const MUCRoom = XmppService.xmppMucs[muc];
+
+        if (MUCRoom) {
+          const MUCIndex = MUCRoom.members.findIndex(
+            (member) => member.accountId === client.accountId,
+          );
+
+          if (MUCIndex !== -1) MUCRoom.members.splice(MUCIndex, 1);
+        }
+      }
+
+      logger.info(`Closed Socket Connection for client with the username ${client.displayName}`);
+      socket.close();
     },
   },
 });
