@@ -2,6 +2,7 @@ import { app, friendsService, userService } from "..";
 import { Validation } from "../middleware/validation";
 import { Friends, type Friend } from "../tables/friends";
 import errors from "../utilities/errors";
+import { XmppUtilities } from "../xmpp/utilities/XmppUtilities";
 
 interface FriendList {
   accountId: string;
@@ -329,6 +330,21 @@ export default function () {
 
     if (user.accountId === friend.accountId)
       return c.json(errors.createError(400, c.req.url, "You cannot add yourself.", timestamp), 400);
+
+    if (incomingFriends) {
+      if (!(await XmppUtilities.AcceptFriendRequest(user.accountId, friend.accountId)))
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to accept friend request.", timestamp),
+          400,
+        );
+
+      await XmppUtilities.GetUserPresence(false, user.accountId, friend.accountId);
+      await XmppUtilities.GetUserPresence(false, friend.accountId, user.accountId);
+    } else if (!(await XmppUtilities.SendFriendRequest(user.accountId, friend.accountId)))
+      return c.json(
+        errors.createError(400, c.req.url, "Failed to send friend request.", timestamp),
+        400,
+      );
 
     return c.json([]);
   });
