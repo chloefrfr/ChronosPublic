@@ -332,4 +332,36 @@ export const Events: Event[] = [
     value: "EventFlag.LTE_StormTheAgency",
     season: 12,
   },
+  {
+    value: "WL0",
+    season: 13,
+  },
+  {
+    value: "WL1",
+    season: 13,
+  },
+  {
+    value: "WL2",
+    season: 13,
+  },
+  {
+    value: "WL3",
+    season: 13,
+  },
+  {
+    value: "WL4",
+    season: 13,
+  },
+  {
+    value: "WL5",
+    season: 13,
+  },
+  {
+    value: "WL6",
+    season: 13,
+  },
+  {
+    value: "WL7",
+    season: 13,
+  },
 ];
