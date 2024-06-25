@@ -15,6 +15,7 @@ import fetch from "node-fetch";
 import HypeService from "./wrappers/database/HypeService";
 import FriendsService from "./wrappers/database/FriendsService";
 import { ItemStorageService } from "./wrappers/database/ItemStorageService";
+import { DiscordWebhook } from "./utilities/webhook";
 
 export const app = new Hono({ strict: false });
 export const logger = new Logger(LogLevel.DEBUG);
@@ -54,31 +55,4 @@ Bun.serve({
 
 logger.startup(`Chronos running on port ${config.port}`);
 
-const url = config.webhook_url;
-const embedMessage = {
-  embeds: [
-    {
-      title: "Our Backend Services have restarted!",
-      description: "All of our services have restarted! **Please restart your game if necessary!**",
-      color: 0x2db3ff,
-    },
-  ],
-};
-
-fetch(url, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(embedMessage),
-})
-  .then((response) => {
-    if (response.ok) {
-      //logger.info(''); - don't log anything for now, its fineeee!
-    } else {
-      logger.error("failed to send");
-    }
-  })
-  .catch((error) => {
-    logger.error("we got a fucking error!! lets gooooo", error);
-  });
+DiscordWebhook.SendBackendRestartWebhook();
