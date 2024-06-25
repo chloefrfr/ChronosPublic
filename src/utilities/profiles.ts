@@ -30,7 +30,7 @@ export default class ProfileHelper {
 
       const profile = await profilePromise;
 
-      return profile ? profile.profile : null;
+      return profile ? (profile.profile as any) : null;
     } catch (error) {
       logger.error(`Failed to get profile for accountId ${accountId} and type ${type}: ${error}`);
       return null;

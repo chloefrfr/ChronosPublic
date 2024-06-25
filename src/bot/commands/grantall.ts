@@ -4,6 +4,7 @@ import {
   EmbedBuilder,
   PermissionFlagsBits,
   type CacheType,
+  type ColorResolvable,
 } from "discord.js";
 import BaseCommand from "../base/Base";
 import { accountService, userService } from "../..";
@@ -48,103 +49,105 @@ export default class GrantallCommand extends BaseCommand {
   };
 
   async execute(interaction: CommandInteraction<CacheType>): Promise<any> {
+    if (!interaction.memberPermissions?.has("BanMembers")) {
+      return await interaction.reply({
+        content: "You do not have permission to use this command.",
+        ephemeral: true,
+      });
+    }
+
     await interaction.deferReply({ ephemeral: true });
-
     const user_data = await interaction.options.get("user", true);
-
     const user = await userService.findUserByDiscordId(user_data.user?.id as string);
 
-    if (!interaction.memberPermissions?.has("BanMembers"))
-      return await interaction.editReply({
-        content: "You do not have permission to use this command.",
-      });
-
     if (!user) {
-      const embed = new EmbedBuilder()
-        .setTitle("User not found.")
-        .setDescription("Failed to find user, please try again.")
-        .setColor("Red")
-        .setTimestamp();
-
-      return await interaction.editReply({ embeds: [embed] });
+      return await this.sendEmbed(
+        interaction,
+        "User not found.",
+        "Failed to find user, please try again.",
+        "Red",
+      );
     }
 
     const account = await accountService.findUserByDiscordId(user.discordId);
-
     if (!account) {
-      const embed = new EmbedBuilder()
-        .setTitle("Account not found.")
-        .setDescription("Failed to find account, please try again.")
-        .setColor("Red")
-        .setTimestamp();
-
-      return await interaction.editReply({ embeds: [embed] });
+      return await this.sendEmbed(
+        interaction,
+        "Account not found.",
+        "Failed to find account, please try again.",
+        "Red",
+      );
     }
 
     if (user.banned) {
-      const embed = new EmbedBuilder()
-        .setTitle("User is Banned")
-        .setDescription("This user is banned.")
-        .setColor("Red")
-        .setTimestamp();
-
-      return await interaction.editReply({ embeds: [embed] });
+      return await this.sendEmbed(interaction, "User is Banned", "This user is banned.", "Red");
     }
 
     if (user.has_all_items) {
-      const embed = new EmbedBuilder()
-        .setTitle("Already has full locker.")
-        .setDescription("This user already has full locker.")
-        .setColor("Red")
-        .setTimestamp();
-
-      return await interaction.editReply({ embeds: [embed] });
+      return await this.sendEmbed(
+        interaction,
+        "Already has full locker.",
+        "This user already has full locker.",
+        "Red",
+      );
     }
 
     const athena = await ProfileHelper.getProfile(user.accountId, "athena");
-
     if (!athena) {
+      return await this.sendEmbed(
+        interaction,
+        "Profile not found",
+        "The profile 'athena' was not found.",
+        "Red",
+      );
+    }
+
+    try {
+      const allItems = require(path.join(__dirname, "..", "..", "memory", "all.json"));
+      athena.items = { ...athena.items, ...allItems };
+
+      await Profiles.createQueryBuilder()
+        .update(Profiles)
+        .set({ profile: athena })
+        .where("type = :type", { type: "athena" })
+        .andWhere("accountId = :accountId", { accountId: user.accountId })
+        .execute();
+
+      await User.createQueryBuilder()
+        .update(User)
+        .set({ has_all_items: true })
+        .where("accountId = :accountId", { accountId: user.accountId })
+        .execute();
+
+      XmppUtilities.Refresh(user.accountId);
+
       const embed = new EmbedBuilder()
-        .setTitle("Profile not found")
-        .setDescription("The profile 'athena' was not found.")
-        .setColor("Red")
+        .setTitle("Success")
+        .setDescription(`Successfully granted all items to ${user_data.user?.username}'s account.`)
+        .setColor("Blurple")
         .setTimestamp();
 
       return await interaction.editReply({ embeds: [embed] });
+    } catch (error) {
+      return await interaction.reply({
+        content: "Failed to grant all items. Please try again later.",
+        ephemeral: true,
+      });
     }
+  }
 
-    const All = await Bun.file(path.join(__dirname, "..", "..", "memory", "all.json")).json();
-
-    athena.items = { ...athena.items, ...All };
-
-    await Profiles.createQueryBuilder()
-      .update(Profiles)
-      .set({ profile: athena })
-      .where("type = :type", { type: "athena" })
-      .where("accountId = :accountId", { accountId: user.accountId })
-      .execute();
-
+  private async sendEmbed(
+    interaction: CommandInteraction<CacheType>,
+    title: string,
+    description: string,
+    color: ColorResolvable,
+  ) {
     const embed = new EmbedBuilder()
-      .setTitle("Success")
-      .setDescription(`Successfully granted all items to ${user_data.user?.username}'s account.`)
-      .setColor("Blurple")
+      .setTitle(title)
+      .setDescription(description)
+      .setColor(color)
       .setTimestamp();
 
-    await Profiles.createQueryBuilder()
-      .update(Profiles)
-      .set({ profile: athena })
-      .where("type = :type", { type: "athena" })
-      .where("accountId = :accountId", { accountId: user.accountId })
-      .execute();
-
-    await User.createQueryBuilder()
-      .update(User)
-      .set({ has_all_items: true })
-      .where("accountId = :accountId", { accountId: user.accountId })
-      .execute();
-
-    XmppUtilities.Refresh(user.accountId);
-
-    return await interaction.editReply({ embeds: [embed] });
+    await interaction.editReply({ embeds: [embed] });
   }
 }
