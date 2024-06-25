@@ -27,13 +27,9 @@ export namespace XmppUtilities {
     if (!friends) return;
 
     for (const accepted of friends.accepted) {
-      console.log(accepted);
-
       const client = XmppService.clients.find((client) => client.accountId === accepted.accountId);
 
       if (!client) continue;
-
-      console.log(client.displayName);
 
       let xmlMessage = xmlbuilder
         .create("presence")
@@ -48,8 +44,6 @@ export namespace XmppUtilities {
           .element("status", sender.lastPresenceUpdate.status)
           .up();
       else xmlMessage = xmlMessage.element("status", sender.lastPresenceUpdate.status).up();
-
-      console.log(xmlMessage.toString({ pretty: true }));
 
       client.socket.send(xmlMessage.toString({ pretty: true }));
     }
@@ -75,8 +69,6 @@ export namespace XmppUtilities {
         .element("status", sender.lastPresenceUpdate.status)
         .up();
     else xmlMessage = xmlMessage.element("status", sender.lastPresenceUpdate.status).up();
-
-    console.log(xmlMessage.toString({ pretty: true }));
 
     receiver.socket.send(xmlMessage.toString({ pretty: true }));
   }

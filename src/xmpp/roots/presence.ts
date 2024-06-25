@@ -16,7 +16,6 @@ export default async function (
 
   switch (rootType) {
     case "unavailable":
-      console.log("unavailable");
       if (
         to.endsWith("@muc.prod.ol.epicgames.com") ||
         to.split("/")[0].endsWith("@muc.prod.ol.epicgames.com")
@@ -244,9 +243,6 @@ export default async function (
 
   let away: boolean = false;
   if (root.children.some((child) => child.name === "show")) away = true;
-
-  console.log(findStatus);
-  logger.debug(`IsAway: ${away}`);
 
   await XmppUtilities.UpdatePresenceForFriend(socket, status, false, away);
   await XmppUtilities.GetUserPresence(
