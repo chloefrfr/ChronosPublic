@@ -15,6 +15,7 @@ import { User } from "../../tables/user";
 import { Profiles } from "../../tables/profiles";
 import { v4 as uuid } from "uuid";
 import { XmppUtilities } from "../../xmpp/utilities/XmppUtilities";
+import { HTTPRequests } from "../../utilities/requests";
 
 export interface Gifts {
   templateId: string;
@@ -119,7 +120,7 @@ export default class GrantallCommand extends BaseCommand {
         .where("accountId = :accountId", { accountId: user.accountId })
         .execute();
 
-      XmppUtilities.Refresh(user.accountId);
+      await HTTPRequests.RefreshAccount(user.accountId, user.username);
 
       const embed = new EmbedBuilder()
         .setTitle("Success")

@@ -37,6 +37,22 @@ export default class ProfileHelper {
     }
   }
 
+  static async GenerateProfileChange(changeType: string, profileData: any) {
+    return new Promise((resolve, reject) => {
+      try {
+        const profileChange = {
+          changeType,
+          _id: uuid().replace(/-/gi, ""),
+          profile: { ...profileData },
+        };
+
+        resolve([profileChange]);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   static createBattlePassTemplate(): BattlePass {
     return {
       book_purchased: false,

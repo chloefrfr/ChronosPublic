@@ -35,5 +35,5 @@
 - [x] Stats command
 - [ ] Arena leaderboard command
 - [ ] Tournament leaderboard command
-- [ ] Player count command
+- [x] Player count command
 - [x] User lookup command
