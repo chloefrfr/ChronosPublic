@@ -45,7 +45,7 @@ export default async function (c: Context) {
       );
     }
 
-    const profile = await ProfileHelper.getProfile(profileId);
+    const profile = await ProfileHelper.getProfile(user.accountId, profileId);
 
     if (!profile && profileId !== "athena" && profileId !== "common_core")
       return c.json(

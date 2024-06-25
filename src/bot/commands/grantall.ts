@@ -12,6 +12,24 @@ import { Account } from "../../tables/account";
 import ProfileHelper from "../../utilities/profiles";
 import { User } from "../../tables/user";
 import { Profiles } from "../../tables/profiles";
+import { v4 as uuid } from "uuid";
+import { XmppUtilities } from "../../xmpp/utilities/XmppUtilities";
+
+export interface Gifts {
+  templateId: string;
+  templateIdHashed: string;
+  fromAccountId: string;
+  userMessage: string;
+  time: string;
+  lootList: LootList[];
+}
+
+export interface LootList {
+  itemType: string;
+  itemGuid: string;
+  itemProfile: string;
+  quantity: number;
+}
 
 export default class GrantallCommand extends BaseCommand {
   data = {
@@ -83,7 +101,7 @@ export default class GrantallCommand extends BaseCommand {
       return await interaction.editReply({ embeds: [embed] });
     }
 
-    const athena = await ProfileHelper.getProfile("athena");
+    const athena = await ProfileHelper.getProfile(user.accountId, "athena");
 
     if (!athena) {
       const embed = new EmbedBuilder()
@@ -99,6 +117,13 @@ export default class GrantallCommand extends BaseCommand {
 
     athena.items = { ...athena.items, ...All };
 
+    await Profiles.createQueryBuilder()
+      .update(Profiles)
+      .set({ profile: athena })
+      .where("type = :type", { type: "athena" })
+      .where("accountId = :accountId", { accountId: user.accountId })
+      .execute();
+
     const embed = new EmbedBuilder()
       .setTitle("Success")
       .setDescription(`Successfully granted all items to ${user_data.user?.username}'s account.`)
@@ -109,6 +134,7 @@ export default class GrantallCommand extends BaseCommand {
       .update(Profiles)
       .set({ profile: athena })
       .where("type = :type", { type: "athena" })
+      .where("accountId = :accountId", { accountId: user.accountId })
       .execute();
 
     await User.createQueryBuilder()
@@ -116,6 +142,8 @@ export default class GrantallCommand extends BaseCommand {
       .set({ has_all_items: true })
       .where("accountId = :accountId", { accountId: user.accountId })
       .execute();
+
+    XmppUtilities.Refresh(user.accountId);
 
     return await interaction.editReply({ embeds: [embed] });
   }

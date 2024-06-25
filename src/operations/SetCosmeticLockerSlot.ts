@@ -19,17 +19,22 @@ export default async function (c: Context) {
     return c.json(errors.createError(400, c.req.url, "Missing query parameters.", timestamp), 400);
   }
 
-  let [user, account, profile] = await Promise.all([
+  let [user, account] = await Promise.all([
     userService.findUserByAccountId(accountId),
     accountService.findUserByAccountId(accountId),
-    ProfileHelper.getProfile(profileId),
   ]);
 
-  if (!user || !account || !profile) {
+  if (!user || !account) {
     return c.json(
-      errors.createError(404, c.req.url, "Failed to find user, account, or profile.", timestamp),
+      errors.createError(404, c.req.url, "Failed to find user, account.", timestamp),
       404,
     );
+  }
+
+  const profile = await ProfileHelper.getProfile(user.accountId, profileId);
+
+  if (!profile) {
+    return c.json(errors.createError(404, c.req.url, "Failed to find profile.", timestamp), 404);
   }
 
   let body;

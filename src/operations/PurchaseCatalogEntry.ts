@@ -49,7 +49,7 @@ export default async function (c: Context) {
     );
   }
 
-  const profile = await ProfileHelper.getProfile(profileId);
+  const profile = await ProfileHelper.getProfile(user.accountId, profileId);
 
   if (!profile)
     return c.json(
@@ -72,7 +72,7 @@ export default async function (c: Context) {
 
   let owned: boolean = false;
 
-  const athena = await ProfileHelper.getProfile("athena");
+  const athena = await ProfileHelper.getProfile(user.accountId, "athena");
 
   if (!athena)
     return c.json(

@@ -17,26 +17,18 @@ export default class ProfilesService {
     return Math.floor(Math.random() * (300 - 60 + 1)) + 60;
   }
 
-  public async findByType(type: string): Promise<Profiles | null> {
+  public async findByType(accountId: string, type: string): Promise<Profiles | null> {
     try {
-      const cachedProfile = this.cache.get<Profiles>(`profile_type_${type}`);
-      if (cachedProfile) {
-        return cachedProfile;
-      } else {
-        const profile = await this.profilesRepository
-          .createQueryBuilder("profiles")
-          .where("profiles.type = :type", { type })
-          .getOne();
+      const profile = await this.profilesRepository.findOne({
+        where: {
+          accountId: accountId,
+          type: type,
+        },
+      });
 
-        if (profile) {
-          const ttl = this.getRandomTTL();
-          this.cache.set(`profile_type_${type}`, profile, ttl);
-        }
-
-        return profile || null;
-      }
+      return profile || null;
     } catch (error) {
-      logger.error(`Error finding profile by type: ${error}`);
+      logger.error(`Error finding profile by accountId ${accountId} and type ${type}: ${error}`);
       return null;
     }
   }

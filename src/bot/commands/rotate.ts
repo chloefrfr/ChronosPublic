@@ -36,7 +36,7 @@ export default class LookupCommand extends BaseCommand {
     const embed = new EmbedBuilder()
       .setTitle("Rotated Storefront")
       .setDescription("Successfully rotated storefront.")
-      .setColor("Red")
+      .setColor("Blurple")
       .setTimestamp();
 
     return await interaction.editReply({ embeds: [embed] });

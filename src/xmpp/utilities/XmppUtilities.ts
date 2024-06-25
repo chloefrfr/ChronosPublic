@@ -12,9 +12,6 @@ export namespace XmppUtilities {
     offline: boolean,
     away: boolean,
   ) {
-    logger.debug(`isAway: ${away}`);
-    logger.debug(`isOffline: ${offline}`);
-
     const sender = XmppService.clients.find((client) => client.socket === socket);
 
     if (!sender) return;
@@ -245,6 +242,21 @@ export namespace XmppUtilities {
         .element("body", `${body}`)
         .up()
         .toString({ pretty: true }),
+    );
+  }
+
+  export function Refresh(accountId: string) {
+    const client = XmppService.clients.find((client) => client.accountId === accountId);
+
+    if (!client) return;
+
+    SendMessageToId(
+      JSON.stringify({
+        type: "com.epicgames.gift.received",
+        payload: {},
+        timestamp: new Date().toISOString(),
+      }),
+      client.accountId,
     );
   }
 }

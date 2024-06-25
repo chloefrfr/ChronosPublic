@@ -35,7 +35,7 @@ export default function () {
       if (!user)
         return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
-      const profile = await ProfileHelper.getProfile(profileId);
+      const profile = await ProfileHelper.getProfile(user.accountId, profileId);
 
       if (!profile && profileId !== "athena" && profileId !== "common_core")
         return c.json(MCPResponses.generate({ rvn }, [], profileId));
