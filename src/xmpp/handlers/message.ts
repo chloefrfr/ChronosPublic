@@ -19,8 +19,8 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, root: xml
       if (body.length >= 300) return;
 
       const accountId = root.attributes.to.split("@")[0];
-      const client = XmppService.xmppClients.get(accountId);
-      const sender = XmppService.xmppClients.get(accountId);
+      const client = XmppService.xmppClients.find((client) => client.accountId === accountId);
+      const sender = XmppService.xmppClients.find((client) => client.accountId === accountId);
 
       if (!client || !sender) return;
 
@@ -40,13 +40,15 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, root: xml
     case "groupchat":
       const room = root.attributes.to.split("@")[0];
 
-      if (!XmppService.xmppMucs.has(room)) return;
+      if (!XmppService.xmppMucs[room]) return;
 
-      const roomData = XmppService.xmppMucs.get(room);
+      const roomData = XmppService.xmppMucs[room];
       if (!roomData?.members.find((member) => member.accountId === socket.data.accountId)) return;
 
       roomData.members.forEach((member) => {
-        const client = XmppService.xmppClients.get(member.accountId);
+        const client = XmppService.xmppClients.find(
+          (client) => client.accountId === member.accountId,
+        );
 
         if (!client) return;
 

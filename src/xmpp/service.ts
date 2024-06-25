@@ -23,8 +23,8 @@ interface MUCMember {
 }
 
 export namespace XmppService {
-  export const xmppClients: Map<string, ClientInfo> = new Map();
-  export const xmppMucs: Map<string, MUCInfo> = new Map();
+  export const xmppClients: ClientInfo[] = [];
+  export const xmppMucs: { [key: string]: MUCInfo } = {};
   export const joinedMUCs: string[] = [];
   export let isConnectionActive: boolean = false;
 }

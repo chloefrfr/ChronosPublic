@@ -40,8 +40,6 @@ export default function () {
       if (!profile && profileId !== "athena" && profileId !== "common_core")
         return c.json(MCPResponses.generate({ rvn }, [], profileId));
 
-      logger.debug(`Requested action '${action}' with the profileId ${profileId}`);
-
       const handler = operations[action];
 
       if (handler && typeof handler === "function") return await handler(c);

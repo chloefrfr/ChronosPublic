@@ -2,7 +2,9 @@ import xmlbuilder from "xmlbuilder";
 import xmlparser from "xml-parser";
 import type { ServerWebSocket } from "bun";
 import type { ChronosSocket } from "../server";
-import { isUserConnected } from "./auth";
+import { XmppService } from "../service";
+import { friendsService } from "../..";
+import { XmppUtilities } from "../../utilities/xmpp";
 
 export default async function (socket: ServerWebSocket<ChronosSocket>, root: xmlparser.Node) {
   const attributeId = root.attributes.id;
@@ -14,7 +16,7 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, root: xml
       if (socket.data.resource || !socket.data.accountId) return;
       if (!binder) return;
 
-      if (isUserConnected(socket.data.accountId)) {
+      if (XmppService.xmppClients.find((client) => client.accountId === socket.data.accountId)) {
         socket.send(
           xmlbuilder
             .create("close")
@@ -47,6 +49,51 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, root: xml
           .up()
           .toString({ pretty: true }),
       );
+      break;
+
+    case "_xmpp_session1":
+      socket.send(
+        xmlbuilder
+          .create("iq")
+          .attribute("to", (socket as any).jid)
+          .attribute("from", "prod.ol.epicgames.com")
+          .attribute("id", "_xmpp_session1")
+          .attribute("xmlns", "jabber:client")
+          .attribute("type", "result")
+          .toString({ pretty: true }),
+      );
+
+      const user = await friendsService.findFriendByAccountId(socket.data.accountId as string);
+
+      if (!user) return socket.close();
+
+      user.accepted.forEach(async (friend) => {
+        const client = XmppService.xmppClients.find(
+          (client) => client.accountId === friend.accountId,
+        );
+
+        if (!client) return;
+
+        let xaml = xmlbuilder
+          .create("message")
+          .attribute("to", (socket as any).jid)
+          .attribute("xmlns", "jabber:client")
+          .attribute("from", client.jid)
+          .attribute("type", "available");
+
+        if (client.lastPresenceUpdate.away) {
+          xaml = xaml
+            .element("show", "away")
+            .up()
+            .element("status", client.lastPresenceUpdate.status)
+            .up();
+        }
+
+        xaml = xaml.element("status", client.lastPresenceUpdate.status).up();
+
+        socket.send(xaml.toString({ pretty: true }));
+      });
+
       break;
 
     default:

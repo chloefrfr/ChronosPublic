@@ -5,65 +5,47 @@ import xmlbuilder from "xmlbuilder";
 import { logger, tokensService, userService } from "../..";
 import { XmppService } from "../service";
 
-export default async function (socket: ServerWebSocket<ChronosSocket>, root: xmlparser.Node) {
-  try {
-    if (!root || !root.content) return socket.close(1008, "Invalid XML");
+export default async function (socket: ServerWebSocket<ChronosSocket>, clientData: xmlparser.Node) {
+  if (!clientData || !clientData.content) return socket.close(1008, "Invalid XML");
 
-    const decodedNodeContent = atob(root.content);
-    if (!decodedNodeContent.includes("\u0000")) return socket.close(1008, "Invalid XML");
+  const decodedBytes = Buffer.from(clientData.content, "base64");
+  const decodedContent = decodedBytes.toString("utf-8");
+  const authFields = decodedContent.split("\u0000");
+  const accountId = authFields[1];
 
-    const authenticationFields = decodedNodeContent.split("\u0000");
+  const accessToken = await tokensService.getTokenByTypeAndAccountId("accesstoken", accountId);
 
-    if (authenticationFields.length !== 3 || !Array.isArray(authenticationFields))
-      return socket.close(1008, "Invalid Length or Not an Array.");
+  if (XmppService.xmppClients.some((client) => client.accountId === accountId))
+    return socket.close();
 
-    const accountId = authenticationFields[1];
+  const user = await userService.findUserByAccountId(accountId);
 
-    console.log(isUserConnected(accountId));
-    if (isUserConnected(accountId)) return socket.close(1008, "User already connected.");
+  if (!user || user.banned) {
+    socket.data.isAuthenticated = false;
+    return socket.close();
+  }
 
-    const user = await userService.findUserByAccountId(accountId);
-    if (!user) return socket.close(1008, "User not found.");
+  socket.data.accountId = user.accountId;
+  if (accessToken) socket.data.token = accessToken.token;
+  socket.data.displayName = user.username;
 
-    if (user.banned) return socket.close(1008, "User is banned.");
+  if (
+    decodedContent &&
+    socket.data.accountId &&
+    socket.data.displayName &&
+    authFields.length === 3
+  ) {
+    socket.data.isAuthenticated = true;
 
-    const accessToken = await tokensService.getTokenByTypeAndAccountId("accesstoken", accountId);
+    logger.info(`XMPP Client with the displayName ${socket.data.displayName} has logged in.`);
 
-    socket.data.accountId = user.accountId;
-    socket.data.displayName = user.username;
-    if (accessToken) {
-      socket.data.token = accessToken.token;
-    }
-
-    if (
-      decodedNodeContent &&
-      socket.data.accountId &&
-      socket.data.displayName &&
-      authenticationFields.length === 3
-    ) {
-      socket.data.isAuthenticated = true;
-      logger.info(`Socket Client with the username ${socket.data.displayName} has connected.`);
-
-      socket.send(
-        xmlbuilder
-          .create("success")
-          .attribute("xmlns", "urn:ietf:params:xml:ns:xmpp-sasl")
-          .toString(),
-      );
-    } else {
-      socket.send(
-        xmlbuilder
-          .create("failure")
-          .attribute("xmlns", "urn:ietf:params:xml:ns:xmpp-sasl")
-          .ele("not-authorized")
-          .ele("text")
-          .attribute("xml:lang", "eng")
-          .text("Password not verified")
-          .end()
-          .toString(),
-      );
-    }
-  } catch (error) {
+    socket.send(
+      xmlbuilder
+        .create("success")
+        .attribute("xmlns", "urn:ietf:params:xml:ns:xmpp-sasl")
+        .toString(),
+    );
+  } else {
     socket.send(
       xmlbuilder
         .create("failure")
@@ -71,18 +53,9 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, root: xml
         .ele("not-authorized")
         .ele("text")
         .attribute("xml:lang", "eng")
-        .text("Authentication failed")
+        .text("Password not verified")
         .end()
         .toString(),
     );
   }
-}
-
-export function isUserConnected(accountId: string): boolean {
-  for (const client of XmppService.xmppClients.values()) {
-    if (client.accountId === accountId) {
-      return true;
-    }
-  }
-  return false;
 }

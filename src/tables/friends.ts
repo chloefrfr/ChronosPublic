@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-interface Friend {
+export interface Friend {
   accountId: string;
   createdAt: string;
   alias: string;
@@ -14,15 +14,15 @@ export class Friends extends BaseEntity {
   @Column()
   accountId!: string;
 
-  @Column("simple-array", { default: [] })
+  @Column("jsonb", { default: [] })
   accepted!: Friend[];
 
-  @Column("simple-array", { default: [] })
+  @Column("jsonb", { default: [] })
   incoming!: Friend[];
 
-  @Column("simple-array", { default: [] })
+  @Column("jsonb", { default: [] })
   outgoing!: Friend[];
 
-  @Column("simple-array", { default: [] })
+  @Column("jsonb", { default: [] })
   blocked!: Friend[];
 }

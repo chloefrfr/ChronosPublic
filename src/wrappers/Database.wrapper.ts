@@ -69,8 +69,8 @@ export default class Database {
         ssl: this.dbConfig.ssl ? { rejectUnauthorized: false } : false,
         entities: [User, Account, Tokens, Timeline, Profiles, Hype, Friends],
         synchronize: true,
-        logging: true,
-        logger: new ORMLogger(),
+        // logging: true,
+        // logger: new ORMLogger(),
         migrations: [User, Account, Tokens, Timeline, Profiles, Hype, Friends],
       });
 

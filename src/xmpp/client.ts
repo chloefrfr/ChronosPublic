@@ -1,105 +1,81 @@
-import type { ServerWebSocket } from "bun";
-import type { ChronosSocket } from "./server";
 import xmlparser from "xml-parser";
+
+import type { ChronosSocket } from "./server";
+import type { ServerWebSocket } from "bun";
 import { logger } from "..";
-import path from "node:path";
-import { XmppService, type ClientInfo } from "./service";
+import { XmppService } from "./service";
+import message from "./handlers/message";
+import iq from "./handlers/iq";
+import auth from "./handlers/auth";
+import open from "./handlers/open";
+import presence from "./handlers/presence";
 
-interface ClientOptions {
-  socket: ServerWebSocket<ChronosSocket>;
-  message?: string | Buffer;
-}
+export default async function (socket: ServerWebSocket<ChronosSocket>, chunk: string | Buffer) {
+  try {
+    let clientData: xmlparser.Document;
 
-interface SocketHandler {
-  handler: (socket: ServerWebSocket<ChronosSocket>, root: xmlparser.Node) => Promise<void>;
-}
+    if (Buffer.isBuffer(chunk)) chunk = chunk.toString();
 
-export default class XmppClient {
-  private socket: ServerWebSocket<ChronosSocket>;
-  private message: string | Buffer;
-  private clientData: xmlparser.Document | null = null;
+    clientData = xmlparser(chunk as string);
 
-  constructor(options: ClientOptions) {
-    this.socket = options.socket;
-    this.message = options.message!;
-  }
+    if (!clientData || !clientData.root || !clientData.root.name)
+      return socket.close(1008, "Invalid XML");
 
-  async initialize(): Promise<void> {
-    try {
-      if (Buffer.isBuffer(this.message)) this.message = this.message.toString();
+    const { name } = clientData.root;
 
-      this.clientData = xmlparser(this.message);
+    console.log(`requested ${name}`);
 
-      if (!this.clientData) return this.socket.close(1008, "Invalid XML");
+    switch (name) {
+      case "open":
+        await open(socket, clientData.root);
+        break;
 
-      await this.handleMessage();
-    } catch (error) {
-      logger.error(`Error initializing XmppClient: ${error}`);
-      this.socket.close(1008, "Invalid XML");
-    }
-  }
+      case "auth":
+        await auth(socket, clientData.root);
+        break;
 
-  private async handleMessage(): Promise<void> {
-    const { name } = this.clientData!.root;
+      case "iq":
+        await iq(socket, clientData.root);
+        break;
 
-    logger.debug(`Requested root: ${name}`);
+      case "presence":
+        await presence(socket, clientData.root);
+        break;
 
-    const handlers: SocketHandler[] = [];
-    const handlerModule = await import(path.join(__dirname, "handlers", `${name}.ts`));
+      case "message":
+        await message(socket, clientData.root);
+        break;
 
-    if (typeof handlerModule === "function") {
-      const handlerFunction = handlerModule.default;
-
-      handlers.push({ handler: handlerFunction });
+      default:
+        logger.error(`Socket root with the name ${name} is not implemented!`);
+        break;
     }
 
-    for (const handler of handlers) {
-      if (handler.handler) await handler.handler(this.socket, this.clientData!.root);
-      else logger.error(`Root with the name '${name}} does not exist.`);
-    }
-
-    this.handleValidConnection();
-  }
-
-  private handleValidConnection(): void {
-    if (this.isValidConnection()) {
-      const clientInfo = this.getClientInfo();
-
-      if (clientInfo) {
-        XmppService.xmppClients.set(this.socket.data.accountId as string, clientInfo);
-        XmppService.isConnectionActive = true;
-      }
-    }
-  }
-
-  private getClientInfo(): ClientInfo | null {
-    const { accountId, displayName, jid, resource, token } = this.socket.data;
-    if (!accountId || !displayName || !jid || !resource || !token) return null;
-
-    return {
-      accountId,
-      displayName,
-      token,
-      jid,
-      resource,
-      socket: this.socket,
-      lastPresenceUpdate: {
-        away: false,
-        status: "{}",
-      },
-    };
-  }
-
-  private isValidConnection(): boolean {
-    const { isAuthenticated, accountId, displayName, jid, resource } = this.socket.data;
-
-    return (
+    const isValidConnection =
       !XmppService.isConnectionActive &&
-      isAuthenticated === true &&
-      typeof accountId === "string" &&
-      typeof displayName === "string" &&
-      typeof jid === "string" &&
-      typeof resource === "string"
-    );
+      socket.data.isAuthenticated &&
+      socket.data.accountId &&
+      socket.data.displayName &&
+      socket.data.jid &&
+      socket.data.resource;
+
+    if (isValidConnection) {
+      XmppService.xmppClients.push({
+        socket,
+        accountId: socket.data.accountId as string,
+        displayName: socket.data.displayName as string,
+        token: socket.data.token as string,
+        jid: socket.data.jid as string,
+        resource: socket.data.resource as string,
+        lastPresenceUpdate: {
+          away: false,
+          status: "{}",
+        },
+      });
+
+      XmppService.isConnectionActive = true;
+    }
+  } catch (error) {
+    logger.error(`Error handling message: ${error}`);
   }
 }

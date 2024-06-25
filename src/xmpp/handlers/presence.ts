@@ -15,137 +15,239 @@ export default async function (
   socket: ServerWebSocket<ChronosSocket>,
   root: xmlparser.Node,
 ): Promise<void> {
-  const { type, to } = root.attributes;
-  const { children } = root;
+  const rootType = root.attributes.type;
+  const to = root.attributes.to;
+  const children = root.children;
 
-  switch (type) {
+  switch (rootType) {
     case "unavailable":
-      return;
+      if (
+        to.endsWith("@muc.prod.ol.epicgames.com") ||
+        to.split("/")[0].endsWith("@muc.prod.ol.epicgames.com")
+      ) {
+        const roomName = to.split("@")[0];
+        const room = XmppService.xmppMucs[roomName];
+
+        if (room) {
+          const roomMemberIndex = room.members.findIndex(
+            (member: { accountId: string }) => member.accountId === socket.data.accountId,
+          );
+
+          if (roomMemberIndex !== undefined && roomMemberIndex !== -1) {
+            room.members.splice(roomMemberIndex, 1);
+            XmppService.joinedMUCs.splice(XmppService.joinedMUCs.indexOf(roomName), 1);
+          }
+
+          socket.send(
+            xmlbuilder
+              .create("presence")
+              .attribute("to", socket.data.jid)
+              .attribute(
+                "from",
+                `${roomName}@muc.prod.ol.epicgames.com/${encodeURI(
+                  socket.data.displayName as string,
+                )}:${socket.data.accountId}:${socket.data.resource}`,
+              )
+              .attribute("xmlns", "jabber:client")
+              .attribute("type", "unavailable")
+              .element("x")
+              .attribute("xmlns", "http://jabber.org/protocol/muc#user")
+              .element("item")
+              .attribute(
+                "nick",
+                `${roomName}@muc.prod.ol.epicgames.com/${encodeURI(
+                  socket.data.displayName as string,
+                )}:${socket.data.accountId}:${socket.data.resource}`.replace(
+                  `${roomName}@muc.prod.ol.epicgames.com/`,
+                  "",
+                ),
+              )
+              .attribute("jid", socket.data.jid)
+              .attribute("role", "none")
+              .up()
+              .element("status")
+              .attribute("code", "110")
+              .up()
+              .element("status")
+              .attribute("code", "100")
+              .up()
+              .element("status")
+              .attribute("code", "170")
+              .up()
+              .up()
+              .toString({ pretty: true }),
+          );
+        }
+      }
+
+      break;
 
     default:
-      if (children.some((val) => val.name === "muc:x" || val.name === "x")) {
-        const room = to.split("@")[0];
-        if (!XmppService.xmppMucs.has(room)) {
-          XmppService.xmppMucs.set(room, { members: [] });
+      if (
+        children.find((child) => child.name === "muc:x") ||
+        children.find((child) => child.name === "x")
+      ) {
+        const roomName = to.split("@")[0];
+
+        if (!XmppService.xmppMucs[roomName]) {
+          // @ts-ignore
+          XmppService.xmppMucs[roomName] = { members: [] };
         }
 
-        const mucRoom = XmppService.xmppMucs.get(room)!;
-        if (!mucRoom.members) {
-          mucRoom.members = [];
-        }
-
-        // Check if the member already exists.
-        if (mucRoom.members.some((member) => member.accountId === socket.data.accountId)) {
+        if (
+          XmppService.xmppMucs[roomName].members.find(
+            (member: { accountId: string }) => member.accountId === socket.data.accountId,
+          )
+        )
           return;
+
+        if (XmppService.xmppMucs[roomName]) {
+          XmppService.xmppMucs[roomName].members = XmppService.xmppMucs[roomName].members || [];
         }
+        XmppService.xmppMucs[roomName].members.push({
+          accountId: socket.data.accountId as string,
+        });
+        XmppService.joinedMUCs.push(roomName);
 
-        mucRoom.members.push({ accountId: socket.data.accountId as string });
-        XmppService.joinedMUCs.push(room);
+        socket.send(
+          xmlbuilder
+            .create("presence")
+            .attribute("to", socket.data.jid)
+            .attribute(
+              "from",
+              `${roomName}@muc.prod.ol.epicgames.com/${encodeURI(
+                socket.data.displayName as string,
+              )}:${socket.data.accountId}:${socket.data.resource}`,
+            )
+            .attribute("xmlns", "jabber:client")
+            .attribute("type", "unavailable")
+            .element("x")
+            .attribute("xmlns", "http://jabber.org/protocol/muc#user")
+            .element("item")
+            .attribute(
+              "nick",
+              `${roomName}@muc.prod.ol.epicgames.com/${encodeURI(
+                socket.data.displayName as string,
+              )}:${socket.data.accountId}:${socket.data.resource}`.replace(
+                `${roomName}@muc.prod.ol.epicgames.com/`,
+                "",
+              ),
+            )
+            .attribute("jid", socket.data.jid)
+            .attribute("role", "participant")
+            .attribute("affiliation", "none")
+            .up()
+            .element("status")
+            .attribute("code", "110")
+            .up()
+            .element("status")
+            .attribute("code", "100")
+            .up()
+            .element("status")
+            .attribute("code", "170")
+            .up()
+            .element("status")
+            .attribute("code", "201")
+            .up()
+            .up()
+            .toString({ pretty: true }),
+        );
 
-        const fromJid = `${room}@muc.prod.ol.epicgames.com/${encodeURIComponent(
-          socket.data.displayName as string,
-        )}:${socket.data.accountId}:${socket.data.resource}`;
+        XmppService.xmppMucs[roomName].members.forEach(async (member: { accountId: string }) => {
+          const client = XmppService.xmppClients.find(
+            (client) => client.accountId === member.accountId,
+          );
 
-        const presenceXml = xmlbuilder
-          .create("presence", { headless: false })
-          .attribute("to", socket.data.jid)
-          .attribute("from", fromJid)
-          .attribute("xmlns", "jabber:client")
-          .attribute("type", "unavailable")
-          .ele("x")
-          .attribute("xmlns", "http://jabber.org/protocol/muc#user")
-          .ele("item")
-          .attribute("nick", fromJid.replace(`${room}@muc.prod.ol.epicgames.com/`, ""))
-          .attribute("jid", socket.data.jid)
-          .attribute("role", "participant")
-          .attribute("affiliation", "none")
-          .up()
-          .up()
-          .ele("status", { code: "110" })
-          .up()
-          .ele("status", { code: "100" })
-          .up()
-          .ele("status", { code: "170" })
-          .up()
-          .ele("status", { code: "201" });
+          if (!client) return;
 
-        socket.send(presenceXml.end({ pretty: true }));
-
-        mucRoom.members.forEach(async (member) => {
-          const client = XmppService.xmppClients.get(member.accountId);
-
-          if (client && socket.data.accountId !== client.accountId) {
-            const clientJid = `${room}@muc.prod.ol.epicgames.com/${encodeURIComponent(
-              client.displayName as string,
-            )}:${client.accountId}:${client.resource}`;
-
-            const clientPresenceXml = xmlbuilder
-              .create("presence", { headless: false })
-              .attribute("from", clientJid)
+          socket.send(
+            xmlbuilder
+              .create("presence")
+              .attribute(
+                "from",
+                `${roomName}@muc.prod.ol.epicgames.com/${encodeURI(
+                  client?.displayName as string,
+                )}:${client?.accountId}:${client?.resource}`,
+              )
               .attribute("to", socket.data.jid)
               .attribute("xmlns", "jabber:client")
-              .ele("x")
+              .element("x")
               .attribute("xmlns", "http://jabber.org/protocol/muc#user")
-              .ele("item")
-              .attribute("nick", fromJid.replace(`${room}@muc.prod.ol.epicgames.com/`, ""))
-              .attribute("jid", client.jid)
+              .element("item")
+              .attribute(
+                "nick",
+                `${roomName}@muc.prod.ol.epicgames.com/${encodeURI(
+                  socket.data.displayName as string,
+                )}:${socket.data.accountId}:${socket.data.resource}`.replace(
+                  `${roomName}@muc.prod.ol.epicgames.com/`,
+                  "",
+                ),
+              )
+              .attribute("jid", client?.jid)
               .attribute("role", "participant")
               .attribute("affiliation", "none")
               .up()
-              .up();
+              .up()
+              .toString({ pretty: true }),
+          );
 
-            socket.send(clientPresenceXml.end({ pretty: true }));
+          if (socket.data.accountId === client.accountId) return;
 
-            if (client.socket) {
-              const clientSocketPresenceXml = xmlbuilder
-                .create("presence", { headless: false })
-                .attribute("from", fromJid)
-                .attribute("to", client.jid)
-                .attribute("xmlns", "jabber:client")
-                .ele("x")
-                .attribute("xmlns", "http://jabber.org/protocol/muc#user")
-                .ele("item")
-                .attribute("nick", fromJid.replace(`${room}@muc.prod.ol.epicgames.com/`, ""))
-                .attribute("jid", socket.data.jid)
-                .attribute("role", "participant")
-                .attribute("affiliation", "none")
-                .up()
-                .up();
-
-              client.socket.send(clientSocketPresenceXml.end({ pretty: true }));
-            }
-          }
+          client?.socket?.send(
+            xmlbuilder
+              .create("presence")
+              .attribute(
+                "from",
+                `${roomName}@muc.prod.ol.epicgames.com/${encodeURI(
+                  socket.data.displayName as string,
+                )}:${socket.data.accountId}:${socket.data.resource}`,
+              )
+              .attribute("to", client.jid)
+              .attribute("xmlns", "jabber:client")
+              .element("x")
+              .attribute("xmlns", "http://jabber.org/protocol/muc#user")
+              .element("item")
+              .attribute(
+                "nick",
+                `${roomName}@muc.prod.ol.epicgames.com/${encodeURI(
+                  socket.data.displayName as string,
+                )}:${socket.data.accountId}:${socket.data.resource}`.replace(
+                  `${roomName}@muc.prod.ol.epicgames.com/`,
+                  "",
+                ),
+              )
+              .attribute("jid", socket.data.jid)
+              .attribute("role", "participant")
+              .attribute("affiliation", "none")
+              .up()
+              .up()
+              .toString({ pretty: true }),
+          );
         });
+
+        return;
       }
-      break;
-  }
 
-  const findStatus = children.find((val) => val.name === "status");
-  if (!findStatus || !findStatus.content) return;
+      const statusElement = root.children.find((child) => child.name === "status");
 
-  let statusData: string | null = null;
+      if (!statusElement || !statusElement.content) return;
 
-  try {
-    statusData = JSON.parse(findStatus.content);
-  } catch (error) {
-    logger.error(`Failed to Parse Status Content: ${error}`);
-    return;
-  }
+      if (!socket.data.accountId) {
+        console.log("accoutnId is undefined?");
+        return;
+      }
 
-  if (statusData !== null) {
-    const status: string = findStatus.content;
-    const away: boolean = !!children.find((val) => val.name === "show");
+      if (!JSON.parse(statusElement.content)) return;
 
-    const sender = XmppService.xmppClients.get(socket.data.accountId as string);
-    const receiver = XmppService.xmppClients.get(socket.data.accountId as string);
+      console.log("testy west");
+      console.log(socket.data.accountId);
 
-    if (!sender || !receiver) return socket.close();
-
-    try {
-      await XmppUtilities.UpdateClientPresence(socket, status, false, away);
-      await XmppUtilities.GetUserPresence(false, sender.accountId, receiver.accountId);
-    } catch (error) {
-      logger.error(`Failed to update presence: ${error}`);
-    }
+      await XmppUtilities.UpdateClientPresence(
+        socket,
+        statusElement.content,
+        root.children.find((child) => child.name === "show") ? true : false,
+        false,
+      );
+      await XmppUtilities.GetUserPresence(false, socket.data.accountId, socket.data.accountId);
   }
 }
