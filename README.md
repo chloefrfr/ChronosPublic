@@ -19,7 +19,7 @@
 - [x] Purchasing from item shop
 - [ ] IP Bans
 - [ ] HWID Bans
-- [ ] Refunding
+- [x] Refunding
 - [ ] Save the World
 - [x] Arena
 - [ ] Tournaments
