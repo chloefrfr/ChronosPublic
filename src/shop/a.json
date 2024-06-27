@@ -1,0 +1,1162 @@
+{
+    "expiration": "2024-06-28T00:00:00.000Z",
+    "storefronts": [
+        {
+            "name": "BRDailyStorefront",
+            "catalogEntries": [
+                {
+                    "meta": {
+                        "TileSize": "Small",
+                        "SectionId": "Daily",
+                        "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_Pickaxe_ID_438_AntiLlamaFemale.DA_Daily_Pickaxe_ID_438_AntiLlamaFemale",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Pickaxe_ID_438_AntiLlamaFemale.DAv2_Featured_DAv2_Pickaxe_ID_438_AntiLlamaFemale"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 500,
+                            "finalPrice": 500,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 500,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaPickaxe:Pickaxe_ID_438_AntiLlamaFemale for 500 MtxCurrency",
+                    "offerId": ":/fdf9ec2c-3cac-43b8-8ef5-24ed8ba48329",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaPickaxe:Pickaxe_ID_438_AntiLlamaFemale",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "/Game/Catalog/DisplayAssets/DA_Daily_Pickaxe_ID_438_AntiLlamaFemale.DA_Daily_Pickaxe_ID_438_AntiLlamaFemale"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Pickaxe_ID_438_AntiLlamaFemale.DAv2_Featured_DAv2_Pickaxe_ID_438_AntiLlamaFemale"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Small"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Daily"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaPickaxe:Pickaxe_ID_438_AntiLlamaFemale"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaPickaxe:Pickaxe_ID_438_AntiLlamaFemale",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_Pickaxe_ID_438_AntiLlamaFemale.DA_Daily_Pickaxe_ID_438_AntiLlamaFemale",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "meta": {
+                        "TileSize": "Small",
+                        "SectionId": "Daily",
+                        "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_Glider_ID_118_Squishy.DA_Daily_Glider_ID_118_Squishy",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Glider_ID_118_Squishy.DAv2_Featured_DAv2_Glider_ID_118_Squishy"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 500,
+                            "finalPrice": 500,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 500,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaGlider:Glider_ID_118_Squishy for 500 MtxCurrency",
+                    "offerId": ":/351b06ae-669a-4011-bebb-950c03493bc3",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaGlider:Glider_ID_118_Squishy",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "/Game/Catalog/DisplayAssets/DA_Daily_Glider_ID_118_Squishy.DA_Daily_Glider_ID_118_Squishy"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Glider_ID_118_Squishy.DAv2_Featured_DAv2_Glider_ID_118_Squishy"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Small"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Daily"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaGlider:Glider_ID_118_Squishy"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaGlider:Glider_ID_118_Squishy",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_Glider_ID_118_Squishy.DA_Daily_Glider_ID_118_Squishy",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "meta": {
+                        "TileSize": "Small",
+                        "SectionId": "Daily",
+                        "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_Glider_ID_103_Nautilus.DA_Daily_Glider_ID_103_Nautilus",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Glider_ID_103_Nautilus.DAv2_Featured_DAv2_Glider_ID_103_Nautilus"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 1200,
+                            "finalPrice": 1200,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 1200,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaGlider:Glider_ID_103_Nautilus for 1200 MtxCurrency",
+                    "offerId": ":/34b33108-ece0-4f7a-b075-2f60f60573ed",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaGlider:Glider_ID_103_Nautilus",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "/Game/Catalog/DisplayAssets/DA_Daily_Glider_ID_103_Nautilus.DA_Daily_Glider_ID_103_Nautilus"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Glider_ID_103_Nautilus.DAv2_Featured_DAv2_Glider_ID_103_Nautilus"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Small"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Daily"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaGlider:Glider_ID_103_Nautilus"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaGlider:Glider_ID_103_Nautilus",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_Glider_ID_103_Nautilus.DA_Daily_Glider_ID_103_Nautilus",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "meta": {
+                        "TileSize": "Small",
+                        "SectionId": "Daily",
+                        "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_CID_193_Athena_Commando_F_Hippie.DA_Daily_CID_193_Athena_Commando_F_Hippie",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_CID_193_Athena_Commando_F_Hippie.DAv2_Featured_DAv2_CID_193_Athena_Commando_F_Hippie"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 1500,
+                            "finalPrice": 1500,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 1500,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaCharacter:CID_193_Athena_Commando_F_Hippie for 1500 MtxCurrency",
+                    "offerId": ":/98ae4134-de61-46fd-8552-0e4ca241f75c",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaCharacter:CID_193_Athena_Commando_F_Hippie",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "/Game/Catalog/DisplayAssets/DA_Daily_CID_193_Athena_Commando_F_Hippie.DA_Daily_CID_193_Athena_Commando_F_Hippie"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_CID_193_Athena_Commando_F_Hippie.DAv2_Featured_DAv2_CID_193_Athena_Commando_F_Hippie"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Small"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Daily"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaCharacter:CID_193_Athena_Commando_F_Hippie"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaCharacter:CID_193_Athena_Commando_F_Hippie",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_CID_193_Athena_Commando_F_Hippie.DA_Daily_CID_193_Athena_Commando_F_Hippie",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "meta": {
+                        "TileSize": "Small",
+                        "SectionId": "Daily",
+                        "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_CID_042_Athena_Commando_M_Cyberpunk.DA_Daily_CID_042_Athena_Commando_M_Cyberpunk",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_CID_042_Athena_Commando_M_Cyberpunk.DAv2_Featured_DAv2_CID_042_Athena_Commando_M_Cyberpunk"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 1200,
+                            "finalPrice": 1200,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 1200,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaCharacter:CID_042_Athena_Commando_M_Cyberpunk for 1200 MtxCurrency",
+                    "offerId": ":/6f7373f7-5947-4f6a-8df1-34e9a8ae922d",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaCharacter:CID_042_Athena_Commando_M_Cyberpunk",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "/Game/Catalog/DisplayAssets/DA_Daily_CID_042_Athena_Commando_M_Cyberpunk.DA_Daily_CID_042_Athena_Commando_M_Cyberpunk"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_CID_042_Athena_Commando_M_Cyberpunk.DAv2_Featured_DAv2_CID_042_Athena_Commando_M_Cyberpunk"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Small"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Daily"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaCharacter:CID_042_Athena_Commando_M_Cyberpunk"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaCharacter:CID_042_Athena_Commando_M_Cyberpunk",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_CID_042_Athena_Commando_M_Cyberpunk.DA_Daily_CID_042_Athena_Commando_M_Cyberpunk",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "meta": {
+                        "TileSize": "Small",
+                        "SectionId": "Daily",
+                        "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_Wrap_074_TeriyakiFishVR.DA_Daily_Wrap_074_TeriyakiFishVR",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Wrap_074_TeriyakiFishVR.DAv2_Featured_DAv2_Wrap_074_TeriyakiFishVR"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 300,
+                            "finalPrice": 300,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 300,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaItemWrap:Wrap_074_TeriyakiFishVR for 300 MtxCurrency",
+                    "offerId": ":/6f1571c0-5044-4697-9b78-57a4003856da",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaItemWrap:Wrap_074_TeriyakiFishVR",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "/Game/Catalog/DisplayAssets/DA_Daily_Wrap_074_TeriyakiFishVR.DA_Daily_Wrap_074_TeriyakiFishVR"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Wrap_074_TeriyakiFishVR.DAv2_Featured_DAv2_Wrap_074_TeriyakiFishVR"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Small"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Daily"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaItemWrap:Wrap_074_TeriyakiFishVR"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaItemWrap:Wrap_074_TeriyakiFishVR",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Daily_Wrap_074_TeriyakiFishVR.DA_Daily_Wrap_074_TeriyakiFishVR",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                }
+            ]
+        },
+        {
+            "name": "BRWeeklyStorefront",
+            "catalogEntries": [
+                {
+                    "meta": {
+                        "TileSize": "Normal",
+                        "SectionId": "Featured",
+                        "displayAssetPath": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_CID_456_Athena_Commando_F_Sarong",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_CID_456_Athena_Commando_F_Sarong.DAv2_Featured_DAv2_CID_456_Athena_Commando_F_Sarong"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 1200,
+                            "finalPrice": 1200,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 1200,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaCharacter:CID_456_Athena_Commando_F_Sarong for 1200 MtxCurrency",
+                    "offerId": "v2:/0004e107-ff0e-424d-a388-9e2fba2de8fb",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaCharacter:CID_456_Athena_Commando_F_Sarong",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_CID_456_Athena_Commando_F_Sarong"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_CID_456_Athena_Commando_F_Sarong.DAv2_Featured_DAv2_CID_456_Athena_Commando_F_Sarong"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Normal"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Featured"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [
+                        "Sarong"
+                    ],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaCharacter:CID_456_Athena_Commando_F_Sarong"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaCharacter:CID_456_Athena_Commando_F_Sarong",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_CID_456_Athena_Commando_F_Sarong",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "meta": {
+                        "TileSize": "Normal",
+                        "SectionId": "Featured",
+                        "displayAssetPath": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_Wrap_092_Sarong",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Wrap_092_Sarong.DAv2_Featured_DAv2_Wrap_092_Sarong"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 300,
+                            "finalPrice": 300,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 300,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaItemWrap:Wrap_092_Sarong for 300 MtxCurrency",
+                    "offerId": "v2:/4a42323a-c2cb-4912-af2b-f5d64b022ea9",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaItemWrap:Wrap_092_Sarong",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_Wrap_092_Sarong"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Wrap_092_Sarong.DAv2_Featured_DAv2_Wrap_092_Sarong"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Normal"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Featured"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [
+                        "Sarong"
+                    ],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaItemWrap:Wrap_092_Sarong"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaItemWrap:Wrap_092_Sarong",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_Wrap_092_Sarong",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "meta": {
+                        "TileSize": "Normal",
+                        "SectionId": "Featured",
+                        "displayAssetPath": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_CID_835_Athena_Commando_F_LadyAtlantis",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_CID_835_Athena_Commando_F_LadyAtlantis.DAv2_Featured_DAv2_CID_835_Athena_Commando_F_LadyAtlantis"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 1200,
+                            "finalPrice": 1200,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 1200,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaCharacter:CID_835_Athena_Commando_F_LadyAtlantis for 1200 MtxCurrency",
+                    "offerId": "v2:/7a705c84-08da-4dd0-b8b0-66554aea829d",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaCharacter:CID_835_Athena_Commando_F_LadyAtlantis",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_CID_835_Athena_Commando_F_LadyAtlantis"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_CID_835_Athena_Commando_F_LadyAtlantis.DAv2_Featured_DAv2_CID_835_Athena_Commando_F_LadyAtlantis"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Normal"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Featured"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [
+                        "ShoalKing"
+                    ],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaCharacter:CID_835_Athena_Commando_F_LadyAtlantis"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaCharacter:CID_835_Athena_Commando_F_LadyAtlantis",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_CID_835_Athena_Commando_F_LadyAtlantis",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "meta": {
+                        "TileSize": "Normal",
+                        "SectionId": "Featured",
+                        "displayAssetPath": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_Pickaxe_ID_442_LadyAtlantisFemale",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Pickaxe_ID_442_LadyAtlantisFemale.DAv2_Featured_DAv2_Pickaxe_ID_442_LadyAtlantisFemale"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 500,
+                            "finalPrice": 500,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 500,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaPickaxe:Pickaxe_ID_442_LadyAtlantisFemale for 500 MtxCurrency",
+                    "offerId": "v2:/c9b2782a-3e38-43ab-ae19-4afd81955dd7",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaPickaxe:Pickaxe_ID_442_LadyAtlantisFemale",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_Pickaxe_ID_442_LadyAtlantisFemale"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Pickaxe_ID_442_LadyAtlantisFemale.DAv2_Featured_DAv2_Pickaxe_ID_442_LadyAtlantisFemale"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Normal"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Featured"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [
+                        "ShoalKing"
+                    ],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaPickaxe:Pickaxe_ID_442_LadyAtlantisFemale"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaPickaxe:Pickaxe_ID_442_LadyAtlantisFemale",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_Pickaxe_ID_442_LadyAtlantisFemale",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "meta": {
+                        "TileSize": "Normal",
+                        "SectionId": "Featured",
+                        "displayAssetPath": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_CID_809_Athena_Commando_M_Seaweed_IXRLQ",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_CID_809_Athena_Commando_M_Seaweed_IXRLQ.DAv2_Featured_DAv2_CID_809_Athena_Commando_M_Seaweed_IXRLQ"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 1500,
+                            "finalPrice": 1500,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 1500,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaCharacter:CID_809_Athena_Commando_M_Seaweed_IXRLQ for 1500 MtxCurrency",
+                    "offerId": "v2:/2e2f1995-3a7f-417d-8161-397182fc1755",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaCharacter:CID_809_Athena_Commando_M_Seaweed_IXRLQ",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_CID_809_Athena_Commando_M_Seaweed_IXRLQ"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_CID_809_Athena_Commando_M_Seaweed_IXRLQ.DAv2_Featured_DAv2_CID_809_Athena_Commando_M_Seaweed_IXRLQ"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Normal"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Featured"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [
+                        "TenderMonarch"
+                    ],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaCharacter:CID_809_Athena_Commando_M_Seaweed_IXRLQ"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaCharacter:CID_809_Athena_Commando_M_Seaweed_IXRLQ",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "FortniteGame/Content/Catalog/DisplayAssets/DA_Featured_CID_809_Athena_Commando_M_Seaweed_IXRLQ",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "meta": {
+                        "TileSize": "Normal",
+                        "SectionId": "Featured",
+                        "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Featured_Pickaxe_ID_427_Seaweed1H_CZ9HA.DA_Featured_Pickaxe_ID_427_Seaweed1H_CZ9HA",
+                        "NewDisplayAssetPath": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Pickaxe_ID_427_Seaweed1H_CZ9HA.DAv2_Featured_DAv2_Pickaxe_ID_427_Seaweed1H_CZ9HA"
+                    },
+                    "title": "",
+                    "prices": [
+                        {
+                            "basePrice": 1200,
+                            "finalPrice": 1200,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 1200,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "Currency",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "[VIRTUAL] 1x AthenaPickaxe:Pickaxe_ID_427_Seaweed1H_CZ9HA for 1200 MtxCurrency",
+                    "offerId": "v2:/e5dacad8-2105-49ab-9219-cdb4f3f938b7",
+                    "giftInfo": {
+                        "bIsEnabled": true,
+                        "giftRecordIds": [],
+                        "purchaseRequirements": [
+                            {
+                                "requiredId": "AthenaPickaxe:Pickaxe_ID_427_Seaweed1H_CZ9HA",
+                                "minQuantity": 1,
+                                "requirementType": "DenyOnItemOwnership"
+                            }
+                        ],
+                        "forcedGiftBoxTemplateId": ""
+                    },
+                    "metaInfo": [
+                        {
+                            "key": "DisplayAssetPath",
+                            "value": "/Game/Catalog/DisplayAssets/DA_Featured_Pickaxe_ID_427_Seaweed1H_CZ9HA.DA_Featured_Pickaxe_ID_427_Seaweed1H_CZ9HA"
+                        },
+                        {
+                            "key": "NewDisplayAssetPath",
+                            "value": "/Game/Catalog/NewDisplayAssets/DAv2_Featured_DAv2_Pickaxe_ID_427_Seaweed1H_CZ9HA.DAv2_Featured_DAv2_Pickaxe_ID_427_Seaweed1H_CZ9HA"
+                        },
+                        {
+                            "key": "TileSize",
+                            "value": "Normal"
+                        },
+                        {
+                            "key": "SectionId",
+                            "value": "Featured"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [],
+                    "categories": [
+                        "TenderMonarch"
+                    ],
+                    "dailyLimit": -1,
+                    "itemGrants": [
+                        {
+                            "quantity": 1,
+                            "templateId": "AthenaPickaxe:Pickaxe_ID_427_Seaweed1H_CZ9HA"
+                        }
+                    ],
+                    "refundable": true,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "filterWeight": 0,
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "AthenaPickaxe:Pickaxe_ID_427_Seaweed1H_CZ9HA",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "bannerOverride": "",
+                    "fulfillmentIds": [],
+                    "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_Featured_Pickaxe_ID_427_Seaweed1H_CZ9HA.DA_Featured_Pickaxe_ID_427_Seaweed1H_CZ9HA",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                }
+            ]
+        },
+        {
+            "name": "BRSeason13",
+            "catalogEntries": [
+                {
+                    "title": "Battle Pass",
+                    "prices": [
+                        {
+                            "basePrice": 950,
+                            "finalPrice": 950,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 950,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "BR.Season13.BattlePass.01",
+                    "offerId": "3C1777684B7D65BECE90F28BB05CB4AF",
+                    "metaInfo": [
+                        {
+                            "key": "Preroll",
+                            "value": "False"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ],
+                    "categories": [],
+                    "dailyLimit": -1,
+                    "itemGrants": [],
+                    "refundable": false,
+                    "description": "gasp",
+                    "weeklyLimit": -1,
+                    "catalogGroup": "",
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "A3A60070669140F198A0AFD38220CF22",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnFulfillment"
+                        }
+                    ],
+                    "sortPriority": 1,
+                    "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season13_BattlePass.DA_BR_Season13_BattlePass",
+                    "shortDescription": "Chapter 2 - Season 3",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "title": "Battle Pass Level",
+                    "prices": [
+                        {
+                            "basePrice": 150,
+                            "finalPrice": 150,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 150,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "BR.Season13.SingleTier.01",
+                    "offerId": "C677E22244C444256A79ACA0C59BAE7D",
+                    "metaInfo": [
+                        {
+                            "key": "Preroll",
+                            "value": "False"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ],
+                    "categories": [],
+                    "dailyLimit": -1,
+                    "itemGrants": [],
+                    "refundable": false,
+                    "description": "Get great rewards now!",
+                    "weeklyLimit": -1,
+                    "catalogGroup": "",
+                    "monthlyLimit": -1,
+                    "requirements": [],
+                    "sortPriority": 0,
+                    "displayAssetPath": "",
+                    "shortDescription": "",
+                    "catalogGroupPriority": 0
+                },
+                {
+                    "title": "Battle Bundle",
+                    "prices": [
+                        {
+                            "saleType": "PercentOff",
+                            "basePrice": 2800,
+                            "finalPrice": 2800,
+                            "currencyType": "MtxCurrency",
+                            "regularPrice": 4700,
+                            "saleExpiration": "9999-12-31T23:59:59.999Z",
+                            "currencySubType": "",
+                            "dynamicRegularPrice": -1
+                        }
+                    ],
+                    "devName": "BR.Season13.BattleBundle.01",
+                    "offerId": "A9DB423A2EDB4D8CA4D97204CE3F0D79",
+                    "metaInfo": [
+                        {
+                            "key": "Preroll",
+                            "value": "False"
+                        }
+                    ],
+                    "offerType": "StaticPrice",
+                    "appStoreId": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ],
+                    "categories": [],
+                    "dailyLimit": -1,
+                    "itemGrants": [],
+                    "refundable": false,
+                    "description": "",
+                    "weeklyLimit": -1,
+                    "catalogGroup": "",
+                    "monthlyLimit": -1,
+                    "requirements": [
+                        {
+                            "requiredId": "A3A60070669140F198A0AFD38220CF22",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnFulfillment"
+                        },
+                        {
+                            "requiredId": "Token:athena_s13_nobattlebundleoption_token",
+                            "minQuantity": 1,
+                            "requirementType": "DenyOnItemOwnership"
+                        }
+                    ],
+                    "sortPriority": 0,
+                    "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season13_BattlePassWithLevels.DA_BR_Season13_BattlePassWithLevels",
+                    "shortDescription": "Battle Pass + 25 levels!",
+                    "catalogGroupPriority": 0
+                }
+            ]
+        }
+    ],
+    "dailyPurchaseHrs": 24,
+    "refreshIntervalHrs": 1
+}

@@ -10,6 +10,16 @@ import { Account } from "../tables/account";
 import uaparser from "../utilities/uaparser";
 import MCPResponses from "../utilities/responses";
 import { Profiles } from "../tables/profiles";
+import {
+  BattlepassManager,
+  type Rewards,
+  type SeasonXP,
+} from "../utilities/managers/BattlepassManager";
+import { v4 as uuid } from "uuid";
+import { HTTPRequests } from "../utilities/requests";
+import path from "node:path";
+import { XmppService } from "../xmpp/saved/XmppServices";
+import { XmppUtilities } from "../xmpp/utilities/XmppUtilities";
 
 export interface Purchase {
   purchaseId: string;
@@ -85,7 +95,7 @@ export default async function (c: Context) {
     return c.json({ error: "Body isn't valid JSON" }, 400);
   }
 
-  const { currency, offerId, purchaseQuantity } = await c.req.json();
+  let { currency, offerId, purchaseQuantity } = await c.req.json();
 
   let applyProfileChanges: object[] = [];
   const notifications: object[] = [];
@@ -107,150 +117,153 @@ export default async function (c: Context) {
   if (currency !== "MtxCurrency" || profileId !== "common_core" || !offerId)
     return c.json(errors.createError(400, c.req.url, "Invalid request.", timestamp), 400);
 
-  let currentActiveStorefront: Entries | null = null;
-  const currentShop = await itemStorageService.getItemByType("storefront");
+  if (offerId.includes(":/")) {
+    let currentActiveStorefront: Entries | null = null;
+    const currentShop = await itemStorageService.getItemByType("storefront");
 
-  if (!currentShop)
-    return c.json(errors.createError(400, c.req.url, "Failed to get storefront", timestamp), 400);
+    if (!currentShop)
+      return c.json(errors.createError(400, c.req.url, "Failed to get storefront", timestamp), 400);
 
-  let sections: any = {
-    BRDailyStorefront: [],
-    BRWeeklyStorefront: [],
-  };
+    let sections: any = {
+      BRDailyStorefront: [],
+      BRWeeklyStorefront: [],
+    };
 
-  for (const section of currentShop.data.storefronts) {
-    if (section.name === "BRDailyStorefront") {
-      sections.BRDailyStorefront.push(...section.catalogEntries);
-    } else if (section.name === "BRWeeklyStorefront") {
-      sections.BRWeeklyStorefront.push(...section.catalogEntries);
+    for (const section of currentShop.data.storefronts) {
+      if (section.name === "BRDailyStorefront") {
+        sections.BRDailyStorefront.push(...section.catalogEntries);
+      } else if (section.name === "BRWeeklyStorefront") {
+        sections.BRWeeklyStorefront.push(...section.catalogEntries);
+      }
     }
-  }
 
-  for (const storefront of [...sections.BRWeeklyStorefront, ...sections.BRDailyStorefront]) {
-    if (storefront.offerId === offerId) {
-      currentActiveStorefront = storefront;
+    for (const storefront of [...sections.BRWeeklyStorefront, ...sections.BRDailyStorefront]) {
+      if (storefront.offerId === offerId) {
+        currentActiveStorefront = storefront;
 
-      break;
+        break;
+      }
     }
-  }
 
-  if (!currentActiveStorefront)
-    return c.json(
-      errors.createError(400, c.req.url, "Failed to get item from the current shop.", timestamp),
-      400,
-    );
-
-  if (purchaseQuantity < 1)
-    return c.json(
-      errors.createError(400, c.req.url, "'purchaseQuantity' is less than 1.", timestamp),
-      400,
-    );
-
-  // console.log(currentActive);
-
-  if (
-    !owned &&
-    currentActiveStorefront.prices[0].finalPrice > profile.items["Currency:MtxPurchased"].quantity
-  )
-    return c.json(
-      errors.createError(
+    if (!currentActiveStorefront)
+      return c.json(
+        errors.createError(400, c.req.url, "Failed to get item from the current shop.", timestamp),
         400,
-        c.req.url,
-        `You can not afford this item (${currentActiveStorefront.prices[0].finalPrice}).`,
-        timestamp,
-      ),
-      400,
-    );
-
-  const isAlreadyOwned = currentActiveStorefront.itemGrants.filter(
-    (item) => athena.items[item.templateId],
-  );
-
-  // logger.debug(`Grants Length: ${isAlreadyOwned.length}`);
-
-  if (isAlreadyOwned.length > 0)
-    return c.json(errors.createError(400, c.req.url, "You already own this item.", timestamp), 400);
-
-  const itemProfilesByTemplateId: Map<string, string> = new Map();
-  const itemQuantitiesByTemplateId: Map<string, number> = new Map();
-
-  for (const grants of currentActiveStorefront.itemGrants) {
-    if (itemQuantitiesByTemplateId.has(grants.templateId)) {
-      itemQuantitiesByTemplateId.set(
-        grants.templateId,
-        itemQuantitiesByTemplateId.get(grants.templateId)! + grants.quantity,
       );
-    } else {
-      itemQuantitiesByTemplateId.set(grants.templateId, grants.quantity);
-    }
 
-    if (!itemProfilesByTemplateId.has(grants.templateId)) {
-      itemProfilesByTemplateId.set(grants.templateId, "athena");
-    }
-  }
+    if (purchaseQuantity < 1)
+      return c.json(
+        errors.createError(400, c.req.url, "'purchaseQuantity' is less than 1.", timestamp),
+        400,
+      );
 
-  itemQuantitiesByTemplateId.forEach((quantity, templateId) => {
-    const profileType = itemProfilesByTemplateId.get(templateId)!;
+    // console.log(currentActive);
 
-    athena.items[templateId] = CreateProfileItem(templateId, quantity);
+    if (
+      !owned &&
+      currentActiveStorefront.prices[0].finalPrice > profile.items["Currency:MtxPurchased"].quantity
+    )
+      return c.json(
+        errors.createError(
+          400,
+          c.req.url,
+          `You can not afford this item (${currentActiveStorefront.prices[0].finalPrice}).`,
+          timestamp,
+        ),
+        400,
+      );
 
-    multiUpdates.push({
-      changeType: "itemAdded",
-      itemId: templateId,
-      item: athena.items[templateId],
-    });
-
-    notifications.push({
-      itemType: templateId,
-      itemGuid: templateId,
-      itemProfile: profileType,
-      quantity: quantity,
-    });
-  });
-
-  profile.items["Currency:MtxPurchased"].quantity -= currentActiveStorefront.prices[0].finalPrice;
-
-  applyProfileChanges.push({
-    changeType: "itemQuantityChanged",
-    itemId: "Currency:MtxPurchased",
-    quantity: profile.items["Currency:MtxPurchased"].quantity,
-  });
-
-  const { purchases } = profile.stats.attributes.mtx_purchase_history;
-
-  itemQuantitiesByTemplateId.forEach((quantity, templateId) => {
-    const profileType = itemProfilesByTemplateId.get(templateId)!;
-
-    const existingPurchaseIndex = purchases.findIndex(
-      (purchase: Purchase) => purchase.lootResult[0].itemType === templateId,
+    const isAlreadyOwned = currentActiveStorefront.itemGrants.filter(
+      (item) => athena.items[item.templateId],
     );
 
-    if (existingPurchaseIndex !== -1) purchases.splice(existingPurchaseIndex, 1);
+    // logger.debug(`Grants Length: ${isAlreadyOwned.length}`);
 
-    purchases.push({
-      purchaseId: templateId,
-      offerId: `v2:/${offerId}`,
-      purchaseDate: new Date().toISOString(),
-      undoTimeout: "9999-12-12T00:00:00.000Z",
-      freeRefundEligible: false,
-      fulfillments: [],
-      lootResult: [
-        {
-          itemType: templateId,
-          itemGuid: templateId,
-          itemProfile: profileType,
-          quantity,
-        },
-      ],
-      totalMtxPaid: currentActiveStorefront.prices[0].finalPrice,
-      metadata: {},
-      gameContext: "",
+    if (isAlreadyOwned.length > 0)
+      return c.json(
+        errors.createError(400, c.req.url, "You already own this item.", timestamp),
+        400,
+      );
+
+    const itemProfilesByTemplateId: Map<string, string> = new Map();
+    const itemQuantitiesByTemplateId: Map<string, number> = new Map();
+
+    for (const grants of currentActiveStorefront.itemGrants) {
+      if (itemQuantitiesByTemplateId.has(grants.templateId)) {
+        itemQuantitiesByTemplateId.set(
+          grants.templateId,
+          itemQuantitiesByTemplateId.get(grants.templateId)! + grants.quantity,
+        );
+      } else {
+        itemQuantitiesByTemplateId.set(grants.templateId, grants.quantity);
+      }
+
+      if (!itemProfilesByTemplateId.has(grants.templateId)) {
+        itemProfilesByTemplateId.set(grants.templateId, "athena");
+      }
+    }
+
+    itemQuantitiesByTemplateId.forEach((quantity, templateId) => {
+      const profileType = itemProfilesByTemplateId.get(templateId)!;
+
+      athena.items[templateId] = CreateProfileItem(templateId, quantity);
+
+      multiUpdates.push({
+        changeType: "itemAdded",
+        itemId: templateId,
+        item: athena.items[templateId],
+      });
+
+      notifications.push({
+        itemType: templateId,
+        itemGuid: templateId,
+        itemProfile: profileType,
+        quantity: quantity,
+      });
     });
-  });
 
-  owned = true;
+    profile.items["Currency:MtxPurchased"].quantity -= currentActiveStorefront.prices[0].finalPrice;
 
-  /// TODO - Battlepass Purchasing
+    applyProfileChanges.push({
+      changeType: "itemQuantityChanged",
+      itemId: "Currency:MtxPurchased",
+      quantity: profile.items["Currency:MtxPurchased"].quantity,
+    });
+
+    const { purchases } = profile.stats.attributes.mtx_purchase_history;
+
+    itemQuantitiesByTemplateId.forEach((quantity, templateId) => {
+      const profileType = itemProfilesByTemplateId.get(templateId)!;
+
+      const existingPurchaseIndex = purchases.findIndex(
+        (purchase: Purchase) => purchase.lootResult[0].itemType === templateId,
+      );
+
+      if (existingPurchaseIndex !== -1) purchases.splice(existingPurchaseIndex, 1);
+
+      purchases.push({
+        purchaseId: templateId,
+        offerId: `v2:/${offerId}`,
+        purchaseDate: new Date().toISOString(),
+        undoTimeout: "9999-12-12T00:00:00.000Z",
+        freeRefundEligible: false,
+        fulfillments: [],
+        lootResult: [
+          {
+            itemType: templateId,
+            itemGuid: templateId,
+            itemProfile: profileType,
+            quantity,
+          },
+        ],
+        totalMtxPaid: currentActiveStorefront.prices[0].finalPrice,
+        metadata: {},
+        gameContext: "",
+      });
+    });
+
+    owned = true;
+  }
 
   if (multiUpdates.length > 0) {
     athena.rvn += 1;
@@ -267,7 +280,7 @@ export default async function (c: Context) {
   await Profiles.createQueryBuilder()
     .update()
     .set({ profile })
-    .where("type = :type", { type: profileId })
+    .where("type = :type", { type: "common_core" })
     .execute();
 
   await Profiles.createQueryBuilder()

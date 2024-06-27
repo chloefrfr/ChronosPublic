@@ -47,28 +47,6 @@ export default async function (c: Context) {
   if (!receiverProfile)
     return c.json(errors.createError(404, c.req.url, "Failed to find account.", timestamp), 404);
 
-  athenaProfile.rvn += 1;
-  athenaProfile.commandRevision += 1;
-  athenaProfile.updatedAt = new Date().toISOString();
-
-  commonCoreProfile.rvn += 1;
-  commonCoreProfile.commandRevision += 1;
-  commonCoreProfile.updatedAt = new Date().toISOString();
-
-  await Profiles.createQueryBuilder()
-    .update(Profiles)
-    .set({ profile: athenaProfile })
-    .where("type = :type", { type: "athena" })
-    .andWhere("accountId = :accountId", { accountId: receiverUser.accountId })
-    .execute();
-
-  await Profiles.createQueryBuilder()
-    .update(Profiles)
-    .set({ profile: commonCoreProfile })
-    .where("type = :type", { type: "common_core" })
-    .andWhere("accountId = :accountId", { accountId: receiverUser.accountId })
-    .execute();
-
   XmppUtilities.SendMessageToId(
     JSON.stringify({
       type: "com.epicgames.gift.received",

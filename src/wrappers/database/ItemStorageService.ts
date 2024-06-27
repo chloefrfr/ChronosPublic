@@ -12,24 +12,25 @@ export class ItemStorageService {
   }
 
   public async addItem(data: any, type: ItemTypes): Promise<Item> {
-    const newItem = this.itemRepository.create({ data, type });
-    const savedItem = await this.itemRepository.save(newItem);
-    this.addToCache(savedItem);
-    return savedItem;
+    let existingItem = await this.itemRepository.findOne({ where: { type } });
+
+    if (existingItem) {
+      existingItem.data = data;
+      await this.itemRepository.save(existingItem);
+      this.addToCache(existingItem);
+      return existingItem;
+    } else {
+      const newItem = this.itemRepository.create({ data, type });
+      const savedItem = await this.itemRepository.save(newItem);
+      this.addToCache(savedItem);
+      return savedItem;
+    }
   }
 
   public async getItemByType(type: ItemTypes): Promise<Item | null> {
-    if (this.itemCache.has(type)) {
-      return this.itemCache.get(type)!;
-    }
-
     const item = await this.itemRepository.findOne({ where: { type } });
 
-    if (item) {
-      this.addToCache(item);
-    }
-
-    return item || null;
+    return item;
   }
 
   public async deleteItem(type: ItemTypes): Promise<boolean> {

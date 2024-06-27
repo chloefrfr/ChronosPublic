@@ -31,6 +31,12 @@ export default function () {
 
     const storefrontData = await itemStorageService.getItemByType("storefront");
 
-    return c.json(storefrontData?.data);
+    if (!storefrontData)
+      return c.json(
+        errors.createError(400, c.req.url, "Failed to get current storefront.", timestamp),
+        400,
+      );
+
+    return c.json(storefrontData.data);
   });
 }

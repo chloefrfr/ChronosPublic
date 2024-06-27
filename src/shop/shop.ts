@@ -132,7 +132,7 @@ export namespace ShopGenerator {
 
       const entry = createItemEntryTemplate();
 
-      entry.offerId = uuid();
+      entry.offerId = `:/${uuid()}`;
       entry.offerType = "StaticPrice";
 
       if (!randomItem.displayAssetPath)
@@ -207,7 +207,7 @@ export namespace ShopGenerator {
 
         const entry = createItemEntryTemplate();
 
-        entry.offerId = uuid();
+        entry.offerId = `v2:/${uuid()}`;
         entry.offerType = "StaticPrice";
 
         if (!item.displayAssetPath)
