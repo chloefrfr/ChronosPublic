@@ -11,10 +11,10 @@ ServerAddr="ws://26.166.13.159:8314"
 ServerPort=8314
 
 [OnlineSubsystemMcp]
-bUsePartySystemV2=false
+bUsePartySystemV2=true
 
 [OnlineSubsystemMcp.OnlinePartySystemMcpAdapter]
-bUsePartySystemV2=false
+bUsePartySystemV2=true
 
 [OnlineSubsystem]
 bHasVoiceEnabled=true

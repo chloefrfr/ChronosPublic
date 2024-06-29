@@ -1,7 +1,7 @@
 import { readdirSync } from "fs";
 import { join, parse } from "path";
 import { Hono, type Context } from "hono";
-import { logger } from "..";
+import { logger, type Variables } from "..";
 import { readdir } from "node:fs/promises";
 
 type EndpointHandler = (c: Context) => Promise<void>;
@@ -24,7 +24,10 @@ async function loadRoute(directory: string, file: string) {
   }
 }
 
-export async function loadRoutes(directory: string, app: Hono): Promise<void> {
+export async function loadRoutes(
+  directory: string,
+  app: Hono<{ Variables: Variables }>,
+): Promise<void> {
   try {
     const files = readdirSync(directory);
 

@@ -16,8 +16,15 @@ import HypeService from "./wrappers/database/HypeService";
 import FriendsService from "./wrappers/database/FriendsService";
 import { ItemStorageService } from "./wrappers/database/ItemStorageService";
 import { DiscordWebhook } from "./utilities/webhook";
+import type { User } from "./tables/user";
+import type { Account } from "./tables/account";
 
-export const app = new Hono({ strict: false });
+export type Variables = {
+  user: User;
+  account: Account;
+};
+
+export const app = new Hono<{ Variables: Variables }>({ strict: false });
 export const logger = new Logger(LogLevel.DEBUG);
 export const config = new Config().getConfig();
 
