@@ -3,6 +3,10 @@
 
 **Advanced Fortnite Backend**
 
+## Supported MCP Operations
+
+`QueryProfile` `BulkEquipBattleRoyaleCustomization` `ClaimMfaEnabled` `PurchaseCatalogEntry` `MarkItemSeen` `RefundMtxPurchase` `RemoveGiftBox` `SetBattleRoyaleBanner` `SetCosmeticLockerSlot` `SetMtxPlatform` `EquipBattleRoyaleCustomization`
+
 ## Planned Features
 
 - [ ] Vbucks on kill/win
