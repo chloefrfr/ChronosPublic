@@ -390,58 +390,54 @@ export default function () {
     "/party/api/v1/Fortnite/user/:accountId/pings/:pingerId",
     Validation.verifyToken,
     async (c) => {
-      const uaParser = uaparser(c.req.header("User-Agent"));
+      const useragent = c.req.header("User-Agent");
       const timestamp = new Date().toISOString();
       const accountId = c.req.param("accountId");
       const pingerId = c.req.param("pingerId");
 
-      const { meta } = await c.req.json();
+      if (!useragent)
+        return c.json(
+          errors.createError(400, c.req.url, "header 'User-Agent' is missing.", timestamp),
+          400,
+        );
 
-      if (!uaParser) {
-        return c.json({
-          error: {
-            status: 400,
-            message: "Failed to parse User-Agent.",
-            timestamp,
-          },
-        });
-      }
+      const uahelper = uaparser(useragent);
 
-      const pingIndex = XmppService.pings.findIndex(
-        (ping) => ping.sent_to === accountId && ping.sent_by === pingerId,
-      );
+      if (!uahelper)
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to parse User-Agent.", timestamp),
+          400,
+        );
 
-      if (pingIndex !== -1) {
-        XmppService.pings.splice(pingIndex, 1);
-      }
+      var pIndex;
+      if (
+        (pIndex = XmppService.pings
+          .filter((p) => p.sent_to == accountId)
+          .findIndex((p) => p.sent_by == pingerId)) != -1
+      )
+        XmppService.pings.splice(pIndex, 1);
 
-      const currentDate = new Date();
-      currentDate.setHours(currentDate.getHours() + 1);
+      const meta = await c.req.json();
 
-      const ping = {
-        id: pingerId,
+      var d = new Date();
+      d.setHours(d.getHours() + 1);
+
+      var ping = {
         sent_by: pingerId,
         sent_to: accountId,
         sent_at: new Date().toISOString(),
-        expires_at: currentDate.toISOString(),
+        expires_at: d.toISOString(),
         meta,
       };
-
       XmppService.pings.push(ping);
 
       const user = await userService.findUserByAccountId(pingerId);
 
-      if (!user) {
-        return c.json({
-          error: {
-            status: 404,
-            message: "User not found.",
-            timestamp,
-          },
-        });
-      }
+      if (!user)
+        return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
       XmppUtilities.SendMessageToId(
+        accountId,
         JSON.stringify({
           expires: ping.expires_at,
           meta,
@@ -449,11 +445,12 @@ export default function () {
           pinger_dn: user.username,
           pinger_id: pingerId,
           sent: ping.sent_at,
-          version: uaParser.buildUpdate,
+          version: uahelper.season,
           type: "com.epicgames.social.party.notification.v0.PING",
         }),
-        accountId,
       );
+
+      console.log(ping);
 
       return c.json(ping);
     },
