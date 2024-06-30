@@ -115,7 +115,6 @@ export default async function (
               )}:${socket.data.accountId}:${socket.data.resource}`,
             )
             .attribute("xmlns", "jabber:client")
-            .attribute("type", "unavailable")
             .element("x")
             .attribute("xmlns", "http://jabber.org/protocol/muc#user")
             .element("item")
