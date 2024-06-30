@@ -12,12 +12,12 @@ export namespace XmppUtilities {
     offline: boolean,
     away: boolean,
   ) {
-    const sender = XmppService.clients.find((client) => client.socket === socket);
+    const senderIndex = XmppService.clients.findIndex((client) => client.socket === socket);
 
     if (!sender) return;
 
-    sender.lastPresenceUpdate.away = away;
-    sender.lastPresenceUpdate.status = status;
+    XmppService.clients[senderIndex].lastPresenceUpdate.away = away;
+    XmppService.clients[senderIndex].lastPresenceUpdate.status = status;
 
     const friends = await friendsService.findFriendByAccountId(sender.accountId);
 
