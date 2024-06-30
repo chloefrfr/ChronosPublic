@@ -13,6 +13,7 @@ export namespace XmppUtilities {
     away: boolean,
   ) {
     const senderIndex = XmppService.clients.findIndex((client) => client.socket === socket);
+    const sender = XmppService.clients[senderIndex];
 
     if (!sender) return;
 
