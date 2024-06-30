@@ -417,8 +417,6 @@ export default function () {
       )
         XmppService.pings.splice(pIndex, 1);
 
-      const meta = await c.req.json();
-
       var d = new Date();
       d.setHours(d.getHours() + 1);
 
@@ -427,7 +425,7 @@ export default function () {
         sent_to: accountId,
         sent_at: new Date().toISOString(),
         expires_at: d.toISOString(),
-        meta,
+        meta: {},
       };
       XmppService.pings.push(ping);
 
@@ -440,7 +438,7 @@ export default function () {
         accountId,
         JSON.stringify({
           expires: ping.expires_at,
-          meta,
+          meta: {},
           ns: "Fortnite",
           pinger_dn: user.username,
           pinger_id: pingerId,
@@ -449,8 +447,6 @@ export default function () {
           type: "com.epicgames.social.party.notification.v0.PING",
         }),
       );
-
-      console.log(ping);
 
       return c.json(ping);
     },
