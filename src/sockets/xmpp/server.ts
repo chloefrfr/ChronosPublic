@@ -5,6 +5,7 @@ import { XmppService } from "./saved/XmppServices";
 import { XmppUtilities } from "./utilities/XmppUtilities";
 
 export interface ChronosSocket extends ServerWebSocket {
+  isLoggedIn?: boolean;
   isAuthenticated?: boolean;
   accountId?: string;
   token?: string;
