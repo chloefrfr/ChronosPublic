@@ -29,7 +29,7 @@ export const xmppServer = Bun.serve<ChronosSocket>({
       new Client(socket, message);
     },
     async close(socket) {
-      XmppService.isUserLoggedIn = false;
+      socket.data.isLoggedIn = false;
       const clientIndex = XmppService.clients.findIndex((client) => client.socket === socket);
       const client = XmppService.clients[clientIndex];
       if (clientIndex === -1) return;
