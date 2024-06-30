@@ -17,6 +17,7 @@ import { Profiles } from "../tables/profiles";
 import { Hype } from "../tables/hype";
 import { Friends } from "../tables/friends";
 import { Item } from "../tables/storage/item";
+import { Server } from "../tables/server";
 
 interface DatabaseConfig {
   connectionString?: string;
@@ -59,11 +60,11 @@ export default class Database {
         type: "postgres",
         url: this.dbConfig.connectionString || config.databaseUrl,
         ssl: this.dbConfig.ssl ? { rejectUnauthorized: false } : false,
-        entities: [User, Account, Tokens, Timeline, Profiles, Hype, Friends, Item],
+        entities: [User, Account, Tokens, Timeline, Profiles, Hype, Friends, Item, Server],
         synchronize: true,
         logging: true,
         logger: new ORMLogger(),
-        migrations: [User, Account, Tokens, Timeline, Profiles, Hype, Friends, Item],
+        migrations: [User, Account, Tokens, Timeline, Profiles, Hype, Friends, Item, Server],
       });
 
       await this.connection.initialize();

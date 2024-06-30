@@ -59,4 +59,19 @@ export namespace Validation {
       return c.json(errors.createError(401, messageVars, errorMessage, timestamp), 401);
     }
   }
+
+  export async function verifyBasicToken(c: Context, next: Next) {
+    const authorizationHeader = c.req.header("Authorization");
+    const timestamp = new Date().toISOString();
+
+    if (!authorizationHeader || !authorizationHeader.startsWith("Basic "))
+      return c.json(errors.createError(401, c.req.url, "Unauthorized", timestamp), 403);
+
+    const token = authorizationHeader.split(" ")[1];
+
+    if (token !== config.token)
+      return c.json(errors.createError(401, c.req.url, "Unauthorized", timestamp), 403);
+
+    await next();
+  }
 }

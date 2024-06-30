@@ -7,5 +7,6 @@ export enum ServerStatus {
 export interface HostServer {
   sessionId: string;
   status: ServerStatus;
+  version: number;
   port: number;
 }

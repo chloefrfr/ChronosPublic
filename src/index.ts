@@ -18,6 +18,7 @@ import { ItemStorageService } from "./wrappers/database/ItemStorageService";
 import { DiscordWebhook } from "./utilities/webhook";
 import type { User } from "./tables/user";
 import type { Account } from "./tables/account";
+import { ServerService } from "./wrappers/database/ServerService";
 
 export type Variables = {
   user: User;
@@ -47,6 +48,7 @@ export const profilesService = new ProfilesService(db);
 export const hypeService = new HypeService(db);
 export const friendsService = new FriendsService(db);
 export const itemStorageService = new ItemStorageService(db);
+export const serverService = new ServerService(db);
 
 await loadRoutes(path.join(__dirname, "routes"), app);
 

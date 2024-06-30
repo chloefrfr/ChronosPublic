@@ -14,6 +14,8 @@ const configSchema = z.object({
   client_secret: z.string(),
   currentSeason: z.number(),
   webhook_url: z.string(),
+  session_url: z.string(),
+  token: z.string(),
 });
 
 export default class Config {
@@ -28,6 +30,8 @@ export default class Config {
       client_secret: Bun.env.client_secret,
       currentSeason: parseInt(Bun.env.currentSeason as string, 10),
       webhook_url: Bun.env.webhook_url,
+      session_url: Bun.env.session_url,
+      token: Bun.env.token,
     });
 
     // Check if parsing was successful
