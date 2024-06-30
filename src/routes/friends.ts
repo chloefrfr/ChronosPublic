@@ -2,7 +2,7 @@ import { app, friendsService, userService } from "..";
 import { Validation } from "../middleware/validation";
 import { Friends, type Friend } from "../tables/friends";
 import errors from "../utilities/errors";
-import { XmppUtilities } from "../xmpp/utilities/XmppUtilities";
+import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 
 interface FriendList {
   accountId: string;

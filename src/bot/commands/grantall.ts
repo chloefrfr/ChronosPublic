@@ -14,7 +14,7 @@ import ProfileHelper from "../../utilities/profiles";
 import { User } from "../../tables/user";
 import { Profiles } from "../../tables/profiles";
 import { v4 as uuid } from "uuid";
-import { XmppUtilities } from "../../xmpp/utilities/XmppUtilities";
+import { XmppUtilities } from "../../sockets/xmpp/utilities/XmppUtilities";
 import { HTTPRequests } from "../../utilities/requests";
 
 export interface Gifts {

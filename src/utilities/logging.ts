@@ -1,11 +1,11 @@
 import chalk, { type ChalkInstance } from "chalk";
 
 export enum LogLevel {
-  STARTUP = "STARTUP",
-  INFO = "INFO",
-  DEBUG = "DEBUG",
-  WARN = "WARN",
-  ERROR = "ERROR",
+  STARTUP = "startup",
+  INFO = "info",
+  DEBUG = "debug",
+  WARN = "warn",
+  ERROR = "error",
 }
 
 type OptionalArgs = {
@@ -19,20 +19,12 @@ export default class Logger {
     this.logLevel = logLevel || LogLevel.INFO;
   }
 
-  private log(
-    message: string,
-    level: LogLevel,
-    func: ChalkInstance,
-    optionalArgs?: OptionalArgs
-  ) {
+  private log(message: string, level: LogLevel, func: ChalkInstance, optionalArgs?: OptionalArgs) {
     if (this.shouldLog(level)) {
       const formattedMessage = optionalArgs
         ? `${message} ${JSON.stringify(optionalArgs)}`
         : message;
-      console.log(
-        chalk.white(`[${func(level)}]`),
-        chalk.gray(formattedMessage)
-      );
+      console.log(chalk.white(`(${func(level)})`), chalk.gray(formattedMessage));
     }
   }
 

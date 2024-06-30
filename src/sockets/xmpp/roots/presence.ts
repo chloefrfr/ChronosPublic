@@ -2,7 +2,7 @@ import type { ServerWebSocket } from "bun";
 import type { ChronosSocket } from "../server";
 import xmlparser from "xml-parser";
 import xmlbuilder from "xmlbuilder";
-import { logger } from "../..";
+import { logger } from "../../..";
 import { XmppService } from "../saved/XmppServices";
 import { XmppUtilities } from "../utilities/XmppUtilities";
 

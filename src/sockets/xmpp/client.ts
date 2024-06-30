@@ -1,7 +1,7 @@
 import type { Server, ServerWebSocket } from "bun";
 import { TextDecoder } from "util";
 import xmlparser from "xml-parser";
-import { logger } from "..";
+import { logger } from "../..";
 import open from "./roots/open";
 import auth from "./roots/auth";
 import iq from "./roots/iq";

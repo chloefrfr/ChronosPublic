@@ -18,8 +18,8 @@ import {
 import { v4 as uuid } from "uuid";
 import { HTTPRequests } from "../utilities/requests";
 import path from "node:path";
-import { XmppService } from "../xmpp/saved/XmppServices";
-import { XmppUtilities } from "../xmpp/utilities/XmppUtilities";
+import { XmppService } from "../sockets/xmpp/saved/XmppServices";
+import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 
 export interface Purchase {
   purchaseId: string;

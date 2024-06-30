@@ -2,7 +2,7 @@ import type { ServerWebSocket } from "bun";
 import type { ChronosSocket } from "../server";
 import xmlparser from "xml-parser";
 import xmlbuilder from "xmlbuilder";
-import { logger, tokensService, userService } from "../..";
+import { logger, tokensService, userService } from "../../..";
 import { XmppService } from "../saved/XmppServices";
 
 export default async function (socket: ServerWebSocket<ChronosSocket>, clientData: xmlparser.Node) {

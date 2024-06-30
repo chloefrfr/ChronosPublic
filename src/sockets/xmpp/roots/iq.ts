@@ -2,7 +2,7 @@ import xmlbuilder from "xmlbuilder";
 import xmlparser from "xml-parser";
 import type { ServerWebSocket } from "bun";
 import type { ChronosSocket } from "../server";
-import { friendsService } from "../..";
+import { friendsService } from "../../..";
 import { XmppService } from "../saved/XmppServices";
 
 export default async function (socket: ServerWebSocket<ChronosSocket>, root: xmlparser.Node) {

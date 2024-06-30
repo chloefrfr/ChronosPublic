@@ -1,5 +1,5 @@
 import type { ServerWebSocket } from "bun";
-import { logger } from "..";
+import { logger } from "../..";
 import { Client } from "./client";
 import { XmppService } from "./saved/XmppServices";
 import { XmppUtilities } from "./utilities/XmppUtilities";

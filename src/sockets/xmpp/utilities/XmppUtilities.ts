@@ -1,9 +1,9 @@
 import type { ServerWebSocket } from "bun";
 import type { ChronosSocket } from "../server";
-import { friendsService, logger, userService } from "../..";
+import { friendsService, logger, userService } from "../../..";
 import { XmppService } from "../saved/XmppServices";
 import xmlbuilder from "xmlbuilder";
-import { Friends, type Friend } from "../../tables/friends";
+import { Friends, type Friend } from "../../../tables/friends";
 
 export namespace XmppUtilities {
   export async function UpdatePresenceForFriend(

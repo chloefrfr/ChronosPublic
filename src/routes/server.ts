@@ -1,5 +1,5 @@
 import { app } from "..";
-import { XmppService } from "../xmpp/saved/XmppServices";
+import { XmppService } from "../sockets/xmpp/saved/XmppServices";
 
 export default function () {
   app.get("/chronos/api/server/data/:type", async (c) => {

@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { XmppUtilities } from "../xmpp/utilities/XmppUtilities";
+import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import uaparser from "../utilities/uaparser";
 import errors from "../utilities/errors";
 import ProfileHelper from "../utilities/profiles";
