@@ -9,6 +9,7 @@ import presence from "./roots/presence";
 import { XmppService } from "./saved/XmppServices";
 
 export interface ChronosSocket extends ServerWebSocket {
+  isLoggedIn?: boolean;
   isAuthenticated?: boolean;
   accountId?: string;
   token?: string;
@@ -71,7 +72,7 @@ export class Client {
     }
 
     const isValidConnection =
-      !XmppService.isUserLoggedIn &&
+      !this.socket.data.isLoggedIn &&
       this.socket.data.isAuthenticated &&
       this.socket.data.accountId &&
       this.socket.data.displayName &&
@@ -92,7 +93,7 @@ export class Client {
         },
       });
 
-      XmppService.isUserLoggedIn = true;
+      this.socket.data.isLoggedIn = true;
     }
   }
 }
