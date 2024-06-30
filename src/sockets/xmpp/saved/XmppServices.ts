@@ -8,7 +8,7 @@ interface MUCMember {
   accountId: string;
 }
 
-interface PartyInfo {
+export interface PartyInfo {
   id: string;
   created_at: string;
   updated_at: string;
