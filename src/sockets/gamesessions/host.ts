@@ -54,7 +54,7 @@ export namespace HostAPI {
     } catch (error) {
       if (axios.isAxiosError(error)) throw new Error(`Network Error: ${error}`);
 
-      throw new Error(`Failed to getServerBySessionId: ${error}`);
+      throw new Error(`Failed to createServer: ${error}`);
     }
   }
 }
