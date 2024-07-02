@@ -69,6 +69,9 @@ export class Client {
       case "presence":
         await presence(this.socket, xmlDoc.root);
         break;
+
+      default:
+        logger.warn(`Root '${name}' is missing.`);
     }
 
     const isValidConnection =

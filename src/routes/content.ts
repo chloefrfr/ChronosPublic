@@ -137,6 +137,77 @@ export default function () {
         lastModified: new Date().toISOString(),
         _locale: "en-US",
       },
+      battleroyalenews: {
+        news: {
+          _type: "Battle Royale News",
+          messages: [
+            {
+              image:
+                "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
+              hidden: false,
+              messagetype: "normal",
+              _type: "CommonUI Simple Message Base",
+              title: "Arena",
+              body: "Arena is now available to play!",
+              spotlight: false,
+            },
+          ],
+          motds: [
+            {
+              body: "Arena is now available to play!",
+              entryType: "Playlist",
+              hidden: false,
+              id: uuid(),
+              image:
+                "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
+              playlistId: "Playlist_ShowdownAlt_Solo",
+              sortingPriority: 1,
+              spotlight: false,
+              tileImage:
+                "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
+              title: "Arena",
+            },
+          ],
+          platform_messages: [],
+        },
+        _title: "battleroyalenews",
+        header: "",
+        style: "None",
+        _noIndex: false,
+        alwaysShow: true,
+        _activeDate: new Date().toISOString(),
+        lastModified: new Date().toISOString(),
+        _locale: "en-US",
+        _templateName: "FortniteGameMOTD",
+      },
+      battleroyalenewsv2: {
+        news: {
+          _type: "Battle Royale News v2",
+          motds: [
+            {
+              body: "Arena is now available to play!",
+              entryType: "Playlist",
+              hidden: false,
+              id: uuid(),
+              image:
+                "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
+              playlistId: "Playlist_ShowdownAlt_Solo",
+              sortingPriority: 1,
+              spotlight: false,
+              tileImage:
+                "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
+              title: "Arena",
+            },
+          ],
+        },
+        _title: "battleroyalenewsv2",
+        _noIndex: false,
+        alwaysShow: true,
+        _activeDate: new Date().toISOString(),
+        lastModified: new Date().toISOString(),
+        _locale: "en-US",
+        _templateName: "FortniteGameMOTD",
+      },
       shopSections: {
         sectionList: {
           sections: [

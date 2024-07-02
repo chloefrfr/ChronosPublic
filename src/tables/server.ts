@@ -1,4 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import type { ServerOptions } from "../sockets/gamesessions/types";
 
 @Entity()
 export class Server extends BaseEntity {
@@ -15,5 +16,14 @@ export class Server extends BaseEntity {
   version!: number;
 
   @Column()
+  identifier!: string;
+
+  @Column()
+  address!: string;
+
+  @Column()
   port!: number;
+
+  @Column()
+  options!: ServerOptions;
 }
