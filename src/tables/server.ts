@@ -24,6 +24,6 @@ export class Server extends BaseEntity {
   @Column()
   port!: number;
 
-  @Column()
+  @Column({ type: "jsonb" })
   options!: ServerOptions;
 }

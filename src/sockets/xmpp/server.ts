@@ -56,4 +56,4 @@ export const xmppServer = Bun.serve<ChronosSocket>({
   },
 });
 
-logger.startup(`Xmpp server running on port 8314.`);
+logger.startup(`Xmpp server running on port ${xmppServer.port}.`);
