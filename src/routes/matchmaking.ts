@@ -54,15 +54,15 @@ export default function () {
       if (!bucketIds![2] || !bucketIds)
         return c.json(errors.createError(400, c.req.url, "Invalid BucketId.", timestamp), 400);
 
-      const {
-        id: partyId = "chronosprivate.src.routes.matchmaking.party_not_found",
-        members: partyMembers = [],
-      } =
+      const { id: partyId = "party_not_found", members: partyMembers = [] } =
         Object.values(XmppService.parties).reduce((foundParty, party) => {
           if (foundParty) return foundParty;
           const hasMember = party.members.some((member) => member.account_id === accountId);
           return hasMember ? party : null;
         }, null as PartyInfo | null) ?? {};
+
+      if (partyId === "party_not_found")
+        return c.json(errors.createError(404, c.req.url, "Party not found.", timestamp), 404);
 
       const membersInParty: string[] = partyMembers
         .filter((member) => member.account_id)
@@ -87,7 +87,7 @@ export default function () {
       const payload = {
         playerId: user.accountId,
         partyPlayerId: partyPlayerIds,
-        bucketId: bucketIds,
+        bucketId: bucketId,
         attributes: {
           "player.userAgent": c.req.header("User-Agent"),
           "player.preferredSubregion": subRegions!.split(",")[0],
@@ -107,19 +107,20 @@ export default function () {
           "player.option.microphoneEnabled": c.req.query("player.option.microphoneEnabled"),
         },
         expiresAt: new Date(new Date().getTime() + 32 * 60 * 60 * 1000).toISOString(),
-        none: uuid().replace(/-/, ""),
+        nonce: uuid().replace(/-/, ""),
       };
 
       return c.json({
-        serviceUrl: "ws://127.0.0.1:8413",
+        serviceUrl: `ws://26.166.13.159:8413`,
         ticketType: "mms-player",
-        payload,
+        payload: JSON.stringify(payload),
         signature: Encryption.encrypt(
           JSON.stringify({
             accountId: user.accountId,
+            bucketId: bucketId,
             attributes: payload.attributes,
             expiresAt: payload.expiresAt,
-            none: payload.none,
+            nonce: payload.nonce,
           }),
           config.client_secret,
         ),

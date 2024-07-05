@@ -11,10 +11,10 @@ export interface HostServer {
   identifier: string;
   address: string;
   port: number;
+  queue: string[];
   options: ServerOptions;
 }
 
 export interface ServerOptions {
-  bucketId: string;
   region: string;
 }
