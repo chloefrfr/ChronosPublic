@@ -8,6 +8,7 @@ import { check } from "./utilities/ServerStatusCheck";
 import { hosters } from "./hosters/regionhosters";
 import { ServerSessions } from "../gamesessions/manager/ServerSessions";
 import { ServerStatus, type HostServer } from "../gamesessions/types";
+import { isPartyMemberExists } from "./utilities/isPartyMemberExists";
 
 interface MatchmakerAttributes {
   "player.userAgent": string;
@@ -102,6 +103,7 @@ export const matchmakerServer = Bun.serve<Socket>({
         for (const server of servers) {
           if (server.sessionId === payload.bucketId) {
             existingServer = server;
+            foundParty = isPartyMemberExists(payload.accountId);
             break;
           }
         }
