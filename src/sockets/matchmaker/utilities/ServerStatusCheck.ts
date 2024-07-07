@@ -5,11 +5,9 @@ import { getQueueLength } from "./getQueueLength";
 export function check(server: HostServer, sessionId: string, port: number) {
   let isServerOnline: boolean = false;
 
-  if (
-    server.status === ServerStatus.ONLINE &&
-    server.sessionId === sessionId &&
-    server.port === port
-  )
+  console.log(server.status);
+
+  if (server.status === "online" && server.sessionId === sessionId && server.port === port)
     isServerOnline = true;
 
   return isServerOnline;

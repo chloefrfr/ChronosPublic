@@ -16,5 +16,8 @@ export interface HostServer {
 }
 
 export interface ServerOptions {
+  matchId: string;
   region: string;
+  userAgent: string;
+  playlist: string;
 }

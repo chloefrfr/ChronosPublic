@@ -31,10 +31,15 @@ interface MatchmakerAttributes {
 
 export interface MatchmakerSocket {
   accountId: string;
-  attributes: MatchmakerAttributes;
   bucketId: string;
+  attributes: MatchmakerAttributes;
   expiresAt: string;
   nonce: string;
+  sessionId: string;
+  matchId: string;
+  region: string;
+  userAgent: string;
+  playlist: string;
 }
 
 export type Socket = {
@@ -95,41 +100,42 @@ export const matchmakerServer = Bun.serve<Socket>({
         socket.data.identifier.push(payload.bucketId);
 
         const ticketId = uuid();
-        const sessionId = uuid();
 
-        let foundParty: PartyInfo | undefined;
-        let existingServer: HostServer | undefined;
+        let existingServer = servers.find(
+          (server) =>
+            server.options.region === payload.region &&
+            server.options.playlist === payload.playlist &&
+            server.options.userAgent === payload.userAgent &&
+            server.sessionId === payload.sessionId &&
+            server.options.matchId === payload.matchId,
+        );
 
-        for (const server of servers) {
-          if (server.sessionId === payload.bucketId) {
-            existingServer = server;
-            foundParty = isPartyMemberExists(payload.accountId);
-            break;
-          }
-        }
+        const foundParty: PartyInfo | undefined = isPartyMemberExists(payload.accountId);
 
-        if (!existingServer) {
+        if (!existingServer || existingServer.queue.length === 100) {
           const newServer: HostServer = {
-            sessionId: "",
+            sessionId: payload.sessionId,
             status: ServerStatus.OFFLINE,
-            version: 0,
-            identifier: "",
+            version: payload.attributes["player.season"],
+            identifier: payload.bucketId,
             address: "",
             port: 0,
             queue: [],
             options: {
-              region: "",
+              region: payload.region,
+              matchId: payload.matchId,
+              playlist: payload.playlist,
+              userAgent: payload.userAgent,
             },
           };
 
-          newServer.sessionId = sessionId;
-          newServer.identifier = payload.bucketId;
-          newServer.version = payload.attributes["player.season"];
-          newServer.queue.push(payload.accountId);
-
+          servers.push(newServer);
           existingServer = newServer;
         } else {
-          if (existingServer.queue.length === 100) return socket.close(1011, "Queue is full!");
+          if (existingServer.queue.length === 100) {
+            socket.close(1011, "Queue is full!");
+            return;
+          }
 
           existingServer.queue.push(payload.accountId);
         }
@@ -146,43 +152,36 @@ export const matchmakerServer = Bun.serve<Socket>({
         MatchmakerStates.waiting(socket, foundParty);
         MatchmakerStates.queued(socket, ticketId, foundParty);
 
-        console.log(servers);
+        const server = existingServer;
+        const existingServers = check(server, server.sessionId, server.port);
 
-        for (const server of servers) {
-          const existingServers = check(server, server.sessionId, server.port);
+        if (!existingServers && server.queue.length > 0) {
+          const region = server.identifier.split(":")[2];
+          logger.info(`Creating server for region ${region}`);
 
-          console.log(existingServers);
+          const config = hosters[region];
 
-          if (!existingServers && server.queue.length > 0) {
-            logger.info(
-              `Creating new server for session ${server.sessionId} on port ${server.port}.`,
-            );
+          logger.info(
+            `Creating new server for session ${server.sessionId} on port ${config.port}.`,
+          );
 
-            const region = server.identifier.split(":")[2];
-            logger.info(`Creating server for region ${region}`);
+          if (config) {
+            server.address = config.address;
+            server.port = config.port;
+            server.options.region = region;
 
-            const config = hosters[region];
-
-            if (config) {
-              server.address = config.address;
-              server.port = config.port;
-              server.options.region = region;
-
-              const newServer = await ServerSessions.create(server);
-              if (!newServer) {
-                logger.error(`Failed to create server for session ${server.sessionId}.`);
-                continue;
-              }
-
-              logger.info(
-                `A new server with the identifier ${server.identifier} has been created.`,
-              );
-              return;
-            } else {
-              logger.error(`No active server hosts for the region '${region}'`);
-              socket.close(1011, `No active server hosts for the region '${region}'`);
+            const newServer = await ServerSessions.create(server);
+            if (!newServer) {
+              logger.error(`Failed to create server for session ${server.sessionId}.`);
               return;
             }
+
+            logger.info(`A new server with the identifier ${server.identifier} has been created.`);
+            return;
+          } else {
+            logger.error(`No active server hosts for the region '${region}'`);
+            socket.close(1011, `No active server hosts for the region '${region}'`);
+            return;
           }
         }
       } catch (error) {

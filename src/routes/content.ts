@@ -36,8 +36,8 @@ export default function () {
     Pages.dynamicbackgrounds.backgrounds.backgrounds[0].stage = `season${uahelper.season}`;
     Pages.dynamicbackgrounds.backgrounds.backgrounds[0].key = "lobby";
 
-    Pages.dynamicbackgrounds.backgrounds.backgrounds[0].stage = `season${uahelper.season}`;
-    Pages.dynamicbackgrounds.backgrounds.backgrounds[0].key = "vault";
+    Pages.dynamicbackgrounds.backgrounds.backgrounds[1].stage = `season${uahelper.season}`;
+    Pages.dynamicbackgrounds.backgrounds.backgrounds[1].key = "vault";
 
     return c.json(Pages);
   });
