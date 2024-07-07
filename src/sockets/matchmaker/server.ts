@@ -137,6 +137,7 @@ export const matchmakerServer = Bun.serve<Socket>({
           existingServer = newServer;
         } else {
           if (existingServer.queue.length === 100) {
+            MatchmakerStates.queueFull(socket);
             socket.close(1011, "Queue is full!");
             return;
           }

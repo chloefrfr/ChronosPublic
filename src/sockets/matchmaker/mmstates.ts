@@ -30,6 +30,10 @@ export class MatchmakerStates {
     );
   }
 
+  public static queueFull(socket: ServerWebSocket<Socket>) {
+    return socket.send(JSON.stringify({ payload: { state: "QueueFull" }, name: "StatusUpdate" }));
+  }
+
   public static queued(
     socket: ServerWebSocket<Socket>,
     ticketId: string,
