@@ -13,7 +13,7 @@ export default function () {
       return c.json(errors.createError(400, c.req.url, "Body isn't valid JSON", timestamp), 400);
     }
 
-    const { sessionId, status, version, port } = body;
+    const { sessionId, status, version, port, identifier, address, options } = body;
 
     const parsedVersion = parseInt(version, 10);
     const parsedPort = parseInt(port, 10);
@@ -29,7 +29,10 @@ export default function () {
         sessionId,
         status,
         version,
+        identifier,
+        address,
         port,
+        options,
       });
       return c.json(server);
     } catch (error) {
@@ -62,6 +65,41 @@ export default function () {
       return c.json(server);
     } catch (error) {
       return c.json(errors.createError(500, c.req.url, "Failed to list servers.", timestamp), 500);
+    }
+  });
+
+  app.post("/gamesessions/setStatus", Validation.verifyBasicToken, async (c) => {
+    let body;
+    const timestamp = new Date().toISOString();
+
+    try {
+      body = await c.req.json();
+    } catch (error) {
+      return c.json(errors.createError(400, c.req.url, "Body isn't valid JSON", timestamp), 400);
+    }
+
+    const { status, sessionId } = body;
+
+    try {
+      const server = await serverService.setServerStatus(sessionId, status);
+
+      if (!server)
+        return c.json(
+          errors.createError(
+            400,
+            c.req.url,
+            `Failed to set server status to '${status}'`,
+            timestamp,
+          ),
+          400,
+        );
+
+      return c.json({ message: `Successfully set server status to '${status}'` });
+    } catch (error) {
+      return c.json(
+        errors.createError(500, c.req.url, "Failed to set server status.", timestamp),
+        500,
+      );
     }
   });
 }

@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance, type AxiosResponse } from "axios";
-import type { HostServer } from "./types";
+import type { HostServer, ServerStatus } from "./types";
 import { config } from "../..";
 import type { Server } from "../../tables/server";
 
@@ -55,6 +55,30 @@ export namespace HostAPI {
       if (axios.isAxiosError(error)) throw new Error(`Network Error: ${error}`);
 
       throw new Error(`Failed to createServer: ${error}`);
+    }
+  }
+
+  // this is gonna be unused most likely
+  export async function setServerStatus(sessionId: string, status: ServerStatus) {
+    try {
+      const response: AxiosResponse<HostServer> = await client.post(
+        `/setStatus`,
+        {
+          sessionId,
+          status,
+        },
+        {
+          responseType: "json",
+        },
+      );
+
+      if (response.status !== 200) throw new Error(`HostAPI Error: ${response.statusText}`);
+
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) throw new Error(`Network Error: ${error}`);
+
+      throw new Error(`Failed to set server status: ${error}`);
     }
   }
 }

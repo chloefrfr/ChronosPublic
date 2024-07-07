@@ -1,6 +1,7 @@
 import type { Repository } from "typeorm";
-import type { Server } from "../../tables/server";
+import { Server } from "../../tables/server";
 import type Database from "../Database.wrapper";
+import { logger } from "../..";
 
 export class ServerService {
   private serverRepository: Repository<Server>;
@@ -21,5 +22,21 @@ export class ServerService {
 
   public async getServerBySessionId(sessionId: string): Promise<Server | null> {
     return await this.serverRepository.findOne({ where: { sessionId } });
+  }
+
+  public async setServerStatus(sessionId: string, status: string): Promise<boolean> {
+    try {
+      const updateResult = await this.serverRepository
+        .createQueryBuilder()
+        .update(Server)
+        .set({ status })
+        .where("sessionId = :sessionId", { sessionId })
+        .execute();
+
+      return !!updateResult.affected;
+    } catch (error) {
+      logger.error(`Failed to set status: ${error}`);
+      return false;
+    }
   }
 }
