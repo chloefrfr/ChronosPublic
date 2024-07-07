@@ -45,6 +45,7 @@ export interface MatchmakerSocket {
 export type Socket = {
   payload: MatchmakerSocket;
   identifier: string[];
+  ticketId: string;
 };
 
 export const matchmakerServer = Bun.serve<Socket>({
@@ -84,6 +85,7 @@ export const matchmakerServer = Bun.serve<Socket>({
         data: {
           payload,
           identifier: [],
+          ticketId: uuid(),
         },
       });
 
@@ -99,15 +101,14 @@ export const matchmakerServer = Bun.serve<Socket>({
         const payload = socket.data.payload;
         socket.data.identifier.push(payload.bucketId);
 
-        const ticketId = uuid();
-
         let existingServer = servers.find(
           (server) =>
+            server.identifier === payload.bucketId &&
             server.options.region === payload.region &&
             server.options.playlist === payload.playlist &&
-            server.options.userAgent === payload.userAgent &&
-            server.sessionId === payload.sessionId &&
-            server.options.matchId === payload.matchId,
+            server.options.userAgent === payload.userAgent,
+          // server.sessionId === payload.sessionId &&
+          // server.options.matchId === payload.matchId,
         );
 
         const foundParty: PartyInfo | undefined = isPartyMemberExists(payload.accountId);
@@ -152,7 +153,7 @@ export const matchmakerServer = Bun.serve<Socket>({
 
         MatchmakerStates.connecting(socket);
         MatchmakerStates.waiting(socket, foundParty);
-        MatchmakerStates.queued(socket, ticketId, foundParty, existingServer.queue);
+        MatchmakerStates.queued(socket, socket.data.ticketId, foundParty, existingServer.queue);
 
         const server = existingServer;
         const existingServers = check(server, server.sessionId, server.port);
@@ -186,14 +187,88 @@ export const matchmakerServer = Bun.serve<Socket>({
             return;
           }
         }
-
-        console.log(server);
       } catch (error) {
         logger.error(`Error handling WebSocket open event: ${error}`);
         socket.close(1011, "Internal Server Error");
       }
     },
-    message(socket, message) {},
+    message(socket, message) {
+      logger.debug("Ping!");
+
+      const payload = socket.data.payload;
+
+      const foundParty: PartyInfo | undefined = isPartyMemberExists(payload.accountId);
+
+      const existingQueue = servers.find(
+        (server) =>
+          server.identifier === payload.bucketId &&
+          server.options.region === payload.region &&
+          server.options.playlist === payload.playlist &&
+          server.options.userAgent === payload.userAgent,
+        // server.sessionId === payload.sessionId &&
+        // server.options.matchId === payload.matchId,
+      );
+
+      if (!existingQueue) {
+        logger.warn(`Queue not found for socket: ${payload.accountId}`);
+        return;
+      }
+
+      if (!foundParty) {
+        return socket.close(1011, "Party not found!");
+      }
+
+      const clientInQueue = existingQueue.queue.find((id) => id === payload.accountId);
+
+      if (!clientInQueue) {
+        logger.warn(`Client not found for socket: ${socket.data.payload.accountId}`);
+        return;
+      }
+
+      MatchmakerStates.queued(socket, socket.data.ticketId, foundParty, existingQueue.queue);
+    },
+    close(socket) {
+      logger.debug("Close!");
+
+      const payload = socket.data.payload;
+
+      const foundParty: PartyInfo | undefined = isPartyMemberExists(payload.accountId);
+
+      const existingQueue = servers.find(
+        (server) =>
+          server.identifier === payload.bucketId &&
+          server.options.region === payload.region &&
+          server.options.playlist === payload.playlist &&
+          server.options.userAgent === payload.userAgent,
+        // server.sessionId === payload.sessionId &&
+        // server.options.matchId === payload.matchId,
+      );
+
+      if (!existingQueue) {
+        logger.warn(`Queue not found for socket: ${payload.accountId}`);
+        return;
+      }
+
+      if (!foundParty) {
+        return socket.close(1011, "Party not found!");
+      }
+
+      const clientInQueueIndex = existingQueue.queue.findIndex((id) => id === payload.accountId);
+
+      if (clientInQueueIndex === -1) {
+        logger.warn(`Client not found for socket: ${socket.data.payload.accountId}`);
+        return;
+      }
+
+      existingQueue.queue.splice(clientInQueueIndex, 1);
+
+      if (existingQueue.queue.length === 0) {
+        const queueIndex = existingQueue.queue.findIndex((id) => id === payload.accountId);
+        if (queueIndex !== -1) {
+          existingQueue.queue.splice(queueIndex, 1);
+        }
+      }
+    },
   },
 });
 

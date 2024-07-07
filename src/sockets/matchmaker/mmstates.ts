@@ -40,10 +40,6 @@ export class MatchmakerStates {
 
     if (!length) return;
 
-    console.log(`QueuedPlayers: ${queue.length}`);
-
-    console.log(queue);
-
     return socket.send(
       JSON.stringify({
         name: "StatusUpdate",
