@@ -52,4 +52,29 @@ export class MatchmakerStates {
       }),
     );
   }
+
+  public static sessionAssignment(socket: ServerWebSocket<Socket>, matchId: string) {
+    return socket.send(
+      JSON.stringify({
+        name: "StatusUpdate",
+        payload: {
+          state: "SessionAssignment",
+          matchId,
+        },
+      }),
+    );
+  }
+
+  public static join(socket: ServerWebSocket<Socket>, sessionId: string, matchId: string) {
+    return socket.send(
+      JSON.stringify({
+        name: "Play",
+        payload: {
+          matchId,
+          sessionId,
+          joinDelaySec: 0,
+        },
+      }),
+    );
+  }
 }

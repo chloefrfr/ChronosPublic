@@ -9,6 +9,7 @@ import { hosters } from "./hosters/regionhosters";
 import { ServerSessions } from "../gamesessions/manager/ServerSessions";
 import { ServerStatus, type HostServer } from "../gamesessions/types";
 import { isPartyMemberExists } from "./utilities/isPartyMemberExists";
+import { removeClientFromQueue } from "./utilities/removeClientFromQueue";
 
 interface MatchmakerAttributes {
   "player.userAgent": string;
@@ -158,7 +159,7 @@ export const matchmakerServer = Bun.serve<Socket>({
         const server = existingServer;
         const existingServers = check(server, server.sessionId, server.port);
 
-        if (existingServers && server.queue.length > 0) {
+        while (existingServers && server.queue.length > 0) {
           const region = server.identifier.split(":")[2];
           logger.info(`Creating server for region ${region}`);
 
@@ -176,17 +177,26 @@ export const matchmakerServer = Bun.serve<Socket>({
             const newServer = await ServerSessions.create(server);
             if (!newServer) {
               logger.error(`Failed to create server for session ${server.sessionId}.`);
-              return;
+              continue;
             }
 
             logger.info(`A new server with the identifier ${server.identifier} has been created.`);
-            return;
+            break;
           } else {
             logger.error(`No active server hosts for the region '${region}'`);
             socket.close(1011, `No active server hosts for the region '${region}'`);
-            return;
+            break;
           }
         }
+
+        while (server.queue.length < 100 || server.queue.length === 100) {
+          // Remove the client from the queue
+          removeClientFromQueue(foundParty, server.queue);
+          MatchmakerStates.sessionAssignment(socket, server.options.matchId);
+        }
+
+        // TODO - Eventually make all of the members in the party join.
+        MatchmakerStates.join(socket, server.sessionId, server.options.matchId);
       } catch (error) {
         logger.error(`Error handling WebSocket open event: ${error}`);
         socket.close(1011, "Internal Server Error");

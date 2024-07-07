@@ -57,7 +57,7 @@ export namespace ServerSessions {
 
       return newServer;
     } catch (error) {
-      console.error("Error creating server:", error);
+      logger.error(`Error creating server session: ${error}`);
       throw error;
     }
   }
