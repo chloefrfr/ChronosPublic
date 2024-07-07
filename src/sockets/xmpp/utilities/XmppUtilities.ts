@@ -4,8 +4,33 @@ import { friendsService, logger, userService } from "../../..";
 import { XmppService } from "../saved/XmppServices";
 import xmlbuilder from "xmlbuilder";
 import { Friends, type Friend } from "../../../tables/friends";
+import xmlparser from "xml-parser";
 
 export namespace XmppUtilities {
+  export async function SendMessageToClient(jid: string, body: string, clientData: xmlparser.Node) {
+    const receiverIndex = XmppService.clients.findIndex(
+      (client) =>
+        client.jid.split("/")[0] === clientData.attributes.to ||
+        client.accountId === clientData.attributes.to,
+    );
+
+    const receiver = XmppService.clients[receiverIndex];
+
+    if (receiverIndex === -1) return;
+
+    receiver.socket.send(
+      xmlbuilder
+        .create("message")
+        .attribute("from", jid)
+        .attribute("xmlns", "jabber:client")
+        .attribute("to", receiver.jid)
+        .attribute("id", clientData.attributes.id)
+        .element("body", body)
+        .up()
+        .toString({ pretty: true }),
+    );
+  }
+
   export async function UpdatePresenceForFriend(
     socket: ServerWebSocket<ChronosSocket>,
     status: string,

@@ -7,6 +7,7 @@ import auth from "./roots/auth";
 import iq from "./roots/iq";
 import presence from "./roots/presence";
 import { XmppService } from "./saved/XmppServices";
+import message from "./roots/message";
 
 export interface ChronosSocket extends ServerWebSocket {
   isLoggedIn?: boolean;
@@ -68,6 +69,10 @@ export class Client {
 
       case "presence":
         await presence(this.socket, xmlDoc.root);
+        break;
+
+      case "message":
+        await message(this.socket, xmlDoc.root);
         break;
 
       default:
