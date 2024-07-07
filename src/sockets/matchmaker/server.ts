@@ -129,6 +129,8 @@ export const matchmakerServer = Bun.serve<Socket>({
             },
           };
 
+          newServer.queue.push(payload.accountId);
+
           servers.push(newServer);
           existingServer = newServer;
         } else {
@@ -150,12 +152,12 @@ export const matchmakerServer = Bun.serve<Socket>({
 
         MatchmakerStates.connecting(socket);
         MatchmakerStates.waiting(socket, foundParty);
-        MatchmakerStates.queued(socket, ticketId, foundParty);
+        MatchmakerStates.queued(socket, ticketId, foundParty, existingServer.queue);
 
         const server = existingServer;
         const existingServers = check(server, server.sessionId, server.port);
 
-        if (!existingServers && server.queue.length > 0) {
+        if (existingServers && server.queue.length > 0) {
           const region = server.identifier.split(":")[2];
           logger.info(`Creating server for region ${region}`);
 
@@ -184,6 +186,8 @@ export const matchmakerServer = Bun.serve<Socket>({
             return;
           }
         }
+
+        console.log(server);
       } catch (error) {
         logger.error(`Error handling WebSocket open event: ${error}`);
         socket.close(1011, "Internal Server Error");

@@ -30,10 +30,19 @@ export class MatchmakerStates {
     );
   }
 
-  public static queued(socket: ServerWebSocket<Socket>, ticketId: string, party: PartyInfo) {
+  public static queued(
+    socket: ServerWebSocket<Socket>,
+    ticketId: string,
+    party: PartyInfo,
+    queue: string[],
+  ) {
     const length = getQueueLength(party);
 
     if (!length) return;
+
+    console.log(`QueuedPlayers: ${queue.length}`);
+
+    console.log(queue);
 
     return socket.send(
       JSON.stringify({
@@ -42,7 +51,7 @@ export class MatchmakerStates {
           state: "Queued",
           ticketId,
           estimatedWaitSec: 10 * Math.random(),
-          queuedPlayers: length,
+          queuedPlayers: queue.length,
         },
       }),
     );
