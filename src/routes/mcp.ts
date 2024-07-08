@@ -115,6 +115,8 @@ export default function () {
 
       if (handler && typeof handler === "function") return await handler(c);
 
+      logger.warn(`Missing Action: ${action}`);
+
       return c.json(MCPResponses.generate(profile, [], profileId));
     },
   );
