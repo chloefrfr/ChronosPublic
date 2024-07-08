@@ -16,7 +16,7 @@
 - [ ] Challenges (Quests)
 - [x] Friends
 - [x] XMPP
-- [ ] Matchmaker
+- [x] Matchmaker
 - [x] Party V1
 - [x] Party V2
 - [ ] Daily rewards
