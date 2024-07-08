@@ -57,6 +57,7 @@ export default async function (c: Context) {
         .update()
         .set({ profile: athena })
         .where("type = :type", { type: "athena" })
+        .andWhere("accountId = :accountId", { accountId: user.accountId })
         .execute();
     }
 

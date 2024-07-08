@@ -281,12 +281,14 @@ export default async function (c: Context) {
     .update()
     .set({ profile })
     .where("type = :type", { type: "common_core" })
+    .andWhere("accountId = :accountId", { accountId: user.accountId })
     .execute();
 
   await Profiles.createQueryBuilder()
     .update()
     .set({ profile: athena })
     .where("type = :type", { type: "athena" })
+    .andWhere("accountId = :accountId", { accountId: user.accountId })
     .execute();
 
   const profileRevision = uahelper!.buildUpdate >= "12.20" ? athena.commandRevision : athena.rvn;

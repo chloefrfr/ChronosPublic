@@ -126,6 +126,7 @@ export default async function (c: Context) {
     .update()
     .set({ profile })
     .where("type = :type", { type: profileId })
+    .andWhere("accountId = :accountId", { accountId: user.accountId })
     .execute();
 
   return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));

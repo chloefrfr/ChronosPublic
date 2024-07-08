@@ -102,6 +102,7 @@ export default async function (c: Context) {
     .update()
     .set({ profile })
     .where("type = :type", { type: profileId })
+    .andWhere("accountId = :accountId", { accountId: user.accountId })
     .execute();
 
   const endTimestamp = Date.now();
