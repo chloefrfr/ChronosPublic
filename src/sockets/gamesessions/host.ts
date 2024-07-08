@@ -32,17 +32,17 @@ export namespace HostAPI {
         responseType: "json",
       });
 
-      if (response.status !== 200) throw new Error(`HostAPI Error: ${response.statusText}`);
+      // if (response.status !== 200) throw new Error(`HostAPI Error: ${response.statusText}`);
 
       return response.data;
     } catch (error) {
-      if (axios.isAxiosError(error)) throw new Error(`Network Error: ${error}`);
+      // if (axios.isAxiosError(error)) throw new Error(`Network Error: ${error}`);
 
       throw new Error(`Failed to getServerBySessionId: ${error}`);
     }
   }
 
-  export async function createServer(server: Partial<Server>): Promise<HostServer> {
+  export async function createServer(server: Partial<HostServer>): Promise<HostServer> {
     try {
       const response: AxiosResponse<HostServer> = await client.post(`/create`, server, {
         responseType: "json",

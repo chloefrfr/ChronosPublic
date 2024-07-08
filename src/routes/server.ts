@@ -1,4 +1,5 @@
 import { app } from "..";
+import { servers } from "../sockets/gamesessions/servers";
 import { XmppService } from "../sockets/xmpp/saved/XmppServices";
 
 export default function () {
@@ -14,6 +15,8 @@ export default function () {
         return c.json(XmppService.clients);
       case "mucs":
         return c.json(XmppService.xmppMucs);
+      case "servers":
+        return c.json(servers);
     }
   });
 }

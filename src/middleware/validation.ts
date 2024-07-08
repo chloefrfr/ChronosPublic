@@ -65,12 +65,12 @@ export namespace Validation {
     const timestamp = new Date().toISOString();
 
     if (!authorizationHeader || !authorizationHeader.startsWith("Basic "))
-      return c.json(errors.createError(401, c.req.url, "Unauthorized", timestamp), 403);
+      return c.json(errors.createError(403, c.req.url, "Unauthorized", timestamp), 403);
 
     const token = authorizationHeader.split(" ")[1];
 
     if (token !== config.token)
-      return c.json(errors.createError(401, c.req.url, "Unauthorized", timestamp), 403);
+      return c.json(errors.createError(403, c.req.url, "Token not valid!", timestamp), 403);
 
     await next();
   }

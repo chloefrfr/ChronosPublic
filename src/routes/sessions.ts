@@ -1,5 +1,7 @@
 import { app, serverService } from "..";
 import { Validation } from "../middleware/validation";
+import { servers } from "../sockets/gamesessions/servers";
+import { ServerStatus } from "../sockets/gamesessions/types";
 import errors from "../utilities/errors";
 
 export default function () {
@@ -80,10 +82,14 @@ export default function () {
 
     const { status, sessionId } = body;
 
-    try {
-      const server = await serverService.setServerStatus(sessionId, status);
+    // if (status !== "online" || status !== "offline" || status !== "maintenance")
+    //   return c.json(errors.createError(400, c.req.url, "Status not valid.", timestamp), 400);
 
-      if (!server)
+    try {
+      const server = await serverService.getServerBySessionId(sessionId);
+      const existingServers = servers.find((s) => s.sessionId === sessionId);
+
+      if (!existingServers || !server)
         return c.json(
           errors.createError(
             400,
@@ -93,6 +99,9 @@ export default function () {
           ),
           400,
         );
+
+      existingServers.status = status;
+      await serverService.setServerStatus(server.sessionId, status);
 
       return c.json({ message: `Successfully set server status to '${status}'` });
     } catch (error) {

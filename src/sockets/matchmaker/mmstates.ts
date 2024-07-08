@@ -51,7 +51,7 @@ export class MatchmakerStates {
           state: "Queued",
           ticketId,
           estimatedWaitSec: 10 * Math.random(),
-          queuedPlayers: queue.length,
+          queuedPlayers: 0,
         },
       }),
     );

@@ -1,5 +1,8 @@
 import { accountService, app, config, logger, userService } from "..";
 import { Validation } from "../middleware/validation";
+import { HostAPI } from "../sockets/gamesessions/host";
+import { servers } from "../sockets/gamesessions/servers";
+import { hosters } from "../sockets/matchmaker/hosters/regionhosters";
 import { XmppService, type PartyInfo } from "../sockets/xmpp/saved/XmppServices";
 import { Encryption } from "../utilities/encryption";
 import errors from "../utilities/errors";
@@ -132,4 +135,75 @@ export default function () {
       });
     },
   );
+
+  app.get("/fortnite/api/matchmaking/session/:sessionId", Validation.verifyToken, async (c) => {
+    const sessionId = c.req.param("sessionId");
+
+    const session = await HostAPI.getServerBySessionId(sessionId);
+    const timestamp = new Date().toISOString();
+
+    console.log(session);
+
+    if (!session)
+      return c.json(
+        errors.createError(
+          404,
+          c.req.url,
+          `Failed to find session with the id ${sessionId}`,
+          timestamp,
+        ),
+        404,
+      );
+
+    const VPSIps: { [key: string]: string } = {
+      "45.143.196.193": "45.143.196.193",
+      "34.46.111.45": "34.46.111.45",
+    };
+
+    const currentBucketId = session.identifier.split(":")[0];
+
+    logger.debug(`Session ${session.address}:${session.port} - ${currentBucketId}`);
+
+    return c.json({
+      id: session.sessionId,
+      ownerId: uuid().replace(/-/gi, "").toUpperCase(),
+      ownerName: "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
+      serverName: "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
+      serverAddress: VPSIps[session.address],
+      serverPort: session.port,
+      maxPublicPlayers: 220,
+      openPublicPlayers: 175,
+      maxPrivatePlayers: 0,
+      openPrivatePlayers: 0,
+      attributes: {
+        REGION_s: "EU",
+        GAMEMODE_s: "FORTATHENA",
+        ALLOWBROADCASTING_b: true,
+        SUBREGION_s: "GB",
+        DCID_s: "FORTNITE-LIVEEUGCEC1C2E30UBRCORE0A-14840880",
+        tenant_s: "Fortnite",
+        MATCHMAKINGPOOL_s: "Any",
+        STORMSHIELDDEFENSETYPE_i: 0,
+        HOTFIXVERSION_i: 0,
+        PLAYLISTNAME_s: "Playlist_DefaultSolo",
+        SESSIONKEY_s: uuid().replace(/-/gi, "").toUpperCase(),
+        TENANT_s: "Fortnite",
+        BEACONPORT_i: 15009,
+      },
+      publicPlayers: [],
+      privatePlayers: [],
+      totalPlayers: 45,
+      allowJoinInProgress: false,
+      shouldAdvertise: false,
+      isDedicated: false,
+      usesStats: false,
+      allowInvites: false,
+      usesPresence: false,
+      allowJoinViaPresence: true,
+      allowJoinViaPresenceFriendsOnly: false,
+      buildUniqueId: parseInt(currentBucketId) || 13920814,
+      lastUpdated: new Date().toISOString(),
+      started: false,
+    });
+  });
 }

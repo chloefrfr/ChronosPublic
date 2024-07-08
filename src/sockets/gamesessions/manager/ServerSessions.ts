@@ -3,29 +3,12 @@ import { supportedPlaylists } from "../../../constants/playlists";
 import { HostAPI } from "../host";
 import { ServerStatus, type HostServer } from "../types";
 
-/* 
-const session = await ServerSessions.create({ 
-  sessionId: "yap-yap-yap",
-  status: ServerStatus.ONLINE,
-  version: 13,
-  identifier: "playlist_defaultsolo",
-  address: "127.0.0.1",
-  port: 7777,
-  options: {
-    bucketId: "31045", // random ass bucketid
-    region: "NAE"
-  }
-})
-*/
-
 export namespace ServerSessions {
   export async function create(hostedServer: Partial<HostServer>) {
     try {
       const activeServers = await HostAPI.getAllServers();
 
-      const maxActiveServers = Math.min(2, Math.floor(activeServers.length / 2));
-
-      if (activeServers.length >= maxActiveServers) return null;
+      // if (activeServers.length >= maxActiveServers) return null;
       if (!hostedServer || !hostedServer.identifier) return null;
 
       const playlistParts = hostedServer.identifier.split(":");
