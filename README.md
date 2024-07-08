@@ -9,7 +9,7 @@
 
 ## Planned Features
 
-- [ ] Vbucks on kill/win
+- [x] Vbucks on kill/win
 - [x] Easy setup
 - [x] Auto shop
 - [ ] Battle Pass & Levelling Up

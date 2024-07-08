@@ -1,8 +1,11 @@
-import { app, serverService } from "..";
+import { accountService, app, profilesService, serverService, userService } from "..";
 import { Validation } from "../middleware/validation";
+import { HostAPI } from "../sockets/gamesessions/host";
 import { servers } from "../sockets/gamesessions/servers";
 import { ServerStatus } from "../sockets/gamesessions/types";
+import { Profiles } from "../tables/profiles";
 import errors from "../utilities/errors";
+import ProfileHelper from "../utilities/profiles";
 
 export default function () {
   app.post("/gamesessions/create", Validation.verifyBasicToken, async (c) => {
@@ -111,4 +114,67 @@ export default function () {
       );
     }
   });
+
+  app.post(
+    "/gamesessions/stats/vbucks/:username/:sessionId/:eliminations",
+    Validation.verifyBasicToken,
+    async (c) => {
+      const sessionId = c.req.param("sessionId");
+      const username = c.req.param("username");
+      const session = await HostAPI.getServerBySessionId(sessionId);
+      const timestamp = new Date().toISOString();
+
+      const [user] = await Promise.all([userService.findUserByUsername(username)]);
+
+      if (!user)
+        return c.json(errors.createError(404, c.req.url, "User not found!", timestamp), 404);
+
+      const [common_core] = await Promise.all([
+        ProfileHelper.getProfile(user.accountId, "common_core"),
+      ]);
+
+      if (!session)
+        return c.json(errors.createError(404, c.req.url, "Session not found!", timestamp), 404);
+
+      if (!common_core)
+        return c.json(
+          errors.createError(404, c.req.url, "Profile 'common_core' was not found!", timestamp),
+          404,
+        );
+
+      let body;
+
+      try {
+        body = await c.req.json();
+      } catch (error) {
+        return c.json(errors.createError(400, c.req.url, "Body isn't Valid JSON!", timestamp), 400);
+      }
+
+      const { isVictory } = await c.req.json();
+
+      try {
+        const eliminations = parseInt(c.req.param("eliminations"));
+
+        let currency = eliminations * 50;
+        if (isVictory) currency += 200;
+
+        common_core.items["Currency:MtxPurchased"].quantity += currency;
+
+        await Promise.all([
+          Profiles.createQueryBuilder()
+            .update()
+            .set({ profile: common_core })
+            .where("type = :type", { type: "common_core" })
+            .andWhere("accountId = :accountId", { accountId: user.accountId })
+            .execute(),
+        ]);
+
+        console.log(common_core.items["Currency:MtxPurchased"]);
+
+        return c.json({ message: "Success!" });
+      } catch (error) {
+        return c.json({ error: `Internal Server Error: ${error}` }, 500);
+      }
+    },
+  );
 }
