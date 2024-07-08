@@ -76,7 +76,7 @@ export class MatchmakerStates {
         payload: {
           matchId,
           sessionId,
-          joinDelaySec: 0,
+          joinDelaySec: 1,
         },
       }),
     );
