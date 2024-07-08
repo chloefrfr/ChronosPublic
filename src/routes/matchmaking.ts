@@ -135,17 +135,42 @@ export default function () {
       });
     },
   );
-  
-  app.get("/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId", Validation.verifyToken, async (c) => {
-    const sessionId = c.req.param("sessionId");
-    const accountId = c.req.param("accountId");
-    
-    res.json({
-        "accountId": accountId,
-        "sessionId": sessionId,
-        "key": "skiesfnisretarded"
-    });
-  });
+
+  app.get(
+    "/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId",
+    Validation.verifyToken,
+    async (c) => {
+      const sessionId = c.req.param("sessionId");
+      const accountId = c.req.param("accountId");
+
+      const [user] = await Promise.all([userService.findUserByAccountId(accountId)]);
+      const timestamp = new Date().toISOString();
+
+      if (!user)
+        return c.json(errors.createError(404, c.req.url, "Failed to find user!", timestamp), 404);
+      if (user.banned)
+        return c.json(errors.createError(403, c.req.url, "User is banned!", timestamp), 403);
+
+      const session = await HostAPI.getServerBySessionId(sessionId);
+
+      if (!session)
+        return c.json(
+          errors.createError(
+            404,
+            c.req.url,
+            `Failed to find session with the id ${sessionId}`,
+            timestamp,
+          ),
+          404,
+        );
+
+      return c.json({
+        accountId: user.accountId,
+        sessionId: session.sessionId,
+        key: "none",
+      });
+    },
+  );
 
   app.get("/fortnite/api/matchmaking/session/:sessionId", Validation.verifyToken, async (c) => {
     const sessionId = c.req.param("sessionId");
@@ -217,4 +242,35 @@ export default function () {
       started: false,
     });
   });
+
+  app.post(
+    "/fortnite/api/matchmaking/session/:sessionId/join",
+    Validation.verifyToken,
+    async (c) => {
+      const sessionId = c.req.param("sessionId");
+      const timestamp = new Date().toISOString();
+
+      const session = await HostAPI.getServerBySessionId(sessionId);
+
+      if (!session)
+        return c.json(
+          errors.createError(
+            404,
+            c.req.url,
+            `Failed to find session with the id ${sessionId}`,
+            timestamp,
+          ),
+          404,
+        );
+
+      const user = c.get("user");
+
+      if (!user)
+        return c.json(errors.createError(404, c.req.url, "Failed to find user!", timestamp), 404);
+      if (user.banned)
+        return c.json(errors.createError(403, c.req.url, "User is banned!", timestamp), 403);
+
+      return c.body(null, 200);
+    },
+  );
 }
