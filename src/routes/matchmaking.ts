@@ -135,6 +135,17 @@ export default function () {
       });
     },
   );
+  
+  app.get("/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId", Validation.verifyToken, async (c) => {
+    const sessionId = c.req.param("sessionId");
+    const accountId = c.req.param("accountId");
+    
+    res.json({
+        "accountId": accountId,
+        "sessionId": sessionId,
+        "key": "skiesfnisretarded"
+    });
+  });
 
   app.get("/fortnite/api/matchmaking/session/:sessionId", Validation.verifyToken, async (c) => {
     const sessionId = c.req.param("sessionId");
