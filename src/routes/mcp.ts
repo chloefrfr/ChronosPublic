@@ -4,16 +4,11 @@ import MCPResponses, { type ProfileId } from "../utilities/responses";
 import errors from "../utilities/errors";
 import ProfileHelper from "../utilities/profiles";
 import { Validation } from "../middleware/validation";
-import EmptyGift from "../externalOperations/EmptyGift";
 import uaparser from "../utilities/uaparser";
 
 const operations = await loadOperations();
 
 export default function () {
-  app.post("/fortnite/profile/:accountId/client/emptygift", async (c) => {
-    return await EmptyGift(c);
-  });
-
   app.post(
     "/fortnite/api/game/v2/profile/:accountId/dedicated_server/:action",
     Validation.verifyToken,

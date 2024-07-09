@@ -9,7 +9,7 @@ import BaseCommand from "../base/Base";
 import { accountService, userService } from "../..";
 import ProfileHelper from "../../utilities/profiles";
 import { Profiles } from "../../tables/profiles";
-import { HTTPRequests } from "../../utilities/requests";
+import { XmppUtilities } from "../../sockets/xmpp/utilities/XmppUtilities";
 
 export default class VbucksCommand extends BaseCommand {
   data = {
@@ -78,7 +78,14 @@ export default class VbucksCommand extends BaseCommand {
       .andWhere("accountId = :accountId", { accountId: account.accountId })
       .execute();
 
-    await HTTPRequests.RefreshAccount(account.accountId, user.username);
+    XmppUtilities.SendMessageToId(
+      JSON.stringify({
+        type: "com.epicgames.gift.received",
+        payload: {},
+        timestamp: new Date().toISOString(),
+      }),
+      user.accountId,
+    );
 
     const embed = new EmbedBuilder()
       .setTitle("Vbucks Changed")
