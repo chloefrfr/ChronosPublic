@@ -85,9 +85,6 @@ export default function () {
 
     const { status, sessionId } = body;
 
-    // if (status !== "online" || status !== "offline" || status !== "maintenance")
-    //   return c.json(errors.createError(400, c.req.url, "Status not valid.", timestamp), 400);
-
     try {
       const server = await serverService.getServerBySessionId(sessionId);
       const existingServers = servers.find((s) => s.sessionId === sessionId);
@@ -101,7 +98,7 @@ export default function () {
             timestamp,
           ),
           400,
-        );
+      );
 
       existingServers.status = status;
       await serverService.setServerStatus(server.sessionId, status);

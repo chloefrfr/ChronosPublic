@@ -178,8 +178,6 @@ export default function () {
     const session = await HostAPI.getServerBySessionId(sessionId);
     const timestamp = new Date().toISOString();
 
-    console.log(session);
-
     if (!session)
       return c.json(
         errors.createError(
@@ -273,4 +271,38 @@ export default function () {
       return c.body(null, 200);
     },
   );
+
+  app.post("/fortnite/api/matchmaking/session", Validation.verifyToken, async (c) => {
+    const timestamp = new Date().toISOString();
+
+    let body;
+
+    try {
+      body = await c.req.json();
+    } catch (error) {
+      return c.json(errors.createError(400, c.req.url, "Body isn't Valid JSON!", timestamp));
+    }
+
+    const allServers = await HostAPI.getAllServers();
+
+    const matchedServerByRegion = allServers.find(
+      (s) => s.options.region === body.attributes.REGION_s,
+    );
+
+    if (!matchedServerByRegion)
+      return c.json(errors.createError(400, c.req.url, "Server not found.", timestamp), 400);
+
+    const currentBucketId = matchedServerByRegion.identifier.split(":")[0];
+    logger.debug(
+      `Session ${matchedServerByRegion.sessionId} ${matchedServerByRegion.address}:${matchedServerByRegion.port} - ${currentBucketId}`,
+    );
+
+    return c.json({
+      id: matchedServerByRegion.sessionId,
+      sessionId: matchedServerByRegion.sessionId,
+      serverAddress: matchedServerByRegion.address,
+      serverPort: body.serverPort,
+      ...body,
+    });
+  });
 }

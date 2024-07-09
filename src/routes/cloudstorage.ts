@@ -86,4 +86,120 @@ export default function () {
         });
     }
   });
+
+  app.get("/fortnite/api/cloudstorage/user/:accountId/:file", Validation.verifyToken, async (c) => {
+    const clientSettings: string = path.join(
+      process.env.LOCALAPPDATA as string,
+      "Chronos",
+      "ClientSettings",
+    );
+
+    if (!existsSync(clientSettings)) await mkdir(clientSettings);
+
+    const file = c.req.param("file");
+    const accountId = c.req.param("accountId");
+
+    const clientSettingsFile = path.join(clientSettings, `ClientSettings-${accountId}.Sav`);
+
+    if (file !== "ClientSettings.Sav" || !existsSync(clientSettingsFile)) {
+      c.status(404);
+      return c.json({
+        errorCode: "errors.com.epicgames.cloudstorage.file_not_found",
+        errorMessage: `Sorry, we couldn't find a settings file with the filename ${file} for the accountId ${accountId}`,
+        messageVars: undefined,
+        numericErrorCode: 12007,
+        originatingService: "any",
+        intent: "prod-live",
+        error_description: `Sorry, we couldn't find a settings file with the filename ${file} for the accountId ${accountId}`,
+        error: "fortnite",
+      });
+    }
+
+    try {
+      c.header("Content-Disposition", `attachment; filename=${file}`);
+      c.header("Content-Type", "application/octet-stream");
+      c.status(200);
+
+      return c.json({});
+    } catch (err) {
+      console.error("Error sending file:", err);
+      c.status(500);
+      return c.text("Internal Server Error");
+    }
+  });
+
+  app.get("/fortnite/api/cloudstorage/user/:accountId", Validation.verifyToken, async (c) => {
+    const clientSettings: string = path.join(
+      process.env.LOCALAPPDATA as string,
+      "Chronos",
+      "ClientSettings",
+    );
+    if (!existsSync(clientSettings)) {
+      try {
+        await mkdir(clientSettings, { recursive: true });
+      } catch (err) {
+        logger.error(`Error creating directory: ${err}`);
+      }
+    }
+    const accountId = c.req.param("accountId");
+
+    const clientSettingsFile = path.join(clientSettings, `ClientSettings-${accountId}.Sav`);
+
+    if (existsSync(clientSettingsFile)) {
+      const file = await readFile(clientSettingsFile, "latin1");
+      const stats = await stat(clientSettingsFile);
+
+      return c.json([
+        {
+          uniqueFilename: "ClientSettings.Sav",
+          filename: "ClientSettings.Sav",
+          hash: crypto.createHash("sha1").update(file).digest("hex"),
+          hash256: crypto.createHash("sha256").update(file).digest("hex"),
+          length: Buffer.byteLength(file),
+          contentType: "application/octet-stream",
+          uploaded: stats.mtime,
+          storageType: "S3",
+          storageIds: {},
+          accountId: accountId,
+          doNotCache: false,
+        },
+      ]);
+    }
+
+    return c.json([]);
+  });
+
+  app.put(
+    "/fortnite/api/cloudstorage/user/:accountId/:file",
+    Validation.verifyToken,
+    async (c, next) => {
+      if (Buffer.byteLength(await c.req.raw.text()) >= 400000) {
+        console.log("File size exceeds the maximum allowed limit (400KB).");
+        c.status(403);
+        return c.json({
+          error: "File size exceeds the maximum allowed limit (400KB).",
+        });
+      }
+
+      if (c.req.param("file") !== "ClientSettings.Sav") {
+        c.status(404);
+        return c.json({ error: "File not found." });
+      }
+
+      const clientSettings: string = path.join(
+        process.env.LOCALAPPDATA as string,
+        "Chronos",
+        "ClientSettings",
+      );
+      if (!existsSync(clientSettings)) await mkdir(clientSettings);
+
+      const clientSettingsFile = path.join(
+        clientSettings,
+        `ClientSettings-${c.req.param("accountId")}.Sav`,
+      );
+
+      await writeFile(clientSettingsFile, await c.req.raw.clone().text(), "latin1");
+      return c.json([]);
+    },
+  );
 }
