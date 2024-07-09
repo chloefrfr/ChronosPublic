@@ -111,7 +111,7 @@ export default function () {
       };
 
       return c.json({
-        serviceUrl: `ws://26.166.13.159:8413`,
+        serviceUrl: `ws://127.0.0.1:8413`,
         ticketType: "mms-player",
         payload: JSON.stringify(payload),
         signature: Encryption.encrypt(
