@@ -12,7 +12,8 @@
 - [x] Vbucks on kill/win
 - [x] Easy setup
 - [x] Auto shop
-- [ ] Battle Pass & Levelling Up
+- [ ] Battle Pass
+- [x] XP & Leveling
 - [ ] Challenges (Quests)
 - [x] Friends
 - [x] XMPP

@@ -20,6 +20,7 @@ import type { User } from "./tables/user";
 import type { Account } from "./tables/account";
 import { ServerService } from "./wrappers/database/ServerService";
 import { QuestManager } from "./utilities/managers/QuestManager";
+import { LevelsManager } from "./utilities/managers/LevelsManager";
 
 export type Variables = {
   user: User;

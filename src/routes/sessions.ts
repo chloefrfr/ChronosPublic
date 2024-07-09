@@ -1,10 +1,11 @@
-import { accountService, app, profilesService, serverService, userService } from "..";
+import { accountService, app, config, profilesService, serverService, userService } from "..";
 import { Validation } from "../middleware/validation";
 import { HostAPI } from "../sockets/gamesessions/host";
 import { servers } from "../sockets/gamesessions/servers";
 import { ServerStatus } from "../sockets/gamesessions/types";
 import { Profiles } from "../tables/profiles";
 import errors from "../utilities/errors";
+import { LevelsManager } from "../utilities/managers/LevelsManager";
 import ProfileHelper from "../utilities/profiles";
 
 export default function () {
@@ -98,7 +99,7 @@ export default function () {
             timestamp,
           ),
           400,
-      );
+        );
 
       existingServers.status = status;
       await serverService.setServerStatus(server.sessionId, status);
@@ -166,12 +167,69 @@ export default function () {
             .execute(),
         ]);
 
-        console.log(common_core.items["Currency:MtxPurchased"]);
-
         return c.json({ message: "Success!" });
       } catch (error) {
         return c.json({ error: `Internal Server Error: ${error}` }, 500);
       }
+    },
+  );
+
+  app.post(
+    "/gamesessions/levels/:username/:sessionId/:totalXp",
+    Validation.verifyBasicToken,
+    async (c) => {
+      const sessionId = c.req.param("sessionId");
+      const username = c.req.param("username");
+      const session = await HostAPI.getServerBySessionId(sessionId);
+      const timestamp = new Date().toISOString();
+
+      const [user] = await Promise.all([userService.findUserByUsername(username)]);
+
+      if (!user)
+        return c.json(errors.createError(404, c.req.url, "User not found!", timestamp), 404);
+
+      const [athena] = await Promise.all([ProfileHelper.getProfile(user.accountId, "athena")]);
+
+      if (!session)
+        return c.json(errors.createError(404, c.req.url, "Session not found!", timestamp), 404);
+
+      if (!athena)
+        return c.json(
+          errors.createError(404, c.req.url, "Profile 'athena' was not found!", timestamp),
+          404,
+        );
+
+      const totalXp = parseInt(c.req.param("totalXp"));
+
+      const { attributes } = athena.stats;
+
+      for (const pastSeasons of attributes.past_seasons) {
+        if (pastSeasons.seasonNumber === config.currentSeason) {
+          pastSeasons.seasonXp += totalXp;
+
+          if (isNaN(attributes.level)) attributes.level = 1;
+          else if (isNaN(attributes.xp)) attributes.xp = 0;
+
+          const updater = await LevelsManager.update(pastSeasons);
+
+          attributes.level = updater.seasonLevel;
+          attributes.xp += updater.seasonXp;
+        }
+      }
+
+      await Promise.all([
+        Profiles.createQueryBuilder()
+          .update()
+          .set({ profile: athena })
+          .where("type = :type", { type: "athena" })
+          .andWhere("accountId = :accountId", { accountId: user.accountId })
+          .execute(),
+      ]);
+
+      console.log(athena.stats.attributes.xp);
+      console.log(athena.stats.attributes.level);
+
+      return c.json({ message: "Success!" });
     },
   );
 }

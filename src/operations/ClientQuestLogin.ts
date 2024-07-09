@@ -2,7 +2,7 @@ import type { Context } from "hono";
 import type { ProfileId } from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
 import errors from "../utilities/errors";
-import { accountService, itemStorageService, logger, userService } from "..";
+import { accountService, config, itemStorageService, logger, userService } from "..";
 import ProfileHelper from "../utilities/profiles";
 import { QuestManager } from "../utilities/managers/QuestManager";
 import MCPResponses from "../utilities/responses";
@@ -68,7 +68,7 @@ export default async function (c: Context) {
 
     for (const pastSeasons of profile.stats.attributes.past_seasons) {
       if (
-        pastSeasons.seasonNumber === uahelper.season &&
+        pastSeasons.seasonNumber === config.currentSeason &&
         profile.stats.attributes.quest_manager.dailyLoginInterval !== currentDate
       ) {
         profile.stats.attributes.quest_manager.dailyLoginInterval = currentDate;
