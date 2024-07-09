@@ -94,7 +94,10 @@ export namespace QuestManager {
     try {
       const storage = await itemStorageService.getItemByType("daily_quest");
       if (!storage) return false;
-      return storage.data.some((q: any) => q.name === quest.Name);
+      return storage.data.some((q: any) => {
+        const templateIdWithoutPrefix = q.templateId.replace(/^Quest:/, "");
+        return templateIdWithoutPrefix === quest.Name;
+      });
     } catch (error) {
       logger.error(`Error checking if quest is used: ${error}`);
       return false;
