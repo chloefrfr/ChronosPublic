@@ -6,7 +6,14 @@ import {
   type CacheType,
 } from "discord.js";
 import BaseCommand from "../base/Base";
-import { accountService, friendsService, logger, profilesService, userService } from "../..";
+import {
+  accountService,
+  friendsService,
+  itemStorageService,
+  logger,
+  profilesService,
+  userService,
+} from "../..";
 import { v4 as uuid } from "uuid";
 import ProfileHelper from "../../utilities/profiles";
 
@@ -121,6 +128,8 @@ export default class RegisterCommand extends BaseCommand {
           await friendsService.create({
             accountId: newUser.accountId,
           });
+
+          await itemStorageService.addItem([], "daily_quest");
         });
 
       const embed = new EmbedBuilder()

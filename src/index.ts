@@ -19,6 +19,7 @@ import { DiscordWebhook } from "./utilities/webhook";
 import type { User } from "./tables/user";
 import type { Account } from "./tables/account";
 import { ServerService } from "./wrappers/database/ServerService";
+import { QuestManager } from "./utilities/managers/QuestManager";
 
 export type Variables = {
   user: User;
@@ -59,6 +60,7 @@ import("./sockets/xmpp/server");
 import("./sockets/matchmaker/server");
 
 await rotate();
+await QuestManager.initQuests();
 
 Bun.serve({
   port: config.port,

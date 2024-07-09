@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-export type ItemTypes = "storefront";
+export type ItemTypes = "storefront" | "daily_quest";
 
 @Entity()
 export class Item {
