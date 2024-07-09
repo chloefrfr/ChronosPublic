@@ -14,6 +14,7 @@ export default async function (c: Context) {
   const profileId = c.req.query("profileId") as ProfileId;
   const useragent = c.req.header("User-Agent");
   const timestamp = new Date().toISOString();
+  const currentDate = new Date().toISOString().slice(0, 23) + "Z";
 
   if (!useragent || !accountId || !rvn || !profileId) {
     return c.json(
@@ -23,8 +24,10 @@ export default async function (c: Context) {
   }
 
   try {
-    const user = await userService.findUserByAccountId(accountId);
-    const account = await accountService.findUserByAccountId(accountId);
+    const [user, account] = await Promise.all([
+      userService.findUserByAccountId(accountId),
+      accountService.findUserByAccountId(accountId),
+    ]);
 
     if (!user || !account) {
       return c.json(
@@ -33,7 +36,7 @@ export default async function (c: Context) {
       );
     }
 
-    const [profile] = await Promise.all([ProfileHelper.getProfile(user.accountId, profileId)]);
+    const profile = await ProfileHelper.getProfile(user.accountId, profileId);
 
     if (!profile) {
       return c.json(
@@ -43,6 +46,7 @@ export default async function (c: Context) {
     }
 
     const uahelper = uaparser(useragent);
+
     if (!uahelper) {
       return c.json(
         errors.createError(400, c.req.url, "Failed to parse User-Agent.", timestamp),
@@ -59,78 +63,80 @@ export default async function (c: Context) {
       );
     }
 
+    let shouldUpdateProfile = false;
     const multiUpdates: object[] = [];
 
-    const currentDate = new Date().toISOString().slice(0, 23) + "Z";
+    for (const pastSeasons of profile.stats.attributes.past_seasons) {
+      if (
+        pastSeasons.seasonNumber === uahelper.season &&
+        profile.stats.attributes.quest_manager.dailyLoginInterval !== currentDate
+      ) {
+        profile.stats.attributes.quest_manager.dailyLoginInterval = currentDate;
+        profile.stats.attributes.quest_manager.dailyQuestRerolls += 1;
 
-    if (profile.stats.attributes.quest_manager.dailyLoginInterval !== currentDate) {
-      profile.stats.attributes.quest_manager.dailyLoginInterval = currentDate;
-      profile.stats.attributes.quest_manager.dailyQuestRerolls += 1;
+        const maxDailyQuests = uahelper.season > 13 ? 5 : 3;
+        const dailyQuestCount = maxDailyQuests - storage.data.length;
 
-      let maxDailyQuests = uahelper.season === 13 ? 5 : 3;
-      if (uahelper.season > 13) maxDailyQuests = 5;
+        for (let i = 0; i < dailyQuestCount; i++) {
+          const dailyQuests = await QuestManager.getRandomQuest();
 
-      const dailyQuestCount = maxDailyQuests - storage.data.length;
+          if (!dailyQuests) continue;
 
-      for (let i = 0; i < dailyQuestCount; i++) {
-        const dailyQuests = await QuestManager.getRandomQuest();
+          const questData = QuestManager.buildBase(
+            dailyQuests.Name,
+            dailyQuests.Properties.Objectives,
+          );
+          await itemStorageService.addItem(questData, "daily_quest");
 
-        if (!dailyQuests) continue;
-
-        const questData = QuestManager.buildBase(
-          dailyQuests.Name,
-          dailyQuests.Properties.Objectives,
-        );
-
-        await itemStorageService.addItem(questData, "daily_quest");
-
-        const newQuestItem = {
-          changeType: "itemAdded",
-          itemId: dailyQuests.Name,
-          item: {
-            templateId: questData.templateId,
-            attributes: {
-              creation_time: new Date().toISOString(),
-              level: -1,
-              item_seen: false,
-              playlists: [],
-              sent_new_notification: true,
-              challenge_bundle_id: "",
-              xp_reward_scalar: 1,
-              challenge_linked_quest_given: "",
-              quest_pool: "",
-              quest_state: "Active",
-              bucket: "",
-              last_state_change_time: new Date().toISOString(),
-              challenge_linked_quest_parent: "",
-              max_level_bonus: 0,
-              xp: 0,
-              quest_rarity: "uncommon",
-              favorite: false,
-              [`completion_${dailyQuests.Properties.Objectives[0].BackendName}`]: 0,
+          const newQuestItem = {
+            changeType: "itemAdded",
+            itemId: dailyQuests.Name,
+            item: {
+              templateId: questData.templateId,
+              attributes: {
+                creation_time: new Date().toISOString(),
+                level: -1,
+                item_seen: false,
+                playlists: [],
+                sent_new_notification: true,
+                challenge_bundle_id: "",
+                xp_reward_scalar: 1,
+                challenge_linked_quest_given: "",
+                quest_pool: "",
+                quest_state: "Active",
+                bucket: "",
+                last_state_change_time: new Date().toISOString(),
+                challenge_linked_quest_parent: "",
+                max_level_bonus: 0,
+                xp: 0,
+                quest_rarity: "uncommon",
+                favorite: false,
+                [`completion_${dailyQuests.Properties.Objectives[0].BackendName}`]: 0,
+              },
+              quantity: 1,
             },
-            quantity: 1,
-          },
-        };
+          };
 
-        multiUpdates.push(newQuestItem);
+          multiUpdates.push(newQuestItem);
+        }
+
+        shouldUpdateProfile = true;
       }
     }
 
-    if (multiUpdates.length > 0) {
+    // trying something new (this should be faster)
+    if (shouldUpdateProfile) {
       profile.rvn += 1;
       profile.commandRevision += 1;
       profile.updatedAt = new Date().toISOString();
-    }
 
-    await Promise.all([
-      Profiles.createQueryBuilder()
+      await Profiles.createQueryBuilder()
         .update()
         .set({ profile })
         .where("type = :type", { type: "athena" })
         .andWhere("accountId = :accountId", { accountId: user.accountId })
-        .execute(),
-    ]);
+        .execute();
+    }
 
     return c.json(MCPResponses.generate(profile, multiUpdates, profileId));
   } catch (error) {
