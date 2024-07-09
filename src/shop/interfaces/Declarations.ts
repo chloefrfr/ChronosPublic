@@ -40,6 +40,7 @@ export interface Entries {
   prices: Prices[];
   bannerOverride: string;
   displayAssetPath: string;
+  NewDisplayAssetPath: string;
   refundable: boolean;
   title: string;
   description: string;

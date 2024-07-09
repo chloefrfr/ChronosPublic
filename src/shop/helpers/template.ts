@@ -38,6 +38,7 @@ export function createItemEntryTemplate(): Entries {
     prices: [],
     bannerOverride: "",
     displayAssetPath: "",
+    NewDisplayAssetPath: "",
     refundable: false,
     title: "",
     description: "",

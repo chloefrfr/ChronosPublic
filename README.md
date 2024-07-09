@@ -28,7 +28,7 @@
 - [ ] Save the World
 - [x] Arena
 - [ ] Tournaments
-- [ ] Proper Gamesessions
+- [x] GameSessions
 - [ ] Seasonal Rewards
 - [ ] Customizable Contentpages through database
 - [ ] Heartbeat system

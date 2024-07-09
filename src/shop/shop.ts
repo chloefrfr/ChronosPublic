@@ -19,6 +19,7 @@ import { itemTypeProbabilities, rarityProbabilities } from "../constants/probabi
 import { setDisplayAsset, setNewDisplayAssetPath } from "./helpers/displayAssets";
 import { getPrice } from "./helpers/itemprices";
 import getRandomFullSetLength from "./functions/getRandomFullSetLength";
+import { matchRegex } from "./functions/regex";
 
 export namespace ShopGenerator {
   export function createShop(): Shop {
@@ -81,6 +82,30 @@ export namespace ShopGenerator {
       items[json.id] = json;
     });
 
+    const displayAssets: Record<string, any> = await Bun.file(
+      path.join(__dirname, "..", "memory", "displayAssets.json"),
+    ).json();
+
+    for (const asset of Object.values(displayAssets)) {
+      const assetParts = asset.split("_").slice(1);
+      const itemKey = assetParts.join("_");
+      let item: JSONResponse | undefined = items[itemKey];
+
+      if (!item && assetParts[0].includes("CID")) {
+        const match = matchRegex(itemKey);
+
+        if (match) {
+          item = Object.values(items).find((item) =>
+            item.type.backendValue.includes("AthenaCharacter"),
+          );
+        }
+      }
+
+      if (item) {
+        item.NewDisplayAssetPath = asset;
+      }
+    }
+
     const daily = ShopHelper.createStorefront("BRDailyStorefront");
     const weekly = ShopHelper.createStorefront("BRWeeklyStorefront");
     const battlepass = ShopHelper.createBattlePassStorefront(
@@ -137,20 +162,24 @@ export namespace ShopGenerator {
 
       if (!randomItem.displayAssetPath)
         randomItem.displayAssetPath = setDisplayAsset(`DA_Daily_${randomItem.id}`);
+      else if (!randomItem.newDisplayAssetPath) randomItem.newDisplayAssetPath = "";
+      // else if (!randomItem.newDisplayAssetPath)
+      //   randomItem.newDisplayAssetPath = setNewDisplayAssetPath(`DAv2_${randomItem.id}`);
 
       entry.displayAssetPath = randomItem.displayAssetPath.includes("DA_Daily")
         ? randomItem.displayAssetPath
         : setDisplayAsset(`DA_Daily_${randomItem.id}`);
+      entry.NewDisplayAssetPath = randomItem.NewDisplayAssetPath;
 
       entry.metaInfo.push({ key: "DisplayAssetPath", value: entry.displayAssetPath });
       entry.metaInfo.push({
         key: "NewDisplayAssetPath",
-        value: setNewDisplayAssetPath(`DAv2_${randomItem.id}`),
+        value: entry.NewDisplayAssetPath,
       });
       entry.metaInfo.push({ key: "TileSize", value: "Small" });
       entry.metaInfo.push({ key: "SectionId", value: "Daily" });
 
-      entry.meta.NewDisplayAssetPath = setNewDisplayAssetPath(`DAv2_${randomItem.id}`);
+      entry.meta.NewDisplayAssetPath = entry.NewDisplayAssetPath;
       entry.meta.displayAssetPath = entry.displayAssetPath;
       entry.meta.SectionId = "Daily";
       entry.meta.TileSize = "Small";
@@ -210,22 +239,28 @@ export namespace ShopGenerator {
         entry.offerId = `v2:/${uuid()}`;
         entry.offerType = "StaticPrice";
 
-        if (!item.displayAssetPath)
-          item.displayAssetPath = setDisplayAsset(`DA_Featured_${item.id}`);
+        if (!item.displayAssetPath) item.displayAssetPath = setDisplayAsset(`DA_Daily_${item.id}`);
+        else if (!item.NewDisplayAssetPath) item.NewDisplayAssetPath = "";
+        // else if (!item.newDisplayAssetPath)
+        //   item.newDisplayAssetPath = setNewDisplayAssetPath(`DAv2_${randomItem.id}`);
 
-        entry.displayAssetPath = item.displayAssetPath.includes("DA_Featured")
+        entry.displayAssetPath = item.displayAssetPath.includes("DA_Daily")
           ? item.displayAssetPath
-          : setDisplayAsset(`DA_Featured_${item.id}`);
+          : setDisplayAsset(`DA_Daily_${item.id}`);
+
+        if (!item.NewDisplayAssetPath) item.NewDisplayAssetPath = "";
+
+        entry.NewDisplayAssetPath = item.NewDisplayAssetPath;
 
         entry.metaInfo.push({ key: "DisplayAssetPath", value: entry.displayAssetPath });
         entry.metaInfo.push({
           key: "NewDisplayAssetPath",
-          value: setNewDisplayAssetPath(`DAv2_${item.id}`),
+          value: entry.NewDisplayAssetPath,
         });
         entry.metaInfo.push({ key: "TileSize", value: "Normal" });
         entry.metaInfo.push({ key: "SectionId", value: "Featured" });
 
-        entry.meta.NewDisplayAssetPath = setNewDisplayAssetPath(`DAv2_${item.id}`);
+        entry.meta.NewDisplayAssetPath = entry.NewDisplayAssetPath;
         entry.meta.displayAssetPath = entry.displayAssetPath;
         entry.meta.SectionId = "Featured";
         entry.meta.TileSize = "Normal";

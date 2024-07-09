@@ -75,9 +75,6 @@ export default function () {
       const playlist = bucketIds![3];
       const region = bucketIds![2];
 
-      logger.debug(`PartyId: ${partyId}`);
-      logger.debug(`members: ${JSON.stringify(membersInParty)}`);
-
       // TODO - Add Some checking for a specific playlist. (eg, arena)
       // TODO - Custom Matchmaking
 

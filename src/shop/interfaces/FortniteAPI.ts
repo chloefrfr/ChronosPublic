@@ -9,6 +9,7 @@ export interface JSONResponse {
   introduction: CosmeticIntroduction;
   images: CosmeticImages;
   displayAssetPath: string | null;
+  NewDisplayAssetPath: string | null;
   definitionPath: string | null;
   path: string;
   added: string;
