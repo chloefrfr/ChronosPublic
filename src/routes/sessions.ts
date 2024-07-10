@@ -226,9 +226,6 @@ export default function () {
 
             if (!updater) continue;
 
-            console.log(updater.items);
-            console.log(updater.canGrantItems);
-
             // so unproper but idc, it works
             updater.items.forEach((val) => {
               switch (val.type) {
