@@ -1,7 +1,7 @@
 import { logger } from "../..";
 import { BattlepassManager } from "./BattlepassManager";
 
-interface PastSeasons {
+export interface PastSeasons {
   seasonNumber: number;
   numWins: number;
   numHighBracket: number;
@@ -18,25 +18,46 @@ interface PastSeasons {
 
 export namespace LevelsManager {
   export async function update(pastSeasons: PastSeasons) {
-    const SeasonXP = await BattlepassManager.GetSeasonXP();
+    try {
+      const SeasonXP = await BattlepassManager.GetSeasonXP();
 
-    for (const item of SeasonXP) {
-      if (item.Level === pastSeasons.seasonLevel) {
-        if (
-          pastSeasons.seasonXp > item.XpToNextLevel ||
-          pastSeasons.seasonXp === item.XpToNextLevel
-        ) {
-          pastSeasons.seasonXp -= item.XpToNextLevel;
+      let canGrantItems = false;
+      let remainingSeasonXp = pastSeasons.seasonXp;
 
-          if (pastSeasons.seasonXp < 0) pastSeasons.seasonXp = 0;
+      for (const item of SeasonXP) {
+        if (item.Level === pastSeasons.seasonLevel) {
+          if (remainingSeasonXp >= item.XpToNextLevel) {
+            remainingSeasonXp -= item.XpToNextLevel;
 
-          pastSeasons.seasonLevel += 1;
+            if (isNaN(remainingSeasonXp) || remainingSeasonXp < 0) remainingSeasonXp = 0;
+
+            pastSeasons.seasonLevel += 1;
+
+            if (pastSeasons.seasonNumber > 10 && pastSeasons.seasonNumber < 17) {
+              canGrantItems = true;
+              pastSeasons.bookLevel = pastSeasons.seasonLevel;
+            }
+          }
         }
+        if (remainingSeasonXp < item.XpToNextLevel) break;
       }
 
-      if (pastSeasons.seasonXp < item.XpToNextLevel) break;
-    }
+      if (pastSeasons.bookLevel > 100) pastSeasons.bookLevel = 100;
 
-    return pastSeasons;
+      //   const bookLevelsToAdd = Math.floor(remainingSeasonXp / 10);
+      //   pastSeasons.bookXp -= bookLevelsToAdd * 10;
+      //   pastSeasons.bookLevel += bookLevelsToAdd;
+
+      //   canGrantItems = bookLevelsToAdd > 0;
+
+      //   pastSeasons.bookLevel = Math.min(pastSeasons.bookLevel, 100);
+
+      return {
+        pastSeasons,
+        canGrantItems,
+      };
+    } catch (error) {
+      logger.error(`Failed to update: ${error}`);
+    }
   }
 }
