@@ -44,14 +44,6 @@ export namespace LevelsManager {
 
       if (pastSeasons.bookLevel > 100) pastSeasons.bookLevel = 100;
 
-      //   const bookLevelsToAdd = Math.floor(remainingSeasonXp / 10);
-      //   pastSeasons.bookXp -= bookLevelsToAdd * 10;
-      //   pastSeasons.bookLevel += bookLevelsToAdd;
-
-      //   canGrantItems = bookLevelsToAdd > 0;
-
-      //   pastSeasons.bookLevel = Math.min(pastSeasons.bookLevel, 100);
-
       return {
         pastSeasons,
         canGrantItems,
