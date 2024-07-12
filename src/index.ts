@@ -34,14 +34,16 @@ export const config = new Config().getConfig();
 app.use(async (c, next) => {
   await next();
 
-  // logger.info(`${c.req.url} | ${c.req.method} | ${c.res.status}`);
+  logger.info(`${c.req.url} | ${c.req.method} | ${c.res.status}`);
 });
 
 export const db = new Database({
   connectionString: config.databaseUrl,
 });
 
-db.connect();
+await db.connect();
+
+await db.dropAllTables(config.drop);
 
 export const userService = new UserService(db);
 export const accountService = new AccountService(db);

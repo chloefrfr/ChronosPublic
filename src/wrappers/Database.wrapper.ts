@@ -82,14 +82,52 @@ export default class Database {
     }
   }
 
-  public async dropAllTables() {
+  public async dropAllTables(drop: boolean) {
+    if (!drop) return;
+
+    if (!this.connection.isInitialized) {
+      logger.error("Database connection is not initialized.");
+      return;
+    }
+
+    const queryRunner = this.connection.createQueryRunner();
+
     try {
       logger.info("Dropping tables");
-      await this.connection.dropDatabase();
-      await this.connection.synchronize();
+
+      const tables = await queryRunner.query(`
+        SELECT tablename
+        FROM pg_tables
+        WHERE schemaname = 'public';
+      `);
+
+      for (const { tablename } of tables) {
+        const tableExists = await queryRunner.query(
+          `
+          SELECT EXISTS (
+            SELECT 1
+            FROM pg_tables
+            WHERE schemaname = 'public' AND tablename = $1
+          );
+        `,
+          [tablename],
+        );
+
+        if (tableExists[0].exists) {
+          try {
+            await queryRunner.query(`DROP TABLE "${tablename}" CASCADE`);
+            logger.info(`Dropped table: ${tablename}`);
+          } catch (dropError) {
+            logger.error(`Failed to drop table ${tablename}: ${dropError}`);
+          }
+        }
+      }
+
       logger.info("Dropped all tables successfully.");
     } catch (error) {
       logger.error(`Failed to drop tables: ${error}`);
+    } finally {
+      await queryRunner.release();
     }
   }
 
