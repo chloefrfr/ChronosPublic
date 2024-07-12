@@ -1,0 +1,369 @@
+{
+  "Name": "QuestBundle_S13_Styles",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season13_styles_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:Quest_S13_Style_BlackKnight_ColorB",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_669_BlackKnight_ColorB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_675_BlackKnight_Backbling_StyleB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_688_BlackKnightGlider_ColorB",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_blackknight_colorb",
+          "Count": 5,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_BlackKnight_ColorC",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_670_BlackKnight_ColorC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_676_BlackKnight_Backbling_StyleC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_689_BlackKnightGlider_ColorC",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_blackknight_colorc",
+          "Count": 65,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_MechanicalEngineer_StyleB",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_662_MechanicalEngineer_StyleB",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_mechanicalengineer_styleb",
+          "Count": 5,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_OceanRider_StyleB",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_657_OceanRider_StyleB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_658_OceanRider_ColorB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_671_OceanRider_Backbling_StyleB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_697_OceanRiderPickaxe_ColorB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_691_OceanRiderGlider_ColorB",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_oceanrider_styleb",
+          "Count": 5,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_OceanRider_StyleC",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_703_OceanRider_StyleC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_704_OceanRider_ColorC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_672_OceanRider_Backbling_StyleC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_698_OceanRiderPickaxe_ColorC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_692_OceanRiderGlider_ColorC",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_oceanrider_stylec",
+          "Count": 10,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_ProfessorPup_StyleC",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_665_ProfessorPup_StyleC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_700_ProfessorPupPickaxe_ColorC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_694_ProfessorPupGlider_ColorC",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_professorpup_stylec",
+          "Count": 40,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_RacerZero_StyleB_Dummy",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_racerzero_styleb_dummy",
+          "Count": 50,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_RacerZero_StyleC_Dummy",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_racerzero_stylec_dummy",
+          "Count": 100,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_SandCastle_01",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AthenaCharacter:CID_772_Athena_Commando_M_Sandcastle",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_sandcastle_01",
+          "Count": 5,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_SandCastle_02",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_654_Sandcastle_StyleB",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_sandcastle_02",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_SpaceWanderer_ColorB",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_667_SpaceWanderer_ColorB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_666_SpaceWanderer_StyleB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_701_SpaceWandererPickaxe_ColorB",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_spacewanderer_colorb",
+          "Count": 5,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_SpaceWanderer_ColorC",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_668_SpaceWanderer_ColorC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_666_SpaceWanderer_StyleB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_702_SpaceWandererPickaxe_ColorC",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_spacewanderer_colorc",
+          "Count": 50,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_SpaceWanderer_ColorC",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_668_SpaceWanderer_ColorC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_666_SpaceWanderer_StyleB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_702_SpaceWandererPickaxe_ColorC",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_spacewanderer_colorc",
+          "Count": 50,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_Style_TacticalScuba_ColorC",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_661_TacticalScuba_ColorC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_659_TacticalScuba_StyleB",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_674_TacticalScuba_Backbling_StyleC",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "CosmeticVariantToken:VTID_696_TacticalScubaGlider_ColorC",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "questobj_s13_style_tacticalscuba_colorc",
+          "Count": 20,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "Name": "QuestBundle_S13_SandCastle_03",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season13_sandcastle_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:quest_s13_sandcastle_q03",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AthenaDance:Emoji_S13_SandCastle",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "BannerToken:BannerToken_052_S13_SandCastle",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_sandcastle_q03_obj0",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "quest_s13_sandcastle_q03_obj1",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "quest_s13_sandcastle_q03_obj2",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "Name": "QuestBundle_S13_BuildABrella",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season13_buildabrella_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:Quest_S13_BuildABrella_01",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "Quest_S13_BuildABrella_01",
+          "Count": 55,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_BuildABrella_02",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "Quest_S13_BuildABrella_02",
+          "Count": 35,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_BuildABrella_03",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "Quest_S13_BuildABrella_03",
+          "Count": 15,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_BuildABrella_04",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "Quest_S13_BuildABrella_04",
+          "Count": 75,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_BuildABrella_05",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "Quest_S13_BuildABrella_05",
+          "Count": 95,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_BuildABrella_06",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Token:AthenaToken_BRS13_UmbrellaSelection_06",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "Quest_S13_BuildABrella_06",
+          "Count": 500,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_BuildABrella_07",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Token:AthenaToken_BRS13_UmbrellaSelection_07",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "Quest_S13_BuildABrella_07",
+          "Count": 50,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_BuildABrella_08",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Token:AthenaToken_BRS13_UmbrellaSelection_08",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "Quest_S13_BuildABrella_08",
+          "Count": 50,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_BuildABrella_09",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Token:AthenaToken_BRS13_UmbrellaSelection_09",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "Quest_S13_BuildABrella_09",
+          "Count": 50,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_S13_BuildABrella_10",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Token:AthenaToken_BRS13_UmbrellaSelection_10",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "Quest_S13_BuildABrella_10",
+          "Count": 500,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}

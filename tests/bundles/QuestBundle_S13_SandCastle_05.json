@@ -1,0 +1,27 @@
+{
+  "Name": "QuestBundle_S13_SandCastle_05",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season13_sandcastle_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:quest_s13_sandcastle_q05",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AthenaPickaxe:Pickaxe_ID_415_SandcastleMale",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_sandcastle_q05_obj0",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}

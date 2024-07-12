@@ -1,0 +1,21 @@
+{
+    "Name": "QuestBundle_S13_BuildABrella",
+    "ChallengeBundleSchedule": "ChallengeBundleSchedule:season13_buildabrella_schedule",
+    "Level": 1,
+    "Objects": [
+        {
+            "Name": "Quest:Quest_S13_BuildABrella_01",
+            "Options": {
+                "bRequiresVIP": true,
+                "hasExtra": false
+            },
+            "Objectives": [
+                {
+                    "BackendName": "Quest_S13_BuildABrella_01",
+                    "Count": 55,
+                    "Stage": -1
+                }
+            ]
+        }
+    ]
+}
