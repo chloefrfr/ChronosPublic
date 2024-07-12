@@ -62,8 +62,8 @@ export default class Database {
         ssl: this.dbConfig.ssl ? { rejectUnauthorized: false } : false,
         entities: [User, Account, Tokens, Timeline, Profiles, Hype, Friends, Item, Server],
         synchronize: true,
-        logging: true,
-        logger: new ORMLogger(),
+        // logging: true,
+        // logger: new ORMLogger(),
         migrations: [User, Account, Tokens, Timeline, Profiles, Hype, Friends, Item, Server],
       });
 
@@ -79,6 +79,17 @@ export default class Database {
       logger.startup("Connected to Database.");
     } catch (error) {
       logger.error(`Error connecting to database: ${error}`);
+    }
+  }
+
+  public async dropAllTables() {
+    try {
+      logger.info("Dropping tables");
+      await this.connection.dropDatabase();
+      await this.connection.synchronize();
+      logger.info("Dropped all tables successfully.");
+    } catch (error) {
+      logger.error(`Failed to drop tables: ${error}`);
     }
   }
 

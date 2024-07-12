@@ -16,6 +16,7 @@ const configSchema = z.object({
   webhook_url: z.string(),
   session_url: z.string(),
   token: z.string(),
+  drop: z.boolean(),
 });
 
 export default class Config {
@@ -32,6 +33,7 @@ export default class Config {
       webhook_url: Bun.env.webhook_url,
       session_url: Bun.env.session_url,
       token: Bun.env.token,
+      drop: Boolean(Bun.env.drop),
     });
 
     // Check if parsing was successful

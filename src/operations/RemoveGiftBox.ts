@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import errors from "../utilities/errors";
-import { accountService, userService } from "..";
+import { accountService, profilesService, userService } from "..";
 import ProfileHelper from "../utilities/profiles";
 import { Profiles } from "../tables/profiles";
 import MCPResponses, { type ProfileId } from "../utilities/responses";
@@ -20,7 +20,7 @@ export default async function updateProfile(c: Context) {
     const [user, account, profile, athena] = await Promise.all([
       userService.findUserByAccountId(accountId),
       accountService.findUserByAccountId(accountId),
-      ProfileHelper.getProfile(accountId, profileId),
+      ProfileHelper.getProfile(accountId, "common_core"),
       ProfileHelper.getProfile(accountId, "athena"),
     ]);
 
@@ -88,19 +88,8 @@ export default async function updateProfile(c: Context) {
       athena.updatedAt = new Date().toISOString();
     }
 
-    await Promise.all([
-      Profiles.createQueryBuilder()
-        .update()
-        .set({ profile })
-        .where("type = :type", { type: "common_core" })
-        .execute(),
-
-      Profiles.createQueryBuilder()
-        .update()
-        .set({ profile: athena })
-        .where("type = :type", { type: "athena" })
-        .execute(),
-    ]);
+    await profilesService.update(user.accountId, "common_core", profile);
+    await profilesService.update(user.accountId, "athena", athena);
 
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
   } catch (error) {

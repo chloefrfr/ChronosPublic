@@ -53,12 +53,7 @@ export default async function (c: Context) {
       athena.commandRevision += 1;
       athena.updatedAt = new Date().toISOString();
 
-      await Profiles.createQueryBuilder()
-        .update()
-        .set({ profile: athena })
-        .where("type = :type", { type: "athena" })
-        .andWhere("accountId = :accountId", { accountId: user.accountId })
-        .execute();
+      await profilesService.update(user.accountId, "athena", athena);
     }
 
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));

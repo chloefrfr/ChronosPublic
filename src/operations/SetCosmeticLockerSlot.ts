@@ -1,7 +1,7 @@
 import type { Context } from "hono";
 import type { ProfileId } from "../utilities/responses";
 import errors from "../utilities/errors";
-import { accountService, app, logger, userService } from "..";
+import { accountService, app, logger, profilesService, userService } from "..";
 import ProfileHelper from "../utilities/profiles";
 import { Profiles } from "../tables/profiles";
 import MCPResponses from "../utilities/responses";
@@ -31,11 +31,30 @@ export default async function (c: Context) {
     );
   }
 
-  const profile = await ProfileHelper.getProfile(user.accountId, profileId);
+  let profile;
 
-  if (!profile) {
-    return c.json(errors.createError(404, c.req.url, "Failed to find profile.", timestamp), 404);
+  switch (profileId) {
+    case "athena":
+      profile = await ProfileHelper.getProfile(user.accountId, "athena");
+      break;
+    case "common_core":
+      profile = await ProfileHelper.getProfile(user.accountId, "common_core");
+      break;
+    case "common_public":
+      profile = await ProfileHelper.getProfile(user.accountId, "common_public");
   }
+
+  if (!profile && profileId !== "athena" && profileId !== "common_core")
+    return c.json(
+      errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
+      404,
+    );
+
+  if (!profile)
+    return c.json(
+      errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
+      404,
+    );
 
   let body;
   try {
@@ -76,8 +95,8 @@ export default async function (c: Context) {
   };
 
   if (category === "Dance" && slotIndex >= 0 && slotIndex <= 5) {
-    slotData.slots.Dance.items[slotIndex] = itemToSlot;
-    profile.stats.attributes.favorite_dance[slotIndex] = itemToSlot;
+    slotData!.slots.Dance.items[slotIndex] = itemToSlot;
+    profile.stats.attributes.favorite_dance![slotIndex] = itemToSlot;
     applyProfileChanges.push({
       changeType: "itemAttrChanged",
       itemId: lockerItem,
@@ -98,12 +117,7 @@ export default async function (c: Context) {
     profile.updatedAt = new Date().toISOString();
   }
 
-  await Profiles.createQueryBuilder()
-    .update()
-    .set({ profile })
-    .where("type = :type", { type: profileId })
-    .andWhere("accountId = :accountId", { accountId: user.accountId })
-    .execute();
+  await profilesService.update(user.accountId, "athena", profile);
 
   const endTimestamp = Date.now();
 

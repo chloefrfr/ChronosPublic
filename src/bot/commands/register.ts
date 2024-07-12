@@ -109,27 +109,15 @@ export default class RegisterCommand extends BaseCommand {
             arenaHype: 0,
           });
 
-          await profilesService.create({
-            type: "athena",
-            accountId: newUser.accountId,
-            profile: athena,
-          });
-          await profilesService.create({
-            type: "common_core",
-            accountId: newUser.accountId,
-            profile: common_core,
-          });
-          await profilesService.create({
-            type: "common_public",
-            accountId: newUser.accountId,
-            profile: common_core,
-          });
+          await profilesService.createOrUpdate(newUser?.accountId, "athena", athena);
+          await profilesService.createOrUpdate(newUser?.accountId, "common_core", common_core);
+          await profilesService.createOrUpdate(newUser?.accountId, "common_public", common_core);
 
           await friendsService.create({
             accountId: newUser.accountId,
           });
 
-          await itemStorageService.addItem([], "daily_quest");
+          await itemStorageService.addItem({}, "daily_quest");
         });
 
       const embed = new EmbedBuilder()

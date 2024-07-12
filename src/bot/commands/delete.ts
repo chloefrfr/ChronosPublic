@@ -89,7 +89,7 @@ export default class DeleteCommand extends BaseCommand {
           const promises = [
             userService.delete(user.accountId),
             accountService.delete(user.accountId),
-            profilesService.delete(user.accountId),
+            profilesService.deleteByAccountId(user.accountId),
             friendsService.delete(user.accountId),
           ];
 

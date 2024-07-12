@@ -7,6 +7,10 @@
 
 `QueryProfile` `BulkEquipBattleRoyaleCustomization` `ClaimMfaEnabled` `PurchaseCatalogEntry` `MarkItemSeen` `RefundMtxPurchase` `RemoveGiftBox` `SetBattleRoyaleBanner` `SetCosmeticLockerSlot` `SetMtxPlatform` `EquipBattleRoyaleCustomization` `CopyCosmeticLoadout` `SetItemFavoriteStatusBatch`
 
+## What's Next?
+
+- Adding Quest & Variant Token granting with the battlepass.
+
 ## Planned Features
 
 - [x] Vbucks on kill/win

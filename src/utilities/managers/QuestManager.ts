@@ -30,13 +30,13 @@ interface DailyQuestObjectives {
   bHidden: boolean;
 }
 
-enum QuestType {
+export enum QuestType {
   REPEATABLE = "repeatable",
   SEASONAL = "seasonal",
   BATTLEPASS = "BATTLEPASS",
 }
 
-const listedQuests: Record<QuestType, DailyQuestDef[]> = {
+export const listedQuests: Record<QuestType, DailyQuestDef[]> = {
   [QuestType.REPEATABLE]: [],
   [QuestType.SEASONAL]: [],
   [QuestType.BATTLEPASS]: [],
@@ -93,13 +93,19 @@ export namespace QuestManager {
   export async function isQuestUsed(quest: DailyQuestDef): Promise<boolean> {
     try {
       const storage = await itemStorageService.getItemByType("daily_quest");
-      if (!storage) return false;
-      return storage.data.some((q: any) => {
-        const templateIdWithoutPrefix = q.templateId.replace(/^Quest:/, "");
-        return templateIdWithoutPrefix === quest.Name;
-      });
+      if (!storage || typeof storage.data !== "object") return false;
+
+      const questName = quest.Name;
+
+      if (
+        storage.data.hasOwnProperty(questName) &&
+        Array.isArray(storage.data[questName]) &&
+        storage.data[questName].length > 0
+      )
+        return true;
+
+      return false;
     } catch (error) {
-      logger.error(`Error checking if quest is used: ${error}`);
       return false;
     }
   }

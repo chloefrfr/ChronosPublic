@@ -112,6 +112,14 @@ export default class UserService {
 
   public async delete(accountId: string): Promise<boolean> {
     try {
+      const user = await this.userRepository.findOne({ where: { accountId } });
+      if (!user) return false;
+
+      this.cache.del(`user_username_${user.username}`);
+      this.cache.del(`user_accountId_${accountId}`);
+      this.cache.del(`user_discordId_${user.discordId}`);
+      this.cache.del(`user_email_${user.email}`);
+
       const result = await this.userRepository.delete({ accountId });
       return result.affected === 1;
     } catch (error) {

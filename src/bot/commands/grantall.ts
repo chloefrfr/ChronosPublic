@@ -7,7 +7,7 @@ import {
   type ColorResolvable,
 } from "discord.js";
 import BaseCommand from "../base/Base";
-import { accountService, userService } from "../..";
+import { accountService, profilesService, userService } from "../..";
 import path from "node:path";
 import { Account } from "../../tables/account";
 import ProfileHelper from "../../utilities/profiles";
@@ -106,12 +106,7 @@ export default class GrantallCommand extends BaseCommand {
       const allItems = require(path.join(__dirname, "..", "..", "memory", "all.json"));
       athena.items = { ...athena.items, ...allItems };
 
-      await Profiles.createQueryBuilder()
-        .update(Profiles)
-        .set({ profile: athena })
-        .where("type = :type", { type: "athena" })
-        .andWhere("accountId = :accountId", { accountId: user.accountId })
-        .execute();
+      await profilesService.update(user.accountId, "athena", athena);
 
       await User.createQueryBuilder()
         .update(User)

@@ -17,7 +17,7 @@ export interface PastSeasons {
 }
 
 export namespace LevelsManager {
-  export async function update(pastSeasons: PastSeasons) {
+  export async function update(pastSeasons: PastSeasons, season: number) {
     try {
       const SeasonXP = await BattlepassManager.GetSeasonXP();
 
@@ -42,7 +42,18 @@ export namespace LevelsManager {
         if (remainingSeasonXp < item.XpToNextLevel) break;
       }
 
-      if (pastSeasons.bookLevel > 100) pastSeasons.bookLevel = 100;
+      if (pastSeasons.seasonNumber > 1 && pastSeasons.seasonNumber <= 17) {
+        while (pastSeasons.bookXp >= 10) {
+          if (pastSeasons.bookLevel === 100) break;
+
+          pastSeasons.bookXp -= 10;
+          pastSeasons.bookLevel += 1;
+          pastSeasons.seasonLevel += 1;
+          canGrantItems = true;
+        }
+
+        if (pastSeasons.bookLevel > 100) pastSeasons.bookLevel = 100;
+      }
 
       return {
         pastSeasons,

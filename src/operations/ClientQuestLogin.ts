@@ -2,7 +2,14 @@ import type { Context } from "hono";
 import type { ProfileId } from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
 import errors from "../utilities/errors";
-import { accountService, config, itemStorageService, logger, userService } from "..";
+import {
+  accountService,
+  config,
+  itemStorageService,
+  logger,
+  profilesService,
+  userService,
+} from "..";
 import ProfileHelper from "../utilities/profiles";
 import { QuestManager } from "../utilities/managers/QuestManager";
 import MCPResponses from "../utilities/responses";
@@ -14,7 +21,7 @@ export default async function (c: Context) {
   const profileId = c.req.query("profileId") as ProfileId;
   const useragent = c.req.header("User-Agent");
   const timestamp = new Date().toISOString();
-  const currentDate = new Date().toISOString().slice(0, 23) + "Z";
+  const currentDate = new Date().toISOString().slice(0, 10);
 
   if (!useragent || !accountId || !rvn || !profileId) {
     return c.json(
@@ -36,14 +43,30 @@ export default async function (c: Context) {
       );
     }
 
-    const profile = await ProfileHelper.getProfile(user.accountId, profileId);
+    let profile;
 
-    if (!profile) {
+    switch (profileId) {
+      case "athena":
+        profile = await ProfileHelper.getProfile(user.accountId, "athena");
+        break;
+      case "common_core":
+        profile = await ProfileHelper.getProfile(user.accountId, "common_core");
+        break;
+      case "common_public":
+        profile = await ProfileHelper.getProfile(user.accountId, "common_public");
+    }
+
+    if (!profile && profileId !== "athena" && profileId !== "common_core")
       return c.json(
-        errors.createError(404, c.req.url, `Profile not found for '${profileId}'`, timestamp),
+        errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
         404,
       );
-    }
+
+    if (!profile)
+      return c.json(
+        errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
+        404,
+      );
 
     const uahelper = uaparser(useragent);
 
@@ -66,18 +89,22 @@ export default async function (c: Context) {
     let shouldUpdateProfile = false;
     const multiUpdates: object[] = [];
 
-    for (const pastSeasons of profile.stats.attributes.past_seasons) {
+    for (const pastSeasons of profile.stats.attributes.past_seasons!) {
       if (
         pastSeasons.seasonNumber === config.currentSeason &&
-        profile.stats.attributes.quest_manager.dailyLoginInterval !== currentDate
+        profile.stats.attributes.quest_manager!.dailyLoginInterval !== currentDate
       ) {
-        profile.stats.attributes.quest_manager.dailyLoginInterval = currentDate;
-        profile.stats.attributes.quest_manager.dailyQuestRerolls += 1;
+        profile.stats.attributes.quest_manager!.dailyLoginInterval = currentDate;
+        profile.stats.attributes.quest_manager!.dailyQuestRerolls += 1;
 
-        const maxDailyQuests = uahelper.season > 13 ? 5 : 3;
-        const dailyQuestCount = maxDailyQuests - storage.data.length;
+        const maxDailyQuests = 5;
+        const currentQuestCount = Object.values(storage.data).length;
 
-        for (let i = 0; i < dailyQuestCount; i++) {
+        const questsToAdd = Math.max(0, maxDailyQuests - currentQuestCount);
+
+        logger.debug(`Adding ${questsToAdd} daily quests.`);
+
+        for (let i = 0; i < questsToAdd; i++) {
           const dailyQuests = await QuestManager.getRandomQuest();
 
           if (!dailyQuests) continue;
@@ -86,7 +113,14 @@ export default async function (c: Context) {
             dailyQuests.Name,
             dailyQuests.Properties.Objectives,
           );
-          await itemStorageService.addItem(questData, "daily_quest");
+
+          await itemStorageService.addItem(
+            {
+              [dailyQuests.Name]: [questData],
+            },
+            "daily_quest",
+          );
+          logger.debug(`Added quest: ${dailyQuests.Name}`);
 
           const newQuestItem = {
             changeType: "itemAdded",
@@ -130,12 +164,7 @@ export default async function (c: Context) {
       profile.commandRevision += 1;
       profile.updatedAt = new Date().toISOString();
 
-      await Profiles.createQueryBuilder()
-        .update()
-        .set({ profile })
-        .where("type = :type", { type: "athena" })
-        .andWhere("accountId = :accountId", { accountId: user.accountId })
-        .execute();
+      await profilesService.update(user.accountId, "athena", profile);
     }
 
     return c.json(MCPResponses.generate(profile, multiUpdates, profileId));

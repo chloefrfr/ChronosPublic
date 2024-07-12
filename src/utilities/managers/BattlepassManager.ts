@@ -1,5 +1,5 @@
 import path from "node:path";
-import { config, logger } from "../..";
+import { config, logger, profilesService } from "../..";
 import type { BattlePassStorefront } from "../../shop/interfaces/Declarations";
 import type { ProfileId } from "../responses";
 import ProfileHelper from "../profiles";
@@ -83,27 +83,21 @@ export namespace BattlepassManager {
 
     const item = athena.items[reward.templateId];
     if (item) {
-      if (!item.attributes.variants.find((variant: any) => variant.channel === reward.channel)) {
-        item.attributes.variants.push({
+      if (!item.attributes.variants!.find((variant: any) => variant.channel === reward.channel)) {
+        item.attributes.variants!.push({
           channel: reward.channel,
           owned: [],
         });
       }
 
-      const variant = item.attributes.variants.find(
+      const variant = item.attributes.variants!.find(
         (variant: any) => variant.channel === reward.channel,
       );
-      if (!variant.owned.includes(reward.value)) {
-        variant.owned.push(reward.value);
+      if (!variant!.owned.includes(reward.value)) {
+        variant!.owned.push(reward.value);
       }
     }
-    await Profiles.createQueryBuilder()
-      .update()
-      .set({ profile: athena })
-      .where("type = :type", { type: "athena" })
-      .andWhere("accountId = :accountId", { accountId })
-      .execute();
-
+    await profilesService.update(accountId, "athena", athena);
     return reward;
   }
 }

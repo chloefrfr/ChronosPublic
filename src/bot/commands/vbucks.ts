@@ -6,10 +6,11 @@ import {
   type CacheType,
 } from "discord.js";
 import BaseCommand from "../base/Base";
-import { accountService, userService } from "../..";
+import { accountService, profilesService, userService } from "../..";
 import ProfileHelper from "../../utilities/profiles";
 import { Profiles } from "../../tables/profiles";
 import { XmppUtilities } from "../../sockets/xmpp/utilities/XmppUtilities";
+import type { LootList } from "./grantall";
 
 export default class VbucksCommand extends BaseCommand {
   data = {
@@ -58,6 +59,8 @@ export default class VbucksCommand extends BaseCommand {
       return await interaction.editReply({ embeds: [embed] });
     }
 
+    const lootList: LootList[] = [];
+
     const profile = await ProfileHelper.getProfile(account.accountId, "common_core");
     if (!profile) {
       const embed = new EmbedBuilder()
@@ -71,12 +74,22 @@ export default class VbucksCommand extends BaseCommand {
 
     profile.items["Currency:MtxPurchased"].quantity += vbucksAmount;
 
-    await Profiles.createQueryBuilder()
-      .update(Profiles)
-      .set({ profile })
-      .where("type = :type", { type: "common_core" })
-      .andWhere("accountId = :accountId", { accountId: account.accountId })
-      .execute();
+    lootList.push({
+      itemGuid: "Currency:MtxPurchased",
+      itemProfile: "common_core",
+      itemType: "Currency:MtxPurchased",
+      quantity: vbucksAmount,
+    });
+
+    profile.stats.attributes.gifts!.push({
+      templateId: "GiftBox:GB_MakeGood",
+      attributes: {
+        lootList: lootList,
+      },
+      quntity: 1,
+    });
+
+    await profilesService.update(user.accountId, "common_core", profile);
 
     XmppUtilities.SendMessageToId(
       JSON.stringify({

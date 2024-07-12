@@ -5,6 +5,9 @@ import { v4 as uuid } from "uuid";
 import type { BattlePass, Stats } from "../tables/account";
 import type { ProfileId } from "./responses";
 import { accountService, logger, profilesService } from "..";
+import type { Profiles } from "../tables/profiles";
+import type { Athena, CommonCore, CommonPublic } from "../../types/profiles";
+import { Caching } from "./cache";
 
 type profiles = "athena" | "common_core";
 const profileCache: { [accountId: string]: { [type in ProfileId]?: Promise<any> } } = {};
@@ -24,15 +27,39 @@ export default class ProfileHelper {
     return profile_template;
   }
 
-  static async getProfile(accountId: string, type: ProfileId | string) {
+  static async getProfile(accountId: string, profileName: keyof Omit<Profiles, "accountId">) {
     try {
-      const profile = await profilesService.findByType(accountId, type);
+      let profileData;
 
-      if (!profile) return null;
+      const profile = await profilesService.findByName(accountId, profileName);
 
-      return profile.profile as any;
+      if (!profile) {
+        logger.error(`Failed to get profile of type ${profileName}: Profile not found`);
+        return null;
+      }
+
+      switch (profileName) {
+        case "athena":
+          profileData = profile.athena as Athena;
+          break;
+        case "common_core":
+          profileData = profile.common_core as CommonCore;
+          break;
+        case "common_public":
+          profileData = profile.common_public as CommonPublic;
+          break;
+        default:
+          return null;
+      }
+
+      if (!profileData) {
+        logger.error(`Profile ${profileName} not found.`);
+        return null;
+      }
+
+      return profileData;
     } catch (error) {
-      return void logger.error(`failed to get profile of type ${type}: ${error}`);
+      return void logger.error(`failed to get profile of type ${profileName}: ${error}`);
       return null;
     }
   }

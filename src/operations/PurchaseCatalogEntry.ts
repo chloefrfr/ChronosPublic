@@ -1,15 +1,24 @@
 import type { Context } from "hono";
 import errors from "../utilities/errors";
-import { accountService, config, itemStorageService, logger, userService } from "..";
+import {
+  accountService,
+  config,
+  itemStorageService,
+  logger,
+  profilesService,
+  userService,
+} from "..";
 import ProfileHelper from "../utilities/profiles";
 import CreateProfileItem from "../utilities/CreateProfileItem";
 import { Profiles } from "../tables/profiles";
 import MCPResponses from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
-import type { Entries, ItemGrants } from "../shop/interfaces/Declarations";
+import type { BattlePassEntry, Entries, ItemGrants } from "../shop/interfaces/Declarations";
 import { v4 as uuid } from "uuid";
-import { BattlepassManager } from "../utilities/managers/BattlepassManager";
+import { BattlepassManager, type Rewards } from "../utilities/managers/BattlepassManager";
 import { LevelsManager } from "../utilities/managers/LevelsManager";
+import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
+import ProfilesService from "../wrappers/database/ProfilesService";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -50,12 +59,12 @@ export default async function (c: Context) {
       );
     }
 
-    const [profile, athena] = await Promise.all([
-      ProfileHelper.getProfile(user.accountId, profileId),
+    const [common_core, athena] = await Promise.all([
+      ProfileHelper.getProfile(user.accountId, "common_core"),
       ProfileHelper.getProfile(user.accountId, "athena"),
     ]);
 
-    if (!profile || !athena) {
+    if (!common_core || !athena) {
       return c.json(
         errors.createError(404, c.req.url, `Profile ${profileId} or athena not found.`, timestamp),
         404,
@@ -63,7 +72,7 @@ export default async function (c: Context) {
     }
 
     const body = await c.req.json();
-    const { currency, offerId, purchaseQuantity } = body;
+    let { currency, offerId, purchaseQuantity } = body;
 
     const notifications: object[] = [];
     const multiUpdates: object[] = [];
@@ -115,7 +124,7 @@ export default async function (c: Context) {
       if (
         !owned &&
         currentActiveStorefront.prices[0].finalPrice >
-          profile.items["Currency:MtxPurchased"].quantity
+          common_core.items["Currency:MtxPurchased"].quantity
       ) {
         return c.json(
           errors.createError(400, c.req.url, `You can not afford this item.`, timestamp),
@@ -151,6 +160,7 @@ export default async function (c: Context) {
       }
 
       itemQuantitiesByTemplateId.forEach((quantity, templateId) => {
+        // @ts-ignore
         athena.items[templateId] = CreateProfileItem(templateId, quantity);
 
         multiUpdates.push({
@@ -167,13 +177,13 @@ export default async function (c: Context) {
         });
       });
 
-      profile.items["Currency:MtxPurchased"].quantity -=
+      common_core.items["Currency:MtxPurchased"].quantity -=
         currentActiveStorefront.prices[0].finalPrice;
 
       multiUpdates.push({
         changeType: "itemQuantityChanged",
         itemId: "Currency:MtxPurchased",
-        quantity: profile.items["Currency:MtxPurchased"].quantity,
+        quantity: common_core.items["Currency:MtxPurchased"].quantity,
       });
 
       const purchase = {
@@ -194,292 +204,402 @@ export default async function (c: Context) {
         gameContext: "",
       };
 
-      profile.stats.attributes.mtx_purchase_history.purchases.push(purchase);
+      common_core.stats.attributes.mtx_purchase_history!.purchases.push(purchase);
       owned = true;
     } else {
-      console.log(offerId);
-
       const storefrontBattlepass = await BattlepassManager.GetStorefrontBattlepass(uahelper.season);
-      let isValidOffer: boolean = false;
 
-      for await (const allEntries of storefrontBattlepass.catalogEntries) {
-        if (allEntries.offerId === offerId) {
-          logger.debug(`OfferId is valid.`);
-          isValidOffer = true;
-          break;
+      let battlepassCatalogEntries: BattlePassEntry | undefined;
+
+      const isValidOffer = storefrontBattlepass.catalogEntries.some((entry) => {
+        const isMatchingEntry = entry.offerId === offerId;
+
+        if (isMatchingEntry) battlepassCatalogEntries = entry;
+
+        return isMatchingEntry;
+      });
+
+      if (!isValidOffer || !battlepassCatalogEntries) {
+        return c.json(
+          errors.createError(404, c.req.url, `Invalid offerId '${offerId}'`, timestamp),
+          404,
+        );
+      }
+
+      for await (let pastSeasons of athena.stats.attributes.past_seasons!) {
+        let currency = common_core.items["Currency:MtxPurchased"];
+        let finalPrice = storefrontBattlepass.catalogEntries.find(
+          (entry) => entry.offerId === offerId,
+        )?.prices[0]?.finalPrice;
+
+        if (typeof finalPrice !== "number" || finalPrice <= 0) {
+          return c.json(
+            errors.createError(400, c.req.url, "Invalid or missing final price.", timestamp),
+            400,
+          );
+        }
+        const isBattlepass =
+          battlepassCatalogEntries.devName === `BR.Season${config.currentSeason}.BattlePass.01`;
+        const isSingleTier =
+          battlepassCatalogEntries.devName === `BR.Season${config.currentSeason}.SingleTier.01`;
+        const isBattleBundle =
+          battlepassCatalogEntries.devName === `BR.Season${config.currentSeason}.BattleBundle.01`;
+
+        let originalBookLevel = pastSeasons.bookLevel;
+
+        if (!pastSeasons.purchasedVIP && isSingleTier) {
+          return c.json(
+            errors.createError(400, c.req.url, "You have not purchased the battlepass.", timestamp),
+            400,
+          );
         }
 
-        if (!isValidOffer)
-          return c.json(
-            errors.createError(
-              404,
-              c.req.url,
-              `Invalid offerId '${allEntries.offerId}'`,
-              timestamp,
-            ),
-            404,
-          );
-
-        for await (let pastSeasons of athena.stats.attributes.past_seasons) {
-          if (pastSeasons.seasonNumber === config.currentSeason) {
-            let currency = profile.items["Currency:MtxPurchased"];
-            let finalPrice = allEntries.prices[0].finalPrice;
-
-            logger.debug(`FinalPrice for ${allEntries.offerId} is '${finalPrice}'`);
-
-            const { attributes } = athena.stats;
-
-            if (pastSeasons.purchasedVIP && allEntries.devName.includes("SingleTier"))
-              return c.json(
-                errors.createError(
-                  400,
-                  c.req.url,
-                  "You have not purchased the battlepass.",
-                  timestamp,
-                ),
-                400,
-              );
-
-            if (!allEntries.devName.includes("SingleTier")) {
-              currency.quantity -= finalPrice;
-              applyProfileChanges.push({
-                changeType: "itemQuantityChanged",
-                itemId: "Currency:MtxPurchased",
-                quantity: currency.quantity,
-              });
-
-              pastSeasons.purchasedVIP = true;
-              multiUpdates.push({
-                changeType: "statModified",
-                name: "book_purchased",
-                value: pastSeasons.purchasedVIP,
-              });
+        if (!isSingleTier) {
+          for (const itemId in common_core.items) {
+            if (common_core.items[itemId].quantity >= finalPrice) {
+              common_core.items[itemId].quantity -= finalPrice;
+            } else {
+              common_core.items[itemId].quantity = 0;
             }
 
-            let originalBookLevel = pastSeasons.bookLevel;
+            applyProfileChanges.push({
+              changeType: "itemQuantityChanged",
+              itemId: "Currency:MtxPurchased",
+              quantity: currency.quantity,
+            });
 
-            // if (allEntries.devName.includes("BattleBundle")) {
-            //   pastSeasons.bookLevel = Math.min(pastSeasons.bookLevel + 25, 100);
-            // } else if (allEntries.devName.includes("SingleTier")) {
-            //   pastSeasons.bookLevel = Math.min(pastSeasons.bookLevel + purchaseQuantity, 100);
-            // } else if (allEntries.devName.includes("BattlePass")) {
-            //   pastSeasons.bookLevel = 1;
-            // }
-
-            if (allEntries.devName.includes("SingleTier")) {
-              currency.price = purchaseQuantity * finalPrice;
-              applyProfileChanges.push({
-                changeType: "itemQuantityChanged",
-                itemId: "Currency:MtxPurchased",
-                quantity: currency.quantity,
-              });
-            }
-
-            if (finalPrice > currency.price)
-              return c.json(
-                errors.createError(400, c.req.url, "You cannot afford this item.", timestamp),
-                400,
-              );
-
-            const updater = await LevelsManager.update(pastSeasons);
-
-            if (!updater) continue;
-
-            pastSeasons = updater.pastSeasons;
-
-            logger.debug(`canGrantItems: ${updater.canGrantItems}`);
-
-            const freeTier = await BattlepassManager.GetSeasonFreeRewards();
-            const paidTier = await BattlepassManager.GetSeasonPaidRewards();
-
-            if (!freeTier || !paidTier) return;
-
-            for (let i = originalBookLevel; i < pastSeasons.bookLevel; i++) {
-              const paidTierRewards = paidTier.filter((tier) => tier.Tier === i);
-              const freeTierRewards = freeTier.filter((tier) => tier.Tier === i);
-
-              if (!paidTierRewards) continue;
-              if (!freeTierRewards) continue;
-
-              for (const rewards of freeTierRewards) {
-                if (!updater.canGrantItems) break;
-                if (rewards.Tier <= originalBookLevel) break;
-                if (rewards.Tier > pastSeasons.bookLevel) break;
-
-                switch (true) {
-                  case rewards.TemplateId.startsWith("BannerToken"):
-                  case rewards.TemplateId.startsWith("HomebaseBanner:"):
-                    profile.items[rewards.TemplateId] = {
-                      templateId: rewards.TemplateId,
-                      attributes: {
-                        item_seen: false,
-                      },
-                      quantity: rewards.Quantity,
-                    };
-                    break;
-                  case rewards.TemplateId.startsWith("Athena"):
-                    athena.items[rewards.TemplateId] = {
-                      attributes: {
-                        favorite: false,
-                        item_seen: false,
-                        level: 1,
-                        max_level_bonus: 0,
-                        rnd_sel_cnt: 0,
-                        variants: [],
-                        xp: 0,
-                      },
-                      templateId: rewards.TemplateId,
-                    };
-                    break;
-                  case rewards.TemplateId.startsWith("Token:"):
-                    if (rewards.TemplateId.includes("athenaseasonfriendxpboost"))
-                      athena.stats.attributes.season_friend_match_boost += rewards.Quantity;
-                    else if (rewards.TemplateId.includes("athenaseasonxpboost"))
-                      athena.stats.attributes.season_match_boost += rewards.Quantity;
-                    break;
-                  case rewards.TemplateId.startsWith("Currency:"):
-                    currency.quantity += rewards.Quantity;
-                    break;
-                  case rewards.TemplateId.includes("CosmeticVariantToken:"):
-                    const reward = await BattlepassManager.ClaimCosmeticVariantTokenReward(
-                      rewards.TemplateId,
-                      user!.accountId,
-                    );
-
-                    const addedVariants: object[] = [];
-
-                    if (!reward) return;
-
-                    addedVariants.push({
-                      channel: reward.channel,
-                      active: reward.value,
-                      owned: [reward.value],
-                    });
-
-                    multiUpdates.push({
-                      changeType: "itemAttrChanged",
-                      itemId: reward.templateId,
-                      attributeName: "variants",
-                      attributeValue: addedVariants,
-                    });
-
-                    notifications.push({
-                      itemType: reward.templateId,
-                      itemGuid: reward.templateId,
-                      quantity: rewards.Quantity,
-                    });
-
-                    break;
-
-                  default:
-                    logger.warn(`Missing reward: ${rewards.TemplateId} at tier ${rewards.Tier}`);
-                }
-
-                multiUpdates.push({
-                  changeType: "itemAdded",
-                  itemId: rewards.TemplateId,
-                  item: athena.items[rewards.TemplateId],
-                });
-
-                notifications.push({
-                  itemType: rewards.TemplateId,
-                  itemGuid: rewards.TemplateId,
-                  quantity: rewards.Quantity,
-                });
-              }
-
-              for (const rewards of paidTierRewards) {
-                if (!updater.canGrantItems) break;
-                if (rewards.Tier <= originalBookLevel) break;
-                if (rewards.Tier > pastSeasons.bookLevel) break;
-
-                switch (true) {
-                  case rewards.TemplateId.startsWith("BannerToken"):
-                  case rewards.TemplateId.startsWith("HomebaseBanner:"):
-                    profile.items[rewards.TemplateId] = {
-                      templateId: rewards.TemplateId,
-                      attributes: {
-                        item_seen: false,
-                      },
-                      quantity: rewards.Quantity,
-                    };
-                    break;
-                  case rewards.TemplateId.startsWith("Athena"):
-                    athena.items[rewards.TemplateId] = {
-                      attributes: {
-                        favorite: false,
-                        item_seen: false,
-                        level: 1,
-                        max_level_bonus: 0,
-                        rnd_sel_cnt: 0,
-                        variants: [],
-                        xp: 0,
-                      },
-                      templateId: rewards.TemplateId,
-                    };
-                    break;
-                  case rewards.TemplateId.startsWith("Token:"):
-                    if (rewards.TemplateId.includes("athenaseasonfriendxpboost"))
-                      athena.stats.attributes.season_friend_match_boost += rewards.Quantity;
-                    else if (rewards.TemplateId.includes("athenaseasonxpboost"))
-                      athena.stats.attributes.season_match_boost += rewards.Quantity;
-                    break;
-                  case rewards.TemplateId.startsWith("Currency:"):
-                    currency.quantity += rewards.Quantity;
-                    break;
-                  case rewards.TemplateId.includes("CosmeticVariantToken:"):
-                    const reward = await BattlepassManager.ClaimCosmeticVariantTokenReward(
-                      rewards.TemplateId,
-                      user!.accountId,
-                    );
-
-                    const addedVariants: object[] = [];
-
-                    if (!reward) return;
-
-                    addedVariants.push({
-                      channel: reward.channel,
-                      active: reward.value,
-                      owned: [reward.value],
-                    });
-
-                    multiUpdates.push({
-                      changeType: "itemAttrChanged",
-                      itemId: reward.templateId,
-                      attributeName: "variants",
-                      attributeValue: addedVariants,
-                    });
-
-                    notifications.push({
-                      itemType: reward.templateId,
-                      itemGuid: reward.templateId,
-                      quantity: rewards.Quantity,
-                    });
-
-                    break;
-
-                  default:
-                    logger.warn(`Missing reward: ${rewards.TemplateId} at tier ${rewards.Tier}`);
-                }
-
-                multiUpdates.push({
-                  changeType: "itemAdded",
-                  itemId: rewards.TemplateId,
-                  item: athena.items[rewards.TemplateId],
-                });
-
-                notifications.push({
-                  itemType: rewards.TemplateId,
-                  itemGuid: rewards.TemplateId,
-                  quantity: rewards.Quantity,
-                });
-              }
-            }
-
-            console.log(multiUpdates);
-            console.log(notifications);
+            pastSeasons.purchasedVIP = true;
+            multiUpdates.push({
+              changeType: "statModified",
+              name: "book_purchased",
+              value: pastSeasons.purchasedVIP,
+            });
+            break;
           }
         }
+
+        if (finalPrice > currency.quantity) {
+          return c.json(
+            errors.createError(400, c.req.url, "You cannot afford this item.", timestamp),
+            400,
+          );
+        }
+
+        // skunked
+        // pastSeasons.bookXp += 10 * purchaseQuantity;
+
+        // const updater = await LevelsManager.update(pastSeasons, uahelper.season);
+
+        // if (!updater) continue;
+
+        // pastSeasons = updater.pastSeasons;
+
+        if (isSingleTier) {
+          if (purchaseQuantity <= 1) purchaseQuantity = 1;
+
+          pastSeasons.bookLevel = Math.min(pastSeasons.bookLevel + purchaseQuantity, 100);
+          pastSeasons.seasonLevel = Math.min(pastSeasons.seasonLevel + purchaseQuantity, 100);
+        } else if (isBattlepass) {
+          const tierCount = isBattleBundle ? 25 : 1;
+          const rewards: Rewards[] = await BattlepassManager.GetSeasonPaidRewards();
+          const filteredRewards = rewards.filter((reward) => reward.Tier <= tierCount);
+
+          for (let i = 0; i < filteredRewards.length; i++) {
+            const { TemplateId: item, Quantity: quantity } = filteredRewards[i];
+            const itemLower = item.toLowerCase();
+
+            if (itemLower.startsWith("athena")) {
+              // @ts-ignore
+              athena.items[item] = {
+                attributes: {
+                  favorite: false,
+                  item_seen: false,
+                  level: 1,
+                  max_level_bonus: 0,
+                  rnd_sel_cnt: 0,
+                  variants: [],
+                  xp: 0,
+                },
+                templateId: item,
+              };
+            } else if (itemLower.startsWith("token:athenaseasonxpboost")) {
+              athena.stats.attributes.season_match_boost =
+                (athena.stats.attributes.season_match_boost || 0) + quantity;
+            } else if (itemLower.startsWith("token:athenaseasonfriendxpboost")) {
+              athena.stats.attributes.season_friend_match_boost =
+                (athena.stats.attributes.season_friend_match_boost || 0) + quantity;
+            } else if (item.includes("athenaseasonfriendxpboost")) {
+              multiUpdates.push({
+                changeType: "statModified",
+                itemId: "season_friend_match_boost",
+                item: athena.stats.attributes.season_friend_match_boost,
+              });
+            } else if (item.includes("athenaseasonxpboost")) {
+              multiUpdates.push({
+                changeType: "statModified",
+                itemId: "season_match_boost",
+                item: athena.stats.attributes.season_match_boost,
+              });
+            } else if (item.startsWith("bannertoken") || item.startsWith("homebasebanner")) {
+              multiUpdates.push({
+                changeType: "itemAdded",
+                itemId: item,
+                item: common_core.items[item],
+              });
+            }
+
+            multiUpdates.push({
+              changeType: "itemAdded",
+              itemId: item,
+              item: athena.items[item],
+            });
+
+            notifications.push({
+              itemType: item,
+              itemGuid: item,
+              quantity: quantity,
+            });
+
+            pastSeasons.bookLevel = tierCount;
+          }
+        }
+
+        const freeTier = await BattlepassManager.GetSeasonFreeRewards();
+        const paidTier = await BattlepassManager.GetSeasonPaidRewards();
+
+        if (!freeTier || !paidTier) return;
+
+        for (let i = originalBookLevel; i < pastSeasons.bookLevel; i++) {
+          const tierToMatch = isBattleBundle ? i : i + 1;
+
+          const paidTierRewards = paidTier.filter((tier) => tier.Tier === tierToMatch);
+          const freeTierRewards = freeTier.filter((tier) => tier.Tier === tierToMatch);
+
+          if (paidTierRewards.length === 0 && freeTierRewards.length === 0) continue;
+
+          for (const rewards of freeTierRewards) {
+            switch (true) {
+              case rewards.TemplateId.startsWith("BannerToken"):
+              case rewards.TemplateId.startsWith("HomebaseBanner:"):
+                common_core.items[rewards.TemplateId] = {
+                  templateId: rewards.TemplateId,
+                  attributes: { item_seen: false },
+                  quantity: rewards.Quantity,
+                };
+                break;
+              case rewards.TemplateId.startsWith("Athena"):
+                // @ts-ignore
+                athena.items[rewards.TemplateId] = {
+                  attributes: {
+                    favorite: false,
+                    item_seen: false,
+                    level: 1,
+                    max_level_bonus: 0,
+                    rnd_sel_cnt: 0,
+                    variants: [],
+                    xp: 0,
+                  },
+                  templateId: rewards.TemplateId,
+                };
+                break;
+              case rewards.TemplateId.startsWith("Token:"):
+                if (rewards.TemplateId.includes("athenaseasonfriendxpboost")) {
+                  athena.stats.attributes.season_friend_match_boost! += rewards.Quantity;
+                  multiUpdates.push({
+                    changeType: "statModified",
+                    itemId: "season_friend_match_boost",
+                    item: athena.stats.attributes.season_friend_match_boost,
+                  });
+                } else if (rewards.TemplateId.includes("athenaseasonxpboost")) {
+                  athena.stats.attributes.season_match_boost! += rewards.Quantity;
+                  multiUpdates.push({
+                    changeType: "statModified",
+                    itemId: "season_match_boost",
+                    item: athena.stats.attributes.season_match_boost,
+                  });
+                }
+                break;
+              case rewards.TemplateId.startsWith("Currency:"):
+                currency.quantity += rewards.Quantity;
+                break;
+
+              default:
+                logger.warn(`Missing reward: ${rewards.TemplateId} at tier ${rewards.Tier}`);
+            }
+
+            if (rewards.TemplateId.includes("athenaseasonfriendxpboost")) {
+              multiUpdates.push({
+                changeType: "statModified",
+                itemId: "season_friend_match_boost",
+                item: athena.stats.attributes.season_friend_match_boost,
+              });
+            } else if (rewards.TemplateId.includes("athenaseasonxpboost")) {
+              multiUpdates.push({
+                changeType: "statModified",
+                itemId: "season_match_boost",
+                item: athena.stats.attributes.season_match_boost,
+              });
+            } else if (
+              rewards.TemplateId.startsWith("BannerToken") ||
+              rewards.TemplateId.startsWith("HomebaseBanner")
+            ) {
+              multiUpdates.push({
+                changeType: "itemAdded",
+                itemId: rewards.TemplateId,
+                item: common_core.items[rewards.TemplateId],
+              });
+            }
+
+            multiUpdates.push({
+              changeType: "itemAdded",
+              itemId: rewards.TemplateId,
+              item: athena.items[rewards.TemplateId],
+            });
+
+            notifications.push({
+              itemType: rewards.TemplateId,
+              itemGuid: rewards.TemplateId,
+              quantity: rewards.Quantity,
+            });
+          }
+
+          for (const rewards of paidTierRewards) {
+            switch (true) {
+              case rewards.TemplateId.startsWith("BannerToken"):
+              case rewards.TemplateId.startsWith("HomebaseBanner:"):
+                common_core.items[rewards.TemplateId] = {
+                  templateId: rewards.TemplateId,
+                  attributes: { item_seen: false },
+                  quantity: rewards.Quantity,
+                };
+                break;
+              case rewards.TemplateId.startsWith("Athena"):
+                // @ts-ignore
+                athena.items[rewards.TemplateId] = {
+                  attributes: {
+                    favorite: false,
+                    item_seen: false,
+                    level: 1,
+                    max_level_bonus: 0,
+                    rnd_sel_cnt: 0,
+                    variants: [],
+                    xp: 0,
+                  },
+                  templateId: rewards.TemplateId,
+                };
+                break;
+              case rewards.TemplateId.startsWith("Token:"):
+                if (rewards.TemplateId.includes("athenaseasonfriendxpboost")) {
+                  athena.stats.attributes.season_friend_match_boost! += rewards.Quantity;
+                  multiUpdates.push({
+                    changeType: "statModified",
+                    itemId: "season_friend_match_boost",
+                    item: athena.stats.attributes.season_friend_match_boost,
+                  });
+                } else if (rewards.TemplateId.includes("athenaseasonxpboost")) {
+                  athena.stats.attributes.season_match_boost! += rewards.Quantity;
+                  multiUpdates.push({
+                    changeType: "statModified",
+                    itemId: "season_match_boost",
+                    item: athena.stats.attributes.season_match_boost,
+                  });
+                }
+                break;
+              case rewards.TemplateId.startsWith("Currency:"):
+                currency.quantity += rewards.Quantity;
+                break;
+
+              default:
+                logger.warn(`Missing reward: ${rewards.TemplateId} at tier ${rewards.Tier}`);
+            }
+
+            if (rewards.TemplateId.includes("athenaseasonfriendxpboost")) {
+              multiUpdates.push({
+                changeType: "statModified",
+                itemId: "season_friend_match_boost",
+                item: athena.stats.attributes.season_friend_match_boost,
+              });
+            } else if (rewards.TemplateId.includes("athenaseasonxpboost")) {
+              multiUpdates.push({
+                changeType: "statModified",
+                itemId: "season_match_boost",
+                item: athena.stats.attributes.season_match_boost,
+              });
+            } else if (
+              rewards.TemplateId.startsWith("BannerToken") ||
+              rewards.TemplateId.startsWith("HomebaseBanner")
+            ) {
+              multiUpdates.push({
+                changeType: "itemAdded",
+                itemId: rewards.TemplateId,
+                item: common_core.items[rewards.TemplateId],
+              });
+            }
+
+            multiUpdates.push({
+              changeType: "itemAdded",
+              itemId: rewards.TemplateId,
+              item: athena.items[rewards.TemplateId],
+            });
+
+            notifications.push({
+              itemType: rewards.TemplateId,
+              itemGuid: rewards.TemplateId,
+              quantity: rewards.Quantity,
+            });
+          }
+        }
+
+        if (isSingleTier) currency.quantity -= finalPrice;
+
+        applyProfileChanges.push({
+          changeType: "itemAttrChanged",
+          itemId: "Currency:MtxPurchased",
+          quantity: currency.quantity,
+        });
+
+        multiUpdates.push(
+          { changeType: "statModified", name: "book_level", value: pastSeasons.bookLevel },
+          { changeType: "statModified", name: "level", value: pastSeasons.bookLevel },
+        );
+
+        multiUpdates.push({
+          changeType: "itemQuantityChanged",
+          itemId: "Currency",
+          quantity: currency.quantity,
+        });
+
+        const randomGiftBoxId = uuid();
+        multiUpdates.push({
+          changeType: "itemAdded",
+          itemId: randomGiftBoxId,
+          item: {
+            templateId: "GiftBox:gb_battlepass",
+            attributes: {
+              max_level_bonus: 0,
+              fromAccountId: "Server",
+              lootList: notifications,
+            },
+            quantity: 1,
+          },
+        });
+
+        common_core.stats.attributes.gifts!.push({
+          templateId: "GiftBox:gb_battlepass",
+          attributes: {
+            lootList: notifications,
+          },
+          quntity: 1,
+        });
+
+        XmppUtilities.SendMessageToId(
+          JSON.stringify({
+            payload: {},
+            type: "com.epicgames.gift.received",
+            timestamp: new Date().toISOString(),
+          }),
+          user.accountId,
+        );
       }
     }
 
@@ -487,34 +607,24 @@ export default async function (c: Context) {
     athena.commandRevision += 1;
     athena.updatedAt = new Date().toISOString();
 
-    profile.rvn += 1;
-    profile.commandRevision += 1;
-    profile.updatedAt = new Date().toISOString();
+    common_core.rvn += 1;
+    common_core.commandRevision += 1;
+    common_core.updatedAt = new Date().toISOString();
 
-    await Promise.all([
-      Profiles.createQueryBuilder()
-        .update()
-        .set({ profile })
-        .where("type = :type", { type: "common_core" })
-        .andWhere("accountId = :accountId", { accountId: user.accountId })
-        .execute(),
-      Profiles.createQueryBuilder()
-        .update()
-        .set({ profile: athena })
-        .where("type = :type", { type: "athena" })
-        .andWhere("accountId = :accountId", { accountId: user.accountId })
-        .execute(),
-    ]);
+    await profilesService.update(user.accountId, "common_core", common_core);
+    await profilesService.update(user.accountId, "athena", athena);
 
     const profileRevision = uahelper.buildUpdate >= "12.20" ? athena.commandRevision : athena.rvn;
     const queryRevision = parseInt(rvn) || 0;
 
     applyProfileChanges =
-      queryRevision !== profileRevision ? [{ changeType: "fullProfileUpdate", profile }] : [];
+      queryRevision !== profileRevision
+        ? [{ changeType: "fullProfileUpdate", profile: common_core }]
+        : [];
 
     return c.json(
       MCPResponses.generatePurchaseResponse(
-        profile,
+        common_core,
         athena,
         applyProfileChanges,
         multiUpdates,

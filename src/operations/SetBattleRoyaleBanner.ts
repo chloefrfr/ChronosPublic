@@ -59,12 +59,7 @@ export default async function SetBattleRoyaleBanner(c: Context) {
       athena.updatedAt = timestamp;
     }
 
-    await Profiles.createQueryBuilder()
-      .update()
-      .set({ profile: athena })
-      .where("type = :type", { type: "athena" })
-      .andWhere("accountId = :accountId", { accountId: user.accountId })
-      .execute();
+    await profilesService.update(user.accountId, "athena", athena);
 
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
   } catch (error) {

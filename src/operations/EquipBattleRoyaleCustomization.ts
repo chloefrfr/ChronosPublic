@@ -1,7 +1,7 @@
 import type { Context } from "hono";
 import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
-import { accountService, logger, userService } from "..";
+import { accountService, logger, profilesService, userService } from "..";
 import ProfileHelper from "../utilities/profiles";
 import MCPResponses from "../utilities/responses";
 import { Account } from "../tables/account";
@@ -33,11 +33,30 @@ export default async function (c: Context) {
       );
     }
 
-    const profile = await ProfileHelper.getProfile(user.accountId, profileId);
+    let profile;
 
-    if (!profile) {
-      return c.json(errors.createError(404, c.req.url, "Failed to find profile.", timestamp), 404);
+    switch (profileId) {
+      case "athena":
+        profile = await ProfileHelper.getProfile(user.accountId, "athena");
+        break;
+      case "common_core":
+        profile = await ProfileHelper.getProfile(user.accountId, "common_core");
+        break;
+      case "common_public":
+        profile = await ProfileHelper.getProfile(user.accountId, "common_public");
     }
+
+    if (!profile && profileId !== "athena" && profileId !== "common_core")
+      return c.json(
+        errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
+        404,
+      );
+
+    if (!profile)
+      return c.json(
+        errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
+        404,
+      );
 
     const applyProfileChanges: object[] = [];
 
@@ -51,11 +70,11 @@ export default async function (c: Context) {
     const { itemToSlot, indexWithinSlot, slotName, variantUpdates } = body;
 
     const activeLoadoutId =
-      profile.stats.attributes.loadouts[profile.stats.attributes.active_loadout_index];
+      profile.stats.attributes.loadouts![profile.stats.attributes.active_loadout_index!];
     const cosmeticTemplateId = profile.items[itemToSlot]?.templateId || itemToSlot;
 
     if (slotName === "Dance" && indexWithinSlot >= 0 && indexWithinSlot <= 5) {
-      profile.stats.attributes.favorite_dance[indexWithinSlot] = itemToSlot;
+      profile.stats.attributes.favorite_dance![indexWithinSlot] = itemToSlot;
 
       const activeLoadout = profile.items[activeLoadoutId];
       if (activeLoadout?.attributes.locker_slots_data) {
@@ -78,7 +97,7 @@ export default async function (c: Context) {
     ) {
       const favoriteArray = profile.stats.attributes.favorite_itemwraps;
       for (let i = 0; i < 7; i++) {
-        favoriteArray[i] = itemToSlot;
+        favoriteArray![i] = itemToSlot;
         profile.items.sandbox_loadout.attributes.locker_slots_data!.slots.ItemWrap.items[i] =
           cosmeticTemplateId;
       }
@@ -89,6 +108,7 @@ export default async function (c: Context) {
         value: favoriteArray,
       });
     } else {
+      // @ts-ignore
       profile.stats.attributes[`favorite_${slotName.toLowerCase()}`] = itemToSlot;
       profile.items.sandbox_loadout.attributes.locker_slots_data!.slots[slotName].items =
         cosmeticTemplateId;
@@ -96,6 +116,7 @@ export default async function (c: Context) {
       applyProfileChanges.push({
         changeType: "statModified",
         name: `favorite_${slotName.toLowerCase()}`,
+        // @ts-ignore
         value: profile.stats.attributes[`favorite_${slotName.toLowerCase()}`],
       });
     }
@@ -106,11 +127,7 @@ export default async function (c: Context) {
       profile.updatedAt = new Date().toISOString();
     }
 
-    await Profiles.createQueryBuilder()
-      .update()
-      .set({ profile })
-      .where("type = :type", { type: profileId })
-      .execute();
+    await profilesService.update(user.accountId, "athena", profile);
 
     const endTimestamp = Date.now();
 

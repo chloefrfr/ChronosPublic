@@ -78,6 +78,12 @@ export default class AccountService {
 
   public async delete(accountId: string): Promise<boolean> {
     try {
+      const account = await this.accountRepository.findOne({ where: { accountId } });
+      if (!account) return false;
+
+      this.cache.del(`account_${accountId}`);
+      this.cache.del(`account_discord_${account.discordId}`);
+
       const result = await this.accountRepository.delete({ accountId });
       return result.affected === 1;
     } catch (error) {

@@ -28,6 +28,7 @@
     "node-cron": "^3.0.3",
     "node-fetch": "^3.3.2",
     "pg": "^8.12.0",
+    "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20",
     "uuid": "^10.0.0",
     "xml-parser": "^1.2.1",

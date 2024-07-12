@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { userService, accountService, logger } from "..";
+import { userService, accountService, logger, profilesService } from "..";
 import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
 import ProfileHelper from "../utilities/profiles";
@@ -45,11 +45,28 @@ export default async function (c: Context) {
       );
     }
 
-    const profile = await ProfileHelper.getProfile(user.accountId, profileId);
+    let profile;
+
+    switch (profileId) {
+      case "athena":
+        profile = await ProfileHelper.getProfile(user.accountId, "athena");
+        break;
+      case "common_core":
+        profile = await ProfileHelper.getProfile(user.accountId, "common_core");
+        break;
+      case "common_public":
+        profile = await ProfileHelper.getProfile(user.accountId, "common_public");
+    }
 
     if (!profile && profileId !== "athena" && profileId !== "common_core")
       return c.json(
         errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
+        404,
+      );
+
+    if (!profile)
+      return c.json(
+        errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
         404,
       );
 
@@ -82,7 +99,7 @@ export default async function (c: Context) {
         attributes.level = currentSeason.seasonLevel;
       } else {
         past_seasons.push({
-          seasonNumber: attributes.season_num,
+          seasonNumber: attributes.season_num as number,
           numWins: 0,
           numHighBracket: 0,
           numLowBracket: 0,
@@ -105,12 +122,7 @@ export default async function (c: Context) {
 
       attributes.past_seasons = past_seasons;
 
-      await Profiles.createQueryBuilder()
-        .update()
-        .set({ profile })
-        .where("type = :type", { type: "athena" })
-        .andWhere("accountId = :accountId", { accountId: user.accountId })
-        .execute();
+      await profilesService.update(user.accountId, "athena", profile);
     }
 
     const applyProfileChanges = [

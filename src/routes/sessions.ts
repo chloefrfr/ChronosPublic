@@ -161,14 +161,7 @@ export default function () {
 
         common_core.items["Currency:MtxPurchased"].quantity += currency;
 
-        await Promise.all([
-          Profiles.createQueryBuilder()
-            .update()
-            .set({ profile: common_core })
-            .where("type = :type", { type: "common_core" })
-            .andWhere("accountId = :accountId", { accountId: user.accountId })
-            .execute(),
-        ]);
+        await profilesService.update(user.accountId, "common_core", common_core);
 
         return c.json({ message: "Success!" });
       } catch (error) {
@@ -183,11 +176,11 @@ export default function () {
     async (c) => {
       const sessionId = c.req.param("sessionId");
       const username = c.req.param("username");
-      // const session = await HostAPI.getServerBySessionId(sessionId);
+      const session = await HostAPI.getServerBySessionId(sessionId);
       const timestamp = new Date().toISOString();
 
-      // if (!session)
-      //   return c.json(errors.createError(404, c.req.url, "Session not found!", timestamp), 404);
+      if (!session)
+        return c.json(errors.createError(404, c.req.url, "Session not found!", timestamp), 404);
 
       try {
         const user = await userService.findUserByUsername(username);
@@ -214,12 +207,12 @@ export default function () {
         const totalXp = parseInt(c.req.param("totalXp"));
         const { attributes } = athena.stats;
 
-        for (const pastSeason of attributes.past_seasons) {
+        for (const pastSeason of attributes.past_seasons!) {
           if (pastSeason.seasonNumber === config.currentSeason) {
             pastSeason.seasonXp += totalXp;
 
-            if (isNaN(attributes.level)) attributes.level = 1;
-            if (isNaN(attributes.xp)) attributes.xp = 0;
+            if (isNaN(attributes.level!)) attributes.level = 1;
+            if (isNaN(attributes.xp!)) attributes.xp = 0;
 
             const updater = await RewardsManager.addGrant(pastSeason);
             const lootList: { itemType: string; itemGuid: string; quantity: number }[] = [];
@@ -232,6 +225,7 @@ export default function () {
                 case "athena":
                   athena.items[val.templateId] = {
                     templateId: val.templateId,
+                    // @ts-ignore
                     attributes: val.attributes,
                     quantity: val.quantity,
                   };
@@ -249,6 +243,7 @@ export default function () {
                     if (!found) {
                       common_core.items[val.templateId] = {
                         templateId: val.templateId,
+                        // @ts-ignore
                         attributes: val.attributes,
                         quantity: val.quantity,
                       };
@@ -256,6 +251,7 @@ export default function () {
                   } else {
                     common_core.items[val.templateId] = {
                       templateId: val.templateId,
+                      // @ts-ignore
                       attributes: val.attributes,
                       quantity: val.quantity,
                     };
@@ -280,7 +276,7 @@ export default function () {
             });
 
             if (updater.canGrantItems) {
-              common_core.stats.attributes.gifts.push({
+              common_core.stats.attributes.gifts!.push({
                 templateId: "GiftBox:gb_battlepass",
                 attributes: {
                   lootList,
@@ -300,23 +296,12 @@ export default function () {
 
             attributes.level = updater.pastSeasons.seasonLevel;
             attributes.book_level = updater.pastSeasons.bookLevel;
-            attributes.xp += updater.pastSeasons.seasonXp;
+            attributes.xp! += updater.pastSeasons.seasonXp;
           }
         }
 
-        await Profiles.createQueryBuilder()
-          .update()
-          .set({ profile: athena })
-          .where("type = :type", { type: "athena" })
-          .andWhere("accountId = :accountId", { accountId: user.accountId })
-          .execute();
-
-        await Profiles.createQueryBuilder()
-          .update()
-          .set({ profile: common_core })
-          .where("type = :type", { type: "common_core" })
-          .andWhere("accountId = :accountId", { accountId: user.accountId })
-          .execute();
+        await profilesService.update(user.accountId, "athena", athena);
+        await profilesService.update(user.accountId, "common_core", common_core);
 
         return c.json({ message: "Success!" });
       } catch (error) {

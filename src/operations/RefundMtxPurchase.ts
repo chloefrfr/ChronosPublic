@@ -3,8 +3,7 @@ import ProfileHelper from "../utilities/profiles";
 import errors from "../utilities/errors";
 import uaparser from "../utilities/uaparser";
 import type { ProfileId } from "../utilities/responses";
-import { accountService, userService } from "..";
-import type { Purchase } from "./PurchaseCatalogEntry";
+import { accountService, profilesService, userService } from "..";
 import MCPResponses from "../utilities/responses";
 import { Profiles } from "../tables/profiles";
 
@@ -46,7 +45,7 @@ export default async function (c: Context) {
     );
   }
 
-  const profile = await ProfileHelper.getProfile(user.accountId, profileId);
+  const profile = await ProfileHelper.getProfile(user.accountId, "common_core");
 
   if (!profile)
     return c.json(
@@ -77,12 +76,12 @@ export default async function (c: Context) {
 
   const { mtx_purchase_history } = profile.stats.attributes;
 
-  mtx_purchase_history.refundsUsed += 1;
-  mtx_purchase_history.refundCredits -= 1;
+  mtx_purchase_history!.refundsUsed += 1;
+  mtx_purchase_history!.refundCredits -= 1;
 
   const items: string[] = [];
-  const specificPurchase = mtx_purchase_history.purchases.find(
-    (purchase: Purchase) => purchase.purchaseId === purchaseId,
+  const specificPurchase = mtx_purchase_history!.purchases.find(
+    (purchase: any) => purchase.purchaseId === purchaseId,
   );
 
   if (specificPurchase) {
@@ -134,19 +133,8 @@ export default async function (c: Context) {
     athena.updatedAt = new Date().toISOString();
   }
 
-  await Profiles.createQueryBuilder()
-    .update()
-    .set({ profile })
-    .where("type = :type", { type: profileId })
-    .andWhere("accountId = :accountId", { accountId: user.accountId })
-    .execute();
-
-  await Profiles.createQueryBuilder()
-    .update()
-    .set({ profile: athena })
-    .where("type = :type", { type: "athena" })
-    .andWhere("accountId = :accountId", { accountId: user.accountId })
-    .execute();
+  await profilesService.update(user.accountId, "common_core", profile);
+  await profilesService.update(user.accountId, "athena", athena);
 
   return c.json(
     MCPResponses.generateRefundResponse(
