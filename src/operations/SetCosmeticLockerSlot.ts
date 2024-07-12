@@ -5,6 +5,7 @@ import { accountService, app, logger, profilesService, userService } from "..";
 import ProfileHelper from "../utilities/profiles";
 import { Profiles } from "../tables/profiles";
 import MCPResponses from "../utilities/responses";
+import type { Variants } from "../../types/profiles";
 
 export default async function (c: Context) {
   const startTimestamp = Date.now();
@@ -63,9 +64,37 @@ export default async function (c: Context) {
     return c.json({ error: "Body isn't valid JSON" }, 400);
   }
 
-  const { itemToSlot, lockerItem, category, slotIndex } = body;
+  const { itemToSlot, lockerItem, category, slotIndex, variantUpdates } = body;
 
   const applyProfileChanges: object[] = [];
+
+  if (profile.items[itemToSlot]) {
+    if (variantUpdates.length > 0 && Array.isArray(variantUpdates)) {
+      variantUpdates.forEach((variant: Variants) => {
+        const { channel, active, owned } = variant;
+
+        const existingIndex: number = profile.items[itemToSlot].attributes.variants.findIndex(
+          (v: Variants) => v.channel === channel,
+        );
+
+        if (existingIndex === -1) {
+          profile.items[itemToSlot].attributes.variants.push({
+            channel,
+            owned,
+          });
+        } else {
+          profile.items[itemToSlot].attributes.variants[existingIndex].active = active;
+        }
+      });
+
+      applyProfileChanges.push({
+        changeType: "itemAttrChanged",
+        itemId: itemToSlot,
+        attributeName: "variants",
+        attributeValue: profile.items[itemToSlot].attributes.variants,
+      });
+    }
+  }
 
   const updateFavoriteSlot = (slotName: string, items: any[]) => {
     const slotData = profile.items[lockerItem].attributes.locker_slots_data;
