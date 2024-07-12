@@ -64,7 +64,6 @@ export default async function (c: Context) {
   }
 
   const { itemToSlot, lockerItem, category, slotIndex } = body;
-  const slotData = profile.items[lockerItem].attributes.locker_slots_data;
 
   const applyProfileChanges: object[] = [];
 
@@ -83,9 +82,22 @@ export default async function (c: Context) {
   };
 
   const updateItemWrapSlot = () => {
-    if (slotData && slotData.slots.ItemWrap) {
-      slotData.slots.ItemWrap.items[slotIndex] = itemToSlot;
-      profile.stats.attributes.favorite_itemwraps[slotIndex] = itemToSlot;
+    const slotData = profile.items[lockerItem].attributes.locker_slots_data;
+    const items = slotData.slots.ItemWrap.items.fill(itemToSlot);
+    profile.stats.attributes.favorite_itemwraps = items.map(() => itemToSlot);
+    applyProfileChanges.push({
+      changeType: "itemAttrChanged",
+      itemId: lockerItem,
+      attributeName: "locker_slots_data",
+      attributeValue: slotData,
+    });
+  };
+
+  if (category === "Dance" && slotIndex >= 0 && slotIndex <= 5) {
+    const slotData = profile.items[lockerItem].attributes.locker_slots_data;
+    if (slotData && slotData.slots.Dance) {
+      slotData.slots.Dance.items[slotIndex] = itemToSlot;
+      profile.stats.attributes.favorite_dance![slotIndex] = itemToSlot;
       applyProfileChanges.push({
         changeType: "itemAttrChanged",
         itemId: lockerItem,
@@ -93,19 +105,18 @@ export default async function (c: Context) {
         attributeValue: slotData,
       });
     }
-  };
-
-  if (category === "Dance" && slotIndex >= 0 && slotIndex <= 5) {
-    slotData!.slots.Dance.items[slotIndex] = itemToSlot;
-    profile.stats.attributes.favorite_dance![slotIndex] = itemToSlot;
-    applyProfileChanges.push({
-      changeType: "itemAttrChanged",
-      itemId: lockerItem,
-      attributeName: "locker_slots_data",
-      attributeValue: slotData,
-    });
   } else if (category === "ItemWrap" && slotIndex >= 0 && slotIndex <= 7) {
-    updateItemWrapSlot();
+    const slotData = profile.items[lockerItem].attributes.locker_slots_data;
+    if (slotData && slotData.slots.ItemWrap) {
+      slotData.slots.ItemWrap.items[slotIndex] = itemToSlot;
+      profile.stats.attributes.favorite_itemwraps![slotIndex] = itemToSlot;
+      applyProfileChanges.push({
+        changeType: "itemAttrChanged",
+        itemId: lockerItem,
+        attributeName: "locker_slots_data",
+        attributeValue: slotData,
+      });
+    }
   } else if (slotIndex === -1) {
     updateItemWrapSlot();
   } else {
