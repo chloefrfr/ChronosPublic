@@ -69,6 +69,7 @@ export default async function (c: Context) {
   const applyProfileChanges: object[] = [];
 
   const updateFavoriteSlot = (slotName: string, items: any[]) => {
+    const slotData = profile.items[lockerItem].attributes.locker_slots_data;
     if (slotData && slotData.slots[slotName]) {
       slotData.slots[slotName].items = items;
       profile.stats.attributes[`favorite_${slotName.toLowerCase()}`] = itemToSlot;
