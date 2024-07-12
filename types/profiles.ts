@@ -179,8 +179,9 @@ export interface StatsAttributes {
   };
 }
 
-interface Variants {
+export interface Variants {
   channel: string;
+  active: string;
   owned: string[];
 }
 

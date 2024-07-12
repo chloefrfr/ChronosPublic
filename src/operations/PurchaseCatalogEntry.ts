@@ -19,6 +19,7 @@ import { BattlepassManager, type Rewards } from "../utilities/managers/Battlepas
 import { LevelsManager } from "../utilities/managers/LevelsManager";
 import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import ProfilesService from "../wrappers/database/ProfilesService";
+import type { Variants } from "../../types/profiles";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -491,22 +492,41 @@ export default async function (c: Context) {
               case rewards.TemplateId.startsWith("Token:"):
                 if (rewards.TemplateId.includes("athenaseasonfriendxpboost")) {
                   athena.stats.attributes.season_friend_match_boost! += rewards.Quantity;
-                  multiUpdates.push({
-                    changeType: "statModified",
-                    itemId: "season_friend_match_boost",
-                    item: athena.stats.attributes.season_friend_match_boost,
-                  });
                 } else if (rewards.TemplateId.includes("athenaseasonxpboost")) {
                   athena.stats.attributes.season_match_boost! += rewards.Quantity;
-                  multiUpdates.push({
-                    changeType: "statModified",
-                    itemId: "season_match_boost",
-                    item: athena.stats.attributes.season_match_boost,
-                  });
                 }
                 break;
               case rewards.TemplateId.startsWith("Currency:"):
                 currency.quantity += rewards.Quantity;
+                break;
+              case rewards.TemplateId.startsWith("CosmeticVariantToken"):
+                const tokenRewards = await BattlepassManager.ClaimCosmeticVariantTokenReward(
+                  rewards.TemplateId.replace("CosmeticVariantToken:", ""),
+                  user.accountId,
+                );
+
+                const addedVariants: Variants[] = [];
+
+                if (!tokenRewards) continue;
+
+                addedVariants.push({
+                  channel: tokenRewards.channel,
+                  active: tokenRewards.value,
+                  owned: [tokenRewards.value],
+                });
+
+                multiUpdates.push({
+                  changeType: "itemAttrChanged",
+                  itemId: rewards.TemplateId,
+                  attributeName: "variants",
+                  attributeValue: addedVariants,
+                });
+
+                notifications.push({
+                  itemType: rewards.TemplateId,
+                  itemGuid: rewards.TemplateId,
+                  quantity: rewards.Quantity,
+                });
                 break;
 
               default:
@@ -560,7 +580,7 @@ export default async function (c: Context) {
 
         multiUpdates.push(
           { changeType: "statModified", name: "book_level", value: pastSeasons.bookLevel },
-          { changeType: "statModified", name: "level", value: pastSeasons.bookLevel },
+          { changeType: "statModified", name: "level", value: pastSeasons.seasonLevel },
         );
 
         multiUpdates.push({

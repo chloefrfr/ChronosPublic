@@ -4,6 +4,7 @@ import type { BattlePassStorefront } from "../../shop/interfaces/Declarations";
 import type { ProfileId } from "../responses";
 import ProfileHelper from "../profiles";
 import { Profiles } from "../../tables/profiles";
+import type { Variants } from "../../../types/profiles";
 
 export interface Rewards {
   TemplateId: string;
@@ -73,7 +74,12 @@ export namespace BattlepassManager {
 
     logger.debug(`Attemping to find rewards for VTID: ${VTID}`);
 
-    const reward = tokens[VTID];
+    const vtidMapping: { [key: string]: string } = {
+      vtid_655_razerzero_styleb: "VTID_655_RazerZero_StyleB",
+      vtid_656_razerzero_stylec: "VTID_656_RazerZero_StyleC",
+    };
+
+    const reward = tokens[vtidMapping[VTID]];
     if (!reward) return;
 
     logger.debug(`Successfully found rewards for VTID: ${VTID}`);
@@ -83,9 +89,12 @@ export namespace BattlepassManager {
 
     const item = athena.items[reward.templateId];
     if (item) {
-      if (!item.attributes.variants!.find((variant: any) => variant.channel === reward.channel)) {
+      if (
+        !item.attributes.variants!.find((variant: Variants) => variant.channel === reward.channel)
+      ) {
         item.attributes.variants!.push({
           channel: reward.channel,
+          active: "",
           owned: [],
         });
       }
@@ -97,6 +106,7 @@ export namespace BattlepassManager {
         variant!.owned.push(reward.value);
       }
     }
+
     await profilesService.update(accountId, "athena", athena);
     return reward;
   }
