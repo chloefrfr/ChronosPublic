@@ -111,9 +111,7 @@ export namespace QuestManager {
   }
 
   export async function getRandomQuest(): Promise<DailyQuestDef | undefined> {
-    const quests = listedQuests[QuestType.BATTLEPASS];
-
-    console.log(quests);
+    const quests = listedQuests[QuestType.REPEATABLE];
 
     if (!quests || quests.length === 0) return;
 
