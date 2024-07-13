@@ -79,6 +79,8 @@ export namespace BattlepassManager {
       vtid_656_razerzero_stylec: "VTID_656_RazerZero_StyleC",
     };
 
+    
+
     const reward = tokens[vtidMapping[VTID]];
     if (!reward) return;
 

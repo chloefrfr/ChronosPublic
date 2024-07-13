@@ -9,14 +9,14 @@
 
 ## What's Next?
 
-- Adding Quest & Variant Token granting with the battlepass.
+- Weekly Quests
 
 ## Planned Features
 
 - [x] Vbucks on kill/win
 - [x] Easy setup
 - [x] Auto shop
-- [ ] Battle Pass
+- [x] Battle Pass
 - [x] XP & Leveling
 - [ ] Challenges (Quests)
 - [x] Friends
@@ -35,8 +35,6 @@
 - [ ] Tournaments
 - [x] GameSessions
 - [ ] Seasonal Rewards
-- [ ] Customizable Contentpages through database
-- [ ] Heartbeat system
 
 ## Planned Bot Commands
 

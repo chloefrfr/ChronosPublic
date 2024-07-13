@@ -26,11 +26,28 @@ export default class DailyQuestService {
 
   async get(accountId: string): Promise<DailyQuestData[]> {
     const query = this.dailyQuestRepository
-      .createQueryBuilder("dailyQuest")
-      .where("dailyQuest.accountId = :accountId", { accountId });
+      .createQueryBuilder("daily_quest")
+      .where("daily_quest.accountId = :accountId", { accountId });
 
     const result = await query.getOne();
     return result ? result.data : [];
+  }
+
+  async getQuest(accountId: string, templateId: string): Promise<DailyQuestData | null> {
+    const dailyQuest = await this.dailyQuestRepository.findOne({
+      where: { accountId },
+    });
+
+    if (!dailyQuest) {
+      return null;
+    }
+
+    const questData = dailyQuest.data.find((quest) => {
+      const questTemplateId = Object.values(quest)[0]?.templateId;
+      return questTemplateId === templateId;
+    });
+
+    return questData || null;
   }
 
   async delete(accountId: string): Promise<DeleteResult> {

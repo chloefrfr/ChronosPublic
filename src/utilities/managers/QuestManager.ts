@@ -1,6 +1,6 @@
 import path from "node:path";
 import fs from "node:fs/promises";
-import { itemStorageService, logger } from "../..";
+import { dailyQuestService, itemStorageService, logger } from "../..";
 
 interface DailyQuestDef {
   Type: string;
@@ -23,7 +23,7 @@ interface BattlepassQuestObjects {
   Objectives: Objectives[];
 }
 
-interface Objectives {
+export interface Objectives {
   BackendName: string;
   Count: number;
   Stage: number;
@@ -123,19 +123,12 @@ export namespace QuestManager {
     }
   }
 
-  export async function isQuestUsed(quest: DailyQuestDef): Promise<boolean> {
+  export async function isQuestUsed(quest: DailyQuestDef, accountId: string): Promise<boolean> {
     try {
-      const storage = await itemStorageService.getItemByType("daily_quest");
-      if (!storage || typeof storage.data !== "object") return false;
+      const storage = await dailyQuestService.getQuest(accountId, quest.Name);
+      if (!storage) return false;
 
-      const questName = quest.Name;
-
-      if (
-        storage.data.hasOwnProperty(questName) &&
-        Array.isArray(storage.data[questName]) &&
-        storage.data[questName].length > 0
-      )
-        return true;
+      if (storage) return true;
 
       return false;
     } catch (error) {
@@ -143,7 +136,7 @@ export namespace QuestManager {
     }
   }
 
-  export async function getRandomQuest(): Promise<DailyQuestDef | undefined> {
+  export async function getRandomQuest(accountId: string): Promise<DailyQuestDef | undefined> {
     const quests = listedQuests[QuestType.REPEATABLE];
 
     if (!quests || quests.length === 0) return;
@@ -151,7 +144,7 @@ export namespace QuestManager {
     const availableQuests = await Promise.all(
       quests.map(async (quest) => ({
         quest,
-        isUsed: await isQuestUsed(quest),
+        isUsed: await isQuestUsed(quest, accountId),
       })),
     );
 

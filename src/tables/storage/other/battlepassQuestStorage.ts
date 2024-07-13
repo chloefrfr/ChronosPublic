@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import type { Objectives } from "../../../utilities/managers/QuestManager";
 
 export interface BattlepassQuestData {
   [key: string]: {
@@ -11,7 +12,7 @@ export interface BattlepassQuestData {
 interface Attributes {
   sent_new_notification: boolean;
   challenge_bundle_id: string;
-  ObjectiveState: ObjectiveState[];
+  ObjectiveState: Objectives[];
 }
 
 interface ObjectiveState {

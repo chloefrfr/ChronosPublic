@@ -110,7 +110,7 @@ export default async function (c: Context) {
         const data: object[] = [];
 
         for (let i = 0; i < questsToAdd; i++) {
-          const dailyQuests = await QuestManager.getRandomQuest();
+          const dailyQuests = await QuestManager.getRandomQuest(user.accountId);
 
           if (!dailyQuests) continue;
 
