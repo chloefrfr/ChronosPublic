@@ -5,6 +5,7 @@ import errors from "../utilities/errors";
 import {
   accountService,
   config,
+  dailyQuestService,
   itemStorageService,
   logger,
   profilesService,
@@ -77,7 +78,7 @@ export default async function (c: Context) {
       );
     }
 
-    const storage = await itemStorageService.getItemByType("daily_quest");
+    const storage = await dailyQuestService.get(user.accountId);
 
     if (!storage) {
       return c.json(
@@ -98,11 +99,15 @@ export default async function (c: Context) {
         profile.stats.attributes.quest_manager!.dailyQuestRerolls += 1;
 
         const maxDailyQuests = 5;
-        const currentQuestCount = Object.values(storage.data).length;
+
+        const currentQuestCount = storage.length;
+        logger.debug(`Current Quest Count: ${currentQuestCount}`);
 
         const questsToAdd = Math.max(0, maxDailyQuests - currentQuestCount);
 
         logger.debug(`Adding ${questsToAdd} daily quests.`);
+
+        const data: object[] = [];
 
         for (let i = 0; i < questsToAdd; i++) {
           const dailyQuests = await QuestManager.getRandomQuest();
@@ -114,12 +119,11 @@ export default async function (c: Context) {
             dailyQuests.Properties.Objectives,
           );
 
-          await itemStorageService.addItem(
+          await dailyQuestService.add(user.accountId, [
             {
-              [dailyQuests.Name]: [questData],
+              [dailyQuests.Name]: questData,
             },
-            "daily_quest",
-          );
+          ]);
           logger.debug(`Added quest: ${dailyQuests.Name}`);
 
           const newQuestItem = {
@@ -156,6 +160,44 @@ export default async function (c: Context) {
 
         shouldUpdateProfile = true;
       }
+
+      storage.map((obj) => {
+        const questKey = Object.keys(obj)[0];
+        const templateId = obj[questKey].templateId;
+
+        const newQuestItem = {
+          changeType: "itemAdded",
+          itemId: templateId,
+          item: {
+            templateId: templateId,
+            attributes: {
+              creation_time: new Date().toISOString(),
+              level: -1,
+              item_seen: false,
+              playlists: [],
+              sent_new_notification: true,
+              challenge_bundle_id: "",
+              xp_reward_scalar: 1,
+              challenge_linked_quest_given: "",
+              quest_pool: "",
+              quest_state: "Active",
+              bucket: "",
+              last_state_change_time: new Date().toISOString(),
+              challenge_linked_quest_parent: "",
+              max_level_bonus: 0,
+              xp: 0,
+              quest_rarity: "uncommon",
+              favorite: false,
+              [obj[questKey].attributes.ObjectiveState[0].Name]:
+                obj[questKey].attributes.ObjectiveState[0].Value,
+            },
+            quantity: 1,
+          },
+        };
+
+        multiUpdates.push(newQuestItem);
+        shouldUpdateProfile = true;
+      });
     }
 
     // trying something new (this should be faster)

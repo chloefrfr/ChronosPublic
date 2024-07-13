@@ -2,6 +2,7 @@ import type { Context } from "hono";
 import errors from "../utilities/errors";
 import {
   accountService,
+  battlepassQuestService,
   config,
   itemStorageService,
   logger,
@@ -20,6 +21,7 @@ import { LevelsManager } from "../utilities/managers/LevelsManager";
 import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import ProfilesService from "../wrappers/database/ProfilesService";
 import type { Variants } from "../../types/profiles";
+import { QuestManager, QuestType } from "../utilities/managers/QuestManager";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -85,13 +87,17 @@ export default async function (c: Context) {
       return c.json(errors.createError(400, c.req.url, "Invalid request.", timestamp), 400);
     }
 
-    const currentShop = await itemStorageService.getItemByType("storefront");
-    if (!currentShop || !currentShop.data || !currentShop.data.storefronts) {
+    const currentStorefrontData = await itemStorageService.getItemByType("storefront");
+
+    if (!currentStorefrontData) {
       return c.json(
         errors.createError(400, c.req.url, "Failed to get storefront.", timestamp),
         400,
       );
     }
+
+    let currentShop;
+    for (const ChronosShop of currentStorefrontData["ChronosShop"]) currentShop = ChronosShop;
 
     if (offerId.includes(":/")) {
       let currentActiveStorefront = null;
@@ -286,15 +292,6 @@ export default async function (c: Context) {
           );
         }
 
-        // skunked
-        // pastSeasons.bookXp += 10 * purchaseQuantity;
-
-        // const updater = await LevelsManager.update(pastSeasons, uahelper.season);
-
-        // if (!updater) continue;
-
-        // pastSeasons = updater.pastSeasons;
-
         if (isSingleTier) {
           if (purchaseQuantity <= 1) purchaseQuantity = 1;
 
@@ -341,12 +338,173 @@ export default async function (c: Context) {
                 itemId: "season_match_boost",
                 item: athena.stats.attributes.season_match_boost,
               });
-            } else if (item.startsWith("bannertoken") || item.startsWith("homebasebanner")) {
+            } else if (
+              itemLower.startsWith("bannertoken") ||
+              itemLower.startsWith("homebasebanner")
+            ) {
               multiUpdates.push({
                 changeType: "itemAdded",
                 itemId: item,
                 item: common_core.items[item],
               });
+            } else if (item.startsWith("ChallengeBundleSchedule")) {
+              const battlepassQuests = QuestManager.listedBattlepassQuests;
+
+              if (battlepassQuests.length === 0) continue;
+
+              const filteredMatchingQuest = battlepassQuests.filter(
+                (q) => q!.ChallengeBundleSchedule === item,
+              );
+
+              if (!filteredMatchingQuest) continue;
+
+              const responseMap: { [key: string]: string[] } = {};
+
+              for (const quest of filteredMatchingQuest) {
+                if (!quest) continue;
+
+                let existingBundles = responseMap[quest.ChallengeBundleSchedule];
+                if (!existingBundles)
+                  responseMap[quest.ChallengeBundleSchedule] = [`ChallengeBundle:${quest.Name}`];
+                else existingBundles.push(`ChallengeBundle:${quest.Name}`);
+
+                const listOfQuests: string[] = [];
+
+                for await (const objects of quest.Objects) {
+                  for (const objectives of objects.Objectives) {
+                    listOfQuests.push(`${objectives.BackendName}`);
+                  }
+                }
+
+                for (const obj of quest.Objects) {
+                  const storage = await battlepassQuestService.get(user.accountId, obj.Name);
+
+                  if (!storage) {
+                    const objectiveStates: { name: string; count: number }[] = [];
+
+                    for (const objective of obj.Objectives) {
+                      objectiveStates.push({
+                        name: `completion_${objective.BackendName}`,
+                        count: objective.Count,
+                      });
+                    }
+
+                    const data = {
+                      templateId: obj.Name,
+                      attributes: {
+                        challenge_bundle_id: `ChallengeBundle:${quest.Name}`,
+                        sent_new_notification: false,
+                        ObjectiveState: objectiveStates,
+                      },
+                      quantity: 1,
+                    };
+
+                    await battlepassQuestService.add(user.accountId, [
+                      {
+                        [obj.Name]: data,
+                      },
+                    ]);
+
+                    const itemResponse = {
+                      templateId: obj.Name,
+                      attributes: {
+                        creation_time: new Date().toISOString(),
+                        level: -1,
+                        item_seen: false,
+                        playlists: [],
+                        sent_new_notification: true,
+                        challenge_bundle_id: `ChallengeBundle:${quest.Name}`,
+                        xp_reward_scalar: 1,
+                        challenge_linked_quest_given: "",
+                        quest_pool: "",
+                        quest_state: "Active",
+                        bucket: "",
+                        last_state_change_time: new Date().toISOString(),
+                        challenge_linked_quest_parent: "",
+                        max_level_bonus: 0,
+                        xp: 0,
+                        quest_rarity: "uncommon",
+                        favorite: false,
+                      },
+                      quantity: 1,
+                    };
+
+                    for (const objectives of objectiveStates) {
+                      // @ts-ignore
+                      itemResponse.attributes[objectives.name] = objectives.count;
+                    }
+
+                    multiUpdates.push({
+                      changeType: "itemAdded",
+                      itemId: obj.Name,
+                      item: itemResponse,
+                    });
+                  }
+
+                  const scheduleId = quest.ChallengeBundleSchedule.startsWith(
+                    "ChallengeBundleSchedule:",
+                  )
+                    ? quest.ChallengeBundleSchedule
+                    : `ChallengeBundleSchedule:${quest.ChallengeBundleSchedule}`;
+
+                  const ChallengeBundle = {
+                    templateId: `ChallengeBundle:${quest.Name}`,
+                    attributes: {
+                      has_unlock_by_completion: false,
+                      num_quests_completed: 0,
+                      level: 0,
+                      grantedquestinstanceids: listOfQuests,
+                      item_seen: true,
+                      max_allowed_bundle_level: 0,
+                      num_granted_bundle_quests: listOfQuests.length,
+                      max_level_bonus: 0,
+                      challenge_bundle_schedule_id: scheduleId,
+                      num_progress_quests_completed: 0,
+                      xp: 0,
+                      favorite: false,
+                    },
+                    quantity: 1,
+                  };
+
+                  multiUpdates.push({
+                    changeType: "itemRemoved",
+                    itemId: `ChallengeBundle:${quest.Name}`,
+                  });
+
+                  multiUpdates.push({
+                    changeType: "itemAdded",
+                    itemId: `ChallengeBundle:${quest.Name}`,
+                    item: ChallengeBundle,
+                  });
+
+                  for (const [key, value] of Object.entries(responseMap)) {
+                    const ItemResponse = {
+                      templateId: key,
+                      attributes: {
+                        unlock_epoch: new Date().toISOString(),
+                        max_level_bonus: 0,
+                        level: 0,
+                        item_seen: true,
+                        xp: 0,
+                        favorite: false,
+                        granted_bundles: value.slice(),
+                      },
+                      quantity: 1,
+                    };
+
+                    multiUpdates.push({
+                      changeType: "itemRemoved",
+                      itemId: key,
+                    });
+
+                    multiUpdates.push({
+                      changeType: "itemAdded",
+                      itemId: key,
+                      item: ItemResponse,
+                    });
+                  }
+                }
+              }
             }
 
             multiUpdates.push({
@@ -522,11 +680,178 @@ export default async function (c: Context) {
                   attributeValue: addedVariants,
                 });
 
+                break;
+              case rewards.TemplateId.startsWith("ChallengeBundleSchedule"):
+                const battlepassQuests = QuestManager.listedBattlepassQuests;
+
+                if (battlepassQuests.length === 0 || !battlepassQuests) continue;
+
+                const filteredMatchingQuest = battlepassQuests.filter(
+                  (q) => q!.ChallengeBundleSchedule === rewards.TemplateId,
+                );
+
+                if (!filteredMatchingQuest) continue;
+
+                const responseMap: { [key: string]: string[] } = {};
+
+                for (const quest of filteredMatchingQuest) {
+                  if (!quest) continue;
+
+                  let existingBundles = responseMap[quest.ChallengeBundleSchedule];
+                  if (!existingBundles)
+                    responseMap[quest.ChallengeBundleSchedule] = [`ChallengeBundle:${quest.Name}`];
+                  else existingBundles.push(`ChallengeBundle:${quest.Name}`);
+
+                  const listOfQuests: string[] = [];
+
+                  for await (const objects of quest.Objects) {
+                    for (const objectives of objects.Objectives) {
+                      // TODO - Handle non-xp objectives differently.
+                      listOfQuests.push(`${objectives.BackendName}: ${objectives.Count}`);
+                    }
+                  }
+
+                  const storage = await itemStorageService.getItemByType("battlepass_quest");
+
+                  if (!storage) continue;
+
+                  for (const obj of quest.Objects)
+                    if (!storage.data[obj.Name]) {
+                      const objectiveStates: { name: string; count: number }[] = [];
+
+                      for (const objective of obj.Objectives) {
+                        objectiveStates.push({
+                          name: `completion_${objective.BackendName}`,
+                          count: objective.Count,
+                        });
+                      }
+
+                      const data = [
+                        {
+                          templateId: obj.Name,
+                          attributes: {
+                            challenge_bundle_id: `ChallengeBundle:${quest.Name}`,
+                            sent_new_notification: false,
+                            ObjectiveState: objectiveStates,
+                          },
+                          quantity: 1,
+                        },
+                      ];
+
+                      await itemStorageService.addItem(data, "battlepass_quest");
+
+                      const itemResponse = {
+                        templateId: quest.Name,
+                        attributes: {
+                          creation_time: new Date().toISOString(),
+                          level: -1,
+                          item_seen: false,
+                          playlists: [],
+                          sent_new_notification: true,
+                          challenge_bundle_id: `ChallengeBundle:${quest.Name}`,
+                          xp_reward_scalar: 1,
+                          challenge_linked_quest_given: "",
+                          quest_pool: "",
+                          quest_state: "Active",
+                          bucket: "",
+                          last_state_change_time: new Date().toISOString(),
+                          challenge_linked_quest_parent: "",
+                          max_level_bonus: 0,
+                          xp: 0,
+                          quest_rarity: "uncommon",
+                          favorite: false,
+                          ...objectiveStates.reduce((acc, state) => {
+                            // @ts-ignore
+                            acc[`completion_${state.name}`] = state.count;
+                            return acc;
+                          }, {}),
+                        },
+                        quantity: 1,
+                      };
+
+                      multiUpdates.push({
+                        changeType: "itemAdded",
+                        itemId: quest.Name,
+                        item: itemResponse,
+                      });
+                    }
+
+                  const scheduleId = quest.ChallengeBundleSchedule.startsWith(
+                    "ChallengeBundleSchedule:",
+                  )
+                    ? quest.ChallengeBundleSchedule
+                    : `ChallengeBundleSchedule:${quest.ChallengeBundleSchedule}`;
+
+                  const itemResponse = {
+                    templateId: `ChallengeBundle:${quest.Name}`,
+                    attributes: {
+                      has_unlock_by_completion: false,
+                      num_quests_completed: 0,
+                      level: 0,
+                      grantedquestinstanceids: listOfQuests,
+                      item_seen: true,
+                      max_allowed_bundle_level: 0,
+                      num_granted_bundle_quests: listOfQuests.length,
+                      max_level_bonus: 0,
+                      challenge_bundle_schedule_id: scheduleId,
+                      num_progress_quests_completed: 0,
+                      xp: 0,
+                      favorite: false,
+                    },
+                    quantity: 1,
+                  };
+
+                  multiUpdates.push({
+                    changeType: "itemRemoved",
+                    itemId: `ChallengeBundle:${quest.Name}`,
+                  });
+
+                  multiUpdates.push({
+                    changeType: "itemAdded",
+                    itemId: `ChallengeBundle:${quest.Name}`,
+                    item: itemResponse,
+                  });
+
+                  notifications.push({
+                    itemType: rewards.TemplateId,
+                    itemGuid: rewards.TemplateId,
+                    quantity: rewards.Quantity,
+                  });
+                }
+
+                for (const [key, value] of Object.entries(responseMap)) {
+                  const itemResponse = {
+                    templateId: key,
+                    attributes: {
+                      unlock_epoch: new Date().toISOString(),
+                      max_level_bonus: 0,
+                      level: 0,
+                      item_seen: true,
+                      xp: 0,
+                      favorite: false,
+                      granted_bundles: value,
+                    },
+                    quantity: 1,
+                  };
+
+                  multiUpdates.push({
+                    changeType: "itemRemoved",
+                    itemId: key,
+                  });
+
+                  multiUpdates.push({
+                    changeType: "itemAdded",
+                    itemId: key,
+                    item: itemResponse,
+                  });
+                }
+
                 notifications.push({
                   itemType: rewards.TemplateId,
                   itemGuid: rewards.TemplateId,
                   quantity: rewards.Quantity,
                 });
+
                 break;
 
               default:

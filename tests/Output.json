@@ -1,21 +1,458 @@
-{
-    "Name": "QuestBundle_S13_BuildABrella",
-    "ChallengeBundleSchedule": "ChallengeBundleSchedule:season13_buildabrella_schedule",
-    "Level": 1,
-    "Objects": [
-        {
-            "Name": "Quest:Quest_S13_BuildABrella_01",
-            "Options": {
-                "bRequiresVIP": true,
-                "hasExtra": false
+[
+    {
+        "Quest:Quest_S13_BuildABrella_01": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_Quest_S13_BuildABrella_01",
+                        "count": 55
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_BuildABrella",
+                "sent_new_notification": false
             },
-            "Objectives": [
-                {
-                    "BackendName": "Quest_S13_BuildABrella_01",
-                    "Count": 55,
-                    "Stage": -1
-                }
-            ]
+            "templateId": "Quest:Quest_S13_BuildABrella_01"
         }
-    ]
-}
+    },
+    {
+        "Quest:Quest_S13_BuildABrella_02": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_Quest_S13_BuildABrella_02",
+                        "count": 35
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_BuildABrella",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_BuildABrella_02"
+        }
+    },
+    {
+        "Quest:Quest_S13_BuildABrella_03": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_Quest_S13_BuildABrella_03",
+                        "count": 15
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_BuildABrella",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_BuildABrella_03"
+        }
+    },
+    {
+        "Quest:Quest_S13_BuildABrella_04": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_Quest_S13_BuildABrella_04",
+                        "count": 75
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_BuildABrella",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_BuildABrella_04"
+        }
+    },
+    {
+        "Quest:Quest_S13_BuildABrella_05": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_Quest_S13_BuildABrella_05",
+                        "count": 95
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_BuildABrella",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_BuildABrella_05"
+        }
+    },
+    {
+        "Quest:Quest_S13_BuildABrella_06": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_Quest_S13_BuildABrella_06",
+                        "count": 500
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_BuildABrella",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_BuildABrella_06"
+        }
+    },
+    {
+        "Quest:Quest_S13_BuildABrella_07": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_Quest_S13_BuildABrella_07",
+                        "count": 50
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_BuildABrella",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_BuildABrella_07"
+        }
+    },
+    {
+        "Quest:Quest_S13_BuildABrella_08": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_Quest_S13_BuildABrella_08",
+                        "count": 50
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_BuildABrella",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_BuildABrella_08"
+        }
+    },
+    {
+        "Quest:Quest_S13_BuildABrella_09": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_Quest_S13_BuildABrella_09",
+                        "count": 50
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_BuildABrella",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_BuildABrella_09"
+        }
+    },
+    {
+        "Quest:Quest_S13_BuildABrella_10": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_Quest_S13_BuildABrella_10",
+                        "count": 500
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_BuildABrella",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_BuildABrella_10"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_BlackKnight_ColorB": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_blackknight_colorb",
+                        "count": 5
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_BlackKnight_ColorB"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_BlackKnight_ColorC": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_blackknight_colorc",
+                        "count": 65
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_BlackKnight_ColorC"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_MechanicalEngineer_StyleB": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_mechanicalengineer_styleb",
+                        "count": 5
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_MechanicalEngineer_StyleB"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_OceanRider_StyleB": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_oceanrider_styleb",
+                        "count": 5
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_OceanRider_StyleB"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_OceanRider_StyleC": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_oceanrider_stylec",
+                        "count": 10
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_OceanRider_StyleC"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_ProfessorPup_StyleC": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_professorpup_stylec",
+                        "count": 40
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_ProfessorPup_StyleC"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_RacerZero_StyleB_Dummy": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_racerzero_styleb_dummy",
+                        "count": 50
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_RacerZero_StyleB_Dummy"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_RacerZero_StyleC_Dummy": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_racerzero_stylec_dummy",
+                        "count": 100
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_RacerZero_StyleC_Dummy"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_SandCastle_01": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_sandcastle_01",
+                        "count": 5
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_SandCastle_01"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_SandCastle_02": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_sandcastle_02",
+                        "count": 1
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_SandCastle_02"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_SpaceWanderer_ColorB": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_spacewanderer_colorb",
+                        "count": 5
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_SpaceWanderer_ColorB"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_SpaceWanderer_ColorC": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_spacewanderer_colorc",
+                        "count": 50
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_SpaceWanderer_ColorC"
+        }
+    },
+    {
+        "Quest:Quest_S13_Style_TacticalScuba_ColorC": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_questobj_s13_style_tacticalscuba_colorc",
+                        "count": 20
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_Styles",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:Quest_S13_Style_TacticalScuba_ColorC"
+        }
+    },
+    {
+        "Quest:quest_s13_sandcastle_q01": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_quest_s13_sandcastle_q01_obj0",
+                        "count": 1
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_SandCastle_01",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:quest_s13_sandcastle_q01"
+        }
+    },
+    {
+        "Quest:quest_s13_sandcastle_q02": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_quest_s13_sandcastle_q02_obj0",
+                        "count": 1
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_SandCastle_02",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:quest_s13_sandcastle_q02"
+        }
+    },
+    {
+        "Quest:quest_s13_sandcastle_q03": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_quest_s13_sandcastle_q03_obj0",
+                        "count": 1
+                    },
+                    {
+                        "name": "completion_quest_s13_sandcastle_q03_obj1",
+                        "count": 1
+                    },
+                    {
+                        "name": "completion_quest_s13_sandcastle_q03_obj2",
+                        "count": 1
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_SandCastle_03",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:quest_s13_sandcastle_q03"
+        }
+    },
+    {
+        "Quest:quest_s13_sandcastle_q04": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_quest_s13_sandcastle_q04_obj0",
+                        "count": 1
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_SandCastle_04",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:quest_s13_sandcastle_q04"
+        }
+    },
+    {
+        "Quest:quest_s13_sandcastle_q05": {
+            "quantity": 1,
+            "attributes": {
+                "ObjectiveState": [
+                    {
+                        "name": "completion_quest_s13_sandcastle_q05_obj0",
+                        "count": 1
+                    }
+                ],
+                "challenge_bundle_id": "ChallengeBundle:QuestBundle_S13_SandCastle_05",
+                "sent_new_notification": false
+            },
+            "templateId": "Quest:quest_s13_sandcastle_q05"
+        }
+    }
+]

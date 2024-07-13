@@ -9,6 +9,36 @@ interface DailyQuestDef {
   Properties: DailyQuestProps;
 }
 
+interface BattlepassQuestDef {
+  Name: string;
+  ChallengeBundleSchedule: string;
+  Level: number;
+  Objects: BattlepassQuestObjects[];
+}
+
+interface BattlepassQuestObjects {
+  Name: string;
+  Options: ObjectsOptions;
+  Rewards: ObjectsRewards[];
+  Objectives: Objectives[];
+}
+
+interface Objectives {
+  BackendName: string;
+  Count: number;
+  Stage: number;
+}
+
+interface ObjectsRewards {
+  TemplateId: string;
+  Quantity: number;
+}
+
+interface ObjectsOptions {
+  bRequiresVIP: boolean;
+  hasExtra: boolean;
+}
+
 interface DailyQuestProps {
   DisplayName: string;
   Description: string;
@@ -33,18 +63,20 @@ interface DailyQuestObjectives {
 export enum QuestType {
   REPEATABLE = "repeatable",
   SEASONAL = "seasonal",
-  BATTLEPASS = "BATTLEPASS",
+  BATTLEPASS = "battlepass",
 }
-
-export const listedQuests: Record<QuestType, DailyQuestDef[]> = {
-  [QuestType.REPEATABLE]: [],
-  [QuestType.SEASONAL]: [],
-  [QuestType.BATTLEPASS]: [],
-};
 
 const baseFolder = path.join(__dirname, "..", "..", "memory", "season", "quests");
 
 export namespace QuestManager {
+  export const listedQuests: Record<QuestType, DailyQuestDef[]> = {
+    [QuestType.REPEATABLE]: [],
+    [QuestType.SEASONAL]: [],
+    [QuestType.BATTLEPASS]: [],
+  };
+
+  export const listedBattlepassQuests: Partial<BattlepassQuestDef[]> = [];
+
   async function readAllQuests(folder: string): Promise<DailyQuestDef[]> {
     let allQuests: DailyQuestDef[] = [];
 
@@ -60,7 +92,7 @@ export namespace QuestManager {
       } else if (file.endsWith(".json")) {
         try {
           const content = await fs.readFile(filePath, "utf-8");
-          const quest = JSON.parse(content) as DailyQuestDef;
+          const quest = JSON.parse(content);
 
           if (folder.includes("repeatable")) {
             listedQuests[QuestType.REPEATABLE].push(quest);
@@ -68,6 +100,7 @@ export namespace QuestManager {
             listedQuests[QuestType.SEASONAL].push(quest);
           } else if (folder.includes("battlepass")) {
             listedQuests[QuestType.BATTLEPASS].push(quest);
+            listedBattlepassQuests.push(quest as BattlepassQuestDef);
           }
 
           allQuests.push(quest);
@@ -128,6 +161,39 @@ export namespace QuestManager {
 
     const randomIndex = Math.floor(Math.random() * filteredQuests.length);
     return filteredQuests[randomIndex].quest;
+  }
+
+  export async function getBPQuests(): Promise<BattlepassQuestDef[]> {
+    let allBPQuests: BattlepassQuestDef[] = [];
+
+    const files = await fs.readdir(baseFolder);
+
+    await Promise.all(
+      files.map(async (file) => {
+        const filePath = path.join(baseFolder, file);
+        const stat = await fs.stat(filePath);
+
+        if (stat.isDirectory()) {
+          const subdirectoryQuests = await getBPQuests();
+          allBPQuests = [...allBPQuests, ...subdirectoryQuests];
+        } else if (file.endsWith(".json")) {
+          try {
+            const content = await fs.readFile(filePath, "utf-8");
+            const quest = JSON.parse(content) as BattlepassQuestDef;
+
+            if (baseFolder.includes("battlepass")) {
+              listedBattlepassQuests.push(quest);
+            }
+
+            allBPQuests.push(quest);
+          } catch (error) {
+            logger.error(`Error parsing Quest ${filePath}: ${error}`);
+          }
+        }
+      }),
+    );
+
+    return allBPQuests;
   }
 
   export function buildBase(name: string, objectives: DailyQuestObjectives[]) {

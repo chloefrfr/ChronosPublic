@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-export type ItemTypes = "storefront" | "daily_quest";
+export type ItemTypes = "storefront" | "battlepass_quest" | "weekly_quest";
 
 @Entity()
 export class Item {
@@ -10,6 +10,6 @@ export class Item {
   @Column({ type: "varchar" })
   type!: ItemTypes;
 
-  @Column({ type: "jsonb" })
+  @Column({ type: "simple-array", nullable: false, default: [] })
   data: any;
 }

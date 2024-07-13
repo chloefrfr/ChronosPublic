@@ -37,6 +37,9 @@ export default function () {
         400,
       );
 
-    return c.json(storefrontData.data);
+    let data;
+    for (const ChronosShop of storefrontData["ChronosShop"]) data = ChronosShop;
+
+    return c.json(data.data);
   });
 }

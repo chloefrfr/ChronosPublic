@@ -21,6 +21,8 @@ import type { Account } from "./tables/account";
 import { ServerService } from "./wrappers/database/ServerService";
 import { QuestManager } from "./utilities/managers/QuestManager";
 import { LevelsManager } from "./utilities/managers/LevelsManager";
+import DailyQuestService from "./wrappers/database/DailyQuestService";
+import BattlepassQuestService from "./wrappers/database/BattlepassQuestService";
 
 export type Variables = {
   user: User;
@@ -34,7 +36,7 @@ export const config = new Config().getConfig();
 app.use(async (c, next) => {
   await next();
 
-  logger.info(`${c.req.url} | ${c.req.method} | ${c.res.status}`);
+  // logger.info(`${c.req.url} | ${c.req.method} | ${c.res.status}`);
 });
 
 export const db = new Database({
@@ -42,8 +44,6 @@ export const db = new Database({
 });
 
 await db.connect();
-
-await db.dropAllTables(config.drop);
 
 export const userService = new UserService(db);
 export const accountService = new AccountService(db);
@@ -53,6 +53,8 @@ export const hypeService = new HypeService(db);
 export const friendsService = new FriendsService(db);
 export const itemStorageService = new ItemStorageService(db);
 export const serverService = new ServerService(db);
+export const dailyQuestService = new DailyQuestService(db);
+export const battlepassQuestService = new BattlepassQuestService(db);
 
 await loadRoutes(path.join(__dirname, "routes"), app);
 

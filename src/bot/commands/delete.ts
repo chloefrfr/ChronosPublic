@@ -12,7 +12,14 @@ import {
   ButtonInteraction,
 } from "discord.js";
 import BaseCommand from "../base/Base";
-import { accountService, friendsService, logger, profilesService, userService } from "../..";
+import {
+  accountService,
+  dailyQuestService,
+  friendsService,
+  logger,
+  profilesService,
+  userService,
+} from "../..";
 
 export default class DeleteCommand extends BaseCommand {
   data = {
@@ -91,13 +98,13 @@ export default class DeleteCommand extends BaseCommand {
             accountService.delete(user.accountId),
             profilesService.deleteByAccountId(user.accountId),
             friendsService.delete(user.accountId),
+            dailyQuestService.delete(user.accountId),
           ];
 
-          const [userDelete, accountDelete, profileDelete, friendDelete] = await Promise.all(
-            promises,
-          );
+          const [userDelete, accountDelete, profileDelete, friendDelete, dailyDelete] =
+            await Promise.all(promises);
 
-          if (userDelete && accountDelete && profileDelete && friendDelete) {
+          if (userDelete && accountDelete && profileDelete && friendDelete && dailyDelete) {
             const embed = new EmbedBuilder()
               .setTitle("Account Deleted Successfully")
               .setDescription("Your account has been successfully deleted.")

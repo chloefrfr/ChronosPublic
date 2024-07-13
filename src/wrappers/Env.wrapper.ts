@@ -33,7 +33,7 @@ export default class Config {
       webhook_url: Bun.env.webhook_url,
       session_url: Bun.env.session_url,
       token: Bun.env.token,
-      drop: Boolean(Bun.env.drop),
+      drop: Bun.env.drop === "true" || Bun.env.drop === undefined ? true : false,
     });
 
     // Check if parsing was successful

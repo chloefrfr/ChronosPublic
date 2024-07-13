@@ -8,6 +8,8 @@ import {
 import BaseCommand from "../base/Base";
 import {
   accountService,
+  battlepassQuestService,
+  dailyQuestService,
   friendsService,
   itemStorageService,
   logger,
@@ -117,7 +119,9 @@ export default class RegisterCommand extends BaseCommand {
             accountId: newUser.accountId,
           });
 
-          await itemStorageService.addItem({}, "daily_quest");
+          await itemStorageService.addItem([], "weekly_quest");
+          await dailyQuestService.add(newUser?.accountId, []);
+          await battlepassQuestService.add(newUser?.accountId, []);
         });
 
       const embed = new EmbedBuilder()
