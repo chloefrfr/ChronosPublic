@@ -88,17 +88,14 @@ export default async function (c: Context) {
       return c.json(errors.createError(400, c.req.url, "Invalid request.", timestamp), 400);
     }
 
-    const currentStorefrontData = await itemStorageService.getItemByType("storefront");
+    const currentShop = await itemStorageService.getItemByType("storefront");
 
-    if (!currentStorefrontData) {
+    if (!currentShop || !currentShop.data || !currentShop.data.storefronts) {
       return c.json(
         errors.createError(400, c.req.url, "Failed to get storefront.", timestamp),
         400,
       );
     }
-
-    let currentShop;
-    for (const ChronosShop of currentStorefrontData["ChronosShop"]) currentShop = ChronosShop;
 
     if (offerId.includes(":/")) {
       let currentActiveStorefront = null;

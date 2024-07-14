@@ -106,6 +106,19 @@ export namespace ShopGenerator {
       }
     }
 
+    Object.values(items)
+      .filter(
+        (item) => item.type.backendValue.includes("AthenaBackpack") && item.itemPreviewHeroPath,
+      )
+      .forEach((item) => {
+        const cosmeticId = item.itemPreviewHeroPath.split("/").at(-1);
+        if (!cosmeticId) return;
+        const cosmetic = items[cosmeticId];
+        if (cosmetic) {
+          cosmetic.backpack = item;
+        }
+      });
+
     const daily = ShopHelper.createStorefront("BRDailyStorefront");
     const weekly = ShopHelper.createStorefront("BRWeeklyStorefront");
     const battlepass = ShopHelper.createBattlePassStorefront(
@@ -216,6 +229,19 @@ export namespace ShopGenerator {
         quantity: 1,
       });
 
+      if (randomItem.backpack) {
+        entry.itemGrants.push({
+          templateId: `${randomItem.backpack.type.backendValue}:${randomItem.backpack.id}`,
+          quantity: 1,
+        });
+
+        entry.requirements.push({
+          requirementType: "DenyOnItemOwnership",
+          requiredId: `${randomItem.backpack.type.backendValue}:${randomItem.backpack.id}`,
+          minQuantity: 1,
+        });
+      }
+
       daily.catalogEntries.push(entry);
 
       if (characters === 2) break;
@@ -299,6 +325,19 @@ export namespace ShopGenerator {
           templateId: `${item.type.backendValue}:${item.id}`,
           quantity: 1,
         });
+
+        if (item.backpack) {
+          entry.itemGrants.push({
+            templateId: `${item.backpack.type.backendValue}:${item.backpack.id}`,
+            quantity: 1,
+          });
+
+          entry.requirements.push({
+            requirementType: "DenyOnItemOwnership",
+            requiredId: `${item.backpack.type.backendValue}:${item.backpack.id}`,
+            minQuantity: 1,
+          });
+        }
 
         weekly.catalogEntries.push(entry);
       }

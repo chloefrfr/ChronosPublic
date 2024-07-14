@@ -6,8 +6,10 @@ export interface JSONResponse {
   rarity: CosmeticRarity;
   series: CosmeticSeries;
   set: CosmeticSet;
+  backpack: JSONResponse;
   introduction: CosmeticIntroduction;
   images: CosmeticImages;
+  itemPreviewHeroPath: string;
   displayAssetPath: string | null;
   NewDisplayAssetPath: string | null;
   definitionPath: string | null;
@@ -15,6 +17,8 @@ export interface JSONResponse {
   added: string;
   shopHistory: string[] | null;
 }
+
+interface BackpackDef extends JSONResponse {}
 
 export interface CosmeticType {
   value: string;

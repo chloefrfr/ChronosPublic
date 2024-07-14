@@ -10,6 +10,6 @@ export class Item {
   @Column({ type: "varchar" })
   type!: ItemTypes;
 
-  @Column({ type: "simple-array", nullable: false, default: [] })
+  @Column({ type: "jsonb" })
   data: any;
 }
