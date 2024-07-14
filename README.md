@@ -5,7 +5,7 @@
 
 ## Supported MCP Operations
 
-`QueryProfile` `BulkEquipBattleRoyaleCustomization` `ClaimMfaEnabled` `PurchaseCatalogEntry` `MarkItemSeen` `RefundMtxPurchase` `RemoveGiftBox` `SetBattleRoyaleBanner` `SetCosmeticLockerSlot` `SetMtxPlatform` `EquipBattleRoyaleCustomization` `CopyCosmeticLoadout` `SetItemFavoriteStatusBatch`
+`QueryProfile` `BulkEquipBattleRoyaleCustomization` `ClaimMfaEnabled` `PurchaseCatalogEntry` `MarkItemSeen` `RefundMtxPurchase` `RemoveGiftBox` `SetBattleRoyaleBanner` `SetCosmeticLockerSlot` `SetMtxPlatform` `EquipBattleRoyaleCustomization` `SetItemFavoriteStatusBatch` `GiftCatalogEntry`
 
 ## What's Next?
 
@@ -25,7 +25,7 @@
 - [x] Party V1
 - [x] Party V2
 - [x] Daily rewards
-- [ ] Gifting
+- [x] Gifting
 - [x] Purchasing from item shop
 - [ ] IP Bans
 - [ ] HWID Bans
