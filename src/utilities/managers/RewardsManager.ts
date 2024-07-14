@@ -1,4 +1,4 @@
-import { logger } from "../..";
+import { config, logger } from "../..";
 import { BattlepassManager } from "./BattlepassManager";
 import { LevelsManager, type PastSeasons } from "./LevelsManager";
 
@@ -24,7 +24,7 @@ export namespace RewardsManager {
   export async function addGrant(pastSeasons: PastSeasons) {
     let originalBookLevel = pastSeasons.bookLevel;
 
-    const updater = await LevelsManager.update(pastSeasons);
+    const updater = await LevelsManager.update(pastSeasons, config.currentSeason);
 
     if (!updater) return;
 

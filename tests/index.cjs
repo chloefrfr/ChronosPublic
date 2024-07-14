@@ -1,6 +1,7 @@
 const fs = require("fs").promises;
+const path = require("path");
 
-let SoIDontLoseMyMind = "QuestBundle_S13_Styles";
+let SoIDontLoseMyMind = "MissionBundle_S13_Week_01";
 
 const QuestBundle = require(`./bundles/${SoIDontLoseMyMind}.json`);
 const SingleQuest = require("./singlequest.json");
@@ -59,7 +60,7 @@ const SingleQuest = require("./singlequest.json");
     };
 
     response.push({
-      Name: `Quest:${single.Name}`,
+      TemplateId: `Quest:${single.Name}`,
       Options: options,
       Rewards: rewards,
       Objectives: objectives,
@@ -69,7 +70,10 @@ const SingleQuest = require("./singlequest.json");
   QuestBundle.Objects = QuestBundle.Objects.concat(response);
 
   try {
-    await fs.writeFile(`./bundles/${SoIDontLoseMyMind}.json`, JSON.stringify(QuestBundle, null, 2));
+    await fs.writeFile(
+      path.join(__dirname, "bundles", `${SoIDontLoseMyMind}.json`),
+      JSON.stringify(QuestBundle, null, 2),
+    );
   } catch (err) {
     console.error(err);
   }

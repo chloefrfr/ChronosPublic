@@ -227,6 +227,15 @@ export interface ItemValue {
   monthly_purchases?: any;
   allowed_to_send_gifts?: boolean;
   mfa_enabled?: boolean;
+  unlock_epoch?: string;
+  granted_bundles?: string[];
+  has_unlock_by_completion?: boolean;
+  num_quests_completed?: number;
+  max_allowed_bundle_level?: number;
+  num_granted_bundle_quests?: number;
+  challenge_bundle_schedule_id?: string;
+  num_progress_quests_completed?: number;
+  grantedquestinstanceids?: string[];
   allowed_to_receive_gifts?: boolean;
   gift_history?: any;
   gifts?: Gifts[];

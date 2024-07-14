@@ -15,6 +15,7 @@ import ProfileHelper from "../utilities/profiles";
 import { QuestManager } from "../utilities/managers/QuestManager";
 import MCPResponses from "../utilities/responses";
 import { Profiles } from "../tables/profiles";
+import { WeeklyQuestGranter } from "../utilities/granting/WeeklyQuestGranter";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -101,11 +102,8 @@ export default async function (c: Context) {
         const maxDailyQuests = 5;
 
         const currentQuestCount = storage.length;
-        logger.debug(`Current Quest Count: ${currentQuestCount}`);
 
         const questsToAdd = Math.max(0, maxDailyQuests - currentQuestCount);
-
-        logger.debug(`Adding ${questsToAdd} daily quests.`);
 
         const data: object[] = [];
 
@@ -124,7 +122,6 @@ export default async function (c: Context) {
               [dailyQuests.Name]: questData,
             },
           ]);
-          logger.debug(`Added quest: ${dailyQuests.Name}`);
 
           const newQuestItem = {
             changeType: "itemAdded",

@@ -64,6 +64,7 @@ export enum QuestType {
   REPEATABLE = "repeatable",
   SEASONAL = "seasonal",
   BATTLEPASS = "battlepass",
+  WEEKLY = "weekly",
 }
 
 const baseFolder = path.join(__dirname, "..", "..", "memory", "season", "quests");
@@ -73,9 +74,11 @@ export namespace QuestManager {
     [QuestType.REPEATABLE]: [],
     [QuestType.SEASONAL]: [],
     [QuestType.BATTLEPASS]: [],
+    [QuestType.WEEKLY]: [],
   };
 
   export const listedBattlepassQuests: Partial<BattlepassQuestDef[]> = [];
+  export const listedWeeklyQuests: Partial<BattlepassQuestDef[]> = [];
 
   async function readAllQuests(folder: string): Promise<DailyQuestDef[]> {
     let allQuests: DailyQuestDef[] = [];
@@ -101,6 +104,9 @@ export namespace QuestManager {
           } else if (folder.includes("battlepass")) {
             listedQuests[QuestType.BATTLEPASS].push(quest);
             listedBattlepassQuests.push(quest as BattlepassQuestDef);
+          } else if (folder.includes("weekly")) {
+            listedQuests[QuestType.WEEKLY].push(quest);
+            listedWeeklyQuests.push(quest as BattlepassQuestDef);
           }
 
           allQuests.push(quest);

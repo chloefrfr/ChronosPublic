@@ -1,68 +1,59 @@
 [
     {
         "Type": "FortQuestItemDefinition",
-        "Name": "Quest_S13_Style_TacticalScuba_ColorC",
+        "Name": "quest_s13_w1_q07",
         "Class": "UScriptClass'FortQuestItemDefinition'",
         "Properties": {
             "QuestType": "EFortQuestType::AthenaChallengeBundleQuest",
             "bIncludedInCategories": false,
-            "Rewards": [
-                {
-                    "ItemPrimaryAssetId": {
-                        "PrimaryAssetType": {
-                            "Name": "CosmeticVariantToken"
-                        },
-                        "PrimaryAssetName": "VTID_661_TacticalScuba_ColorC"
-                    },
-                    "Quantity": 1
-                },
-                {
-                    "ItemPrimaryAssetId": {
-                        "PrimaryAssetType": {
-                            "Name": "CosmeticVariantToken"
-                        },
-                        "PrimaryAssetName": "VTID_659_TacticalScuba_StyleB"
-                    },
-                    "Quantity": 1
-                },
-                {
-                    "ItemPrimaryAssetId": {
-                        "PrimaryAssetType": {
-                            "Name": "CosmeticVariantToken"
-                        },
-                        "PrimaryAssetName": "VTID_674_TacticalScuba_Backbling_StyleC"
-                    },
-                    "Quantity": 1
-                },
-                {
-                    "ItemPrimaryAssetId": {
-                        "PrimaryAssetType": {
-                            "Name": "CosmeticVariantToken"
-                        },
-                        "PrimaryAssetName": "VTID_696_TacticalScubaGlider_ColorC"
-                    },
-                    "Quantity": 1
-                }
-            ],
+            "RewardsTable": {
+                "ObjectName": "DataTable'AthenaChallengeRewardS13WeeklyChallenge'",
+                "ObjectPath": "FortniteGame/Content/Athena/Items/Quests/Rewards/Season13/AthenaChallengeRewardS13WeeklyChallenge.0"
+            },
             "Objectives": [
                 {
-                    "BackendName": "questobj_s13_style_tacticalscuba_colorc",
-                    "InlineObjectiveStats": [],
+                    "BackendName": "quest_s13_w1_q07_obj0",
+                    "InlineObjectiveStats": [
+                        {
+                            "TagConditions": [
+                                {
+                                    "Tag": {
+                                        "TagName": "Athena.Playlist"
+                                    },
+                                    "Type": "EInlineObjectiveStatTagCheckEntryType::Context",
+                                    "Require": true
+                                },
+                                {
+                                    "Tag": {
+                                        "TagName": "Homebase.Class"
+                                    },
+                                    "Type": "EInlineObjectiveStatTagCheckEntryType::Source",
+                                    "Require": true
+                                }
+                            ],
+                            "Condition": "Source.Tags HasTag Athena.Location.POI.PowerPlant || Target.Tags HasTag Athena.Location.POI.PowerPlant",
+                            "TemplateIds": [],
+                            "Type": "EFortQuestObjectiveStatEvent::Kill",
+                            "bHasInclusiveTargetTags": false,
+                            "bHasInclusiveSourceTags": true,
+                            "bHasInclusiveContextTags": true
+                        }
+                    ],
                     "ObjectiveStatHandle": {
                         "DataTable": null,
                         "RowName": "None"
                     },
                     "AlternativeStatHandles": [],
-                    "ItemEvent": "EFortQuestObjectiveItemEvent::HasAccumulatedItem",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
                     "bHidden": false,
                     "bRequirePrimaryMissionCompletion": false,
                     "bCanProgressInZone": true,
                     "bDisplayDynamicAnnouncementUpdate": false,
-                    "DynamicStatusUpdateType": "EObjectiveStatusUpdateType::OnComplete",
+                    "DynamicStatusUpdateType": "EObjectiveStatusUpdateType::Always",
                     "LinkVaultTab": "EFortInventoryFilter::Max_None",
                     "LinkToItemManagement": "EFortFrontendInventoryFilter::Max_None",
                     "ItemReference": {
-                        "AssetPathName": "/Game/Items/Tokens/AthenaBattlePass_WeeklyChallenge_Token.AthenaBattlePass_WeeklyChallenge_Token",
+                        "AssetPathName": "None",
                         "SubPathString": ""
                     },
                     "ItemTemplateIdOverride": "",
@@ -70,24 +61,24 @@
                     "LinkSquadIndex": 0,
                     "Description": {
                         "Namespace": "",
-                        "Key": "5903D80E41F3CE13C1144A939A36EC10",
-                        "SourceString": "Complete any Weekly Challenges",
-                        "LocalizedString": "Complete any Weekly Challenges"
+                        "Key": "A6A87F5A448E4FFC5AB837AA050D49D2",
+                        "SourceString": "Eliminations at Steamy Stacks",
+                        "LocalizedString": "Eliminations at Steamy Stacks"
                     },
                     "HudShortDescription": {
                         "Namespace": "",
-                        "Key": "A85F13D9473A51C3806D8B9E65C39A3A",
-                        "SourceString": "Complete any Weekly Challenges",
-                        "LocalizedString": "Complete any Weekly Challenges"
+                        "Key": "99E319FC4181DCAE5560AC9424909938",
+                        "SourceString": "Eliminations at Steamy Stacks",
+                        "LocalizedString": "Eliminations at Steamy Stacks"
                     },
                     "HudIcon": {
                         "AssetPathName": "None",
                         "SubPathString": ""
                     },
-                    "Count": 20,
+                    "Count": 3,
                     "Stage": -1,
                     "DynamicStatusUpdatePercentInterval": 25,
-                    "DynamicUpdateCompletionDelay": 0.0,
+                    "DynamicUpdateCompletionDelay": 1.0,
                     "ScriptedAction": {
                         "AssetPathName": "None",
                         "SubPathString": ""
@@ -106,25 +97,26 @@
             },
             "GrantToProfileType": "athena",
             "DisplayName": {
-                "Namespace": "",
-                "Key": "7E6CD84E4AB90472E22A3CBDE57F5439",
-                "SourceString": "Complete any Weekly Challenges",
-                "LocalizedString": "Complete any Weekly Challenges"
+                "Namespace": "quest_s13_w1_q07",
+                "Key": "quest_s13_w1_q07_DisplayName",
+                "SourceString": "Eliminations at Steamy Stacks",
+                "LocalizedString": "Eliminations at Steamy Stacks"
+            },
+            "ShortDescription": {
+                "Namespace": "quest_s13_w1_q07",
+                "Key": "quest_s13_w1_q07_ShortDescription",
+                "SourceString": "Eliminations at Steamy Stacks",
+                "LocalizedString": "Eliminations at Steamy Stacks"
             },
             "Description": {
-                "Namespace": "",
-                "Key": "DB7B079B417822B4941D1AA80F61A051",
-                "SourceString": "Complete any Weekly Challenges",
-                "LocalizedString": "Complete any Weekly Challenges"
+                "Namespace": "quest_s13_w1_q07",
+                "Key": "quest_s13_w1_q07_Description",
+                "SourceString": "Eliminations at Steamy Stacks",
+                "LocalizedString": "Eliminations at Steamy Stacks"
             },
-            "SmallPreviewImage": {
-                "AssetPathName": "/Game/UI/Foundation/Textures/Icons/Mission/T-Icon-Story-64.T-Icon-Story-64",
-                "SubPathString": ""
-            },
-            "LargePreviewImage": {
-                "AssetPathName": "/Game/UI/Foundation/Textures/Icons/Mission/T-Icon-Story-128.T-Icon-Story-128",
-                "SubPathString": ""
-            }
+            "GameplayTags": [
+                "Athena.Location.POI.PowerPlant"
+            ]
         }
     }
 ]

@@ -23,6 +23,7 @@ import { QuestManager } from "./utilities/managers/QuestManager";
 import { LevelsManager } from "./utilities/managers/LevelsManager";
 import DailyQuestService from "./wrappers/database/DailyQuestService";
 import BattlepassQuestService from "./wrappers/database/BattlepassQuestService";
+import { WeeklyQuestGranter } from "./utilities/granting/WeeklyQuestGranter";
 
 export type Variables = {
   user: User;
