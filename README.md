@@ -9,7 +9,7 @@
 
 ## What's Next?
 
-- Weekly Quests
+- Leaderboards
 
 ## Planned Features
 
@@ -18,7 +18,7 @@
 - [x] Auto shop
 - [x] Battle Pass
 - [x] XP & Leveling
-- [ ] Challenges (Quests)
+- [x] Challenges (Only Daily)
 - [x] Friends
 - [x] XMPP
 - [x] Matchmaker
