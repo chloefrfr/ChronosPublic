@@ -239,6 +239,9 @@ export interface ItemValue {
   allowed_to_receive_gifts?: boolean;
   gift_history?: any;
   gifts?: Gifts[];
+  banner_color?: string;
+  homebase_name?: string;
+  banner_icon?: string;
   ban_status?: {
     bRequiresUserAck: boolean;
     bBanHasStarted: boolean;

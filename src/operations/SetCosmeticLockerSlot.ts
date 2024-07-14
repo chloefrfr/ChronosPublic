@@ -5,7 +5,7 @@ import { accountService, app, logger, profilesService, userService } from "..";
 import ProfileHelper from "../utilities/profiles";
 import { Profiles } from "../tables/profiles";
 import MCPResponses from "../utilities/responses";
-import type { Variants } from "../../types/profiles";
+import type { Variants } from "../../types/profilesdefs";
 
 export default async function (c: Context) {
   const startTimestamp = Date.now();

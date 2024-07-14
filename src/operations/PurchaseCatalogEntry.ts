@@ -20,7 +20,7 @@ import { BattlepassManager, type Rewards } from "../utilities/managers/Battlepas
 import { LevelsManager } from "../utilities/managers/LevelsManager";
 import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import ProfilesService from "../wrappers/database/ProfilesService";
-import type { Variants } from "../../types/profiles";
+import type { Variants } from "../../types/profilesdefs";
 import { QuestManager, QuestType, type Objectives } from "../utilities/managers/QuestManager";
 import { object } from "zod";
 

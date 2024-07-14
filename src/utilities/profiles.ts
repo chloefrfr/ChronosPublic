@@ -6,7 +6,7 @@ import type { BattlePass, Stats } from "../tables/account";
 import type { ProfileId } from "./responses";
 import { accountService, logger, profilesService } from "..";
 import type { Profiles } from "../tables/profiles";
-import type { Athena, CommonCore, CommonPublic } from "../../types/profiles";
+import type { Athena, CommonCore, CommonPublic } from "../../types/profilesdefs";
 import { Caching } from "./cache";
 
 type profiles = "athena" | "common_core";

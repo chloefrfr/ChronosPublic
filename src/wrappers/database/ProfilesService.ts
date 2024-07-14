@@ -3,7 +3,7 @@ import { logger } from "../..";
 import NodeCache from "node-cache";
 import { Profiles } from "../../tables/profiles";
 import type Database from "../Database.wrapper";
-import type { Athena, CommonCore, CommonPublic } from "../../../types/profiles";
+import type { Athena, CommonCore, CommonPublic } from "../../../types/profilesdefs";
 
 export default class ProfilesService {
   private profilesRepository: Repository<Profiles>;

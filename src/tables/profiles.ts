@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import type { Athena, CommonCore, CommonPublic } from "../../types/profiles";
+import type { Athena, CommonCore, CommonPublic } from "../../types/profilesdefs";
 
 @Entity()
 export class Profiles extends BaseEntity {

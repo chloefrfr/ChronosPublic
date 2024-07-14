@@ -4,7 +4,7 @@ import type { BattlePassStorefront } from "../../shop/interfaces/Declarations";
 import type { ProfileId } from "../responses";
 import ProfileHelper from "../profiles";
 import { Profiles } from "../../tables/profiles";
-import type { Variants } from "../../../types/profiles";
+import type { Variants } from "../../../types/profilesdefs";
 
 export interface Rewards {
   TemplateId: string;

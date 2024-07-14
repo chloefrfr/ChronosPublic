@@ -1,5 +1,5 @@
 import { logger, profilesService } from "..";
-import type { Athena, CommonCore, CommonPublic } from "../../types/profiles";
+import type { Athena, CommonCore, CommonPublic } from "../../types/profilesdefs";
 import type { Profiles } from "../tables/profiles";
 
 export class Caching {
