@@ -1,0 +1,107 @@
+[
+    {
+        "TemplateId": "AthenaDance:eid_callme",
+        "Quantity": 1,
+        "Tier": 2
+    },
+    {
+        "TemplateId": "Currency:mtxgiveaway",
+        "Quantity": 100,
+        "Tier": 5
+    },
+    {
+        "TemplateId": "AthenaDance:emoji_s12_skulldude",
+        "Quantity": 1,
+        "Tier": 9
+    },
+    {
+        "TemplateId": "AthenaLoadingScreen:lsid_219_alterego",
+        "Quantity": 1,
+        "Tier": 13
+    },
+    {
+        "TemplateId": "AthenaDance:spid_189_skulldude",
+        "Quantity": 1,
+        "Tier": 18
+    },
+    {
+        "TemplateId": "AthenaBackpack:bid_472_desertopscamo",
+        "Quantity": 1,
+        "Tier": 23
+    },
+    {
+        "TemplateId": "AthenaItemWrap:wrap_211_tntina",
+        "Quantity": 1,
+        "Tier": 28
+    },
+    {
+        "TemplateId": "BannerToken:bannertoken_029_s12_cowboy",
+        "Quantity": 1,
+        "Tier": 33
+    },
+    {
+        "TemplateId": "AthenaMusicPack:musicpack_042_bunnyhop",
+        "Quantity": 1,
+        "Tier": 38
+    },
+    {
+        "TemplateId": "AthenaPickaxe:pickaxe_id_368_bananaagent",
+        "Quantity": 1,
+        "Tier": 43
+    },
+    {
+        "TemplateId": "AthenaDance:spid_194_dumpsterfire",
+        "Quantity": 1,
+        "Tier": 48
+    },
+    {
+        "TemplateId": "AthenaGlider:glider_id_195_buffcatmale",
+        "Quantity": 1,
+        "Tier": 53
+    },
+    {
+        "TemplateId": "AthenaLoadingScreen:lsid_226_threemeowscles",
+        "Quantity": 1,
+        "Tier": 58
+    },
+    {
+        "TemplateId": "Currency:mtxgiveaway",
+        "Quantity": 100,
+        "Tier": 63
+    },
+    {
+        "TemplateId": "AthenaDance:eid_truckerhorn",
+        "Quantity": 1,
+        "Tier": 68
+    },
+    {
+        "TemplateId": "AthenaLoadingScreen:lsid_223_sharkisland",
+        "Quantity": 1,
+        "Tier": 73
+    },
+    {
+        "TemplateId": "Token:athena_s12_nobattlebundleoption_token",
+        "Quantity": 1,
+        "Tier": 76
+    },
+    {
+        "TemplateId": "AthenaItemWrap:wrap_206_photographer",
+        "Quantity": 1,
+        "Tier": 79
+    },
+    {
+        "TemplateId": "AthenaSkyDiveContrail:trails_id_086_snowstorm",
+        "Quantity": 1,
+        "Tier": 85
+    },
+    {
+        "TemplateId": "BannerToken:bannertoken_044_s12_bananaagent",
+        "Quantity": 1,
+        "Tier": 92
+    },
+    {
+        "TemplateId": "Currency:mtxgiveaway",
+        "Quantity": 100,
+        "Tier": 99
+    }
+]

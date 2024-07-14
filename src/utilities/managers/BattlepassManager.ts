@@ -27,19 +27,46 @@ export namespace BattlepassManager {
 
   export async function GetSeasonFreeRewards(): Promise<Rewards[]> {
     return await Bun.file(
-      path.join(__dirname, "..", "..", "memory", "season", "SeasonFreeRewards.json"),
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "memory",
+        "season",
+        "battlepass",
+        `Season${config.currentSeason}`,
+        "SeasonFreeRewards.json",
+      ),
     ).json();
   }
 
   export async function GetSeasonPaidRewards(): Promise<Rewards[]> {
     return await Bun.file(
-      path.join(__dirname, "..", "..", "memory", "season", "SeasonPaidRewards.json"),
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "memory",
+        "season",
+        "battlepass",
+        `Season${config.currentSeason}`,
+        "SeasonPaidRewards.json",
+      ),
     ).json();
   }
 
   export async function GetSeasonXP(): Promise<SeasonXP[]> {
     return await Bun.file(
-      path.join(__dirname, "..", "..", "memory", "season", "SeasonXP.json"),
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "memory",
+        "season",
+        "battlepass",
+        `Season${config.currentSeason}`,
+        "SeasonXP.json",
+      ),
     ).json();
   }
 
@@ -67,49 +94,5 @@ export namespace BattlepassManager {
     }
 
     return rewards;
-  }
-
-  export async function ClaimCosmeticVariantTokenReward(VTID: string, accountId: string) {
-    const tokens = await GetCosmeticVariantTokenReward();
-
-    logger.debug(`Attemping to find rewards for VTID: ${VTID}`);
-
-    const vtidMapping: { [key: string]: string } = {
-      vtid_655_razerzero_styleb: "VTID_655_RazerZero_StyleB",
-      vtid_656_razerzero_stylec: "VTID_656_RazerZero_StyleC",
-    };
-
-    
-
-    const reward = tokens[vtidMapping[VTID]];
-    if (!reward) return;
-
-    logger.debug(`Successfully found rewards for VTID: ${VTID}`);
-
-    const athena = await ProfileHelper.getProfile(accountId, "athena");
-    if (!athena) return;
-
-    const item = athena.items[reward.templateId];
-    if (item) {
-      if (
-        !item.attributes.variants!.find((variant: Variants) => variant.channel === reward.channel)
-      ) {
-        item.attributes.variants!.push({
-          channel: reward.channel,
-          active: "",
-          owned: [],
-        });
-      }
-
-      const variant = item.attributes.variants!.find(
-        (variant: any) => variant.channel === reward.channel,
-      );
-      if (!variant!.owned.includes(reward.value)) {
-        variant!.owned.push(reward.value);
-      }
-    }
-
-    await profilesService.update(accountId, "athena", athena);
-    return reward;
   }
 }

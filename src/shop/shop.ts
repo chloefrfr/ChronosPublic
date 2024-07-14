@@ -239,14 +239,15 @@ export namespace ShopGenerator {
         entry.offerId = `v2:/${uuid()}`;
         entry.offerType = "StaticPrice";
 
-        if (!item.displayAssetPath) item.displayAssetPath = setDisplayAsset(`DA_Daily_${item.id}`);
+        if (!item.displayAssetPath)
+          item.displayAssetPath = setDisplayAsset(`DA_Featured_${item.id}`);
         else if (!item.NewDisplayAssetPath) item.NewDisplayAssetPath = "";
         // else if (!item.newDisplayAssetPath)
         //   item.newDisplayAssetPath = setNewDisplayAssetPath(`DAv2_${randomItem.id}`);
 
-        entry.displayAssetPath = item.displayAssetPath.includes("DA_Daily")
+        entry.displayAssetPath = item.displayAssetPath.includes("DA_Featured")
           ? item.displayAssetPath
-          : setDisplayAsset(`DA_Daily_${item.id}`);
+          : setDisplayAsset(`DA_Featured_${item.id}`);
 
         if (!item.NewDisplayAssetPath) item.NewDisplayAssetPath = "";
 
