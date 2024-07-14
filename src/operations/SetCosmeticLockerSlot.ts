@@ -80,10 +80,12 @@ export default async function (c: Context) {
         if (existingIndex === -1) {
           profile.items[itemToSlot].attributes.variants.push({
             channel,
+            active,
             owned,
           });
         } else {
           profile.items[itemToSlot].attributes.variants[existingIndex].active = active;
+          profile.items[itemToSlot].attributes.variants[existingIndex].owned = owned;
         }
       });
 
