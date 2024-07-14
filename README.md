@@ -24,7 +24,7 @@
 - [x] Matchmaker
 - [x] Party V1
 - [x] Party V2
-- [ ] Daily rewards
+- [x] Daily rewards
 - [ ] Gifting
 - [x] Purchasing from item shop
 - [ ] IP Bans

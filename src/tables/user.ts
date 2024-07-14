@@ -29,4 +29,7 @@ export class User extends BaseEntity {
 
   @Column({ default: false })
   has_all_items!: boolean;
+
+  @Column({ default: "" })
+  lastLogin!: string;
 }

@@ -16,6 +16,10 @@ import { QuestManager } from "../utilities/managers/QuestManager";
 import MCPResponses from "../utilities/responses";
 import { Profiles } from "../tables/profiles";
 import { WeeklyQuestGranter } from "../utilities/granting/WeeklyQuestGranter";
+import { User } from "../tables/user";
+import type { LootList } from "../bot/commands/grantall";
+import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
+import { v4 as uuid } from "uuid";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -67,6 +71,13 @@ export default async function (c: Context) {
     if (!profile)
       return c.json(
         errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
+        404,
+      );
+
+    const common_core = await ProfileHelper.getProfile(user.accountId, "common_core");
+    if (!common_core)
+      return c.json(
+        errors.createError(404, c.req.url, `Profile 'common_core' not found.`, timestamp),
         404,
       );
 
@@ -199,6 +210,80 @@ export default async function (c: Context) {
       }
     }
 
+    // Daily Rewards
+    if (user.lastLogin === "") {
+      await User.createQueryBuilder()
+        .update(User)
+        .set({ lastLogin: new Date().toISOString() })
+        .where("accountId = :accountId", { accountId: user.accountId })
+        .execute();
+    }
+
+    const lastLoggedInDate = new Date(user.lastLogin);
+    const now = new Date(currentDate);
+    const lootList: LootList[] = [];
+
+    if (isNaN(lastLoggedInDate.getTime()) || isNaN(now.getTime())) {
+      return c.json(errors.createError(400, c.req.url, "Failed to parse date.", timestamp), 400);
+    }
+
+    if (lastLoggedInDate.getDate() !== now.getDate()) {
+      common_core.items["Currency:MtxPurchased"].quantity += 50;
+
+      lootList.push({
+        itemType: "Currency:MtxGiveaway",
+        itemGuid: "Currency:MtxGiveaway",
+        itemProfile: "common_core",
+        quantity: 50,
+      });
+
+      await User.createQueryBuilder()
+        .update(User)
+        .set({ lastLogin: now.toISOString() })
+        .where("accountId = :accountId", { accountId: user.accountId })
+        .execute();
+
+      const randomGiftBoxId = uuid();
+      multiUpdates.push({
+        changeType: "itemAdded",
+        itemId: randomGiftBoxId,
+        item: {
+          templateId: "GiftBox:GB_MakeGood",
+          attributes: {
+            fromAccountId: "Server",
+            lootList,
+            params: {
+              userMessage: "Thanks for playing!",
+            },
+          },
+          quantity: 1,
+        },
+      });
+
+      common_core.stats.attributes.gifts!.push({
+        templateId: "GiftBox:GB_MakeGood",
+        attributes: {
+          fromAccountId: "Server",
+          lootList,
+          params: {
+            userMessage: "Thanks for playing!",
+          },
+        },
+        quntity: 1,
+      });
+
+      await XmppUtilities.SendMessageToId(
+        JSON.stringify({
+          payload: {},
+          type: "com.epicgames.gift.received",
+          timestamp: new Date().toISOString(),
+        }),
+        user.accountId,
+      );
+
+      shouldUpdateProfile = true;
+    }
+
     // trying something new (this should be faster)
     if (shouldUpdateProfile) {
       profile.rvn += 1;
@@ -206,6 +291,7 @@ export default async function (c: Context) {
       profile.updatedAt = new Date().toISOString();
 
       await profilesService.update(user.accountId, "athena", profile);
+      await profilesService.update(user.accountId, "common_core", common_core);
     }
 
     return c.json(MCPResponses.generate(profile, multiUpdates, profileId));

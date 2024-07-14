@@ -75,9 +75,9 @@ export default class VbucksCommand extends BaseCommand {
     profile.items["Currency:MtxPurchased"].quantity += vbucksAmount;
 
     lootList.push({
-      itemGuid: "Currency:MtxPurchased",
+      itemGuid: "Currency:MtxGiveaway",
       itemProfile: "common_core",
-      itemType: "Currency:MtxPurchased",
+      itemType: "Currency:MtxGiveaway",
       quantity: vbucksAmount,
     });
 

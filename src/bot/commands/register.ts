@@ -90,6 +90,7 @@ export default class RegisterCommand extends BaseCommand {
           roles,
           banned: false,
           has_all_items: false,
+          lastLogin: "",
         })
         .then(async (newUser) => {
           if (!newUser) return;
