@@ -10,6 +10,7 @@ import { LevelsManager } from "../utilities/managers/LevelsManager";
 import { RewardsManager } from "../utilities/managers/RewardsManager";
 import ProfileHelper from "../utilities/profiles";
 import { v4 as uuid } from "uuid";
+import MCPResponses from "../utilities/responses";
 
 export default function () {
   app.post("/gamesessions/create", Validation.verifyBasicToken, async (c) => {
@@ -130,8 +131,9 @@ export default function () {
       if (!user)
         return c.json(errors.createError(404, c.req.url, "User not found!", timestamp), 404);
 
-      const [common_core] = await Promise.all([
+      const [common_core, athena] = await Promise.all([
         ProfileHelper.getProfile(user.accountId, "common_core"),
+        ProfileHelper.getProfile(user.accountId, "athena"),
       ]);
 
       if (!session)
@@ -140,6 +142,12 @@ export default function () {
       if (!common_core)
         return c.json(
           errors.createError(404, c.req.url, "Profile 'common_core' was not found!", timestamp),
+          404,
+        );
+
+      if (!athena)
+        return c.json(
+          errors.createError(404, c.req.url, "Profile 'athena' was not found!", timestamp),
           404,
         );
 
@@ -152,18 +160,31 @@ export default function () {
       }
 
       const { isVictory } = await c.req.json();
+      const changes: object[] = [];
 
       try {
         const eliminations = parseInt(c.req.param("eliminations"));
 
-        let currency = eliminations * 50;
-        if (isVictory) currency += 200;
+        for (const pastSeasons of athena.stats.attributes!.past_seasons!) {
+          if (pastSeasons.seasonNumber === config.currentSeason) {
+            let currency = eliminations * 50;
+            if (isVictory) {
+              currency += 200;
+              pastSeasons.numWins += 1;
+            }
 
-        common_core.items["Currency:MtxPurchased"].quantity += currency;
+            common_core.items["Currency:MtxPurchased"].quantity += currency;
+
+            changes.push({
+              amountGained: currency,
+            });
+          }
+        }
 
         await profilesService.update(user.accountId, "common_core", common_core);
+        await profilesService.update(user.accountId, "athena", athena);
 
-        return c.json({ message: "Success!" });
+        return c.json(MCPResponses.generate(common_core, changes, "common_core"));
       } catch (error) {
         return c.json({ error: `Internal Server Error: ${error}` }, 500);
       }
@@ -305,7 +326,7 @@ export default function () {
         await profilesService.update(user.accountId, "athena", athena);
         await profilesService.update(user.accountId, "common_core", common_core);
 
-        return c.json({ message: "Success!" });
+        return c.json(MCPResponses.generate(athena, [], "athena"));
       } catch (error) {
         return c.json(errors.createError(500, c.req.url, "Internal Server Error", timestamp), 500);
       }

@@ -97,6 +97,9 @@ export default async function (c: Context) {
         attributes.xp = currentSeason.seasonXp;
         attributes.book_purchased = currentSeason.purchasedVIP;
         attributes.level = currentSeason.seasonLevel;
+        attributes.season!.numWins = currentSeason.numWins;
+        attributes.season!.numLowBracket = currentSeason.numLowBracket;
+        attributes.season!.numHighBracket = currentSeason.numHighBracket;
       } else {
         past_seasons.push({
           seasonNumber: attributes.season_num as number,
