@@ -13,14 +13,14 @@ export interface PastSeasons {
   survivorPrestige: number;
 }
 
-export interface Athena {
+export interface IProfile {
   _id: string;
   createdAt: string;
   updatedAt: string;
   rvn: number;
   wipeNumber: number;
   accountId: string;
-  profileId: "athena";
+  profileId: "";
   version: "no_version";
   stats: {
     attributes: Partial<StatsAttributes>;
@@ -31,50 +31,6 @@ export interface Athena {
       attributes: Partial<ItemValue>;
       quantity: number;
     };
-  };
-  commandRevision: number;
-}
-
-export interface CommonCore {
-  _id: string;
-  createdAt: string;
-  updatedAt: string;
-  rvn: number;
-  wipeNumber: number;
-  accountId: string;
-  profileId: "common_core";
-  version: "no_version";
-  items: {
-    [key: string]: {
-      templateId: string;
-      attributes: Partial<ItemValue>;
-      quantity: number;
-    };
-  };
-  stats: {
-    attributes: Partial<StatsAttributes>;
-  };
-  commandRevision: number;
-}
-
-export interface CommonPublic {
-  _id: string;
-  createdAt: string;
-  updatedAt: string;
-  rvn: number;
-  wipeNumber: number;
-  accountId: string;
-  profileId: "common_public";
-  version: "no_version";
-  items: {
-    [key: string]: {
-      templateId: string;
-      attributes: Partial<ItemValue>;
-      quantity: number;
-    };
-  };
-  stats: {
-    attributes: Partial<StatsAttributes>;
   };
   commandRevision: number;
 }
@@ -88,10 +44,91 @@ export interface StatsAttributes {
   rested_xp_overflow: number;
   current_mtx_platform: string;
   last_xp_interaction: string;
+  node_costs: {
+    homebase_node_default_page: {
+      [key: string]: number;
+    };
+    research_node_default_page: {
+      [key: string]: number;
+    };
+  };
+  mission_alert_redemption_record: {
+    claimData: {
+      missionAlertId: string;
+      evictClaimDataAfterUtc: string;
+      redemptionDateUtc: string;
+    }[];
+  };
+  player_loadout?: {
+    primaryQuickBarRecord: {
+      slots: {
+        items: any[];
+      }[];
+    };
+    secondaryQuickBarRecord: {
+      slots: {
+        items: any[];
+      }[];
+    };
+    zonesCompleted: number;
+    bPlayerIsNew: boolean;
+  };
+  research_levels: {
+    offense: number;
+    technology: number;
+    fortitude: number;
+    resistance: number;
+  };
+  client_settings: {
+    pinnedQuestInstances: any[];
+  };
+  selected_hero_loadout: string;
+  latent_xp_marker: string;
+  collection_book: {
+    maxBookXpLevelAchieved: number;
+  };
   quest_manager: {
     dailyLoginInterval: string;
     dailyQuestRerolls: number;
+    questPoolStats: {
+      dailyLoginInterval: string;
+      poolLockouts: {
+        poolLockouts: {
+          lockoutName: string;
+        }[];
+      };
+      poolStats: {
+        questHistory: string[];
+        rerollsRemaining: number;
+        nextRefresh: string;
+        poolName: string;
+      }[];
+    };
   };
+  gameplay_stats: {
+    statValue: number;
+    statName: string;
+  }[];
+  event_currency: {
+    templateId: string;
+    cf: number;
+  };
+  matches_played: number;
+  daily_rewards: {
+    nextDefaultReward: number;
+    totalDaysLoggedIn: number;
+    lastClaimDate: string;
+    additionalSchedules: {
+      [key: string]: {
+        rewardsClaimed: number;
+        claimedToday: boolean;
+      };
+    };
+  };
+  quest_completion_session_ids: {
+    [key: string]: string;
+  };
+  packs_granted: number;
   book_level: number;
   season_num: number;
   book_xp: number;
@@ -199,16 +236,88 @@ interface Gifts {
   quntity: number;
 }
 
+interface SavedRecords {
+  recordIndex: number;
+  archiveNumber: number;
+  recordFilename: string;
+}
+
+interface PlacedBuildings {
+  buildingTag: string;
+  placedTag: string;
+}
+
+interface ProgressionInfo {
+  progressionLayoutGuid: string;
+  highestDefeatedTier: number;
+}
+
 export interface ItemValue {
   platform: string;
   item_seen: boolean;
   refundsUsed?: number;
   refundCredits?: number;
+  cloud_save_info?: {
+    saveCount: number;
+    savedRecords: SavedRecords[];
+  };
+  outpost_core_info?: {
+    placedBuildings: PlacedBuildings[];
+    accountsWithEditPermission: any[];
+    highestEnduranceWaveReached: string;
+  };
+  tier_progression?: {
+    progressionInfo: ProgressionInfo[];
+  };
   level: number;
-  max_level_bonus: 0;
-  rnd_sel_cnt: 0;
+  max_level_bonus: number;
+  rnd_sel_cnt: number;
+  legacy_alterations?: any[];
+  refund_legacy_item?: boolean;
+  alterations?: any[];
+  refundable?: boolean;
+  alteration_base_rarities?: any[];
+  homebaseBannerColorId?: string;
+  loadedAmmo?: number;
+  durability?: number;
+  inventory_overflow_date?: boolean;
+  itemSource?: string;
+  quest_complete_playsolo?: number;
+  quest_unlock_researchgadgets?: number;
+  current_mtx_currency?: number;
+  squad_slots_unlocked?: number;
+  quest_unlock_buildweapons?: number;
+  current_fort_profile_banner?: string;
+  quest_unlock_defenders?: number;
+  commander_level?: number;
+  time_played?: number;
+  squad_slot_count?: number;
+  quest_unlock_eventquest?: number;
+  quest_unlock_missiondefender?: number;
+  homebaseBannerIconId?: string;
+  squad_slot_count_1?: number;
+  accountLevel: number;
+  squad_slot_count_2?: number;
+  daily_rewards_claimed?: number;
+  seasonal_gold?: number;
+  quest_unlock_craftweapons?: number;
+  quest_unlock_personalassistant?: number;
+  quest_unlock_upgradeweapon?: number;
+  book_level: number;
+  book_xp: number;
+  book_sections_completed?: number;
+  book_section_idx?: number;
+
+  xp_overflow: number;
+  quest_unlock_missionevent: number;
+  purchased_slots: number;
+  squad_slot_count_3: number;
+  squad_slot_count_4: number;
+  homebaseBannerColorIdBattleRoyal: string;
+  currentSeason: number;
+  homebaseName: string;
   variants: Variants[];
-  xp: 0;
+  xp: number;
   purchases?: any[];
   undo_cooldowns?: any[];
   mtx_affiliate_set_time?: string;

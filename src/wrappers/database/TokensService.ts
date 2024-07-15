@@ -10,13 +10,25 @@ export default class TokensService {
     this.tokensRepository = this.database.getRepository("tokens");
   }
 
-  public async create(token: Partial<Tokens>): Promise<Tokens | null> {
+  public async create(token: Partial<Tokens>, accountId: string): Promise<Tokens | null> {
     try {
-      const newToken = this.tokensRepository.create(token);
-      await this.tokensRepository.save(newToken);
-      return newToken;
+      const existingToken = await this.tokensRepository.findOne({
+        where: {
+          accountId,
+        },
+      });
+
+      if (existingToken) {
+        Object.assign(existingToken, token);
+        await this.tokensRepository.save(existingToken);
+        return existingToken;
+      } else {
+        const newToken = this.tokensRepository.create(token);
+        await this.tokensRepository.save(newToken);
+        return newToken;
+      }
     } catch (error) {
-      logger.error(`Error creating token: ${error}`);
+      logger.error(`Error creating/updating token: ${error}`);
       return null;
     }
   }
@@ -34,6 +46,18 @@ export default class TokensService {
     try {
       const tokenToDelete = await this.tokensRepository.findOne({
         where: { token },
+      });
+      if (!tokenToDelete) return;
+      await this.tokensRepository.remove(tokenToDelete);
+    } catch (error) {
+      logger.error(`Error deleting token: ${error}`);
+    }
+  }
+
+  public async deleteByType(accountId: string, type: string): Promise<void> {
+    try {
+      const tokenToDelete = await this.tokensRepository.findOne({
+        where: { type, accountId },
       });
       if (!tokenToDelete) return;
       await this.tokensRepository.remove(tokenToDelete);

@@ -4,6 +4,7 @@ import errors from "../utilities/errors";
 import { accountService, userService } from "..";
 import ProfileHelper from "../utilities/profiles";
 import MCPResponses from "../utilities/responses";
+import { handleProfileSelection } from "./QueryProfile";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -28,18 +29,7 @@ export default async function (c: Context) {
     );
   }
 
-  let profile;
-
-  switch (profileId) {
-    case "athena":
-      profile = await ProfileHelper.getProfile(user.accountId, "athena");
-      break;
-    case "common_core":
-      profile = await ProfileHelper.getProfile(user.accountId, "common_core");
-      break;
-    case "common_public":
-      profile = await ProfileHelper.getProfile(user.accountId, "common_public");
-  }
+  const profile = await handleProfileSelection(profileId, user.accountId);
 
   if (!profile && profileId !== "athena" && profileId !== "common_core")
     return c.json(

@@ -98,9 +98,12 @@ export default class RegisterCommand extends BaseCommand {
           const promises = [
             ProfileHelper.createProfile(newUser, "athena"),
             ProfileHelper.createProfile(newUser, "common_core"),
+            ProfileHelper.createProfile(newUser, "campaign"),
+            ProfileHelper.createProfile(newUser, "metadata"),
+            ProfileHelper.createProfile(newUser, "theater0"),
           ];
 
-          const [athena, common_core] = await Promise.all(promises);
+          const [athena, common_core, campaign, metadata, theater0] = await Promise.all(promises);
 
           await accountService.create({
             accountId: newUser?.accountId,
@@ -115,6 +118,9 @@ export default class RegisterCommand extends BaseCommand {
           await profilesService.createOrUpdate(newUser?.accountId, "athena", athena);
           await profilesService.createOrUpdate(newUser?.accountId, "common_core", common_core);
           await profilesService.createOrUpdate(newUser?.accountId, "common_public", common_core);
+          await profilesService.createOrUpdate(newUser?.accountId, "campaign", campaign);
+          await profilesService.createOrUpdate(newUser?.accountId, "metadata", metadata);
+          await profilesService.createOrUpdate(newUser?.accountId, "theater0", theater0);
 
           await friendsService.create({
             accountId: newUser.accountId,

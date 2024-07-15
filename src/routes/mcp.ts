@@ -6,6 +6,7 @@ import ProfileHelper from "../utilities/profiles";
 import { Validation } from "../middleware/validation";
 import uaparser from "../utilities/uaparser";
 import type { Profiles } from "../tables/profiles";
+import { handleProfileSelection } from "../operations/QueryProfile";
 
 const operations = await loadOperations();
 
@@ -51,18 +52,7 @@ export default function () {
       if (!user)
         return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
-      let profile;
-
-      switch (profileId) {
-        case "athena":
-          profile = await ProfileHelper.getProfile(user.accountId, "athena");
-          break;
-        case "common_core":
-          profile = await ProfileHelper.getProfile(user.accountId, "common_core");
-          break;
-        case "common_public":
-          profile = await ProfileHelper.getProfile(user.accountId, "common_public");
-      }
+      const profile = await handleProfileSelection(profileId, user.accountId);
 
       if (!profile && profileId !== "athena" && profileId !== "common_core")
         return c.json(MCPResponses.generate({ rvn }, [], profileId));
@@ -121,19 +111,7 @@ export default function () {
 
       logger.debug(`Requested Operation '${action}' on profileId '${profileId}'`);
 
-      let profile;
-
-      switch (profileId) {
-        case "athena":
-        case "profile0":
-          profile = await ProfileHelper.getProfile(user.accountId, "athena");
-          break;
-        case "common_core":
-          profile = await ProfileHelper.getProfile(user.accountId, "common_core");
-          break;
-        case "common_public":
-          profile = await ProfileHelper.getProfile(user.accountId, "common_public");
-      }
+      const profile = await handleProfileSelection(profileId, user.accountId);
 
       if (!profile && profileId !== "athena" && profileId !== "common_core")
         return c.json(MCPResponses.generate({ rvn }, [], profileId));

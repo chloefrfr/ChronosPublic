@@ -249,7 +249,12 @@ export namespace ShopGenerator {
 
     /// TODO - Add a accurate minimum of items for S14 and below
 
-    while (getRandomFullSetLength(weekly.catalogEntries) < 3) {
+    let MinItems: number = 2;
+
+    if (config.currentSeason > 1 && config.currentSeason <= 8) MinItems = 2;
+    else MinItems = 3;
+
+    while (getRandomFullSetLength(weekly.catalogEntries) < MinItems) {
       const keys = Object.keys(sets);
 
       if (keys.length === 0) continue;
@@ -258,25 +263,19 @@ export namespace ShopGenerator {
       const randomSet = sets[randomKey];
 
       for (const item of randomSet.definition) {
-        // if (item.type.backendValue !== "AthenaCharacter") continue;
-
         const entry = createItemEntryTemplate();
 
         entry.offerId = `v2:/${uuid()}`;
         entry.offerType = "StaticPrice";
 
-        if (!item.displayAssetPath)
-          item.displayAssetPath = setDisplayAsset(`DA_Featured_${item.id}`);
+        if (!item.displayAssetPath) item.displayAssetPath = setDisplayAsset(`DA_Daily_${item.id}`);
         else if (!item.NewDisplayAssetPath) item.NewDisplayAssetPath = "";
-        // else if (!item.newDisplayAssetPath)
-        //   item.newDisplayAssetPath = setNewDisplayAssetPath(`DAv2_${randomItem.id}`);
+        // else if (!randomItem.newDisplayAssetPath)
+        //   randomItem.newDisplayAssetPath = setNewDisplayAssetPath(`DAv2_${randomItem.id}`);
 
-        entry.displayAssetPath = item.displayAssetPath.includes("DA_Featured")
+        entry.displayAssetPath = item.displayAssetPath.includes("DA_Daily")
           ? item.displayAssetPath
-          : setDisplayAsset(`DA_Featured_${item.id}`);
-
-        if (!item.NewDisplayAssetPath) item.NewDisplayAssetPath = "";
-
+          : setDisplayAsset(`DA_Daily_${item.id}`);
         entry.NewDisplayAssetPath = item.NewDisplayAssetPath;
 
         entry.metaInfo.push({ key: "DisplayAssetPath", value: entry.displayAssetPath });

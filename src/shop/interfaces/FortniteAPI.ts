@@ -11,7 +11,7 @@ export interface JSONResponse {
   images: CosmeticImages;
   itemPreviewHeroPath: string;
   displayAssetPath: string | null;
-  NewDisplayAssetPath: string | null;
+  NewDisplayAssetPath: string;
   definitionPath: string | null;
   path: string;
   added: string;

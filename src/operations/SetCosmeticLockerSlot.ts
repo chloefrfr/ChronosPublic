@@ -6,6 +6,7 @@ import ProfileHelper from "../utilities/profiles";
 import { Profiles } from "../tables/profiles";
 import MCPResponses from "../utilities/responses";
 import type { Variants } from "../../types/profilesdefs";
+import { handleProfileSelection } from "./QueryProfile";
 
 export default async function (c: Context) {
   const startTimestamp = Date.now();
@@ -32,18 +33,7 @@ export default async function (c: Context) {
     );
   }
 
-  let profile;
-
-  switch (profileId) {
-    case "athena":
-      profile = await ProfileHelper.getProfile(user.accountId, "athena");
-      break;
-    case "common_core":
-      profile = await ProfileHelper.getProfile(user.accountId, "common_core");
-      break;
-    case "common_public":
-      profile = await ProfileHelper.getProfile(user.accountId, "common_public");
-  }
+  const profile = await handleProfileSelection(profileId, user.accountId);
 
   if (!profile && profileId !== "athena" && profileId !== "common_core")
     return c.json(
@@ -73,19 +63,19 @@ export default async function (c: Context) {
       variantUpdates.forEach((variant: Variants) => {
         const { channel, active, owned } = variant;
 
-        const existingIndex: number = profile.items[itemToSlot].attributes.variants.findIndex(
+        const existingIndex: number = profile.items[itemToSlot].attributes.variants!.findIndex(
           (v: Variants) => v.channel === channel,
         );
 
         if (existingIndex === -1) {
-          profile.items[itemToSlot].attributes.variants.push({
+          profile.items[itemToSlot].attributes.variants!.push({
             channel,
             active,
             owned,
           });
         } else {
-          profile.items[itemToSlot].attributes.variants[existingIndex].active = active;
-          profile.items[itemToSlot].attributes.variants[existingIndex].owned = owned;
+          profile.items[itemToSlot].attributes.variants![existingIndex].active = active;
+          profile.items[itemToSlot].attributes.variants![existingIndex].owned = owned;
         }
       });
 
@@ -102,6 +92,7 @@ export default async function (c: Context) {
     const slotData = profile.items[lockerItem].attributes.locker_slots_data;
     if (slotData && slotData.slots[slotName]) {
       slotData.slots[slotName].items = items;
+      // @ts-ignore
       profile.stats.attributes[`favorite_${slotName.toLowerCase()}`] = itemToSlot;
       applyProfileChanges.push({
         changeType: "itemAttrChanged",
@@ -114,7 +105,7 @@ export default async function (c: Context) {
 
   const updateItemWrapSlot = () => {
     const slotData = profile.items[lockerItem].attributes.locker_slots_data;
-    const items = slotData.slots.ItemWrap.items.fill(itemToSlot);
+    const items = slotData!.slots.ItemWrap.items.fill(itemToSlot);
     profile.stats.attributes.favorite_itemwraps = items.map(() => itemToSlot);
     applyProfileChanges.push({
       changeType: "itemAttrChanged",

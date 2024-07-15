@@ -6,14 +6,13 @@ import type { BattlePass, Stats } from "../tables/account";
 import type { ProfileId } from "./responses";
 import { accountService, logger, profilesService } from "..";
 import type { Profiles } from "../tables/profiles";
-import type { Athena, CommonCore, CommonPublic } from "../../types/profilesdefs";
 import { Caching } from "./cache";
+import type { IProfile } from "../../types/profilesdefs";
 
-type profiles = "athena" | "common_core";
 const profileCache: { [accountId: string]: { [type in ProfileId]?: Promise<any> } } = {};
 
 export default class ProfileHelper {
-  static async createProfile(user: Partial<User>, profile: profiles) {
+  static async createProfile(user: Partial<User>, profile: ProfileId) {
     const profile_template = JSON.parse(
       await fs.readFile(path.join(__dirname, "..", "memory", `${profile}.json`), "utf-8"),
     );
@@ -27,10 +26,14 @@ export default class ProfileHelper {
     return profile_template;
   }
 
+  static async getProfileData(profile: Profiles, profileName: keyof Omit<Profiles, "accountId">) {
+    if (!profile.hasOwnProperty(profileName)) return null;
+
+    return profile[profileName] as IProfile;
+  }
+
   static async getProfile(accountId: string, profileName: keyof Omit<Profiles, "accountId">) {
     try {
-      let profileData;
-
       const profile = await profilesService.findByName(accountId, profileName);
 
       if (!profile) {
@@ -38,19 +41,7 @@ export default class ProfileHelper {
         return null;
       }
 
-      switch (profileName) {
-        case "athena":
-          profileData = profile.athena as Athena;
-          break;
-        case "common_core":
-          profileData = profile.common_core as CommonCore;
-          break;
-        case "common_public":
-          profileData = profile.common_public as CommonPublic;
-          break;
-        default:
-          return null;
-      }
+      const profileData = ProfileHelper.getProfileData(profile, profileName);
 
       if (!profileData) {
         logger.error(`Profile ${profileName} not found.`);

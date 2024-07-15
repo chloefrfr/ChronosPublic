@@ -20,6 +20,7 @@ import { User } from "../tables/user";
 import type { LootList } from "../bot/commands/grantall";
 import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import { v4 as uuid } from "uuid";
+import { handleProfileSelection } from "./QueryProfile";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -49,18 +50,7 @@ export default async function (c: Context) {
       );
     }
 
-    let profile;
-
-    switch (profileId) {
-      case "athena":
-        profile = await ProfileHelper.getProfile(user.accountId, "athena");
-        break;
-      case "common_core":
-        profile = await ProfileHelper.getProfile(user.accountId, "common_core");
-        break;
-      case "common_public":
-        profile = await ProfileHelper.getProfile(user.accountId, "common_public");
-    }
+    const profile = await handleProfileSelection(profileId, user.accountId);
 
     if (!profile && profileId !== "athena" && profileId !== "common_core")
       return c.json(
@@ -102,111 +92,113 @@ export default async function (c: Context) {
     let shouldUpdateProfile = false;
     const multiUpdates: object[] = [];
 
-    for (const pastSeasons of profile.stats.attributes.past_seasons!) {
-      if (
-        pastSeasons.seasonNumber === config.currentSeason &&
-        profile.stats.attributes.quest_manager!.dailyLoginInterval !== currentDate
-      ) {
-        profile.stats.attributes.quest_manager!.dailyLoginInterval = currentDate;
-        profile.stats.attributes.quest_manager!.dailyQuestRerolls += 1;
+    if (profileId === "athena") {
+      for (const pastSeasons of profile.stats.attributes.past_seasons!) {
+        if (
+          pastSeasons.seasonNumber === config.currentSeason &&
+          profile.stats.attributes.quest_manager!.dailyLoginInterval !== currentDate
+        ) {
+          profile.stats.attributes.quest_manager!.dailyLoginInterval = currentDate;
+          profile.stats.attributes.quest_manager!.dailyQuestRerolls += 1;
 
-        const maxDailyQuests = 5;
+          const maxDailyQuests = 5;
 
-        const currentQuestCount = storage.length;
+          const currentQuestCount = storage.length;
 
-        const questsToAdd = Math.max(0, maxDailyQuests - currentQuestCount);
+          const questsToAdd = Math.max(0, maxDailyQuests - currentQuestCount);
 
-        const data: object[] = [];
+          const data: object[] = [];
 
-        for (let i = 0; i < questsToAdd; i++) {
-          const dailyQuests = await QuestManager.getRandomQuest(user.accountId);
+          for (let i = 0; i < questsToAdd; i++) {
+            const dailyQuests = await QuestManager.getRandomQuest(user.accountId);
 
-          if (!dailyQuests) continue;
+            if (!dailyQuests) continue;
 
-          const questData = QuestManager.buildBase(
-            dailyQuests.Name,
-            dailyQuests.Properties.Objectives,
-          );
+            const questData = QuestManager.buildBase(
+              dailyQuests.Name,
+              dailyQuests.Properties.Objectives,
+            );
 
-          await dailyQuestService.add(user.accountId, [
-            {
-              [dailyQuests.Name]: questData,
-            },
-          ]);
-
-          const newQuestItem = {
-            changeType: "itemAdded",
-            itemId: dailyQuests.Name,
-            item: {
-              templateId: questData.templateId,
-              attributes: {
-                creation_time: new Date().toISOString(),
-                level: -1,
-                item_seen: false,
-                playlists: [],
-                sent_new_notification: true,
-                challenge_bundle_id: "",
-                xp_reward_scalar: 1,
-                challenge_linked_quest_given: "",
-                quest_pool: "",
-                quest_state: "Active",
-                bucket: "",
-                last_state_change_time: new Date().toISOString(),
-                challenge_linked_quest_parent: "",
-                max_level_bonus: 0,
-                xp: 0,
-                quest_rarity: "uncommon",
-                favorite: false,
-                [`completion_${dailyQuests.Properties.Objectives[0].BackendName}`]: 0,
+            await dailyQuestService.add(user.accountId, [
+              {
+                [dailyQuests.Name]: questData,
               },
-              quantity: 1,
-            },
-          };
+            ]);
 
-          multiUpdates.push(newQuestItem);
+            const newQuestItem = {
+              changeType: "itemAdded",
+              itemId: dailyQuests.Name,
+              item: {
+                templateId: questData.templateId,
+                attributes: {
+                  creation_time: new Date().toISOString(),
+                  level: -1,
+                  item_seen: false,
+                  playlists: [],
+                  sent_new_notification: true,
+                  challenge_bundle_id: "",
+                  xp_reward_scalar: 1,
+                  challenge_linked_quest_given: "",
+                  quest_pool: "",
+                  quest_state: "Active",
+                  bucket: "",
+                  last_state_change_time: new Date().toISOString(),
+                  challenge_linked_quest_parent: "",
+                  max_level_bonus: 0,
+                  xp: 0,
+                  quest_rarity: "uncommon",
+                  favorite: false,
+                  [`completion_${dailyQuests.Properties.Objectives[0].BackendName}`]: 0,
+                },
+                quantity: 1,
+              },
+            };
+
+            multiUpdates.push(newQuestItem);
+          }
+
+          shouldUpdateProfile = true;
         }
 
-        shouldUpdateProfile = true;
-      }
+        if (pastSeasons.seasonNumber === config.currentSeason) {
+          storage.map((obj) => {
+            const questKey = Object.keys(obj)[0];
+            const templateId = obj[questKey].templateId;
 
-      if (pastSeasons.seasonNumber === config.currentSeason) {
-        storage.map((obj) => {
-          const questKey = Object.keys(obj)[0];
-          const templateId = obj[questKey].templateId;
-
-          const newQuestItem = {
-            changeType: "itemAdded",
-            itemId: templateId,
-            item: {
-              templateId: templateId,
-              attributes: {
-                creation_time: new Date().toISOString(),
-                level: -1,
-                item_seen: false,
-                playlists: [],
-                sent_new_notification: true,
-                challenge_bundle_id: "",
-                xp_reward_scalar: 1,
-                challenge_linked_quest_given: "",
-                quest_pool: "",
-                quest_state: "Active",
-                bucket: "",
-                last_state_change_time: new Date().toISOString(),
-                challenge_linked_quest_parent: "",
-                max_level_bonus: 0,
-                xp: 0,
-                quest_rarity: "uncommon",
-                favorite: false,
-                [obj[questKey].attributes.ObjectiveState[0].Name]:
-                  obj[questKey].attributes.ObjectiveState[0].Value,
+            const newQuestItem = {
+              changeType: "itemAdded",
+              itemId: templateId,
+              item: {
+                templateId: templateId,
+                attributes: {
+                  creation_time: new Date().toISOString(),
+                  level: -1,
+                  item_seen: false,
+                  playlists: [],
+                  sent_new_notification: true,
+                  challenge_bundle_id: "",
+                  xp_reward_scalar: 1,
+                  challenge_linked_quest_given: "",
+                  quest_pool: "",
+                  quest_state: "Active",
+                  bucket: "",
+                  last_state_change_time: new Date().toISOString(),
+                  challenge_linked_quest_parent: "",
+                  max_level_bonus: 0,
+                  xp: 0,
+                  quest_rarity: "uncommon",
+                  favorite: false,
+                  [obj[questKey].attributes.ObjectiveState[0].Name]:
+                    obj[questKey].attributes.ObjectiveState[0].Value,
+                },
+                quantity: 1,
               },
-              quantity: 1,
-            },
-          };
+            };
 
-          multiUpdates.push(newQuestItem);
-          shouldUpdateProfile = true;
-        });
+            multiUpdates.push(newQuestItem);
+            shouldUpdateProfile = true;
+          });
+        }
       }
     }
 
@@ -217,15 +209,15 @@ export default async function (c: Context) {
         .set({ lastLogin: new Date().toISOString() })
         .where("accountId = :accountId", { accountId: user.accountId })
         .execute();
+
+      shouldUpdateProfile = true;
     }
 
-    const lastLoggedInDate = new Date(user.lastLogin);
-    const now = new Date(currentDate);
+    let lastLoggedInDate = new Date(user.lastLogin);
+    let now = new Date(currentDate);
     const lootList: LootList[] = [];
 
-    if (isNaN(lastLoggedInDate.getTime()) || isNaN(now.getTime())) {
-      return c.json(errors.createError(400, c.req.url, "Failed to parse date.", timestamp), 400);
-    }
+    if (isNaN(lastLoggedInDate.getTime()) || isNaN(now.getTime())) lastLoggedInDate = new Date();
 
     if (lastLoggedInDate.getDate() !== now.getDate()) {
       common_core.items["Currency:MtxPurchased"].quantity += 50;

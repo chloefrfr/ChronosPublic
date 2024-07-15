@@ -17,6 +17,7 @@ import type { LootList } from "../bot/commands/grantall";
 import { v4 as uuid } from "uuid";
 import { XmppService } from "../sockets/xmpp/saved/XmppServices";
 import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
+import { handleProfileSelection } from "./QueryProfile";
 
 const asyncForEach = async (array: any[], callback: Function) => {
   for (let index = 0; index < array.length; index++) {
@@ -62,17 +63,7 @@ export default async function (c: Context) {
       );
     }
 
-    let profile;
-    switch (profileId) {
-      case "athena":
-        profile = await ProfileHelper.getProfile(user.accountId, "athena");
-        break;
-      case "common_core":
-        profile = await ProfileHelper.getProfile(user.accountId, "common_core");
-        break;
-      case "common_public":
-        profile = await ProfileHelper.getProfile(user.accountId, "common_public");
-    }
+    const profile = await handleProfileSelection(profileId, user.accountId);
 
     if (!profile && profileId !== "athena" && profileId !== "common_core") {
       return c.json(

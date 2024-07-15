@@ -3,7 +3,7 @@ import { logger } from "../..";
 import NodeCache from "node-cache";
 import { Profiles } from "../../tables/profiles";
 import type Database from "../Database.wrapper";
-import type { Athena, CommonCore, CommonPublic } from "../../../types/profilesdefs";
+import type { IProfile } from "../../../types/profilesdefs";
 
 export default class ProfilesService {
   private profilesRepository: Repository<Profiles>;
@@ -57,7 +57,7 @@ export default class ProfilesService {
   public async createOrUpdate(
     accountId: string,
     type: keyof Profiles,
-    data: Partial<Athena | CommonCore | CommonPublic>,
+    data: Partial<IProfile>,
   ): Promise<Profiles | null> {
     try {
       let profile = await this.profilesRepository.findOne({ where: { accountId } });
@@ -67,19 +67,7 @@ export default class ProfilesService {
         profile.accountId = accountId;
       }
 
-      switch (type) {
-        case "athena":
-          profile.athena = { ...(profile.athena || {}), ...(data as Athena) };
-          break;
-        case "common_core":
-          profile.common_core = { ...(profile.common_core || {}), ...(data as CommonCore) };
-          break;
-        case "common_public":
-          profile.common_public = { ...(profile.common_public || {}), ...(data as CommonPublic) };
-          break;
-        default:
-          throw new Error(`Invalid profile type: ${type}`);
-      }
+      profile[type] = { ...(profile[type] || {}), ...data };
 
       await this.profilesRepository.save(profile);
       const ttl = this.getRandomTTL();
@@ -94,7 +82,7 @@ export default class ProfilesService {
   public async update(
     accountId: string,
     type: keyof Profiles,
-    data: Partial<Athena | CommonCore | CommonPublic>,
+    data: Partial<any>,
   ): Promise<Profiles | null> {
     try {
       const result = await this.profilesRepository

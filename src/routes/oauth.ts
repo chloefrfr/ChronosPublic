@@ -146,8 +146,8 @@ export default function () {
     if (!user)
       return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
-    await tokensService.getTokenByTypeAndAccountId("accesstoken", user.accountId);
-    await tokensService.getTokenByTypeAndAccountId("refreshtoken", user.accountId);
+    await tokensService.deleteByType(user.accountId, "accesstoken");
+    await tokensService.deleteByType(user.accountId, "refreshtoken");
 
     const accessToken = await TokenUtilities.createAccessToken(
       clientId,

@@ -7,6 +7,30 @@ import MCPResponses from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
 import { Profiles } from "../tables/profiles";
 
+export async function handleProfileSelection(profileId: ProfileId, accountId: string) {
+  let profile;
+
+  switch (profileId) {
+    case "athena":
+    case "profile0":
+      profile = await ProfileHelper.getProfile(accountId, "athena");
+      break;
+    case "common_core":
+      profile = await ProfileHelper.getProfile(accountId, "common_core");
+      break;
+    case "common_public":
+      profile = await ProfileHelper.getProfile(accountId, "common_public");
+      break;
+    case "campaign":
+      profile = await ProfileHelper.getProfile(accountId, "campaign");
+      break;
+    case "metadata":
+      profile = await ProfileHelper.getProfile(accountId, "metadata");
+  }
+
+  return profile;
+}
+
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
   const rvn = c.req.query("rvn");
@@ -45,19 +69,7 @@ export default async function (c: Context) {
       );
     }
 
-    let profile;
-
-    switch (profileId) {
-      case "athena":
-      case "profile0":
-        profile = await ProfileHelper.getProfile(user.accountId, "athena");
-        break;
-      case "common_core":
-        profile = await ProfileHelper.getProfile(user.accountId, "common_core");
-        break;
-      case "common_public":
-        profile = await ProfileHelper.getProfile(user.accountId, "common_public");
-    }
+    const profile = await handleProfileSelection(profileId, user.accountId);
 
     if (!profile && profileId !== "athena" && profileId !== "common_core")
       return c.json(

@@ -51,12 +51,15 @@ export default class TokenUtilities {
     const expiresIn = type === "access" ? 4 * 3600 : 14 * 24 * 3600;
     const token = jwt.sign(payload, config.client_secret, { expiresIn });
 
-    await tokensService.create({
-      id: uuid(),
-      type: type + "token",
-      accountId: user.accountId,
-      token,
-    });
+    await tokensService.create(
+      {
+        id: uuid(),
+        type: type + "token",
+        accountId: user.accountId,
+        token,
+      },
+      user.accountId,
+    );
 
     return token;
   }

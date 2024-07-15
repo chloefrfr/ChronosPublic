@@ -1,0 +1,240 @@
+{
+  "createdAt": "",
+  "updatedAt": "",
+  "rvn": 0,
+  "wipeNumber": 1,
+  "accountId": "",
+  "profileId": "campaign",
+  "version": "",
+  "items": {
+    "Hero:hid_commando_grenadegun_uc_t01": {
+      "templateId": "Hero:hid_commando_grenadegun_uc_t01",
+      "attributes": {
+        "outfitvariants": [],
+        "backblingvariants": [],
+        "gender": 0,
+        "level": 1,
+        "item_seen": false,
+        "squad_slot_idx": -1,
+        "portrait": "",
+        "hero_name": "",
+        "max_level_bonus": 0,
+        "squad_id": "",
+        "mode_loadouts": [],
+        "xp": 0,
+        "slotted_building_id": "",
+        "refundable": false,
+        "building_slot_used": -1,
+        "favorite": false
+      },
+      "quantity": 1
+    },
+    "CampaignHeroLoadout:defaultloadout": {
+      "templateId": "CampaignHeroLoadout:defaultloadout",
+      "attributes": {
+        "loadout_name": "",
+        "team_perk": "",
+        "crew_members": {
+          "followerslot5": "",
+          "followerslot4": "",
+          "followerslot3": "",
+          "followerslot2": "",
+          "followerslot1": "",
+          "commanderslot": ""
+        },
+        "loadout_index": 0,
+        "gadgets": []
+      },
+      "quantity": 1
+    },
+    "Schematic:ammo_bulletslight": {
+      "templateId": "Schematic:ammo_bulletslight",
+      "attributes": {
+        "legacy_alterations": [],
+        "max_level_bonus": 0,
+        "refund_legacy_item": false,
+        "level": 1,
+        "item_seen": false,
+        "alterations": [],
+        "xp": 0,
+        "refundable": false,
+        "alteration_base_rarities": [],
+        "favorite": false
+      },
+      "quantity": 1
+    },
+    "chronos-loadout": {
+      "templateId": "CosmeticLocker:cosmeticlocker_stw",
+      "attributes": {
+        "locker_slots_data": {
+          "slots": {
+            "Character": {
+              "items": [null],
+              "activeVariants": [null]
+            },
+            "Backpack": {
+              "items": [null],
+              "activeVariants": [null]
+            },
+            "Pickaxe": {
+              "items": [null],
+              "activeVariants": [null]
+            },
+            "Dance": {
+              "items": [null, null, null, null, null, null],
+              "activeVariants": [null, null, null, null, null, null]
+            },
+            "ItemWrap": {
+              "items": [null, null, null, null, null, null, null, null],
+              "activeVariants": [null, null, null, null, null, null, null, null]
+            },
+            "Glider": {
+              "items": [null],
+              "activeVariants": [null]
+            },
+            "SkyDiveContrail": {
+              "items": [null],
+              "activeVariants": [null]
+            },
+            "LoadingScreen": {
+              "items": [null],
+              "activeVariants": [null]
+            },
+            "MusicPack": {
+              "items": [null],
+              "activeVariants": [null]
+            }
+          }
+        },
+        "use_count": 1,
+        "banner_icon_template": "",
+        "banner_color_template": "",
+        "locker_name": "",
+        "item_seen": false,
+        "favorite": false
+      },
+      "quantity": 1
+    },
+    "Schematic:ammo_shells": {
+      "templateId": "Schematic:ammo_shells",
+      "attributes": {
+        "legacy_alterations": [],
+        "max_level_bonus": 0,
+        "refund_legacy_item": false,
+        "level": 1,
+        "item_seen": false,
+        "alterations": [],
+        "xp": 0,
+        "refundable": false,
+        "alteration_base_rarities": [],
+        "favorite": false
+      },
+      "quantity": 1
+    },
+    "Schematic:sid_assault_auto_c_ore_t00": {
+      "templateId": "Schematic:sid_assault_auto_c_ore_t00",
+      "attributes": {
+        "legacy_alterations": [],
+        "max_level_bonus": 0,
+        "refund_legacy_item": false,
+        "level": 1,
+        "item_seen": false,
+        "alterations": [],
+        "xp": 0,
+        "refundable": false,
+        "alteration_base_rarities": [],
+        "favorite": false
+      },
+      "quantity": 1
+    },
+    "Schematic:ammo_explosive": {
+      "templateId": "Schematic:ammo_explosive",
+      "attributes": {
+        "legacy_alterations": [],
+        "max_level_bonus": 0,
+        "refund_legacy_item": false,
+        "level": 1,
+        "item_seen": false,
+        "alterations": [],
+        "xp": 0,
+        "refundable": false,
+        "alteration_base_rarities": [],
+        "favorite": false
+      },
+      "quantity": 1
+    },
+    "Schematic:ammo_bulletsmedium": {
+      "templateId": "Schematic:ammo_bulletsmedium",
+      "attributes": {
+        "legacy_alterations": [],
+        "max_level_bonus": 0,
+        "refund_legacy_item": false,
+        "level": 1,
+        "item_seen": false,
+        "alterations": [],
+        "xp": 0,
+        "refundable": false,
+        "alteration_base_rarities": [],
+        "favorite": false
+      },
+      "quantity": 1
+    },
+    "Schematic:ammo_bulletsheavy": {
+      "templateId": "Schematic:ammo_bulletsheavy",
+      "attributes": {
+        "legacy_alterations": [],
+        "max_level_bonus": 0,
+        "refund_legacy_item": false,
+        "level": 1,
+        "item_seen": false,
+        "alterations": [],
+        "xp": 0,
+        "refundable": false,
+        "alteration_base_rarities": [],
+        "favorite": false
+      },
+      "quantity": 1
+    }
+  },
+  "stats": {
+    "attributes": {
+      "homebaseBannerColorId": "",
+      "quest_complete_playsolo": 0,
+      "quest_unlock_researchgadgets": 0,
+      "current_mtx_currency": 0,
+      "squad_slots_unlocked": 0,
+      "quest_unlock_buildweapons": 0,
+      "current_fort_profile_banner": "",
+      "quest_unlock_defenders": 0,
+      "commander_level": 1,
+      "time_played": 0,
+      "squad_slot_count": 0,
+      "quest_unlock_eventquest": 0,
+      "quest_unlock_missiondefender": 0,
+      "homebaseBannerIconId": "",
+      "squad_slot_count_1": 0,
+      "accountLevel": 1,
+      "squad_slot_count_2": 0,
+      "daily_rewards_claimed": 0,
+      "seasonal_gold": 0,
+      "quest_unlock_craftweapons": 0,
+      "xp": 0,
+      "quest_unlock_personalassistant": 0,
+      "favorite": false,
+      "quest_unlock_upgradeweapon": 0,
+      "book_level": 0,
+      "book_xp": 0,
+      "book_sections_completed": 0,
+      "book_section_idx": 0,
+      "xp_overflow": 0,
+      "quest_unlock_missionevent": 0,
+      "purchased_slots": 0,
+      "squad_slot_count_3": 0,
+      "squad_slot_count_4": 0,
+      "homebaseBannerColorIdBattleRoyal": "",
+      "currentSeason": 0,
+      "homebaseName": ""
+    }
+  },
+  "commandRevision": 0
+}
