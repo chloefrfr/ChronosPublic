@@ -29,6 +29,10 @@ export default function () {
         400,
       );
 
+    console.log(uahelper);
+
+    if (uahelper.netcl === "3804408") return c.body(null, 404);
+
     const storefrontData = await itemStorageService.getItemByType("storefront");
 
     if (!storefrontData)

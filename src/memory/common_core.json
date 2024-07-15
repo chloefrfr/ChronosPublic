@@ -8,6 +8,27 @@
   "profileId": "common_core",
   "version": "no_version",
   "items": {
+    "CampaignAccess": {
+      "templateId": "Token:campaignaccess",
+      "attributes": {
+        "level": 1
+      },
+      "quantity": 1
+    },
+    "Founders": {
+      "templateId": "Token:founderspack_1",
+      "attributes": {
+        "level": 1
+      },
+      "quantity": 1
+    },
+    "Token:FounderChatUnlock": {
+      "templateId": "Token:FounderChatUnlock",
+      "attributes": {
+        "level": 1
+      },
+      "quantity": 1
+    },
     "Currency:MtxPurchased": {
       "templateId": "Currency:MtxPurchased",
       "attributes": {

@@ -1,6 +1,6 @@
 import { accountService, logger } from "..";
 
-export type ProfileId = "athena" | "common_core" | "creative" | "common_public";
+export type ProfileId = "athena" | "common_core" | "creative" | "common_public" | "profile0";
 
 export default class MCPResponses {
   static generate(profile: any, changes: object[], profileId: ProfileId) {

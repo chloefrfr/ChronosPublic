@@ -26,7 +26,7 @@ export namespace HostAPI {
     }
   }
 
-  export async function getServerBySessionId(sessionId: string): Promise<HostServer> {
+  export async function getServerBySessionId(sessionId: string): Promise<HostServer | null> {
     try {
       const response: AxiosResponse<HostServer> = await client.get(`/list/${sessionId}`, {
         responseType: "json",
@@ -37,8 +37,7 @@ export namespace HostAPI {
       return response.data;
     } catch (error) {
       // if (axios.isAxiosError(error)) throw new Error(`Network Error: ${error}`);
-
-      throw new Error(`Failed to getServerBySessionId: ${error}`);
+      return null;
     }
   }
 

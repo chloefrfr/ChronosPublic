@@ -49,6 +49,7 @@ export default async function (c: Context) {
 
     switch (profileId) {
       case "athena":
+      case "profile0":
         profile = await ProfileHelper.getProfile(user.accountId, "athena");
         break;
       case "common_core":

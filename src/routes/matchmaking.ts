@@ -269,6 +269,29 @@ export default function () {
     },
   );
 
+  app.get(
+    "/fortnite/api/matchmaking/session/findPlayer/:sessionId",
+    Validation.verifyToken,
+    async (c) => {
+      const sessionId = c.req.param("sessionId");
+      const timestamp = new Date().toISOString();
+
+      const session = await HostAPI.getServerBySessionId(sessionId);
+
+      // so it doesn't freak out, ill find a better way to do this later.
+      if (!session) return c.json([], 200);
+
+      const user = c.get("user");
+
+      if (!user)
+        return c.json(errors.createError(404, c.req.url, "Failed to find user!", timestamp), 404);
+      if (user.banned)
+        return c.json(errors.createError(403, c.req.url, "User is banned!", timestamp), 403);
+
+      return c.json([], 200);
+    },
+  );
+
   app.post("/fortnite/api/matchmaking/session", Validation.verifyToken, async (c) => {
     const timestamp = new Date().toISOString();
 

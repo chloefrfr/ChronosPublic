@@ -119,10 +119,13 @@ export default function () {
       if (!user)
         return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
+      logger.debug(`Requested Operation '${action}' on profileId '${profileId}'`);
+
       let profile;
 
       switch (profileId) {
         case "athena":
+        case "profile0":
           profile = await ProfileHelper.getProfile(user.accountId, "athena");
           break;
         case "common_core":
