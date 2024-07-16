@@ -1,0 +1,181 @@
+{
+  "createdAt": "",
+  "updatedAt": "",
+  "rvn": 0,
+  "wipeNumber": 1,
+  "accountId": "",
+  "profileId": "outpost0",
+  "version": "",
+  "items": {
+    "Outpost:outpostcore_pve_01": {
+      "templateId": "Outpost:outpostcore_pve_01",
+      "attributes": {
+        "cloud_save_info": {
+          "saveCount": 2438,
+          "savedRecords": [
+            {
+              "recordIndex": 0,
+              "archiveNumber": 1,
+              "recordFilename": "0ed3f591-9cc3-4a3e-935c-c06cd3d74954_r0_a1.sav"
+            }
+          ]
+        },
+        "level": 10,
+        "outpost_core_info": {
+          "placedBuildings": [
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.00",
+              "placedTag": "Outpost.PlacementActor.Placement.01"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.01",
+              "placedTag": "Outpost.PlacementActor.Placement.00"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.02",
+              "placedTag": "Outpost.PlacementActor.Placement.02"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.03",
+              "placedTag": "Outpost.PlacementActor.Placement.05"
+            }
+          ],
+          "accountsWithEditPermission": [],
+          "highestEnduranceWaveReached": 30
+        }
+      },
+      "quantity": 1
+    },
+    "Outpost:outpostcore_pve_02": {
+      "templateId": "Outpost:outpostcore_pve_02",
+      "attributes": {
+        "cloud_save_info": {
+          "saveCount": 72,
+          "savedRecords": [
+            {
+              "recordIndex": 0,
+              "archiveNumber": 0,
+              "recordFilename": "a760d270-e65f-4740-91d4-2fee4d1aaf55_r0_a0.sav"
+            }
+          ]
+        },
+        "level": 10,
+        "outpost_core_info": {
+          "placedBuildings": [
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.00",
+              "placedTag": "Outpost.PlacementActor.Placement.00"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.01",
+              "placedTag": "Outpost.PlacementActor.Placement.02"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.02",
+              "placedTag": "Outpost.PlacementActor.Placement.01"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.03",
+              "placedTag": "Outpost.PlacementActor.Placement.04"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.04",
+              "placedTag": "Outpost.PlacementActor.Placement.03"
+            }
+          ],
+          "accountsWithEditPermission": [],
+          "highestEnduranceWaveReached": 0
+        }
+      },
+      "quantity": 1
+    },
+    "Outpost:outpostcore_pve_04": {
+      "templateId": "Outpost:outpostcore_pve_04",
+      "attributes": {
+        "cloud_save_info": {
+          "saveCount": 192,
+          "savedRecords": [
+            {
+              "recordIndex": 0,
+              "archiveNumber": 0,
+              "recordFilename": "df836c2a-b9f6-48a1-b23c-92b811fdf422_r0_a0.sav"
+            }
+          ]
+        },
+        "level": 10,
+        "outpost_core_info": {
+          "placedBuildings": [
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.00",
+              "placedTag": "Outpost.PlacementActor.Placement.00"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.01",
+              "placedTag": "Outpost.PlacementActor.Placement.01"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.02",
+              "placedTag": "Outpost.PlacementActor.Placement.05"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.03",
+              "placedTag": "Outpost.PlacementActor.Placement.03"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.04",
+              "placedTag": "Outpost.PlacementActor.Placement.02"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.05",
+              "placedTag": "Outpost.PlacementActor.Placement.07"
+            }
+          ],
+          "accountsWithEditPermission": [],
+          "highestEnduranceWaveReached": 0
+        }
+      },
+      "quantity": 1
+    },
+    "Outpost:outpostcore_pve_03": {
+      "templateId": "Outpost:outpostcore_pve_03",
+      "attributes": {
+        "cloud_save_info": {
+          "saveCount": 46,
+          "savedRecords": [
+            {
+              "recordIndex": 0,
+              "archiveNumber": 0,
+              "recordFilename": "17f8088b-a2ab-4059-965e-ed8caa93d7e9_r0_a0.sav"
+            }
+          ]
+        },
+        "level": 10,
+        "outpost_core_info": {
+          "placedBuildings": [
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.00",
+              "placedTag": "Outpost.PlacementActor.Placement.01"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.01",
+              "placedTag": "Outpost.PlacementActor.Placement.02"
+            },
+            {
+              "buildingTag": "Outpost.BuildingActor.Building.02",
+              "placedTag": "Outpost.PlacementActor.Placement.05"
+            }
+          ],
+          "accountsWithEditPermission": [],
+          "highestEnduranceWaveReached": 0
+        }
+      },
+      "quantity": 1
+    }
+  },
+  "stats": {
+    "attributes": {
+      "inventory_limit_bonus": 0
+    }
+  },
+  "commandRevision": 0
+}

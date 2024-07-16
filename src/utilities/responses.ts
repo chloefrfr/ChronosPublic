@@ -10,7 +10,8 @@ export type ProfileId =
   | "metadata"
   | "theater0"
   | "collection_book_people0"
-  | "collection_book_schematics0";
+  | "collection_book_schematics0"
+  | "outpost0";
 
 export default class MCPResponses {
   static generate(profile: any, changes: object[], profileId: ProfileId) {

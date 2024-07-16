@@ -258,6 +258,14 @@ interface ProgressionInfo {
 
 export interface ItemValue {
   platform: string;
+  gender?: string;
+  personality?: string;
+  squad_slot_idx?: number;
+  portrait?: string;
+  building_slot_used?: number;
+  set_bonus?: string;
+  alterationDefinitions?: any[];
+  baseClipSize?: number;
   item_seen: boolean;
   refundsUsed?: number;
   refundCredits?: number;

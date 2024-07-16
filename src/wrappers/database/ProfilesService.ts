@@ -12,6 +12,7 @@ enum ProfileType {
   Campaign = "campaign",
   Metadata = "metadata",
   Theater0 = "theater0",
+  Outpost0 = "outpost0",
   CollectionBookSchematics0 = "collection_book_schematics0",
   CollectionBookPeople0 = "collection_book_people0",
 }
@@ -107,6 +108,9 @@ export default class ProfilesService {
           break;
         case ProfileType.CollectionBookPeople0:
           profile.collection_book_people0 = profileData;
+          break;
+        case ProfileType.Outpost0:
+          profile.outpost0 = profileData;
           break;
         default:
           logger.error(`Unknown profile type: ${type}`);

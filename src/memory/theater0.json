@@ -75,7 +75,7 @@
     }
   },
   "items": {
-    "Trap:tid_ceiling_electric_aoe_vr_t04": {
+    "d152ee5a-c5e1-4e68-a6e4-2f79ca14b38a": {
       "templateId": "Trap:tid_ceiling_electric_aoe_vr_t04",
       "attributes": {
         "loadedAmmo": 0,
@@ -87,7 +87,7 @@
       },
       "quantity": 1
     },
-    "Ingredient:ingredient_ore_alloy": {
+    "a8d317c5-23a6-4f97-9c29-08c68e5b70d0": {
       "templateId": "Ingredient:ingredient_ore_alloy",
       "attributes": {
         "loadedAmmo": 0,
@@ -99,7 +99,7 @@
       },
       "quantity": 999
     },
-    "Ingredient:ingredient_planks": {
+    "ce7ef74f-50cb-4538-b066-c44aad9fc5be": {
       "templateId": "Ingredient:ingredient_planks",
       "attributes": {
         "loadedAmmo": 0,
