@@ -173,27 +173,9 @@ export namespace ShopGenerator {
       entry.offerId = `:/${uuid()}`;
       entry.offerType = "StaticPrice";
 
-      if (!randomItem.displayAssetPath)
-        randomItem.displayAssetPath = setDisplayAsset(`DA_Daily_${randomItem.id}`);
-      else if (!randomItem.newDisplayAssetPath) randomItem.newDisplayAssetPath = "";
-      // else if (!randomItem.newDisplayAssetPath)
-      //   randomItem.newDisplayAssetPath = setNewDisplayAssetPath(`DAv2_${randomItem.id}`);
-
-      entry.displayAssetPath = randomItem.displayAssetPath.includes("DA_Daily")
-        ? randomItem.displayAssetPath
-        : setDisplayAsset(`DA_Daily_${randomItem.id}`);
-      entry.NewDisplayAssetPath = randomItem.NewDisplayAssetPath;
-
-      entry.metaInfo.push({ key: "DisplayAssetPath", value: entry.displayAssetPath });
-      entry.metaInfo.push({
-        key: "NewDisplayAssetPath",
-        value: entry.NewDisplayAssetPath,
-      });
       entry.metaInfo.push({ key: "TileSize", value: "Small" });
       entry.metaInfo.push({ key: "SectionId", value: "Daily" });
 
-      entry.meta.NewDisplayAssetPath = entry.NewDisplayAssetPath;
-      entry.meta.displayAssetPath = entry.displayAssetPath;
       entry.meta.SectionId = "Daily";
       entry.meta.TileSize = "Small";
 
