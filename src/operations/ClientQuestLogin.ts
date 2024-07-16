@@ -217,8 +217,6 @@ export default async function (c: Context) {
     let now = new Date(currentDate);
     const lootList: LootList[] = [];
 
-    if (isNaN(lastLoggedInDate.getTime()) || isNaN(now.getTime())) lastLoggedInDate = new Date();
-
     if (lastLoggedInDate.getDate() !== now.getDate()) {
       common_core.items["Currency:MtxPurchased"].quantity += 50;
 
@@ -273,7 +271,11 @@ export default async function (c: Context) {
         user.accountId,
       );
 
-      shouldUpdateProfile = true;
+      common_core.rvn += 1;
+      common_core.commandRevision += 1;
+      common_core.updatedAt = new Date().toISOString();
+
+      await profilesService.update(user.accountId, "common_core", common_core);
     }
 
     // trying something new (this should be faster)

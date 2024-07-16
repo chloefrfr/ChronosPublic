@@ -229,14 +229,13 @@ export namespace ShopGenerator {
       if (characters === 2) break;
     }
 
-    /// TODO - Add a accurate minimum of items for S14 and below
+    let minimumWeeklyItems: number = 2;
 
-    let MinItems: number = 2;
+    if (config.currentSeason > 1 && config.currentSeason <= 8) minimumWeeklyItems = 2;
+    else if (config.currentSeason > 9 && config.currentSeason <= 13) minimumWeeklyItems = 3;
+    else minimumWeeklyItems = 5;
 
-    if (config.currentSeason > 1 && config.currentSeason <= 8) MinItems = 2;
-    else MinItems = 3;
-
-    while (getRandomFullSetLength(weekly.catalogEntries) < MinItems) {
+    while (getRandomFullSetLength(weekly.catalogEntries) < minimumWeeklyItems) {
       const keys = Object.keys(sets);
 
       if (keys.length === 0) continue;

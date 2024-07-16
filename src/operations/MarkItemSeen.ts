@@ -32,6 +32,7 @@ export default async function (c: Context) {
       return c.json(errors.createError(400, c.req.url, "Body isn't valid JSON.", timestamp), 400);
     }
 
+    let shouldUpdateProfile: boolean = false;
     const applyProfileChanges = [];
     const { itemIds } = body;
 
@@ -45,10 +46,12 @@ export default async function (c: Context) {
           attributeName: "item_seen",
           attributeValue: athena.items[item].attributes.item_seen,
         });
+
+        shouldUpdateProfile = true;
       }
     }
 
-    if (applyProfileChanges.length > 0) {
+    if (shouldUpdateProfile) {
       athena.rvn += 1;
       athena.commandRevision += 1;
       athena.updatedAt = new Date().toISOString();

@@ -171,6 +171,14 @@ export namespace RewardsManager {
               quantity: quantity,
             });
             break;
+          case lowercaseItem.startsWith("cosmeticvarianttoken"):
+            items.push({
+              templateId: item,
+              type: "athena",
+              attributes,
+              quantity,
+            });
+            break;
 
           default:
             logger.warn(`Missing Reward: ${item}`);

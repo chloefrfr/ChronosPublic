@@ -56,27 +56,24 @@ export default async function (c: Context) {
 
   const { itemToSlot, lockerItem, category, slotIndex, variantUpdates } = body;
 
+  let shouldUpdateProfile: boolean = false;
   const applyProfileChanges: object[] = [];
 
   if (profile.items[itemToSlot]) {
     if (variantUpdates.length > 0 && Array.isArray(variantUpdates)) {
       variantUpdates.forEach((variant: Variants) => {
-        const { channel, active, owned } = variant;
+        const { channel, active } = variant;
+        const itemAttributes = profile.items[itemToSlot].attributes;
 
-        const existingIndex: number = profile.items[itemToSlot].attributes.variants!.findIndex(
+        const existingVariant = itemAttributes.variants?.find(
           (v: Variants) => v.channel === channel,
         );
 
-        if (existingIndex === -1) {
-          profile.items[itemToSlot].attributes.variants!.push({
-            channel,
-            active,
-            owned,
-          });
-        } else {
-          profile.items[itemToSlot].attributes.variants![existingIndex].active = active;
-          profile.items[itemToSlot].attributes.variants![existingIndex].owned = owned;
-        }
+        if (!existingVariant) return;
+
+        if (existingVariant.owned.includes(active)) return;
+
+        existingVariant.active = active;
       });
 
       applyProfileChanges.push({
@@ -126,6 +123,8 @@ export default async function (c: Context) {
         attributeName: "locker_slots_data",
         attributeValue: slotData,
       });
+
+      shouldUpdateProfile = true;
     }
   } else if (category === "ItemWrap" && slotIndex >= 0 && slotIndex <= 7) {
     const slotData = profile.items[lockerItem].attributes.locker_slots_data;
@@ -138,20 +137,23 @@ export default async function (c: Context) {
         attributeName: "locker_slots_data",
         attributeValue: slotData,
       });
+      shouldUpdateProfile = true;
     }
   } else if (slotIndex === -1) {
     updateItemWrapSlot();
+    shouldUpdateProfile = true;
   } else {
     updateFavoriteSlot(category, [itemToSlot]);
+    shouldUpdateProfile = true;
   }
 
-  if (applyProfileChanges.length > 0) {
+  if (shouldUpdateProfile) {
     profile.rvn += 1;
     profile.commandRevision += 1;
     profile.updatedAt = new Date().toISOString();
-  }
 
-  await profilesService.update(user.accountId, "athena", profile);
+    await profilesService.update(user.accountId, "athena", profile);
+  }
 
   const endTimestamp = Date.now();
 
