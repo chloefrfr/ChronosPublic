@@ -5,6 +5,17 @@ import { Profiles } from "../../tables/profiles";
 import type Database from "../Database.wrapper";
 import type { IProfile } from "../../../types/profilesdefs";
 
+enum ProfileType {
+  Athena = "athena",
+  CommonCore = "common_core",
+  CommonPublic = "common_public",
+  Campaign = "campaign",
+  Metadata = "metadata",
+  Theater0 = "theater0",
+  CollectionBookSchematics0 = "collection_book_schematics0",
+  CollectionBookPeople0 = "collection_book_people0",
+}
+
 export default class ProfilesService {
   private profilesRepository: Repository<Profiles>;
   private cache: NodeCache;
@@ -67,7 +78,40 @@ export default class ProfilesService {
         profile.accountId = accountId;
       }
 
-      profile[type] = { ...(profile[type] || {}), ...data };
+      const profileData: IProfile = {
+        profileId: type,
+        ...data,
+      } as IProfile;
+
+      switch (type) {
+        case ProfileType.Athena:
+          profile.athena = profileData;
+          break;
+        case ProfileType.CommonCore:
+          profile.common_core = profileData;
+          break;
+        case ProfileType.CommonPublic:
+          profile.common_public = profileData;
+          break;
+        case ProfileType.Campaign:
+          profile.campaign = profileData;
+          break;
+        case ProfileType.Metadata:
+          profile.metadata = profileData;
+          break;
+        case ProfileType.Theater0:
+          profile.theater0 = profileData;
+          break;
+        case ProfileType.CollectionBookSchematics0:
+          profile.collection_book_schematics0 = profileData;
+          break;
+        case ProfileType.CollectionBookPeople0:
+          profile.collection_book_people0 = profileData;
+          break;
+        default:
+          logger.error(`Unknown profile type: ${type}`);
+          break;
+      }
 
       await this.profilesRepository.save(profile);
       const ttl = this.getRandomTTL();

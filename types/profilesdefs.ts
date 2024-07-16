@@ -20,7 +20,7 @@ export interface IProfile {
   rvn: number;
   wipeNumber: number;
   accountId: string;
-  profileId: "";
+  profileId: string;
   version: "no_version";
   stats: {
     attributes: Partial<StatsAttributes>;
@@ -39,6 +39,10 @@ export interface StatsAttributes {
   use_random_loadout: boolean;
   past_seasons: PastSeasons[];
   season_match_boost: number;
+  theater_unique_id?: string;
+  past_lifetime_zones_completed?: number;
+  last_event_instance_key?: string;
+  last_zones_completed?: Number;
   loadouts: string[];
   mfa_reward_claimed: boolean;
   rested_xp_overflow: number;
@@ -257,6 +261,8 @@ export interface ItemValue {
   item_seen: boolean;
   refundsUsed?: number;
   refundCredits?: number;
+  sectionStates?: any[];
+  state?: string;
   cloud_save_info?: {
     saveCount: number;
     savedRecords: SavedRecords[];

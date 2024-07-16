@@ -1,12 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import type {
-  Athena,
-  Campaign,
-  CommonCore,
-  CommonPublic,
-  Metadata,
-  Theater,
-} from "../../types/profilesdefs";
+import type { IProfile } from "../../types/profilesdefs";
 
 @Entity()
 export class Profiles extends BaseEntity {
@@ -17,20 +10,26 @@ export class Profiles extends BaseEntity {
   accountId!: string;
 
   @Column({ type: "jsonb", default: {} })
-  athena!: Athena;
+  athena!: IProfile;
 
   @Column({ type: "jsonb", default: {} })
-  common_core!: CommonCore;
+  common_core!: IProfile;
 
   @Column({ type: "jsonb", default: {} })
-  common_public!: CommonPublic;
+  common_public!: IProfile;
 
-  @Column({ type: "jsonb", default: [] })
-  campaign!: Campaign;
+  @Column({ type: "jsonb", default: {} })
+  campaign!: IProfile;
 
-  @Column({ type: "jsonb", default: [] })
-  metadata!: Metadata;
+  @Column({ type: "jsonb", default: {} })
+  metadata!: IProfile;
 
-  @Column({ type: "jsonb", default: [] })
-  theater0!: Theater;
+  @Column({ type: "jsonb", default: {} })
+  theater0!: IProfile;
+
+  @Column({ type: "jsonb", default: {} })
+  collection_book_people0!: IProfile;
+
+  @Column({ type: "jsonb", default: {} })
+  collection_book_schematics0!: IProfile;
 }
