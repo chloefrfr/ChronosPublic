@@ -194,15 +194,15 @@ export default function () {
 
   app.post(
     "/gamesessions/levels/:username/:sessionId/:totalXp",
-    Validation.verifyBasicToken,
+    // Validation.verifyBasicToken,
     async (c) => {
-      const sessionId = c.req.param("sessionId");
+      // const sessionId = c.req.param("sessionId");
       const username = c.req.param("username");
-      const session = await HostAPI.getServerBySessionId(sessionId);
+      // const session = await HostAPI.getServerBySessionId(sessionId);
       const timestamp = new Date().toISOString();
 
-      if (!session)
-        return c.json(errors.createError(404, c.req.url, "Session not found!", timestamp), 404);
+      // if (!session)
+      //   return c.json(errors.createError(404, c.req.url, "Session not found!", timestamp), 404);
 
       try {
         const user = await userService.findUserByUsername(username);
@@ -228,6 +228,7 @@ export default function () {
 
         const totalXp = parseInt(c.req.param("totalXp"));
         const { attributes } = athena.stats;
+        const changes: object[] = [];
 
         for (const pastSeason of attributes.past_seasons!) {
           if (pastSeason.seasonNumber === config.currentSeason) {
@@ -373,13 +374,28 @@ export default function () {
             attributes.xp! += updater.pastSeasons.seasonXp;
 
             attributes.last_xp_interaction = new Date().toISOString();
+
+            changes.push({
+              level: attributes.level,
+              book_level: attributes.book_level,
+              xp: attributes.xp,
+              last_xp_interaction: attributes.last_xp_interaction,
+            });
           }
         }
 
         await profilesService.update(user.accountId, "athena", athena);
         await profilesService.update(user.accountId, "common_core", common_core);
 
-        return c.json(MCPResponses.generate(athena, [], "athena"));
+        XmppUtilities.SendMessageToId(
+          JSON.stringify({
+            type: "com.epicgames.gift.received",
+            payload: {},
+            timestamp: new Date().toISOString(),
+          }),
+          user.accountId,
+        );
+        return c.json(MCPResponses.generate(athena, changes, "athena"));
       } catch (error) {
         return c.json(errors.createError(500, c.req.url, "Internal Server Error", timestamp), 500);
       }

@@ -96,6 +96,16 @@ export default function () {
       "epicgames_Arena_S13_Solo:Arena_S13_Division8_Solo": [user.accountId],
       "epicgames_Arena_S13_Solo:Arena_S13_Division9_Solo": [user.accountId],
       "epicgames_Arena_S13_Solo:Arena_S13_Division10_Solo": [user.accountId],
+      "epicgames_Arena_S16_Solo:Arena_S16_Division1_Solo": [user.accountId],
+      "epicgames_Arena_S16_Solo:Arena_S16_Division2_Solo": [user.accountId],
+      "epicgames_Arena_S16_Solo:Arena_S16_Division3_Solo": [user.accountId],
+      "epicgames_Arena_S16_Solo:Arena_S16_Division4_Solo": [user.accountId],
+      "epicgames_Arena_S16_Solo:Arena_S16_Division5_Solo": [user.accountId],
+      "epicgames_Arena_S16_Solo:Arena_S16_Division6_Solo": [user.accountId],
+      "epicgames_Arena_S16_Solo:Arena_S16_Division7_Solo": [user.accountId],
+      "epicgames_Arena_S16_Solo:Arena_S16_Division8_Solo": [user.accountId],
+      "epicgames_Arena_S16_Solo:Arena_S16_Division9_Solo": [user.accountId],
+      "epicgames_Arena_S16_Solo:Arena_S16_Division10_Solo": [user.accountId],
 
       /// Duos
       "epicgames_Arena_S13_Duos:Arena_S13_Division1_Duos": [user.accountId],

@@ -61,6 +61,7 @@ export default async function (c: Context) {
 
   if (profile.items[itemToSlot]) {
     if (variantUpdates.length > 0 && Array.isArray(variantUpdates)) {
+      console.log(variantUpdates);
       variantUpdates.forEach((variant: Variants) => {
         const { channel, active } = variant;
         const itemAttributes = profile.items[itemToSlot].attributes;
