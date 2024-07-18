@@ -9,6 +9,7 @@
 
 ## What's Next?
 
+- Leaderboards (Live-Updating)
 - Save the World
 
 ## Planned Features
