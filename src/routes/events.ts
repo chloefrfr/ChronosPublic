@@ -84,43 +84,23 @@ export default function () {
       template.eventTemplateId = template.eventTemplateId.replace(/S13/g, `S${uahelper.season}`);
     });
 
-    const teams: Record<string, string[]> = {
-      /// Solos
-      "epicgames_Arena_S13_Solo:Arena_S13_Division1_Solo": [user.accountId],
-      "epicgames_Arena_S13_Solo:Arena_S13_Division2_Solo": [user.accountId],
-      "epicgames_Arena_S13_Solo:Arena_S13_Division3_Solo": [user.accountId],
-      "epicgames_Arena_S13_Solo:Arena_S13_Division4_Solo": [user.accountId],
-      "epicgames_Arena_S13_Solo:Arena_S13_Division5_Solo": [user.accountId],
-      "epicgames_Arena_S13_Solo:Arena_S13_Division6_Solo": [user.accountId],
-      "epicgames_Arena_S13_Solo:Arena_S13_Division7_Solo": [user.accountId],
-      "epicgames_Arena_S13_Solo:Arena_S13_Division8_Solo": [user.accountId],
-      "epicgames_Arena_S13_Solo:Arena_S13_Division9_Solo": [user.accountId],
-      "epicgames_Arena_S13_Solo:Arena_S13_Division10_Solo": [user.accountId],
-      "epicgames_Arena_S16_Solo:Arena_S16_Division1_Solo": [user.accountId],
-      "epicgames_Arena_S16_Solo:Arena_S16_Division2_Solo": [user.accountId],
-      "epicgames_Arena_S16_Solo:Arena_S16_Division3_Solo": [user.accountId],
-      "epicgames_Arena_S16_Solo:Arena_S16_Division4_Solo": [user.accountId],
-      "epicgames_Arena_S16_Solo:Arena_S16_Division5_Solo": [user.accountId],
-      "epicgames_Arena_S16_Solo:Arena_S16_Division6_Solo": [user.accountId],
-      "epicgames_Arena_S16_Solo:Arena_S16_Division7_Solo": [user.accountId],
-      "epicgames_Arena_S16_Solo:Arena_S16_Division8_Solo": [user.accountId],
-      "epicgames_Arena_S16_Solo:Arena_S16_Division9_Solo": [user.accountId],
-      "epicgames_Arena_S16_Solo:Arena_S16_Division10_Solo": [user.accountId],
+    const entries: string[] = [];
 
-      /// Duos
-      "epicgames_Arena_S13_Duos:Arena_S13_Division1_Duos": [user.accountId],
-      "epicgames_Arena_S13_Duos:Arena_S13_Division2_Duos": [user.accountId],
-      "epicgames_Arena_S13_Duos:Arena_S13_Division3_Duos": [user.accountId],
-      "epicgames_Arena_S13_Duos:Arena_S13_Division4_Duos": [user.accountId],
-      "epicgames_Arena_S13_Duos:Arena_S13_Division5_Duos": [user.accountId],
-      "epicgames_Arena_S13_Duos:Arena_S13_Division6_Duos": [user.accountId],
-      "epicgames_Arena_S13_Duos:Arena_S13_Division7_Duos": [user.accountId],
-      "epicgames_Arena_S13_Duos:Arena_S13_Division8_Duos": [user.accountId],
-      "epicgames_Arena_S13_Duos:Arena_S13_Division9_Duos": [user.accountId],
-      "epicgames_Arena_S13_Duos:Arena_S13_Division10_Duos": [user.accountId],
-    };
+    for (let division = 1; division <= 10; division++) {
+      entries.push(
+        `epicgames_Arena_S${uahelper.season}_Solo:Arena_S${uahelper.season}_Division${division}_Solo`,
+      );
+    }
 
-    await hypeService.create();
+    // entries.unshift(`epicgames_Arena_S${uahelper.season}_Solo:Arena_S${uahelper.season}_Solo`);
+
+    const teams = entries.reduce((acc, entry) => {
+      // @ts-ignore
+      acc[entry] = [user.accountId];
+      return acc;
+    }, {});
+
+    await hypeService.create(uahelper.season);
 
     const hype = await hypeService.getAll();
 
