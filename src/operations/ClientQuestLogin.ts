@@ -271,11 +271,7 @@ export default async function (c: Context) {
         user.accountId,
       );
 
-      common_core.rvn += 1;
-      common_core.commandRevision += 1;
-      common_core.updatedAt = new Date().toISOString();
-
-      await profilesService.update(user.accountId, "common_core", common_core);
+      shouldUpdateProfile = true;
     }
 
     // trying something new (this should be faster)

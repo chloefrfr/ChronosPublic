@@ -14,11 +14,18 @@ export default class LookupCommand extends BaseCommand {
     name: "rotate",
     description: "Rotates the item shop.",
     options: [],
-    defaultMemberPermissions: PermissionFlagsBits.Administrator.toString(),
+    defaultMemberPermissions: PermissionFlagsBits.BanMembers.toString(),
     dmPermission: false,
   };
 
   async execute(interaction: CommandInteraction<CacheType>): Promise<any> {
+    if (!interaction.memberPermissions?.has("BanMembers")) {
+      return await interaction.reply({
+        content: "You do not have permission to use this command.",
+        ephemeral: true,
+      });
+    }
+
     await interaction.deferReply({ ephemeral: true });
 
     const ro = await rotate();

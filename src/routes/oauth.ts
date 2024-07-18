@@ -91,9 +91,9 @@ export default function () {
             400,
           );
 
-        if (!userByHWID) await updateHwid(user, deviceId);
+        if (userByHWID && !userByHWID) await updateHwid(user, deviceId);
 
-        if (user.banned && userByHWID?.banned) {
+        if (user.banned && userByHWID && userByHWID?.banned) {
           await updateHwid(user, deviceId);
 
           return c.json(
@@ -122,17 +122,6 @@ export default function () {
           },
           config.client_secret,
         );
-
-        if (!userByHWID) await updateHwid(user!, deviceId);
-
-        if (user!.banned && userByHWID?.banned) {
-          await updateHwid(user!, deviceId);
-
-          return c.json(
-            errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
-            403,
-          );
-        }
 
         return c.json({
           access_token: `eg1~${token}`,
@@ -163,9 +152,9 @@ export default function () {
         if (!user)
           return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
-        if (!userByHWID) await updateHwid(user, deviceId);
+        if (userByHWID && !userByHWID) await updateHwid(user, deviceId);
 
-        if (user.banned && userByHWID?.banned) {
+        if (user.banned && userByHWID && userByHWID?.banned) {
           await updateHwid(user, deviceId);
 
           return c.json(
@@ -198,9 +187,9 @@ export default function () {
         if (!user)
           return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
-        if (!userByHWID) await updateHwid(user, deviceId);
+        if (userByHWID && !userByHWID) await updateHwid(user, deviceId);
 
-        if (userByHWID!.banned) {
+        if (userByHWID && userByHWID!.banned) {
           await updateHwid(user, deviceId);
 
           return c.json(
@@ -225,9 +214,9 @@ export default function () {
     if (!user)
       return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
-    if (!userByHWID) await updateHwid(user, deviceId);
+    if (userByHWID && !userByHWID) await updateHwid(user, deviceId);
 
-    if (user.banned && userByHWID?.banned) {
+    if (user.banned && userByHWID && userByHWID?.banned) {
       await updateHwid(user, deviceId);
 
       return c.json(
@@ -312,8 +301,6 @@ export default function () {
 
     if (!user)
       return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
-
-    console.log(c.req.header());
 
     const creationTime = new Date(decodedToken.creation_date).toISOString();
     const expiry = new Date(creationTime + decodedToken.expires_in * 60 * 60 * 1000);
