@@ -1,5 +1,5 @@
 import { app, config, logger, tokensService, userService } from "..";
-import type { User } from "../tables/user";
+import { User } from "../tables/user";
 import errors from "../utilities/errors";
 import TokenUtilities from "../utilities/tokens";
 import { v4 as uuid } from "uuid";
@@ -8,6 +8,20 @@ import crypto from "node:crypto";
 
 export function validateBase64(input: string) {
   return /^[A-Za-z0-9+/]*={0,2}$/.test(input);
+}
+
+export async function updateHwid(user: User, deviceId: string): Promise<void> {
+  await User.createQueryBuilder()
+    .update(User)
+    .set({ hwid: deviceId })
+    .where("accountId = :accountId", { accountId: user.accountId })
+    .execute();
+}
+
+export function validateHWID(hwid: string): boolean {
+  const hwidRegex = /^[0-9a-fA-F]{32}$/;
+
+  return typeof hwid === "string" && hwidRegex.test(hwid);
 }
 
 export default function () {
@@ -31,13 +45,27 @@ export default function () {
       return c.json(errors.createError(400, c.req.url, "Invalid body.", timestamp), 400);
     }
 
+    const deviceId = c.req.header("X-Epic-Device-ID");
+
     let { grant_type } = body;
 
     const clientId: string = Buffer.from(token[1], "base64").toString().split(":")[0];
 
     if (!clientId)
       return c.json(errors.createError(400, c.req.url, "Invalid client.", timestamp), 400);
+
+    if (!deviceId)
+      return c.json(errors.createError(400, c.req.url, "No 'HWID' provided.", timestamp), 400);
+
+    if (!validateHWID(deviceId))
+      return c.json(errors.createError(400, c.req.url, "Invalid HWID format.", timestamp), 400);
+
     let user: User | null;
+
+    const userByHWID = await userService.findUserByHWID(deviceId);
+
+    if (userByHWID && userByHWID.banned)
+      return c.json(errors.createError(403, c.req.url, "This user is banned.", timestamp), 403);
 
     switch (grant_type) {
       case "password":
@@ -62,6 +90,18 @@ export default function () {
             errors.createError(400, c.req.url, "Invalid account credentials.", timestamp),
             400,
           );
+
+        if (!userByHWID) await updateHwid(user, deviceId);
+
+        if (user.banned && userByHWID?.banned) {
+          await updateHwid(user, deviceId);
+
+          return c.json(
+            errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
+            403,
+          );
+        }
+
         break;
 
       case "client_credentials":
@@ -82,6 +122,17 @@ export default function () {
           },
           config.client_secret,
         );
+
+        if (!userByHWID) await updateHwid(user!, deviceId);
+
+        if (user!.banned && userByHWID?.banned) {
+          await updateHwid(user!, deviceId);
+
+          return c.json(
+            errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
+            403,
+          );
+        }
 
         return c.json({
           access_token: `eg1~${token}`,
@@ -112,6 +163,17 @@ export default function () {
         if (!user)
           return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
+        if (!userByHWID) await updateHwid(user, deviceId);
+
+        if (user.banned && userByHWID?.banned) {
+          await updateHwid(user, deviceId);
+
+          return c.json(
+            errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
+            403,
+          );
+        }
+
         break;
 
       case "refresh_token":
@@ -136,6 +198,23 @@ export default function () {
         if (!user)
           return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
+        if (!userByHWID) await updateHwid(user, deviceId);
+
+        if (userByHWID!.banned) {
+          await updateHwid(user, deviceId);
+
+          return c.json(
+            errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
+            403,
+          );
+        }
+
+        if (user.banned)
+          return c.json(
+            errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
+            403,
+          );
+
         break;
 
       default:
@@ -145,6 +224,17 @@ export default function () {
 
     if (!user)
       return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
+
+    if (!userByHWID) await updateHwid(user, deviceId);
+
+    if (user.banned && userByHWID?.banned) {
+      await updateHwid(user, deviceId);
+
+      return c.json(
+        errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
+        403,
+      );
+    }
 
     await tokensService.deleteByType(user.accountId, "accesstoken");
     await tokensService.deleteByType(user.accountId, "refreshtoken");
@@ -171,7 +261,7 @@ export default function () {
       displayName: user.username,
       app: "fortnite",
       in_app_id: user.accountId,
-      device_id: uuid().replace(/-/gi, ""),
+      device_id: deviceId,
     });
   });
 
@@ -222,6 +312,8 @@ export default function () {
 
     if (!user)
       return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
+
+    console.log(c.req.header());
 
     const creationTime = new Date(decodedToken.creation_date).toISOString();
     const expiry = new Date(creationTime + decodedToken.expires_in * 60 * 60 * 1000);

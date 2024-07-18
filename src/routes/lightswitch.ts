@@ -26,21 +26,13 @@ export default function () {
 
       if (!decodedToken)
         return c.json(
-          errors.createError(
-            400,
-            c.req.url,
-            "Failed to decode token.",
-            timestamp
-          ),
-          400
+          errors.createError(400, c.req.url, "Failed to decode token.", timestamp),
+          400,
         );
 
       accountId = decodedToken.sub as string;
     } catch (error) {
-      return c.json(
-        errors.createError(500, c.req.url, "Internal Server Error", timestamp),
-        500
-      );
+      return c.json(errors.createError(500, c.req.url, "Internal Server Error", timestamp), 500);
     }
 
     const user = await userService.findUserByAccountId(accountId);
@@ -51,10 +43,13 @@ export default function () {
           404,
           c.req.url,
           `Failed to find user with the accountId ${accountId}.`,
-          timestamp
+          timestamp,
         ),
-        404
+        404,
       );
+
+    if (user.banned)
+      return c.json(errors.createError(403, c.req.url, "This user is banned.", timestamp), 403);
 
     // TODO - Add a Proper Maintenance system.
 

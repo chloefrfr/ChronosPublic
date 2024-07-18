@@ -99,6 +99,17 @@ export default class UserService {
     }
   }
 
+  public async findUserByHWID(hwid: string): Promise<User | null> {
+    try {
+      const user = await this.userRepository.findOne({ where: { hwid } });
+
+      return user || null;
+    } catch (error) {
+      logger.error(`Error finding user by hwid: ${error}`);
+      return null;
+    }
+  }
+
   public async create(user: Partial<User>): Promise<User | null> {
     try {
       const newUser = this.userRepository.create(user);

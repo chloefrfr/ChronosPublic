@@ -29,7 +29,7 @@
 - [x] Gifting
 - [x] Purchasing from item shop
 - [ ] IP Bans
-- [ ] HWID Bans
+- [x] HWID Bans
 - [x] Refunding
 - [ ] Save the World
 - [x] Arena

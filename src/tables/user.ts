@@ -31,5 +31,8 @@ export class User extends BaseEntity {
   has_all_items!: boolean;
 
   @Column({ default: "" })
+  hwid!: string;
+
+  @Column({ default: "" })
   lastLogin!: string;
 }
