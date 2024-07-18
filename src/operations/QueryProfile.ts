@@ -111,6 +111,7 @@ export default async function (c: Context) {
         attributes.book_purchased = currentSeason.purchasedVIP;
         attributes.level = currentSeason.seasonLevel;
         attributes.season!.numWins = currentSeason.numWins;
+        attributes.accountLevel! += currentSeason.seasonLevel;
         attributes.season!.numLowBracket = currentSeason.numLowBracket;
         attributes.season!.numHighBracket = currentSeason.numHighBracket;
       } else {

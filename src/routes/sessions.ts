@@ -372,6 +372,7 @@ export default function () {
             attributes.level = updater.pastSeasons.seasonLevel;
             attributes.book_level = updater.pastSeasons.bookLevel;
             attributes.xp! += updater.pastSeasons.seasonXp;
+            attributes.accountLevel! += 1;
 
             attributes.last_xp_interaction = new Date().toISOString();
 

@@ -186,7 +186,6 @@ export const matchmakerServer = Bun.serve<Socket>({
 
         MatchmakerStates.connecting(socket);
         MatchmakerStates.waiting(socket, foundParty);
-        MatchmakerStates.queueFull(socket);
         MatchmakerStates.queued(socket, socket.data.ticketId, foundParty, existingServer.queue);
 
         while (existingServer.status !== ServerStatus.ONLINE && existingServer.queue.length > 0) {
