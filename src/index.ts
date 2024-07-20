@@ -7,11 +7,8 @@ import { loadRoutes } from "./utilities/routing";
 import path from "node:path";
 import AccountService from "./wrappers/database/AccountService";
 import TokensService from "./wrappers/database/TokensService";
-import { ShopGenerator } from "./shop/shop";
-import { ShopHelper } from "./shop/helpers/shophelper";
 import rotate from "./shop/rotate/autorotate";
 import ProfilesService from "./wrappers/database/ProfilesService";
-import fetch from "node-fetch";
 import HypeService from "./wrappers/database/HypeService";
 import FriendsService from "./wrappers/database/FriendsService";
 import { ItemStorageService } from "./wrappers/database/ItemStorageService";
@@ -20,10 +17,8 @@ import type { User } from "./tables/user";
 import type { Account } from "./tables/account";
 import { ServerService } from "./wrappers/database/ServerService";
 import { QuestManager } from "./utilities/managers/QuestManager";
-import { LevelsManager } from "./utilities/managers/LevelsManager";
 import DailyQuestService from "./wrappers/database/DailyQuestService";
 import BattlepassQuestService from "./wrappers/database/BattlepassQuestService";
-import { WeeklyQuestGranter } from "./utilities/granting/WeeklyQuestGranter";
 
 export type Variables = {
   user: User;

@@ -1,6 +1,6 @@
 import path from "node:path";
 import fs from "node:fs/promises";
-import { dailyQuestService, itemStorageService, logger } from "../..";
+import { dailyQuestService, logger } from "../..";
 
 interface DailyQuestDef {
   Type: string;

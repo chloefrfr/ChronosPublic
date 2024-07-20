@@ -2,7 +2,6 @@ import { battlepassQuestService, logger } from "../..";
 import type { PastSeasons } from "../managers/LevelsManager";
 import { QuestManager, type Objectives } from "../managers/QuestManager";
 
-// Enhanced and more readable version of WeeklyQuestGranter
 export namespace WeeklyQuestGranter {
   export async function grant(pastSeasons: PastSeasons, accountId: string) {
     const grantedQuestInstanceIds: string[] = [];
