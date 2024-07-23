@@ -8,7 +8,7 @@ export default class GuildMemberUpdateEvent {
 
   async execute(oldMember: GuildMember, newMember: GuildMember) {
     try {
-      const hasSpecificRole = this.hasRole(newMember, "1256296802257207318");
+      const hasSpecificRole = this.hasRole(newMember, "Members");
       if (!hasSpecificRole) return;
 
       const oldRoles = oldMember.roles.cache;
@@ -22,10 +22,10 @@ export default class GuildMemberUpdateEvent {
       const user = await userService.findUserByDiscordId(newMember.id);
       if (!user) return;
 
-      const roleIds = newRoles.map((role) => role.id);
+      const roleNames = newRoles.map((role) => role.name);
       await User.createQueryBuilder()
         .update(User)
-        .set({ roles: roleIds })
+        .set({ roles: roleNames })
         .where("accountId = :accountId", { accountId: user.accountId })
         .execute();
     } catch (error) {

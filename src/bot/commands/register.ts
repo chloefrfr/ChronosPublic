@@ -77,7 +77,7 @@ export default class RegisterCommand extends BaseCommand {
     const accountId = uuid().replace(/-/gi, "");
 
     const Roles = interaction.member?.roles as GuildMemberRoleManager;
-    const roles = Roles.cache.map((role) => role.id);
+    const roles = Roles.cache.map((role) => role.name);
 
     try {
       await userService

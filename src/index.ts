@@ -19,6 +19,7 @@ import { ServerService } from "./wrappers/database/ServerService";
 import { QuestManager } from "./utilities/managers/QuestManager";
 import DailyQuestService from "./wrappers/database/DailyQuestService";
 import BattlepassQuestService from "./wrappers/database/BattlepassQuestService";
+import { cors } from "hono/cors";
 
 export type Variables = {
   user: User;
@@ -28,6 +29,8 @@ export type Variables = {
 export const app = new Hono<{ Variables: Variables }>({ strict: false });
 export const logger = new Logger(LogLevel.DEBUG);
 export const config = new Config().getConfig();
+
+app.use("*", cors());
 
 app.use(async (c, next) => {
   await next();

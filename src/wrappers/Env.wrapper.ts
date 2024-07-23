@@ -17,6 +17,8 @@ const configSchema = z.object({
   session_url: z.string(),
   token: z.string(),
   drop: z.boolean(),
+  discord_client_id: z.string(),
+  discord_client_secret: z.string(),
 });
 
 export default class Config {
@@ -34,6 +36,8 @@ export default class Config {
       session_url: Bun.env.session_url,
       token: Bun.env.token,
       drop: Bun.env.drop === "true" || Bun.env.drop === undefined ? true : false,
+      discord_client_id: Bun.env.discord_client_id,
+      discord_client_secret: Bun.env.discord_client_secret,
     });
 
     // Check if parsing was successful
