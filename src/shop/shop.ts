@@ -231,8 +231,8 @@ export namespace ShopGenerator {
 
     let minimumWeeklyItems: number = 2;
 
-    if (config.currentSeason > 1 && config.currentSeason <= 8) minimumWeeklyItems = 2;
-    else if (config.currentSeason > 9 && config.currentSeason <= 13) minimumWeeklyItems = 3;
+    if (config.currentSeason >= 1 && config.currentSeason <= 8) minimumWeeklyItems = 2;
+    else if (config.currentSeason >= 9 && config.currentSeason <= 13) minimumWeeklyItems = 3;
     else minimumWeeklyItems = 5;
 
     while (getRandomFullSetLength(weekly.catalogEntries) < minimumWeeklyItems) {

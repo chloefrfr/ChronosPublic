@@ -1,8 +1,10 @@
 import axios from "axios";
-import { app, config, logger, userService } from "..";
+import { app, config, logger, profilesService, userService } from "..";
 import errors from "../utilities/errors";
 import jwt, { decode, type JwtPayload } from "jsonwebtoken";
 import { Encryption } from "../utilities/encryption";
+import { XmppService } from "../sockets/xmpp/saved/XmppServices";
+import { servers } from "../sockets/gamesessions/servers";
 
 enum ARoles {
   None = "None",
@@ -43,6 +45,25 @@ interface TokenPayload {
   avatar: string;
   roles: string;
   userId: string;
+  profile: ProfileData;
+}
+
+interface ProfileData {
+  athena: AthenaProfile;
+  common_core: CommonCoreProfile;
+}
+
+interface AthenaProfile {
+  currentCharacter: string;
+  seasonLevel: number;
+  seasonXp: number;
+  bookPurchased: boolean;
+  bookLevel: number;
+  bookXp: number;
+}
+
+interface CommonCoreProfile {
+  vbucks: number;
 }
 
 export default function () {
@@ -104,9 +125,16 @@ export default function () {
         return c.json(errors.createError(400, c.req.url, "Failed to find user.", timestamp), 400);
       }
 
+      const profile = await profilesService.findByAccountId(user.accountId);
+      if (!profile) {
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to find profile.", timestamp),
+          400,
+        );
+      }
+
       let currentRole: string = "";
       for (const role of user.roles) {
-        console.log(role);
         switch (role) {
           case ARoles.Members:
           case ARoles.Trusted:
@@ -129,7 +157,33 @@ export default function () {
         }
       }
 
-      console.log(currentRole);
+      const { athena, common_core } = profile;
+
+      const favorite_character = athena.stats.attributes.favorite_character?.replace(
+        "AthenaCharacter:",
+        "",
+      );
+
+      console.log(favorite_character);
+
+      const currentSkin = await axios
+        .get(`https://fortnite-api.com/v2/cosmetics/br/${favorite_character}`)
+        .then((res) => res.data.data);
+
+      const ProfileAthena = {
+        currentCharacter:
+          currentSkin.images.icon ??
+          "https://fortnite-api.com/images/cosmetics/br/cid_001_athena_commando_f_default/icon.png",
+        seasonLevel: athena.stats.attributes.level ?? 1,
+        seasonXp: athena.stats.attributes.xp ?? 0,
+        bookPurchased: athena.stats.attributes.book_purchased ?? false,
+        bookLevel: athena.stats.attributes.book_level ?? 0,
+        bookXp: athena.stats.attributes.book_xp ?? 0,
+      };
+
+      const ProfileCommonCore = {
+        vbucks: common_core.items["Currency:MtxPurchased"].quantity ?? 0,
+      };
 
       const newToken = Encryption.encrypt(
         JSON.stringify({
@@ -138,6 +192,10 @@ export default function () {
           avatar: userData.avatar,
           roles: currentRole,
           userId: userData.id,
+          profile: {
+            athena: ProfileAthena,
+            common_core: ProfileCommonCore,
+          },
         }),
         config.client_secret,
       );
@@ -176,9 +234,11 @@ export default function () {
 
       return c.json({
         accountId: payload.accountId,
+        username: payload.username,
         discordId: payload.userId,
         avatar: `https://cdn.discordapp.com/avatars/${payload.userId}/${payload.avatar}.png`,
         roles: payload.roles,
+        profile: payload.profile,
       });
     } catch (error) {
       logger.error(`Failed to verify token: ${error}`);
@@ -222,6 +282,23 @@ export default function () {
     } catch (error) {
       logger.error(`Failed to get user roles: ${error}`);
       return c.json(errors.createError(400, c.req.url, "Invalid user.", timestamp), 400);
+    }
+  });
+
+  app.get("/chronos/server/data/:type", async (c) => {
+    const type = c.req.param("type");
+
+    switch (type) {
+      case "parties":
+        return c.json(XmppService.parties);
+      case "pings":
+        return c.json(XmppService.pings);
+      case "clients":
+        return c.json(XmppService.clients);
+      case "mucs":
+        return c.json(XmppService.xmppMucs);
+      case "servers":
+        return c.json(servers);
     }
   });
 }
