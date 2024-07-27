@@ -5,6 +5,7 @@ import jwt, { decode, type JwtPayload } from "jsonwebtoken";
 import { Encryption } from "../utilities/encryption";
 import { XmppService } from "../sockets/xmpp/saved/XmppServices";
 import { servers } from "../sockets/gamesessions/servers";
+import path from "node:path";
 
 enum ARoles {
   None = "None",
@@ -64,6 +65,13 @@ interface AthenaProfile {
 
 interface CommonCoreProfile {
   vbucks: number;
+}
+
+interface LauncherNews {
+  date: string;
+  title: string;
+  description: string;
+  image: string;
 }
 
 export default function () {
@@ -353,6 +361,24 @@ export default function () {
       logger.error(`Failed to get new profile data: ${error}`);
 
       return c.json(errors.createError(500, c.req.url, "Internal Server Error.", timestamp), 500);
+    }
+  });
+
+  app.get("/chronos/launcher/news", async (c) => {
+    const news = (await Bun.file(
+      path.join(__dirname, "..", "..", "static", "LauncherNews.json"),
+    ).json()) as LauncherNews[];
+
+    const timestamp = new Date().toISOString();
+
+    if (!news) {
+      return c.json(errors.createError(400, c.req.url, "Failed to parse file.", timestamp), 400);
+    }
+
+    try {
+      return c.json(news);
+    } catch (error) {
+      return c.json(errors.createError(500, c.req.url, "Internal Server Error", timestamp), 500);
     }
   });
 }
