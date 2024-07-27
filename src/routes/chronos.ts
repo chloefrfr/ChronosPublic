@@ -164,8 +164,6 @@ export default function () {
         "",
       );
 
-      console.log(favorite_character);
-
       const currentSkin = await axios
         .get(`https://fortnite-api.com/v2/cosmetics/br/${favorite_character}`)
         .then((res) => res.data.data);
@@ -299,6 +297,62 @@ export default function () {
         return c.json(XmppService.xmppMucs);
       case "servers":
         return c.json(servers);
+    }
+  });
+
+  app.post("/chronos/interval/getNewProfileData", async (c) => {
+    const { accountId } = await c.req.json();
+    const timestamp = new Date().toISOString();
+
+    if (!accountId) {
+      return c.json(
+        errors.createError(400, c.req.url, "Missing body parameter 'accountId'", timestamp),
+        400,
+      );
+    }
+
+    const profile = await profilesService.findByAccountId(accountId);
+    if (!profile) {
+      return c.json(errors.createError(400, c.req.url, "Failed to find profile.", timestamp), 400);
+    }
+
+    try {
+      const { athena, common_core } = profile;
+
+      const favorite_character = athena.stats.attributes.favorite_character?.replace(
+        "AthenaCharacter:",
+        "",
+      );
+
+      const currentSkin = await axios
+        .get(`https://fortnite-api.com/v2/cosmetics/br/${favorite_character}`)
+        .then((res) => res.data.data);
+
+      const ProfileAthena = {
+        currentCharacter:
+          currentSkin.images.icon ??
+          "https://fortnite-api.com/images/cosmetics/br/cid_001_athena_commando_f_default/icon.png",
+        seasonLevel: athena.stats.attributes.level ?? 1,
+        seasonXp: athena.stats.attributes.xp ?? 0,
+        bookPurchased: athena.stats.attributes.book_purchased ?? false,
+        bookLevel: athena.stats.attributes.book_level ?? 0,
+        bookXp: athena.stats.attributes.book_xp ?? 0,
+      };
+
+      const ProfileCommonCore = {
+        vbucks: common_core.items["Currency:MtxPurchased"].quantity ?? 0,
+      };
+
+      return c.json({
+        profile: {
+          athena: ProfileAthena,
+          common_core: ProfileCommonCore,
+        },
+      });
+    } catch (error) {
+      logger.error(`Failed to get new profile data: ${error}`);
+
+      return c.json(errors.createError(500, c.req.url, "Internal Server Error.", timestamp), 500);
     }
   });
 }

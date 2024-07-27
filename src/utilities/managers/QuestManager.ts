@@ -67,15 +67,7 @@ export enum QuestType {
   WEEKLY = "weekly",
 }
 
-const baseFolder = path.join(
-  __dirname,
-  "..",
-  "..",
-  "memory",
-  "season",
-  "quests",
-  `Season${config.currentSeason}`,
-);
+const baseFolder = path.join(__dirname, "..", "..", "memory", "season", "quests", "Season9");
 
 export namespace QuestManager {
   export const listedQuests: Record<QuestType, DailyQuestDef[]> = {
