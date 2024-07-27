@@ -297,8 +297,6 @@ export default async function (c: Context) {
           if (uahelper.season >= 11)
             pastSeasons.seasonLevel = Math.min(pastSeasons.seasonLevel + purchaseQuantity, 100);
         } else if (isBattlepass) {
-          logger.debug("So much fucking effort");
-
           if (purchaseQuantity <= 1) purchaseQuantity = 1;
 
           pastSeasons.bookLevel = Math.min(pastSeasons.bookLevel + purchaseQuantity, 100);

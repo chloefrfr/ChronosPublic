@@ -1,6 +1,6 @@
 import path from "node:path";
 import fs from "node:fs/promises";
-import { dailyQuestService, logger } from "../..";
+import { config, dailyQuestService, logger } from "../..";
 
 interface DailyQuestDef {
   Type: string;
@@ -67,7 +67,15 @@ export enum QuestType {
   WEEKLY = "weekly",
 }
 
-const baseFolder = path.join(__dirname, "..", "..", "memory", "season", "quests");
+const baseFolder = path.join(
+  __dirname,
+  "..",
+  "..",
+  "memory",
+  "season",
+  "quests",
+  `Season${config.currentSeason}`,
+);
 
 export namespace QuestManager {
   export const listedQuests: Record<QuestType, DailyQuestDef[]> = {
