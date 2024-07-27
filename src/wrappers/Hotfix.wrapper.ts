@@ -211,8 +211,6 @@ DefaultMaxPartySize=16`;
 export function GetDefaultRuntimeOptions(): string {
   return `[/Script/FortniteGame.FortRuntimeOptions]
 !DisabledFrontendNavigationTabs=ClearArray
-# Disable Challenges tab until i add challenges.
-+DisabledFrontendNavigationTabs=(TabName="AthenaChallenges",TabState=EFortRuntimeOptionTabState::Hidden)
 +DisabledFrontendNavigationTabs=(TabName="Showdown",TabState=EFortRuntimeOptionTabState::Hidden)
 bEnableGlobalChat=true
 bDisableGifting=false

@@ -20,18 +20,7 @@
   "dynamicbackgrounds": {
     "jcr:isCheckedOut": true,
     "backgrounds": {
-      "backgrounds": [
-        {
-          "stage": "season13",
-          "_type": "DynamicBackground",
-          "key": "lobby"
-        },
-        {
-          "stage": "season13",
-          "_type": "DynamicBackground",
-          "key": "vault"
-        }
-      ],
+      "backgrounds": [],
       "_type": "DynamicBackgroundList"
     },
     "_title": "dynamicbackgrounds",

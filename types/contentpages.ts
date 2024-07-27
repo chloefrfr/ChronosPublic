@@ -30,6 +30,7 @@ type PageKeys = "lobby" | "vault";
 interface DynamicBackground {
   _type: "DynamicBackground";
   stage: string;
+  backgroundimage?: string;
   key: PageKeys;
 }
 

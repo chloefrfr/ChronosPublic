@@ -28,6 +28,7 @@ const templateMappings = {
   quest_: "Quest",
   iatid: "ItemAccessToken",
   athena_s16: "Token",
+  season9_: "ChallengeBundleSchedule",
 };
 
 datafile.forEach((levelData, index) => {
@@ -64,4 +65,4 @@ datafile.forEach((levelData, index) => {
   });
 });
 
-fs.writeFileSync(path.join(__dirname, "SeasonFreeRewards.json"), JSON.stringify(Data, null, 2));
+fs.writeFileSync(path.join(__dirname, "SeasonPaidRewards.json"), JSON.stringify(Data, null, 2));

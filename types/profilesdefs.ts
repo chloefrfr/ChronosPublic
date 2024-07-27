@@ -37,6 +37,7 @@ export interface IProfile {
 
 export interface StatsAttributes {
   use_random_loadout: boolean;
+  fromAccountId: string;
   past_seasons: PastSeasons[];
   season_match_boost: number;
   theater_unique_id?: string;
@@ -260,10 +261,15 @@ export interface ItemValue {
   platform: string;
   gender?: string;
   personality?: string;
+  fromAccountId?: string;
+  time?: string;
   squad_slot_idx?: number;
+  userMessage?: string;
+  templateIdHashed?: string;
   portrait?: string;
   building_slot_used?: number;
   set_bonus?: string;
+  lootList?: any[];
   alterationDefinitions?: any[];
   baseClipSize?: number;
   item_seen: boolean;
