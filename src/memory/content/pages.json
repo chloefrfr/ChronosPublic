@@ -17,17 +17,23 @@
       "spotlight": false
     }
   },
+  "lobby": {
+    "backgroundimage": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/lobby/T_Lobby_SeasonX-2048x1024-24e02780ed533da8001016f4e6fb14dd15e2f860.png",
+    "stage": "seasonx",
+    "_title": "lobby",
+    "_activeDate": "2019-05-31T21:24:39.892Z",
+    "lastModified": "2019-07-31T21:24:17.119Z",
+    "_locale": "en-US"
+  },
   "dynamicbackgrounds": {
-    "jcr:isCheckedOut": true,
     "backgrounds": {
       "backgrounds": [],
       "_type": "DynamicBackgroundList"
     },
     "_title": "dynamicbackgrounds",
     "_noIndex": false,
-    "jcr:baseVersion": "a7ca237317f1e74e4b8154-226a-4450-a3cd-c77af841e798",
-    "_activeDate": "2024-07-06T05:47:30.195Z",
-    "lastModified": "2024-07-06T05:47:30.195Z",
+    "_activeDate": "2019-08-21T15:59:59.342Z",
+    "lastModified": "2019-10-29T13:07:27.936Z",
     "_locale": "en-US"
   },
   "battleroyalenews": {
