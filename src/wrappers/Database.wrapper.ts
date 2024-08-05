@@ -17,7 +17,6 @@ import { Profiles } from "../tables/profiles";
 import { Hype } from "../tables/hype";
 import { Friends } from "../tables/friends";
 import { Item } from "../tables/storage/item";
-import { Server } from "../tables/server";
 import { DailyQuest } from "../tables/storage/other/dailyQuestStorage";
 import { BattlepassQuest } from "../tables/storage/other/battlepassQuestStorage";
 
@@ -71,7 +70,6 @@ export default class Database {
           Hype,
           Friends,
           Item,
-          Server,
           DailyQuest,
           BattlepassQuest,
         ],
@@ -87,7 +85,6 @@ export default class Database {
           Hype,
           Friends,
           Item,
-          Server,
           DailyQuest,
           BattlepassQuest,
         ],
