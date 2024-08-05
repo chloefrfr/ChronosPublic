@@ -15,7 +15,6 @@ import { ItemStorageService } from "./wrappers/database/ItemStorageService";
 import { DiscordWebhook } from "./utilities/webhook";
 import type { User } from "./tables/user";
 import type { Account } from "./tables/account";
-import { ServerService } from "./wrappers/database/ServerService";
 import { QuestManager } from "./utilities/managers/QuestManager";
 import DailyQuestService from "./wrappers/database/DailyQuestService";
 import BattlepassQuestService from "./wrappers/database/BattlepassQuestService";
@@ -51,7 +50,6 @@ export const profilesService = new ProfilesService(db);
 export const hypeService = new HypeService(db);
 export const friendsService = new FriendsService(db);
 export const itemStorageService = new ItemStorageService(db);
-export const serverService = new ServerService(db);
 export const dailyQuestService = new DailyQuestService(db);
 export const battlepassQuestService = new BattlepassQuestService(db);
 

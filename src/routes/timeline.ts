@@ -1,4 +1,4 @@
-import { app, db } from "..";
+import { app, db, logger } from "..";
 import errors from "../utilities/errors";
 import TimelineHelper from "../utilities/timelinehelper";
 import uaparser from "../utilities/uaparser";
@@ -25,6 +25,8 @@ export default function () {
         errors.createError(400, c.req.url, "Failed to parse User-Agent.", date.toISOString()),
         400,
       );
+
+    logger.debug(`Current UserAgent: ${useragent}`);
 
     const activeEvents = await TimelineHelper.createTimeline(useragent);
 

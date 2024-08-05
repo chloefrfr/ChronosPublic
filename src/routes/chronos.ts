@@ -4,8 +4,8 @@ import errors from "../utilities/errors";
 import jwt, { decode, type JwtPayload } from "jsonwebtoken";
 import { Encryption } from "../utilities/encryption";
 import { XmppService } from "../sockets/xmpp/saved/XmppServices";
-import { servers } from "../sockets/gamesessions/servers";
 import path from "node:path";
+import { servers } from "../sockets/matchmaker/server";
 
 enum ARoles {
   None = "None",

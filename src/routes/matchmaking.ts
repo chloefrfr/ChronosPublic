@@ -1,8 +1,6 @@
 import { accountService, app, config, logger, userService } from "..";
 import { Validation } from "../middleware/validation";
-import { HostAPI } from "../sockets/gamesessions/host";
-import { servers } from "../sockets/gamesessions/servers";
-import { hosters } from "../sockets/matchmaker/hosters/regionhosters";
+import { servers } from "../sockets/matchmaker/server";
 import { XmppService, type PartyInfo } from "../sockets/xmpp/saved/XmppServices";
 import { Encryption } from "../utilities/encryption";
 import errors from "../utilities/errors";
@@ -111,7 +109,7 @@ export default function () {
       };
 
       return c.json({
-        serviceUrl: `ws://127.0.0.1:8413`,
+        serviceUrl: "ws://72.23.79.224:443",
         ticketType: "mms-player",
         payload: JSON.stringify(payload),
         signature: Encryption.encrypt(
@@ -148,7 +146,7 @@ export default function () {
       if (user.banned)
         return c.json(errors.createError(403, c.req.url, "User is banned!", timestamp), 403);
 
-      const session = await HostAPI.getServerBySessionId(sessionId);
+      const session = servers.find((s) => s.sessionId === sessionId);
 
       if (!session)
         return c.json(
@@ -172,7 +170,7 @@ export default function () {
   app.get("/fortnite/api/matchmaking/session/:sessionId", Validation.verifyToken, async (c) => {
     const sessionId = c.req.param("sessionId");
 
-    const session = await HostAPI.getServerBySessionId(sessionId);
+    const session = servers.find((s) => s.sessionId === sessionId);
     const timestamp = new Date().toISOString();
 
     if (!session)
@@ -189,6 +187,7 @@ export default function () {
     const VPSIps: { [key: string]: string } = {
       "45.143.196.193": "45.143.196.193",
       "34.46.111.45": "34.46.111.45",
+      "72.23.79.24": "72.23.79.24",
     };
 
     const currentBucketId = session.identifier.split(":")[0];
@@ -245,7 +244,7 @@ export default function () {
       const sessionId = c.req.param("sessionId");
       const timestamp = new Date().toISOString();
 
-      const session = await HostAPI.getServerBySessionId(sessionId);
+      const session = servers.find((s) => s.sessionId === sessionId);
 
       if (!session)
         return c.json(
@@ -276,7 +275,7 @@ export default function () {
       const sessionId = c.req.param("sessionId");
       const timestamp = new Date().toISOString();
 
-      const session = await HostAPI.getServerBySessionId(sessionId);
+      const session = servers.find((s) => s.sessionId === sessionId);
 
       // so it doesn't freak out, ill find a better way to do this later.
       if (!session) return c.json([], 200);
@@ -303,9 +302,7 @@ export default function () {
       return c.json(errors.createError(400, c.req.url, "Body isn't Valid JSON!", timestamp));
     }
 
-    const allServers = await HostAPI.getAllServers();
-
-    const matchedServerByRegion = allServers.find(
+    const matchedServerByRegion = servers.find(
       (s) => s.options.region === body.attributes.REGION_s,
     );
 

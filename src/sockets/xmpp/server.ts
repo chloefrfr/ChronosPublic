@@ -16,7 +16,7 @@ export interface ChronosSocket extends ServerWebSocket {
 }
 
 export const xmppServer = Bun.serve<ChronosSocket>({
-  port: 8314,
+  port: 8080,
   fetch(request, server) {
     server.upgrade(request, { data: { socket: null } });
 

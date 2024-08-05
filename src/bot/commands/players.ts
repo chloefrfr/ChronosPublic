@@ -1,6 +1,7 @@
 import { EmbedBuilder, type CacheType, type CommandInteraction } from "discord.js";
 import { XmppService } from "../../sockets/xmpp/saved/XmppServices";
 import BaseCommand from "../base/Base";
+import { logger } from "../..";
 
 export default class PlayersCommand extends BaseCommand {
   data = {

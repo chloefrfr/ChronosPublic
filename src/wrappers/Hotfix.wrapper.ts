@@ -1,14 +1,14 @@
 export function GetDefaultEngine(): string {
   return `[OnlineSubsystemMcp.Xmpp]
 bUseSSL=false
-ServerAddr="ws://127.0.0.1:8314"
-ServerPort=8314
+ServerAddr="ws://72.23.79.224:8080"
+ServerPort=8080
 
 [OnlineSubsystemMcp.Xmpp Prod]
 bUseSSL=false
 
-ServerAddr="ws://127.0.0.1:8314"
-ServerPort=8314
+ServerAddr="ws://72.23.79.224:8080"
+ServerPort=8080
 
 [OnlineSubsystemMcp]
 bUsePartySystemV2=true
@@ -126,6 +126,9 @@ bUsePlayspaceSystem=true
 
 [/Script/FortniteGame.FortGameStateAthena]
 bAllowBuildingThroughBlockingObjects=true
+
+[AssetHotfix]
++CurveTable=/Game/Athena/Balance/DataTables/AthenaGameData;RowUpdate;Default.SafeZone.Damage;0;0
 
 [/Script/FortniteGame.FortGameInstance]
 KairosMinSupportedAppVersion=20

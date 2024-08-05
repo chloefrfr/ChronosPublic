@@ -266,8 +266,6 @@ export namespace XmppUtilities {
       .up()
       .toString({ pretty: true });
 
-    console.log(xml);
-
     receiver.socket?.send(xml);
   }
 

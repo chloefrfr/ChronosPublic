@@ -7,6 +7,7 @@ import MCPResponses from "../utilities/responses";
 import { Account } from "../tables/account";
 import { Profiles } from "../tables/profiles";
 import { handleProfileSelection } from "./QueryProfile";
+import type { Variants } from "../../types/profilesdefs";
 
 export default async function (c: Context) {
   const startTimestamp = Date.now();
@@ -58,6 +59,32 @@ export default async function (c: Context) {
     }
 
     const { itemToSlot, indexWithinSlot, slotName, variantUpdates } = body;
+
+    if (profile.items[itemToSlot]) {
+      variantUpdates.forEach((variant: Variants) => {
+        const { channel, active } = variant;
+        const itemAttributes = profile.items[itemToSlot].attributes;
+
+        const existingVariant = itemAttributes.variants?.find(
+          (v: Variants) => v.channel === channel,
+        );
+
+        console.log(existingVariant);
+
+        if (!existingVariant) return;
+
+        if (existingVariant.owned.includes(active)) return;
+
+        existingVariant.active = active;
+      });
+
+      applyProfileChanges.push({
+        changeType: "itemAttrChanged",
+        itemId: itemToSlot,
+        attributeName: "variants",
+        attributeValue: profile.items[itemToSlot].attributes.variants,
+      });
+    }
 
     const activeLoadoutId =
       profile.stats.attributes.loadouts![profile.stats.attributes.active_loadout_index!];

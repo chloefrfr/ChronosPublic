@@ -1,8 +1,5 @@
-import { accountService, app, config, profilesService, serverService, userService } from "..";
+import { accountService, app, config, profilesService, userService } from "..";
 import { Validation } from "../middleware/validation";
-import { HostAPI } from "../sockets/gamesessions/host";
-import { servers } from "../sockets/gamesessions/servers";
-import { ServerStatus } from "../sockets/gamesessions/types";
 import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import { Profiles } from "../tables/profiles";
 import errors from "../utilities/errors";
@@ -12,73 +9,9 @@ import ProfileHelper from "../utilities/profiles";
 import { v4 as uuid } from "uuid";
 import MCPResponses from "../utilities/responses";
 import { BattlepassManager } from "../utilities/managers/BattlepassManager";
+import { servers } from "../sockets/matchmaker/server";
 
 export default function () {
-  app.post("/gamesessions/create", Validation.verifyBasicToken, async (c) => {
-    let body;
-    const timestamp = new Date().toISOString();
-
-    try {
-      body = await c.req.json();
-    } catch (error) {
-      return c.json(errors.createError(400, c.req.url, "Body isn't valid JSON", timestamp), 400);
-    }
-
-    const { sessionId, status, version, port, identifier, address, options } = body;
-
-    const parsedVersion = parseInt(version, 10);
-    const parsedPort = parseInt(port, 10);
-
-    if (isNaN(parsedVersion) || isNaN(parsedPort))
-      return c.json(
-        errors.createError(400, c.req.url, "Version or Port must be valid numbers.", timestamp),
-        400,
-      );
-
-    try {
-      const server = await serverService.create({
-        sessionId,
-        status,
-        version,
-        identifier,
-        address,
-        port,
-        options,
-      });
-      return c.json(server);
-    } catch (error) {
-      return c.json(errors.createError(500, c.req.url, "Failed to create server.", timestamp), 500);
-    }
-  });
-
-  app.get("/gamesessions/list", Validation.verifyBasicToken, async (c) => {
-    const timestamp = new Date().toISOString();
-
-    try {
-      const servers = await serverService.listServers();
-      return c.json(servers);
-    } catch (error) {
-      return c.json(errors.createError(500, c.req.url, "Failed to list servers.", timestamp), 500);
-    }
-  });
-
-  app.get("/gamesessions/list/:sessionId", Validation.verifyBasicToken, async (c) => {
-    let body;
-    const timestamp = new Date().toISOString();
-
-    const sessionId = c.req.param("sessionId");
-
-    try {
-      const server = await serverService.getServerBySessionId(sessionId);
-      if (!server)
-        return c.json(errors.createError(404, c.req.url, "Server not found.", timestamp), 404);
-
-      return c.json(server);
-    } catch (error) {
-      return c.json(errors.createError(500, c.req.url, "Failed to list servers.", timestamp), 500);
-    }
-  });
-
   app.post("/gamesessions/setStatus", Validation.verifyBasicToken, async (c) => {
     let body;
     const timestamp = new Date().toISOString();
@@ -92,10 +25,9 @@ export default function () {
     const { status, sessionId } = body;
 
     try {
-      const server = await serverService.getServerBySessionId(sessionId);
       const existingServers = servers.find((s) => s.sessionId === sessionId);
 
-      if (!existingServers || !server)
+      if (!existingServers)
         return c.json(
           errors.createError(
             400,
@@ -107,7 +39,6 @@ export default function () {
         );
 
       existingServers.status = status;
-      await serverService.setServerStatus(server.sessionId, status);
 
       return c.json({ message: `Successfully set server status to '${status}'` });
     } catch (error) {
@@ -122,9 +53,7 @@ export default function () {
     "/gamesessions/stats/vbucks/:username/:sessionId/:eliminations",
     Validation.verifyBasicToken,
     async (c) => {
-      const sessionId = c.req.param("sessionId");
       const username = c.req.param("username");
-      const session = await HostAPI.getServerBySessionId(sessionId);
       const timestamp = new Date().toISOString();
 
       const [user] = await Promise.all([userService.findUserByUsername(username)]);
@@ -136,9 +65,6 @@ export default function () {
         ProfileHelper.getProfile(user.accountId, "common_core"),
         ProfileHelper.getProfile(user.accountId, "athena"),
       ]);
-
-      if (!session)
-        return c.json(errors.createError(404, c.req.url, "Session not found!", timestamp), 404);
 
       if (!common_core)
         return c.json(
@@ -194,15 +120,10 @@ export default function () {
 
   app.post(
     "/gamesessions/levels/:username/:sessionId/:totalXp",
-    // Validation.verifyBasicToken,
+    Validation.verifyBasicToken,
     async (c) => {
-      // const sessionId = c.req.param("sessionId");
       const username = c.req.param("username");
-      // const session = await HostAPI.getServerBySessionId(sessionId);
       const timestamp = new Date().toISOString();
-
-      // if (!session)
-      //   return c.json(errors.createError(404, c.req.url, "Session not found!", timestamp), 404);
 
       try {
         const user = await userService.findUserByUsername(username);
