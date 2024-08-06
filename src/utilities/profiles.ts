@@ -9,12 +9,17 @@ import type { Profiles } from "../tables/profiles";
 import { Caching } from "./cache";
 import type { IProfile } from "../../types/profilesdefs";
 
+import axios from "axios";
+
 const profileCache: { [accountId: string]: { [type in ProfileId]?: Promise<any> } } = {};
 
 export default class ProfileHelper {
   static async createProfile(user: Partial<User>, profile: ProfileId) {
     const profile_template = JSON.parse(
-      await fs.readFile(path.join(__dirname, "..", "memory", `${profile}.json`), "utf-8"),
+      await fs.readFile(
+        path.join(__dirname, "..", "memory", "profiles", `${profile}.json`),
+        "utf-8",
+      ),
     );
 
     profile_template.accountId = user.accountId;
