@@ -5,7 +5,7 @@ import { accountService, app, logger, profilesService, userService } from "..";
 import ProfileHelper from "../utilities/profiles";
 import { Profiles } from "../tables/profiles";
 import MCPResponses from "../utilities/responses";
-import type { Variants } from "../../types/profilesdefs";
+import type { FavoriteSlotName, Variants } from "../../types/profilesdefs";
 import { handleProfileSelection } from "./QueryProfile";
 
 export default async function (c: Context) {
@@ -55,6 +55,7 @@ export default async function (c: Context) {
   }
 
   const { itemToSlot, lockerItem, category, slotIndex, variantUpdates } = body;
+  const favoriteSlotName = `favorite_${category.toLowerCase()}` as FavoriteSlotName;
 
   let shouldUpdateProfile: boolean = false;
   const applyProfileChanges: object[] = [];
@@ -89,8 +90,7 @@ export default async function (c: Context) {
     const slotData = profile.items[lockerItem].attributes.locker_slots_data;
     if (slotData && slotData.slots[slotName]) {
       slotData.slots[slotName].items = items;
-      // @ts-ignore
-      profile.stats.attributes[`favorite_${slotName.toLowerCase()}`] = itemToSlot;
+      profile.stats.attributes[favoriteSlotName] = itemToSlot;
       applyProfileChanges.push({
         changeType: "itemAttrChanged",
         itemId: lockerItem,

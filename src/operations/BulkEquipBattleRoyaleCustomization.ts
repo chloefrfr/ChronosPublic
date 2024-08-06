@@ -6,6 +6,7 @@ import ProfileHelper from "../utilities/profiles";
 import { Profiles } from "../tables/profiles";
 import MCPResponses from "../utilities/responses";
 import { handleProfileSelection } from "./QueryProfile";
+import type { FavoriteSlotName } from "../../types/profilesdefs";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -111,16 +112,16 @@ export default async function (c: Context) {
         value: favoriteArray,
       });
     } else {
-      // @ts-ignore
-      profile.stats.attributes[`favorite_${slotName.toLowerCase()}`] = itemToSlot;
+      const favoriteSlotName = `favorite_${slotName.toLowerCase()}` as FavoriteSlotName;
+
+      profile.stats.attributes[favoriteSlotName] = itemToSlot;
       profile.items.sandbox_loadout.attributes.locker_slots_data!.slots[slotName].items =
         cosmeticTemplateId;
 
       applyProfileChanges.push({
         changeType: "statModified",
         name: `favorite_${slotName.toLowerCase()}`,
-        // @ts-ignore
-        value: profile.stats.attributes[`favorite_${slotName.toLowerCase()}`],
+        value: profile.stats.attributes[favoriteSlotName],
       });
     }
   }

@@ -1,3 +1,27 @@
+export type FavoriteSlotName =
+  | "favorite_dance"
+  | "favorite_itemwraps"
+  | "favorite_musicpack"
+  | "favorite_character"
+  | "favorite_skydivecontrail"
+  | "favorite_pickaxe"
+  | "favorite_glider"
+  | "favorite_backpack"
+  | "favorite_loadingscreen";
+
+export interface FavoritePropAttributes {
+  [key: string]: any;
+  favorite_dance?: string[];
+  favorite_itemwraps?: string[];
+  favorite_musicpack?: string;
+  favorite_character?: string;
+  favorite_skydivecontrail?: string;
+  favorite_pickaxe?: string;
+  favorite_glider?: string;
+  favorite_backpack?: string;
+  favorite_loadingscreen?: string;
+}
+
 export interface PastSeasons {
   seasonNumber: number;
   numWins: number;
