@@ -203,38 +203,29 @@ export default async function (c: Context) {
     }
 
     // Daily Rewards
-    if (user.lastLogin === "") {
-      await User.createQueryBuilder()
-        .update(User)
-        .set({ lastLogin: new Date().toISOString() })
-        .where("accountId = :accountId", { accountId: user.accountId })
-        .execute();
+    const now = new Date(currentDate);
+    const lastLoginDate = new Date(user.lastLogin || 0);
 
-      shouldUpdateProfile = true;
-    }
-
-    let lastLoggedInDate = new Date(user.lastLogin);
-    let now = new Date(currentDate);
-    const lootList: LootList[] = [];
-
-    if (lastLoggedInDate.getDate() !== now.getDate()) {
-      common_core.items["Currency:MtxPurchased"].quantity += 50;
-
-      lootList.push({
-        itemType: "Currency:MtxGiveaway",
-        itemGuid: "Currency:MtxGiveaway",
-        itemProfile: "common_core",
-        quantity: 50,
-      });
-
+    if (lastLoginDate.toDateString() !== now.toDateString()) {
       await User.createQueryBuilder()
         .update(User)
         .set({ lastLogin: now.toISOString() })
         .where("accountId = :accountId", { accountId: user.accountId })
         .execute();
 
+      const lootList = [
+        {
+          itemType: "Currency:MtxGiveaway",
+          itemGuid: "Currency:MtxGiveaway",
+          itemProfile: "common_core",
+          quantity: 50,
+        },
+      ];
+
+      common_core.items["Currency:MtxPurchased"].quantity += 50;
+
       const randomGiftBoxId = uuid();
-      multiUpdates.push({
+      const giftBox = {
         changeType: "itemAdded",
         itemId: randomGiftBoxId,
         item: {
@@ -248,8 +239,9 @@ export default async function (c: Context) {
           },
           quantity: 1,
         },
-      });
+      };
 
+      multiUpdates.push(giftBox);
       common_core.stats.attributes.gifts!.push({
         templateId: "GiftBox:GB_MakeGood",
         attributes: {
@@ -259,19 +251,17 @@ export default async function (c: Context) {
             userMessage: "Thanks for playing!",
           },
         },
-        quntity: 1,
+        quantity: 1,
       });
 
       await XmppUtilities.SendMessageToId(
         JSON.stringify({
           payload: {},
           type: "com.epicgames.gift.received",
-          timestamp: new Date().toISOString(),
+          timestamp: now.toISOString(),
         }),
         user.accountId,
       );
-
-      shouldUpdateProfile = true;
     }
 
     // trying something new (this should be faster)
