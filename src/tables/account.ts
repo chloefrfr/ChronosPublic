@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-interface SeasonStats {
+export interface SeasonStats {
   wins: number;
   kills: number;
   matchesplayed: number;
