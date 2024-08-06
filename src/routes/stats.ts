@@ -3,7 +3,7 @@ import { Validation } from "../middleware/validation";
 import errors from "../utilities/errors";
 import type { Stats } from "../tables/account";
 
-const legacyControlelr = app.basePath("/fortnite/api");
+const legacyController = app.basePath("/fortnite/api");
 const controller = app.basePath("/statsproxy/api");
 
 type PlaylistType = "solos" | "duos" | "squads" | "ltm";
@@ -12,7 +12,7 @@ type PlaylistType = "solos" | "duos" | "squads" | "ltm";
 // pc_m0_p2 (PC - SOLOS)
 // pc_m0_p9 (PC - SQUADS)
 
-legacyControlelr.get(
+legacyController.get(
   "/game/v2/leaderboards/cohort/:accountId",
   Validation.verifyToken,
   async (c) => {
