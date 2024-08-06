@@ -3,7 +3,10 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 interface SeasonStats {
   wins: number;
   kills: number;
-  matchplayed: number;
+  matchesplayed: number;
+  top25: number;
+  top10: number;
+  top1: number;
 }
 
 export interface Stats {

@@ -26,7 +26,7 @@ export default class errors {
     const errorData: ErrorData = {
       errorCode: code,
       errorMessage: message,
-      messageVars: [sanitizedRoute as any],
+      messageVars: [],
       numericErrorCode: code,
       originatingService: "Chronos",
       intent: "prod-live",

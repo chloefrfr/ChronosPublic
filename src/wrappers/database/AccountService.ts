@@ -91,4 +91,18 @@ export default class AccountService {
       return false;
     }
   }
+
+  public async findTopAccounts(playlist: string, limit: number): Promise<Account[]> {
+    try {
+      return await this.accountRepository
+        .createQueryBuilder("account")
+        .where(`account.stats->'${playlist}'->>'wins' IS NOT NULL`)
+        .orderBy(`account.stats->'${playlist}'->>'wins'`, "DESC")
+        .limit(limit)
+        .getMany();
+    } catch (error) {
+      logger.error(`Error finding top accounts: ${error}`);
+      return [];
+    }
+  }
 }

@@ -10,7 +10,7 @@
 ## What's Next?
 
 - Leaderboards (Live-Updating)
-- Save the World
+- Save the World (Will never be finished)
 
 ## Planned Features
 
