@@ -72,8 +72,7 @@ export default async function (c: Context) {
         console.log(existingVariant);
 
         if (!existingVariant) return;
-
-        if (existingVariant.owned.includes(active)) return;
+        // if (existingVariant.owned.includes(active)) continue;
 
         existingVariant.active = active;
       });
