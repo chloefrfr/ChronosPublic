@@ -11,6 +11,8 @@
 
 - Leaderboards (Live-Updating)
 - Save the World (Will never be finished)
+- TCP XMPP
+- Proper Authentication (Permissions, etc)
 
 ## Planned Features
 

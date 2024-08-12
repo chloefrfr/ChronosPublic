@@ -19,6 +19,7 @@ const configSchema = z.object({
   drop: z.boolean(),
   discord_client_id: z.string(),
   discord_client_secret: z.string(),
+  tcp: z.boolean(),
 });
 
 export default class Config {
@@ -38,6 +39,7 @@ export default class Config {
       drop: Bun.env.drop === "true" || Bun.env.drop === undefined ? true : false,
       discord_client_id: Bun.env.discord_client_id,
       discord_client_secret: Bun.env.discord_client_secret,
+      tcp: Bun.env.tcp === "true" || Bun.env.tcp === undefined ? true : false,
     });
 
     // Check if parsing was successful

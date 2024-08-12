@@ -58,7 +58,7 @@ await loadRoutes(path.join(__dirname, "routes"), app);
 import("./bot/deployment");
 import("./bot/bot");
 
-import("./sockets/xmpp/server");
+config.tcp ? import("./sockets/xmpp/tcp/server") : import("./sockets/xmpp/server");
 import("./sockets/matchmaker/server");
 
 await rotate();

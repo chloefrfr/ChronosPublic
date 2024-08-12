@@ -1,16 +1,24 @@
+import { config } from "..";
+
 export function GetDefaultEngine(): string {
   return `[OnlineSubsystemMcp.Xmpp]
 bUseSSL=false
-ServerAddr="ws://72.23.79.224:8080"
-ServerPort=8080
+ServerAddr="ws://${config.tcp ? "ws://127.0.0.1:7777" : "ws://127.0.0.1:8080"}"
+ServerPort=${config.tcp ? 7777 : 8080}
+bPrivateChatFriendsOnly=true
+bResetPingTimeoutOnReceiveStanza=true
+${config.tcp ? "bUsePlainTextAuth=true" : ""}
+
 
 [OnlineSubsystemMcp.Xmpp Prod]
 bUseSSL=false
-
-ServerAddr="ws://72.23.79.224:8080"
-ServerPort=8080
+ServerAddr="ws://${config.tcp ? "ws://127.0.0.1:7777" : "ws://127.0.0.1:8080"}"
+ServerPort=${config.tcp ? 7777 : 8080}
+${config.tcp ? "bUsePlainTextAuth=true" : ""}
 
 [OnlineSubsystemMcp]
+bEnabled=true
+bEnableXmpp=true
 bUsePartySystemV2=true
 
 [OnlineSubsystemMcp.OnlinePartySystemMcpAdapter]
@@ -19,11 +27,20 @@ bUsePartySystemV2=true
 [OnlineSubsystem]
 bHasVoiceEnabled=true
 
+[OnlineSubsystemMcp.OnlineIdentityMcp]
+bAutoLoginToXmpp=false
+bShouldReconnectXmpp=true
+bOfflineAccountToken=true
+bOfflineClientToken=true
+bVerifyAuthIncludesPermissions=false
+
+
 [Voice]
 bEnabled=true
 
 [XMPP]
 bEnableWebsockets=true
+bEnabled=true
 
 [/Script/Engine.InputSettings]
 +ConsoleKeys=Tilde
