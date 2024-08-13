@@ -32,6 +32,13 @@ export interface BattlePass {
   xp: number;
 }
 
+export interface FortniteReceipts {
+  appStore: string;
+  appStoreId: string;
+  receiptId: string;
+  receiptInfo: string;
+}
+
 @Entity()
 export class Account extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
@@ -52,6 +59,9 @@ export class Account extends BaseEntity {
   // will be used for something else
   @Column({ type: "jsonb", nullable: false, default: [] })
   permissions!: any[];
+
+  @Column({ type: "jsonb", nullable: false, default: [] })
+  receipts!: FortniteReceipts[];
 
   @Column({ nullable: false, default: 0 })
   arenaHype!: number;
