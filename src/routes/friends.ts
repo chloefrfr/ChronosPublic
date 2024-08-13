@@ -71,281 +71,384 @@ export default function () {
     });
   });
 
-  app.get("/friends/api/public/friends/:accountId", Validation.verifyToken, async (c) => {
-    const accountId = c.req.param("accountId");
-    const timestamp = new Date().toISOString();
+  app.get(
+    "/friends/api/public/friends/:accountId",
+    Validation.verifyPermissions,
+    Validation.verifyToken,
+    async (c) => {
+      const accountId = c.req.param("accountId");
+      const timestamp = new Date().toISOString();
 
-    if (!accountId)
-      return c.json(
-        errors.createError(400, c.req.url, "Missing parameter 'accountId'", timestamp),
-        400,
-      );
+      if (!accountId)
+        return c.json(
+          errors.createError(400, c.req.url, "Missing parameter 'accountId'", timestamp),
+          400,
+        );
 
-    const friends = await friendsService.findFriendByAccountId(accountId);
+      const permissions = c.get("permission");
 
-    if (!friends)
-      return c.json(errors.createError(400, c.req.url, "Failed to find friends.", timestamp), 400);
+      const hasPermission = permissions.hasPermission(`friends:${accountId}`, [
+        "READ,UPDATE,DELETE",
+      ]);
 
-    const list: FriendList[] = [];
-    const acceptedFriends = friends.accepted;
-    const incomingFriends = friends.incoming;
-    const outgoingFriends = friends.outgoing;
-    const blockedFriends = friends.blocked;
+      if (!hasPermission)
+        return c.json(
+          errors.createError(
+            401,
+            c.req.url,
+            permissions.errorReturn(`friends:${accountId}`, "READ,UPDATE,DELETE"),
+            timestamp,
+          ),
+          401,
+        );
 
-    for (const friend of acceptedFriends) {
-      list.push({
-        accountId: friend.accountId,
-        status: "ACCEPTED",
-        direction: "OUTBOUND",
-        createdAt: new Date().toISOString(),
-        favorite: false,
-      });
-    }
+      const friends = await friendsService.findFriendByAccountId(accountId);
 
-    for (const friend of incomingFriends) {
-      list.push({
-        accountId: friend.accountId,
-        status: "PENDING",
-        direction: "INBOUND",
-        createdAt: friend.createdAt,
-        favorite: false,
-      });
-    }
+      if (!friends)
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to find friends.", timestamp),
+          400,
+        );
 
-    for (const friend of outgoingFriends) {
-      list.push({
-        accountId: friend.accountId,
-        status: "PENDING",
-        direction: "OUTBOUND",
-        createdAt: friend.createdAt,
-        favorite: false,
-      });
-    }
+      const list: FriendList[] = [];
+      const acceptedFriends = friends.accepted;
+      const incomingFriends = friends.incoming;
+      const outgoingFriends = friends.outgoing;
+      const blockedFriends = friends.blocked;
 
-    for (const friend of blockedFriends) {
-      list.push({
-        accountId: friend.accountId,
-        status: "BLOCKED",
-        direction: "INBOUND",
-        createdAt: friend.createdAt,
-        favorite: false,
-      });
-    }
+      for (const friend of acceptedFriends) {
+        list.push({
+          accountId: friend.accountId,
+          status: "ACCEPTED",
+          direction: "OUTBOUND",
+          createdAt: new Date().toISOString(),
+          favorite: false,
+        });
+      }
 
-    return c.json(list);
-  });
+      for (const friend of incomingFriends) {
+        list.push({
+          accountId: friend.accountId,
+          status: "PENDING",
+          direction: "INBOUND",
+          createdAt: friend.createdAt,
+          favorite: false,
+        });
+      }
 
-  app.get("/friends/api/v1/:accountId/summary", Validation.verifyToken, async (c) => {
-    const accountId = c.req.param("accountId");
-    const timestamp = new Date().toISOString();
+      for (const friend of outgoingFriends) {
+        list.push({
+          accountId: friend.accountId,
+          status: "PENDING",
+          direction: "OUTBOUND",
+          createdAt: friend.createdAt,
+          favorite: false,
+        });
+      }
 
-    if (!accountId)
-      return c.json(
-        errors.createError(400, c.req.url, "Missing parameter 'accountId'", timestamp),
-        400,
-      );
+      for (const friend of blockedFriends) {
+        list.push({
+          accountId: friend.accountId,
+          status: "BLOCKED",
+          direction: "INBOUND",
+          createdAt: friend.createdAt,
+          favorite: false,
+        });
+      }
 
-    const friends = await friendsService.findFriendByAccountId(accountId);
+      return c.json(list);
+    },
+  );
 
-    if (!friends)
-      return c.json(errors.createError(400, c.req.url, "Failed to find friends.", timestamp), 400);
+  app.get(
+    "/friends/api/v1/:accountId/summary",
+    Validation.verifyPermissions,
+    Validation.verifyToken,
+    async (c) => {
+      const accountId = c.req.param("accountId");
+      const timestamp = new Date().toISOString();
 
-    const content: {
-      friends: any[];
-      incoming: any[];
-      outgoing: any[];
-      suggested: any[];
-      blocklist: any[];
-      settings: { acceptInvites: string };
-    } = {
-      friends: [],
-      incoming: [],
-      outgoing: [],
-      suggested: [],
-      blocklist: [],
-      settings: {
-        acceptInvites: "public",
-      },
-    };
+      if (!accountId)
+        return c.json(
+          errors.createError(400, c.req.url, "Missing parameter 'accountId'", timestamp),
+          400,
+        );
 
-    const acceptedFriends = friends.accepted;
-    const incomingFriends = friends.incoming;
-    const outgoingFriends = friends.outgoing;
-    const blockedFriends = friends.blocked;
+      const friends = await friendsService.findFriendByAccountId(accountId);
 
-    for (const friend of acceptedFriends) {
-      content.friends.push({
-        accountId: friend.accountId,
-        groups: [],
-        mutual: 0,
-        alias: "",
-        note: "",
-        createdAt: friend.createdAt,
-        favorite: false,
-      });
-    }
+      if (!friends)
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to find friends.", timestamp),
+          400,
+        );
 
-    for (const friend of incomingFriends) {
-      content.incoming.push({
-        accountId: friend.accountId,
-        groups: [],
-        mutual: 0,
-        alias: "",
-        note: "",
-        createdAt: friend.createdAt,
-        favorite: false,
-      });
-    }
+      const permissions = c.get("permission");
 
-    for (const friend of outgoingFriends) {
-      content.outgoing.push({
-        accountId: friend.accountId,
-        groups: [],
-        mutual: 0,
-        alias: "",
-        note: "",
-        createdAt: friend.createdAt,
-        favorite: false,
-      });
-    }
+      const hasPermission = permissions.hasPermission(`friends:${accountId}`, [
+        "READ,UPDATE,DELETE",
+      ]);
 
-    for (const friend of blockedFriends) {
-      content.blocklist.push({
-        accountId: friend.accountId,
-        groups: [],
-        mutual: 0,
-        alias: "",
-        note: "",
-        createdAt: friend.createdAt,
-        favorite: false,
-      });
-    }
+      if (!hasPermission)
+        return c.json(
+          errors.createError(
+            401,
+            c.req.url,
+            permissions.errorReturn(`friends:${accountId}`, "READ,UPDATE,DELETE"),
+            timestamp,
+          ),
+          401,
+        );
 
-    return c.json(content);
-  });
+      const content: {
+        friends: any[];
+        incoming: any[];
+        outgoing: any[];
+        suggested: any[];
+        blocklist: any[];
+        settings: { acceptInvites: string };
+      } = {
+        friends: [],
+        incoming: [],
+        outgoing: [],
+        suggested: [],
+        blocklist: [],
+        settings: {
+          acceptInvites: "public",
+        },
+      };
+
+      const acceptedFriends = friends.accepted;
+      const incomingFriends = friends.incoming;
+      const outgoingFriends = friends.outgoing;
+      const blockedFriends = friends.blocked;
+
+      for (const friend of acceptedFriends) {
+        content.friends.push({
+          accountId: friend.accountId,
+          groups: [],
+          mutual: 0,
+          alias: "",
+          note: "",
+          createdAt: friend.createdAt,
+          favorite: false,
+        });
+      }
+
+      for (const friend of incomingFriends) {
+        content.incoming.push({
+          accountId: friend.accountId,
+          groups: [],
+          mutual: 0,
+          alias: "",
+          note: "",
+          createdAt: friend.createdAt,
+          favorite: false,
+        });
+      }
+
+      for (const friend of outgoingFriends) {
+        content.outgoing.push({
+          accountId: friend.accountId,
+          groups: [],
+          mutual: 0,
+          alias: "",
+          note: "",
+          createdAt: friend.createdAt,
+          favorite: false,
+        });
+      }
+
+      for (const friend of blockedFriends) {
+        content.blocklist.push({
+          accountId: friend.accountId,
+          groups: [],
+          mutual: 0,
+          alias: "",
+          note: "",
+          createdAt: friend.createdAt,
+          favorite: false,
+        });
+      }
+
+      return c.json(content);
+    },
+  );
 
   app.get("/fortnite/api/v1/:accountId/recent/:type", Validation.verifyToken, async (c) => {
     return c.json([]);
   });
 
-  app.get("/friends/api/v1/:accountId/friends/:friendId", Validation.verifyToken, async (c) => {
-    const accountId = c.req.param("accountId");
-    const friendId = c.req.param("friendId");
-    const timestamp = new Date().toISOString();
+  app.get(
+    "/friends/api/v1/:accountId/friends/:friendId",
+    Validation.verifyPermissions,
+    Validation.verifyToken,
+    async (c) => {
+      const accountId = c.req.param("accountId");
+      const friendId = c.req.param("friendId");
+      const timestamp = new Date().toISOString();
 
-    if (!accountId || !friendId)
-      return c.json(errors.createError(400, c.req.url, "Missing parameters.", timestamp), 400);
+      if (!accountId || !friendId)
+        return c.json(errors.createError(400, c.req.url, "Missing parameters.", timestamp), 400);
 
-    const user = await friendsService.findFriendByAccountId(accountId);
-    const friend = await friendsService.findFriendByAccountId(friendId);
+      const user = await friendsService.findFriendByAccountId(accountId);
+      const friend = await friendsService.findFriendByAccountId(friendId);
 
-    if (!user || !friend)
-      return c.json(errors.createError(400, c.req.url, "Failed to find friends.", timestamp), 400);
-
-    const accepted = friend.accepted.find((accepted) => accepted.accountId === friend.accountId);
-
-    if (!accepted)
-      return c.json(
-        errors.createError(
-          400,
-          c.req.url,
-          `Friendship between ${user.accountId} and ${friend.accountId} does not exist.`,
-          timestamp,
-        ),
-      );
-
-    return c.json({
-      accountId: user.accountId,
-      groups: [],
-      mutual: 0,
-      alias: "",
-      note: "",
-      favorite: false,
-      created: accepted.createdAt,
-    });
-  });
-
-  app.post("/friends/api/v1/:accountId/friends/:friendId", Validation.verifyToken, async (c) => {
-    const accountId = c.req.param("accountId");
-    const friendId = c.req.param("friendId");
-    const timestamp = new Date().toISOString();
-
-    if (!accountId || !friendId)
-      return c.json(errors.createError(400, c.req.url, "Missing parameters.", timestamp), 400);
-
-    const frienduser = await friendsService.findFriendByAccountId(accountId);
-    const friendInList = await friendsService.findFriendByAccountId(friendId);
-
-    if (!frienduser || !friendInList)
-      return c.json(errors.createError(400, c.req.url, "Failed to find friends.", timestamp), 400);
-
-    const user = await userService.findUserByAccountId(frienduser.accountId);
-    const friend = await userService.findUserByAccountId(friendInList.accountId);
-
-    if (!user || !friend)
-      return c.json(
-        errors.createError(400, c.req.url, "Failed to find user or friend.", timestamp),
-        400,
-      );
-
-    if (user.banned || friend.banned)
-      return c.json(
-        errors.createError(403, c.req.url, "Friend or User is banned.", timestamp),
-        403,
-      );
-
-    const acceptedFriends = frienduser.accepted.find(
-      (accepted) => accepted.accountId === friend.accountId,
-    );
-
-    const incomingFriends = frienduser.incoming.find(
-      (incoming) => incoming.accountId === friend.accountId,
-    );
-
-    const outgoingFriends = frienduser.outgoing.find(
-      (outgoing) => outgoing.accountId === friend.accountId,
-    );
-
-    if (acceptedFriends)
-      return c.json(
-        errors.createError(
-          400,
-          c.req.url,
-          `Friendship between ${user.accountId} and ${friend.accountId} already exists.`,
-          timestamp,
-        ),
-        400,
-      );
-
-    if (outgoingFriends)
-      return c.json(
-        errors.createError(
-          400,
-          c.req.url,
-          `Friendship request has already been sent to ${friend.accountId}`,
-          timestamp,
-        ),
-        400,
-      );
-
-    if (user.accountId === friend.accountId)
-      return c.json(errors.createError(400, c.req.url, "You cannot add yourself.", timestamp), 400);
-
-    if (incomingFriends) {
-      if (!(await XmppUtilities.AcceptFriendRequest(user.accountId, friend.accountId)))
+      if (!user || !friend)
         return c.json(
-          errors.createError(400, c.req.url, "Failed to accept friend request.", timestamp),
+          errors.createError(400, c.req.url, "Failed to find friends.", timestamp),
           400,
         );
 
-      await XmppUtilities.GetUserPresence(false, user.accountId, friend.accountId);
-      await XmppUtilities.GetUserPresence(false, friend.accountId, user.accountId);
-    } else if (!(await XmppUtilities.SendFriendRequest(user.accountId, friend.accountId)))
-      return c.json(
-        errors.createError(400, c.req.url, "Failed to send friend request.", timestamp),
-        400,
+      const permissions = c.get("permission");
+
+      const hasPermission = permissions.hasPermission(`friends:${user.accountId}`, [
+        "READ,UPDATE,DELETE",
+      ]);
+
+      if (!hasPermission)
+        return c.json(
+          errors.createError(
+            401,
+            c.req.url,
+            permissions.errorReturn(`friends:${user.accountId}`, "READ,UPDATE,DELETE"),
+            timestamp,
+          ),
+          401,
+        );
+
+      const accepted = friend.accepted.find((accepted) => accepted.accountId === friend.accountId);
+
+      if (!accepted)
+        return c.json(
+          errors.createError(
+            400,
+            c.req.url,
+            `Friendship between ${user.accountId} and ${friend.accountId} does not exist.`,
+            timestamp,
+          ),
+        );
+
+      return c.json({
+        accountId: user.accountId,
+        groups: [],
+        mutual: 0,
+        alias: "",
+        note: "",
+        favorite: false,
+        created: accepted.createdAt,
+      });
+    },
+  );
+
+  app.post(
+    "/friends/api/v1/:accountId/friends/:friendId",
+    Validation.verifyPermissions,
+    Validation.verifyToken,
+    async (c) => {
+      const accountId = c.req.param("accountId");
+      const friendId = c.req.param("friendId");
+      const timestamp = new Date().toISOString();
+
+      if (!accountId || !friendId)
+        return c.json(errors.createError(400, c.req.url, "Missing parameters.", timestamp), 400);
+
+      const frienduser = await friendsService.findFriendByAccountId(accountId);
+      const friendInList = await friendsService.findFriendByAccountId(friendId);
+
+      if (!frienduser || !friendInList)
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to find friends.", timestamp),
+          400,
+        );
+
+      const user = await userService.findUserByAccountId(frienduser.accountId);
+      const friend = await userService.findUserByAccountId(friendInList.accountId);
+
+      if (!user || !friend)
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to find user or friend.", timestamp),
+          400,
+        );
+
+      if (user.banned || friend.banned)
+        return c.json(
+          errors.createError(403, c.req.url, "Friend or User is banned.", timestamp),
+          403,
+        );
+
+      const permissions = c.get("permission");
+
+      const hasPermission = permissions.hasPermission(`friends:${user.accountId}`, [
+        "READ,UPDATE,DELETE",
+      ]);
+
+      if (!hasPermission)
+        return c.json(
+          errors.createError(
+            401,
+            c.req.url,
+            permissions.errorReturn(`friends:${user.accountId}`, "READ,UPDATE,DELETE"),
+            timestamp,
+          ),
+          401,
+        );
+
+      const acceptedFriends = frienduser.accepted.find(
+        (accepted) => accepted.accountId === friend.accountId,
       );
 
-    return c.json([]);
-  });
+      const incomingFriends = frienduser.incoming.find(
+        (incoming) => incoming.accountId === friend.accountId,
+      );
+
+      const outgoingFriends = frienduser.outgoing.find(
+        (outgoing) => outgoing.accountId === friend.accountId,
+      );
+
+      if (acceptedFriends)
+        return c.json(
+          errors.createError(
+            400,
+            c.req.url,
+            `Friendship between ${user.accountId} and ${friend.accountId} already exists.`,
+            timestamp,
+          ),
+          400,
+        );
+
+      if (outgoingFriends)
+        return c.json(
+          errors.createError(
+            400,
+            c.req.url,
+            `Friendship request has already been sent to ${friend.accountId}`,
+            timestamp,
+          ),
+          400,
+        );
+
+      if (user.accountId === friend.accountId)
+        return c.json(
+          errors.createError(400, c.req.url, "You cannot add yourself.", timestamp),
+          400,
+        );
+
+      if (incomingFriends) {
+        if (!(await XmppUtilities.AcceptFriendRequest(user.accountId, friend.accountId)))
+          return c.json(
+            errors.createError(400, c.req.url, "Failed to accept friend request.", timestamp),
+            400,
+          );
+
+        await XmppUtilities.GetUserPresence(false, user.accountId, friend.accountId);
+        await XmppUtilities.GetUserPresence(false, friend.accountId, user.accountId);
+      } else if (!(await XmppUtilities.SendFriendRequest(user.accountId, friend.accountId)))
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to send friend request.", timestamp),
+          400,
+        );
+
+      return c.json([]);
+    },
+  );
 }

@@ -84,6 +84,7 @@ export default function () {
 
   app.post(
     "/fortnite/api/game/v2/profile/:accountId/client/:action",
+    Validation.verifyPermissions,
     Validation.verifyToken,
     async (c) => {
       const accountId = c.req.param("accountId");
@@ -120,6 +121,24 @@ export default function () {
         return c.json(
           errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
           404,
+        );
+
+      const permissions = c.get("permission");
+
+      const hasPermission = permissions.hasPermission(
+        `fortnite:profile:${user.accountId}:commands`,
+        "*",
+      );
+
+      if (!hasPermission)
+        return c.json(
+          errors.createError(
+            401,
+            c.req.url,
+            permissions.errorReturn(`fortnite:profile:${user.accountId}:commands`, "*"),
+            timestamp,
+          ),
+          401,
         );
 
       const handler = operations[action];
