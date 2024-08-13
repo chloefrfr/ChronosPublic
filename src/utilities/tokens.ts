@@ -55,6 +55,8 @@ export default class TokenUtilities {
       {
         id: uuid(),
         type: type + "token",
+        clientId,
+        grant: grantType,
         accountId: user.accountId,
         token,
       },

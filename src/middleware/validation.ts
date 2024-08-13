@@ -1,7 +1,9 @@
 import type { Context, Next } from "hono";
 import errors from "../utilities/errors";
 import jwt, { JsonWebTokenError } from "jsonwebtoken";
-import { accountService, config, userService } from "..";
+import { accountService, config, tokensService, userService } from "..";
+import PermissionInfo from "../utilities/permissions/permissioninfo";
+import type { GrantType } from "../../types/permissionsdefs";
 
 export namespace Validation {
   export async function verifyToken(c: Context, next: Next) {
@@ -71,6 +73,48 @@ export namespace Validation {
 
     if (token !== config.token)
       return c.json(errors.createError(403, c.req.url, "Token not valid!", timestamp), 403);
+
+    await next();
+  }
+
+  export async function verifyPermissions(c: Context, next: Next) {
+    const authorization = c.req.header("Authorization");
+    const timestamp = new Date().toISOString();
+
+    if (
+      !authorization ||
+      !(authorization.startsWith("bearer ") || authorization.startsWith("bearer eg1~"))
+    )
+      return c.json(errors.createError(400, c.req.url, "Invalid Header", timestamp), 400);
+
+    const accessToken = await tokensService.getToken(authorization.replace("bearer eg1~", ""));
+
+    if (!accessToken)
+      return c.json(errors.createError(400, c.req.url, "Invalid Token", timestamp), 400);
+
+    const user = await userService.findUserByAccountId(accessToken.accountId);
+
+    if (!user)
+      return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
+
+    if (user.banned)
+      return c.json(errors.createError(403, c.req.url, "This user is banned.", timestamp), 403);
+
+    const grantMap: { [key: string]: GrantType } = {
+      client_credentials: "client_credentials",
+      authorization_code: "authorization_code",
+      refresh_token: "refresh_token",
+    };
+
+    c.set(
+      "permission",
+      new PermissionInfo(
+        user.accountId,
+        user.username,
+        "3446cd72694c4a4485d81b77adbb2141",
+        grantMap[accessToken.grant],
+      ),
+    );
 
     await next();
   }

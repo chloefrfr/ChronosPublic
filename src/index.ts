@@ -19,10 +19,12 @@ import { QuestManager } from "./utilities/managers/QuestManager";
 import DailyQuestService from "./wrappers/database/DailyQuestService";
 import BattlepassQuestService from "./wrappers/database/BattlepassQuestService";
 import { cors } from "hono/cors";
+import type PermissionInfo from "./utilities/permissions/permissioninfo";
 
 export type Variables = {
   user: User;
   account: Account;
+  permission: PermissionInfo;
 };
 
 export const app = new Hono<{ Variables: Variables }>({ strict: false });

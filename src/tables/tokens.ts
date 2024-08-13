@@ -1,6 +1,10 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-export type TokenTypes = "accesstoken" | "refreshtoken" | "clientoken";
+export enum TokenTypes {
+  AccessToken = "accesstoken",
+  RefreshToken = "refreshtoken",
+  ClientToken = "clientoken",
+}
 
 @Entity()
 export class Tokens extends BaseEntity {
@@ -15,4 +19,10 @@ export class Tokens extends BaseEntity {
 
   @Column()
   token!: string;
+
+  @Column()
+  clientId!: string;
+
+  @Column()
+  grant!: string;
 }

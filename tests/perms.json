@@ -1,0 +1,586 @@
+[
+  {
+    "resource": "blockList:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 14
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:FeaturedIsland4.island",
+    "action": 16
+  },
+  {
+    "resource": "eulatracking:public:response:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 3
+  },
+  {
+    "resource": "rocketracing:profile:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:messaging:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 15
+  },
+  {
+    "resource": "presence:*:fb3d0349cbaa494988ea2ac28fa9a64a:lastOnline",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:VkPlayDedicatedServerGame.ini",
+    "action": 16
+  },
+  {
+    "resource": "psy:map-rotation:public:link-code",
+    "action": 2
+  },
+  {
+    "resource": "account:public:account:externalAuths",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsXboxOne.sav",
+    "action": 15
+  },
+  {
+    "resource": "entitlement",
+    "action": 2
+  },
+  {
+    "resource": "social:postparty",
+    "action": 2
+  },
+  {
+    "resource": "account:token:otherSessionsForAccountClient",
+    "action": 8
+  },
+  {
+    "resource": "presence:*:fb3d0349cbaa494988ea2ac28fa9a64a:settings",
+    "action": 6
+  },
+  {
+    "resource": "fortnite:cloudstorage:preReleaseSystemFiles",
+    "action": 2
+  },
+  {
+    "resource": "persona:accounts:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:stats:kairos:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 4
+  },
+  {
+    "resource": "social:gallery:media:*:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 1
+  },
+  {
+    "resource": "eulatracking:public:displayagreement:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 2
+  },
+  {
+    "resource": "launcher:download:*:FortniteContentBuilds",
+    "action": 2
+  },
+  {
+    "resource": "links:fn:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 2
+  },
+  {
+    "resource": "ipdata:region",
+    "action": 2
+  },
+  {
+    "resource": "social:ban:public:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 6
+  },
+  {
+    "resource": "social:search:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 2
+  },
+  {
+    "resource": "rankings:*:playerprogress",
+    "action": 2
+  },
+  {
+    "resource": "account:public:account",
+    "action": 6
+  },
+  {
+    "resource": "content-service:module:artifact",
+    "action": 2
+  },
+  {
+    "resource": "userList:fortnite:fb3d0349cbaa494988ea2ac28fa9a64a:*",
+    "action": 15
+  },
+  {
+    "resource": "account:public:guardians",
+    "action": 3
+  },
+  {
+    "resource": "catalog:shared:*",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:matchmaking:session:*:invite",
+    "action": 9
+  },
+  {
+    "resource": "dad:fortnite:assets:*",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:FeaturedIsland1.island",
+    "action": 16
+  },
+  {
+    "resource": "userList:fortnite:fb3d0349cbaa494988ea2ac28fa9a64a:*:*",
+    "action": 15
+  },
+  {
+    "resource": "account:accounts:fb3d0349cbaa494988ea2ac28fa9a64a:metadata:hp_user_id",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsSwitch.sav",
+    "action": 15
+  },
+  {
+    "resource": "friends:fb3d0349cbaa494988ea2ac28fa9a64a:*",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:*",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsLinux.sav",
+    "action": 15
+  },
+  {
+    "resource": "account:public:account:displayName",
+    "action": 4
+  },
+  {
+    "resource": "locker:*:fb3d0349cbaa494988ea2ac28fa9a64a:items",
+    "action": 2
+  },
+  {
+    "resource": "friends:connections:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 2
+  },
+  {
+    "resource": "persona:settings:account:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 15
+  },
+  {
+    "resource": "wasp:fn:world",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsXSXHeliosMobile.sav",
+    "action": 15
+  },
+  {
+    "resource": "userList:fortnite:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 2
+  },
+  {
+    "resource": "epic:avatar:account:fortnite:api",
+    "action": 2
+  },
+  {
+    "resource": "communications:external:deregister:channel",
+    "action": 8
+  },
+  {
+    "resource": "wasp:fn:session",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsAndroid.sav",
+    "action": 15
+  },
+  {
+    "resource": "persona:account:lookup",
+    "action": 2
+  },
+  {
+    "resource": "interactions:latest:*:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 2
+  },
+  {
+    "resource": "account:accounts:fb3d0349cbaa494988ea2ac28fa9a64a:metadata:hp_user_id_staging",
+    "action": 2
+  },
+  {
+    "resource": "friends:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 15
+  },
+  {
+    "resource": "ecom:iarcint:age-ratings",
+    "action": 2
+  },
+  {
+    "resource": "entitlement:account:fb3d0349cbaa494988ea2ac28fa9a64a:entitlements",
+    "action": 2
+  },
+  {
+    "resource": "emerald:upload",
+    "action": 1
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:DedicatedServerEngine.ini",
+    "action": 16
+  },
+  {
+    "resource": "fortnite:storefront",
+    "action": 2
+  },
+  {
+    "resource": "ecom:iarcint:interactive-elements",
+    "action": 2
+  },
+  {
+    "resource": "pops:playerpage:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 2
+  },
+  {
+    "resource": "psy:map-rotation:public:report",
+    "action": 1
+  },
+  {
+    "resource": "rocketracing:profile:fb3d0349cbaa494988ea2ac28fa9a64a:commands",
+    "action": 2
+  },
+  {
+    "resource": "ecom:iarcint:descriptors",
+    "action": 2
+  },
+  {
+    "resource": "account:accounts:fb3d0349cbaa494988ea2ac28fa9a64a:metadata",
+    "action": 2
+  },
+  {
+    "resource": "interactions:*:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsPS5.sav",
+    "action": 15
+  },
+  {
+    "resource": "fulfillment:public:code",
+    "action": 1
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 2
+  },
+  {
+    "resource": "publickey:public",
+    "action": 3
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsIOS.sav",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:VkEditDedicatedServerEngine.ini",
+    "action": 16
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsMac.sav",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:FeaturedIsland2.island",
+    "action": 16
+  },
+  {
+    "resource": "discovery:fb3d0349cbaa494988ea2ac28fa9a64a:surface:query",
+    "action": 2
+  },
+  {
+    "resource": "account:public:account:*",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:VkEditDedicatedServerGame.ini",
+    "action": 16
+  },
+  {
+    "resource": "discovery:fb3d0349cbaa494988ea2ac28fa9a64a:links:history",
+    "action": 15
+  },
+  {
+    "resource": "presence:*:fb3d0349cbaa494988ea2ac28fa9a64a:subscriptions",
+    "action": 11
+  },
+  {
+    "resource": "discovery:surface:query",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:system",
+    "action": 2
+  },
+  {
+    "resource": "xmpp:session:*:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 1
+  },
+  {
+    "resource": "fortnite:calendar",
+    "action": 2
+  },
+  {
+    "resource": "fnfestival:profile:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 15
+  },
+  {
+    "resource": "epic-settings:public:games:fn",
+    "action": 6
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsXSXHelios.Sav",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsSalmon.sav",
+    "action": 15
+  },
+  {
+    "resource": "account:public:account:deviceAuths",
+    "action": 11
+  },
+  {
+    "resource": "account:public:account:linkedIdentity",
+    "action": 1
+  },
+  {
+    "resource": "locker:*:fb3d0349cbaa494988ea2ac28fa9a64a:*",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:matchmaking:session:*:join:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 1
+  },
+  {
+    "resource": "rankings:*:tracks",
+    "action": 2
+  },
+  {
+    "resource": "pops:follow:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 12
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettings.sav",
+    "action": 15
+  },
+  {
+    "resource": "social:party",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsPS4.sav",
+    "action": 15
+  },
+  {
+    "resource": "account:oauth:ext_auth:wegame:rail_session_ticket",
+    "action": 4
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsLunaMobile.sav",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:fortnite_role:client",
+    "action": 15
+  },
+  {
+    "resource": "discovery:fb3d0349cbaa494988ea2ac28fa9a64a:links:lock-management",
+    "action": 14
+  },
+  {
+    "resource": "discovery:search:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:messaging:fb3d0349cbaa494988ea2ac28fa9a64a:*",
+    "action": 15
+  },
+  {
+    "resource": "account:token:otherSessionsForAccountClientService",
+    "action": 8
+  },
+  {
+    "resource": "serviceinstance",
+    "action": 2
+  },
+  {
+    "resource": "presence:*:fb3d0349cbaa494988ea2ac28fa9a64a:subscriptions:broadcast",
+    "action": 1
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:FeaturedIsland3.island",
+    "action": 16
+  },
+  {
+    "resource": "fortnite:matchmaking:session:*",
+    "action": 2
+  },
+  {
+    "resource": "content-service:package",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:matchmaking:session:fb3d0349cbaa494988ea2ac28fa9a64a:invite",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:stats",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:config",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:discovery:fortnite",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:stats:*",
+    "action": 2
+  },
+  {
+    "resource": "priceengine:shared:offer:price",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:DedicatedServerGame.ini",
+    "action": 16
+  },
+  {
+    "resource": "account:public:account:lookup:externalId",
+    "action": 2
+  },
+  {
+    "resource": "discovery:fb3d0349cbaa494988ea2ac28fa9a64a:links:favorite",
+    "action": 11
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:VkPlayDedicatedServerEngine.ini",
+    "action": 16
+  },
+  {
+    "resource": "links:fn",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:world",
+    "action": 15
+  },
+  {
+    "resource": "fnfestival:profile:fb3d0349cbaa494988ea2ac28fa9a64a:*",
+    "action": 15
+  },
+  {
+    "resource": "discovery:fb3d0349cbaa494988ea2ac28fa9a64a:creator:page",
+    "action": 2
+  },
+  {
+    "resource": "social:teams:ns:fn",
+    "action": 6
+  },
+  {
+    "resource": "account:accounts:fb3d0349cbaa494988ea2ac28fa9a64a:metadata:hp_user_id_prod",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsGFNMobile.sav",
+    "action": 15
+  },
+  {
+    "resource": "social:chat:messages:*:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 3
+  },
+  {
+    "resource": "fortnite:matchmaking:session",
+    "action": 2
+  },
+  {
+    "resource": "social:groups:ns:FortniteDevLatest",
+    "action": 6
+  },
+  {
+    "resource": "fortnite:profile:fb3d0349cbaa494988ea2ac28fa9a64a:*",
+    "action": 15
+  },
+  {
+    "resource": "account:oauth:exchangeTokenCode",
+    "action": 15
+  },
+  {
+    "resource": "ecom:iarcint:rating-boards",
+    "action": 2
+  },
+  {
+    "resource": "pops:playerpage",
+    "action": 2
+  },
+  {
+    "resource": "content-service:project:launch-data",
+    "action": 6
+  },
+  {
+    "resource": "account:public:account:minorExpected",
+    "action": 4
+  },
+  {
+    "resource": "fortnite:cloudstorage:system:*",
+    "action": 2
+  },
+  {
+    "resource": "wasp:fn:grant",
+    "action": 10
+  },
+  {
+    "resource": "lfg:*:tag",
+    "action": 2
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsLuna.sav",
+    "action": 15
+  },
+  {
+    "resource": "followers:FortniteProdNonLive:fb3d0349cbaa494988ea2ac28fa9a64a:interaction",
+    "action": 4
+  },
+  {
+    "resource": "followers:FortniteProdNonLive:fb3d0349cbaa494988ea2ac28fa9a64a:followership",
+    "action": 2
+  },
+  {
+    "resource": "lfg:*:fb3d0349cbaa494988ea2ac28fa9a64a:settings",
+    "action": 6
+  },
+  {
+    "resource": "wasp:fn:invite",
+    "action": 1
+  },
+  {
+    "resource": "communications:external:register:device",
+    "action": 1
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsGFN.sav",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:profile:fb3d0349cbaa494988ea2ac28fa9a64a",
+    "action": 15
+  },
+  {
+    "resource": "fortnite:cloudstorage:user:fb3d0349cbaa494988ea2ac28fa9a64a:ClientSettingsXSX.sav",
+    "action": 15
+  }
+]

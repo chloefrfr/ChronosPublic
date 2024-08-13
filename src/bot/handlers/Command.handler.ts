@@ -17,33 +17,27 @@ export default async function CommandHandler(client: ExtendedClient) {
 
   Promise.all(
     commands.map(async (cmd) => {
-      const { default: CommandClass } = await import(
-        join(__dirname, "..", "commands", cmd)
-      );
+      const { default: CommandClass } = await import(join(__dirname, "..", "commands", cmd));
       const CommandInstance = new CommandClass();
 
       client.commands.set(CommandInstance.data.name, CommandInstance);
 
       return CommandInstance.data;
-    })
+    }),
   );
 
-  client.on(
-    "interactionCreate" as any,
-    async (interaction: CommandInteraction) => {
-      if (!interaction.isCommand()) return;
+  client.on("interactionCreate" as any, async (interaction: CommandInteraction) => {
+    if (!interaction.isCommand()) return;
 
-      const { commandName } = interaction;
-      const command = client.commands.get(commandName);
+    const { commandName } = interaction;
+    const command = client.commands.get(commandName);
 
-      if (!command) return;
+    if (!command) return;
 
-      try {
-        await command.execute(interaction, {});
-      } catch (error) {
-        logger.error(`Failed to execute command: ${error}`);
-        interaction.reply("There was an error executing that command!");
-      }
+    try {
+      await command.execute(interaction, {});
+    } catch (error) {
+      return await interaction.reply("There was an error executing that command!");
     }
-  );
+  });
 }

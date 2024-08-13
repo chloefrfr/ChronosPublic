@@ -1,4 +1,4 @@
-import { app, logger } from "..";
+import { app, logger, tokensService, userService } from "..";
 import errors from "../utilities/errors";
 import parser from "../utilities/useragent";
 import {
@@ -11,6 +11,8 @@ import path from "node:path";
 import { readdir, readFile, stat, mkdir, writeFile } from "node:fs/promises";
 import { Validation } from "../middleware/validation";
 import { existsSync, readFileSync } from "node:fs";
+import PermissionInfo from "../utilities/permissions/permissioninfo";
+import type { GrantType } from "../../types/permissionsdefs";
 
 interface CloudStorageFile {
   [key: string]: any;
@@ -21,12 +23,27 @@ interface CloudStorage {
 }
 
 export default function () {
-  app.get("/fortnite/api/cloudstorage/system", async (c) => {
+  app.get("/fortnite/api/cloudstorage/system", Validation.verifyPermissions, async (c) => {
     const SeasonData = parser(c.req.header("User-Agent"));
     const timestamp = new Date().toISOString();
 
     if (!SeasonData)
       return c.json(errors.createError(400, c.req.url, "Invalid User Agent!", timestamp), 400);
+
+    const permissions = c.get("permission");
+
+    const hasPermission = permissions.hasPermission("fortnite:cloudstorage:system", "READ");
+
+    if (!hasPermission)
+      return c.json(
+        errors.createError(
+          401,
+          c.req.url,
+          permissions.errorReturn("fortnite:cloudstorage:system", "READ"),
+          timestamp,
+        ),
+        401,
+      );
 
     const fileContents: { [key: string]: string } = {
       "DefaultEngine.ini": GetDefaultEngine(),
@@ -50,42 +67,82 @@ export default function () {
       });
     }
 
+    permissions.addPermission({
+      resource: "fortnite:cloudstorage:system:DefaultEngine.ini",
+      abilities: "READ",
+      action: 16,
+    });
+
+    permissions.addPermission({
+      resource: "fortnite:cloudstorage:system:DefaultGame.ini",
+      abilities: "READ",
+      action: 16,
+    });
+
+    permissions.addPermission({
+      resource: "fortnite:cloudstorage:system:DefaultRuntimeOptions.ini",
+      abilities: "READ",
+      action: 16,
+    });
+
     return c.json(CloudStorage.files, 200);
   });
 
-  app.get("/fortnite/api/cloudstorage/system/:filename", async (c) => {
-    const filename = c.req.param("filename");
-    const timestamp = new Date().toISOString();
+  app.get(
+    "/fortnite/api/cloudstorage/system/:filename",
+    Validation.verifyPermissions,
+    async (c) => {
+      const filename = c.req.param("filename");
+      const timestamp = new Date().toISOString();
 
-    const SeasonData = parser(c.req.header("User-Agent"));
+      const SeasonData = parser(c.req.header("User-Agent"));
 
-    if (!SeasonData)
-      return c.json(errors.createError(400, c.req.url, "Invalid User Agent!", timestamp), 400);
+      if (!SeasonData)
+        return c.json(errors.createError(400, c.req.url, "Invalid User Agent!", timestamp), 400);
 
-    switch (filename) {
-      case "DefaultEngine.ini":
-        c.status(200);
-        return c.text(GetDefaultEngine());
+      const permissions = c.get("permission");
 
-      case "DefaultGame.ini":
-        c.status(200);
-        return c.text(GetDefaultGame(SeasonData.season));
+      const hasPermission = permissions.hasPermission(
+        `fortnite:cloudstorage:system:${filename}`,
+        "READ",
+      );
 
-      case "DefaultRuntimeOptions.ini":
-        c.status(200);
-        return c.text(GetDefaultRuntimeOptions());
+      if (!hasPermission)
+        return c.json(
+          errors.createError(
+            401,
+            c.req.url,
+            permissions.errorReturn(`fortnite:cloudstorage:system:${filename}`, "READ"),
+            timestamp,
+          ),
+          401,
+        );
 
-      default:
-        c.status(400);
-        return c.json({
-          errorCode: "errors.com.epicgames.bad_request",
-          errorMessage: "Hotfix File not found!",
-          numericErrorCode: 1001,
-          originatingService: "fortnite",
-          intent: "prod-live",
-        });
-    }
-  });
+      switch (filename) {
+        case "DefaultEngine.ini":
+          c.status(200);
+          return c.text(GetDefaultEngine());
+
+        case "DefaultGame.ini":
+          c.status(200);
+          return c.text(GetDefaultGame(SeasonData.season));
+
+        case "DefaultRuntimeOptions.ini":
+          c.status(200);
+          return c.text(GetDefaultRuntimeOptions());
+
+        default:
+          c.status(400);
+          return c.json({
+            errorCode: "errors.com.epicgames.bad_request",
+            errorMessage: "Hotfix File not found!",
+            numericErrorCode: 1001,
+            originatingService: "fortnite",
+            intent: "prod-live",
+          });
+      }
+    },
+  );
 
   app.get("/fortnite/api/cloudstorage/user/:accountId/:file", Validation.verifyToken, async (c) => {
     const clientSettings: string = path.join(
