@@ -48,6 +48,16 @@ export default class PermissionInfo {
         abilities: "*",
         action: 10,
       });
+      this.addPermission({
+        resource: `fortnite:profile:${this.accountId}:receipts`,
+        abilities: "*",
+        action: 10,
+      });
+      this.addPermission({
+        resource: "fortnite:calender",
+        abilities: "READ",
+        action: 2,
+      });
     }
   }
 

@@ -1,17 +1,34 @@
 import { app, db, logger } from "..";
+import { Validation } from "../middleware/validation";
 import errors from "../utilities/errors";
 import TimelineHelper from "../utilities/timelinehelper";
 import uaparser from "../utilities/uaparser";
 
 export default function () {
-  app.get("/fortnite/api/calendar/v1/timeline", async (c) => {
+  app.get("/fortnite/api/calendar/v1/timeline", Validation.verifyPermissions, async (c) => {
     const date = new Date();
     const useragent = c.req.header("User-Agent");
+    const timestamp = new Date().toISOString();
 
     if (!useragent)
       return c.json(
         errors.createError(400, c.req.url, "header 'User-Agent' is missing.", date.toISOString()),
         400,
+      );
+
+    const permissions = c.get("permission");
+
+    const hasPermission = permissions.hasPermission("fortnite:calender", "READ");
+
+    if (!hasPermission)
+      return c.json(
+        errors.createError(
+          401,
+          c.req.url,
+          permissions.errorReturn("fortnite:calender", "READ"),
+          timestamp,
+        ),
+        401,
       );
 
     date.setUTCHours(0, 0, 0, 0);
