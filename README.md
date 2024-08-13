@@ -1,5 +1,7 @@
 [![pnpm](https://img.shields.io/badge/maintained%20with-bun-ac98ff.svg?style=for-the-badge&logo=bun)](https://bun.sh/)
-![Size](https://img.shields.io/github/repo-size/fortplayerpawn/Chronos?label=Size&style=for-the-badge)
+![Size](https://img.shields.io/github/repo-size/chloefrfr/ChronosPrivate?label=Size&style=for-the-badge)
+
+![Banner](https://cdn2.unrealengine.com/13br-galaxycup-newsheader-1900x600-1900x600-482668392.jpg)
 
 **Advanced Fortnite Backend**
 
