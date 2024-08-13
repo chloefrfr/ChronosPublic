@@ -32,7 +32,7 @@
 - [x] Daily rewards
 - [x] Gifting
 - [x] Purchasing from item shop
-- [ ] IP Bans ( skies if u cant do this ur a dumbass )
+- [ ] IP Bans
 - [x] HWID Bans
 - [x] Refunding
 - [ ] Save the World
