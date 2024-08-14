@@ -16,6 +16,13 @@
 - TCP XMPP
 - Proper Authentication (Permissions, etc)
 
+# Available Quests
+
+- Season9 (Only Daily)
+- Season13 (Week 1 & Daily)
+
+- Weekly Quests do NOT work as of now
+
 ## Planned Features
 
 - [x] Vbucks on kill/win

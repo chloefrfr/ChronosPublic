@@ -2,12 +2,9 @@ import type { Context } from "hono";
 import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
 import { accountService, logger, profilesService, userService } from "..";
-import ProfileHelper from "../utilities/profiles";
 import MCPResponses from "../utilities/responses";
-import { Account } from "../tables/account";
-import { Profiles } from "../tables/profiles";
 import { handleProfileSelection } from "./QueryProfile";
-import type { FavoritePropAttributes, FavoriteSlotName, Variants } from "../../types/profilesdefs";
+import type { FavoriteSlotName, Variants } from "../../types/profilesdefs";
 
 export default async function (c: Context) {
   const startTimestamp = Date.now();
@@ -16,10 +13,11 @@ export default async function (c: Context) {
   const rvn = c.req.query("rvn");
   const profileId = c.req.query("profileId") as ProfileId;
 
-  const timestamp = new Date().toISOString();
-
   if (!accountId || !rvn || !profileId) {
-    return c.json(errors.createError(400, c.req.url, "Missing query parameters.", timestamp), 400);
+    return c.json(
+      errors.createError(400, c.req.url, "Missing query parameters.", new Date().toISOString()),
+      400,
+    );
   }
 
   try {
@@ -30,28 +28,30 @@ export default async function (c: Context) {
 
     if (!user || !account) {
       return c.json(
-        errors.createError(404, c.req.url, "Failed to find user or account.", timestamp),
+        errors.createError(
+          404,
+          c.req.url,
+          "Failed to find user or account.",
+          new Date().toISOString(),
+        ),
         404,
       );
     }
 
     const profile = await handleProfileSelection(profileId, user.accountId);
-
-    if (!profile && profileId !== "athena" && profileId !== "common_core") {
-      return c.json(
-        errors.createError(404, c.req.url, `Profile ${profileId} not found.`, timestamp),
-        404,
-      );
-    }
-
     if (!profile) {
       return c.json(
-        errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
+        errors.createError(
+          404,
+          c.req.url,
+          `Profile '${profileId}' not found.`,
+          new Date().toISOString(),
+        ),
         404,
       );
     }
 
-    let body;
+    let body: any;
     try {
       body = await c.req.json();
     } catch {
@@ -59,24 +59,28 @@ export default async function (c: Context) {
     }
 
     const { itemToSlot, indexWithinSlot, slotName, variantUpdates } = body;
-    const applyProfileChanges: object[] = [];
+    const itemAttributes = profile.items[itemToSlot]?.attributes || {};
+    const variantsMap = new Map(
+      (itemAttributes.variants || []).map((v: Variants) => [v.channel, v]),
+    );
+
+    variantUpdates.forEach((variant: Variants) => {
+      if (variantsMap.has(variant.channel)) {
+        // @ts-ignore
+        variantsMap.get(variant.channel)!.active = variant.active;
+      }
+    });
+
+    const updatedVariants = Array.from(variantsMap.values());
+    let applyProfileChanges: object[] = [];
     let shouldUpdateProfile = false;
 
     if (profile.items[itemToSlot]) {
-      const itemAttributes = profile.items[itemToSlot].attributes;
-      const variants = itemAttributes.variants || [];
-      for (const variant of variantUpdates) {
-        const existingVariant = variants.find((v) => v.channel === variant.channel);
-        if (existingVariant) {
-          existingVariant.active = variant.active;
-        }
-      }
-
       applyProfileChanges.push({
         changeType: "itemAttrChanged",
         itemId: itemToSlot,
         attributeName: "variants",
-        attributeValue: variants,
+        attributeValue: updatedVariants,
       });
       shouldUpdateProfile = true;
     }
@@ -86,71 +90,73 @@ export default async function (c: Context) {
     const cosmeticTemplateId = profile.items[itemToSlot]?.templateId || itemToSlot;
     const favoriteSlotName = `favorite_${slotName.toLowerCase()}` as FavoriteSlotName;
 
-    switch (slotName) {
-      case "Dance":
-        if (indexWithinSlot >= 0 && indexWithinSlot <= 5) {
-          profile.stats.attributes.favorite_dance![indexWithinSlot] = itemToSlot;
-
-          const activeLoadout = profile.items[activeLoadoutId];
-          const slotData = activeLoadout?.attributes.locker_slots_data?.slots[slotName];
-          if (Array.isArray(slotData?.items) && indexWithinSlot < slotData.items.length) {
-            slotData.items[indexWithinSlot] = cosmeticTemplateId;
+    const slotUpdates: { [key: string]: (index: number, value: string) => void } = {
+      Dance: (index, value) => {
+        if (index >= 0 && index <= 5) {
+          profile.stats.attributes.favorite_dance![index] = value;
+          const slotData =
+            profile.items[activeLoadoutId]?.attributes.locker_slots_data?.slots[slotName];
+          if (Array.isArray(slotData?.items) && index < slotData.items.length) {
+            slotData.items[index] = cosmeticTemplateId;
             applyProfileChanges.push({
               changeType: "statModified",
               name: favoriteSlotName,
               value: profile.stats.attributes.favorite_dance,
             });
-            shouldUpdateProfile = true;
           }
         }
-        break;
-
-      case "ItemWrap":
-        if (indexWithinSlot >= 0 && indexWithinSlot <= 7) {
-          profile.stats.attributes.favorite_itemwraps!.fill(itemToSlot, 0, 7);
-          profile.items.sandbox_loadout.attributes.locker_slots_data!.slots.ItemWrap.items.fill(
-            cosmeticTemplateId,
-            0,
-            7,
-          );
+      },
+      ItemWrap: (index, value) => {
+        if ((index >= 0 && index <= 7) || index === -1) {
+          const favoriteArray = profile.stats.attributes.favorite_itemwraps;
+          for (let i = 0; i < 7; i++) {
+            favoriteArray![i] = itemToSlot;
+            profile.items.sandbox_loadout.attributes.locker_slots_data!.slots.ItemWrap.items[i] =
+              cosmeticTemplateId;
+          }
 
           applyProfileChanges.push({
             changeType: "statModified",
-            name: favoriteSlotName,
-            value: profile.stats.attributes.favorite_itemwraps,
+            name: "favorite_itemwraps",
+            value: favoriteArray,
           });
-          shouldUpdateProfile = true;
         }
-        break;
-
-      default:
+      },
+      default: () => {
         profile.stats.attributes[favoriteSlotName] = itemToSlot;
         profile.items.sandbox_loadout.attributes.locker_slots_data!.slots[slotName].items =
           cosmeticTemplateId;
-
         applyProfileChanges.push({
           changeType: "statModified",
           name: favoriteSlotName,
           value: profile.stats.attributes[favoriteSlotName],
         });
-        shouldUpdateProfile = true;
-        break;
-    }
+      },
+    };
+
+    (slotUpdates[slotName] || slotUpdates.default)(indexWithinSlot, itemToSlot);
 
     if (shouldUpdateProfile) {
       profile.rvn++;
       profile.commandRevision++;
       profile.updatedAt = new Date().toISOString();
-
-      await profilesService.update(user.accountId, "athena", profile);
+      await profilesService.updateMultiple([
+        {
+          accountId: user.accountId,
+          type: "athena",
+          data: profile,
+        },
+      ]);
     }
 
-    const endTimestamp = Date.now();
-    logger.info(`Execution time: ${endTimestamp - startTimestamp} ms`);
+    logger.info(`Execution time: ${Date.now() - startTimestamp} ms`);
 
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
   } catch (error) {
     void logger.error(`Error in EquipBattleRoyaleCustomization: ${error}`);
-    return c.json(errors.createError(500, c.req.url, "Internal server error.", timestamp), 500);
+    return c.json(
+      errors.createError(500, c.req.url, "Internal server error.", new Date().toISOString()),
+      500,
+    );
   }
 }

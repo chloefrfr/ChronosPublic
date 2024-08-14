@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { createQueryBuilder, getManager, Repository } from "typeorm";
 import { logger } from "../..";
 import NodeCache from "node-cache";
 import { Profiles } from "../../tables/profiles";
@@ -159,6 +159,33 @@ export default class ProfilesService {
     }
   }
 
+  public async updateMultiple(
+    updates: { accountId: string; type: keyof Profiles; data: Partial<any> }[],
+  ): Promise<void> {
+    if (updates.length === 0) return;
+
+    try {
+      const updateQueries = updates
+        .map(
+          (update, index) => `
+        UPDATE "profiles"
+        SET "${update.type}" = $${index * 2 + 1}
+        WHERE "accountId" = $${index * 2 + 2};
+      `,
+        )
+        .join(" ");
+
+      const parameters = updates.flatMap((update, index) => [
+        JSON.stringify(update.data),
+        update.accountId,
+      ]);
+
+      await this.profilesRepository.query(updateQueries, parameters);
+    } catch (error) {
+      logger.error(`Error updating multiple profiles: ${error}`);
+    }
+  }
+
   public async deleteByAccountId(accountId: string): Promise<boolean> {
     try {
       const result = await this.profilesRepository.delete({ accountId });
@@ -172,4 +199,25 @@ export default class ProfilesService {
       return false;
     }
   }
+
+  // public async findProfilesWithPagination(
+  //   accountId: string,
+  //   page: number = 1,
+  //   itemsPerPage: number = 10,
+  // ): Promise<{ profiles: Profiles[]; total: number }> {
+  //   try {
+  //     const offset = (page - 1) * itemsPerPage;
+  //     const [profiles, total] = await this.profilesRepository
+  //       .createQueryBuilder("profile")
+  //       .where("profile.accountId = :accountId", { accountId })
+  //       .skip(offset)
+  //       .take(itemsPerPage)
+  //       .getManyAndCount();
+
+  //     return { profiles, total };
+  //   } catch (error) {
+  //     logger.error(`Error finding profiles with pagination: ${error}`);
+  //     return { profiles: [], total: 0 };
+  //   }
+  // }
 }

@@ -5,30 +5,59 @@ import type { ProfileId } from "../utilities/responses";
 import ProfileHelper from "../utilities/profiles";
 import MCPResponses from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
-import { Profiles } from "../tables/profiles";
+import { LRUCache } from "lru-cache";
+
+const profileCache = new LRUCache<string, { data: any; timestamp: number }>({
+  max: 1000,
+  ttl: 1000 * 60 * 1,
+});
+
+type AllowedProfileTypes =
+  | "athena"
+  | "common_core"
+  | "common_public"
+  | "campaign"
+  | "metadata"
+  | "theater0"
+  | "collection_book_people0"
+  | "collection_book_schematics0"
+  | "outpost0"
+  | "id"
+  | "hasId"
+  | "reload";
 
 export async function handleProfileSelection(profileId: ProfileId, accountId: string) {
-  let profile;
+  const profileTypes: { [key in ProfileId]?: AllowedProfileTypes } = {
+    athena: "athena",
+    profile0: "athena",
+    common_core: "common_core",
+    common_public: "common_public",
+    campaign: "campaign",
+    metadata: "metadata",
+    theater0: "theater0",
+    collection_book_people0: "collection_book_people0",
+    collection_book_schematics0: "collection_book_schematics0",
+    outpost0: "outpost0",
+  };
 
-  switch (profileId) {
-    case "athena":
-    case "profile0":
-      profile = await ProfileHelper.getProfile(accountId, "athena");
-      break;
-    case "common_core":
-      profile = await ProfileHelper.getProfile(accountId, "common_core");
-      break;
-    case "common_public":
-      profile = await ProfileHelper.getProfile(accountId, "common_public");
-      break;
-    case "campaign":
-      profile = await ProfileHelper.getProfile(accountId, "campaign");
-      break;
-    case "metadata":
-      profile = await ProfileHelper.getProfile(accountId, "metadata");
+  const profileType = profileTypes[profileId];
+
+  if (!profileType) {
+    logger.error(`Invalid Profile Type: ${profileId}`);
+    return null;
   }
 
-  return profile;
+  const cachedEntry = profileCache.get(profileId);
+
+  if (cachedEntry) {
+    return cachedEntry.data;
+  }
+
+  const profilePromise = ProfileHelper.getProfile(accountId, profileType);
+
+  profileCache.set(profileId, { data: await profilePromise, timestamp: Date.now() });
+
+  return await profilePromise;
 }
 
 export default async function (c: Context) {
