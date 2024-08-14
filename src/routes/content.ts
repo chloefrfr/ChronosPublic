@@ -27,10 +27,6 @@ export default function () {
       path.join(__dirname, "..", "memory", "content", "pages.json"),
     ).json();
 
-    // Pages.dynamicbackgrounds.backgrounds.backgrounds[0].stage = `season${uahelper.season}`;
-    // Pages.dynamicbackgrounds.backgrounds.backgrounds[0]._type = "DynamicBackground";
-    // Pages.dynamicbackgrounds.backgrounds.backgrounds[0].key = "vault";
-
     Pages.dynamicbackgrounds.backgrounds.backgrounds.push(
       {
         stage: "defaultnotris",
@@ -40,7 +36,7 @@ export default function () {
           "https://cdn2.unrealengine.com/nocturnal-storebg-cms-1921x1081-796115fa0fc9.png",
       },
       {
-        stage: `season${uahelper.season}`,
+        stage: uahelper.background,
         _type: "DynamicBackground",
         key: "vault",
       },

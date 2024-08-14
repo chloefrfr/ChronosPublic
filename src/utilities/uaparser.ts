@@ -9,7 +9,7 @@ export interface SeasonInfo {
   netcl?: string | undefined;
   buildUpdate: number | string;
   lobby: string;
-  SeasonX: string;
+  background: string;
 }
 
 export default function uaparser(userAgent: string | undefined): SeasonInfo | null {
@@ -27,7 +27,7 @@ export default function uaparser(userAgent: string | undefined): SeasonInfo | nu
     const buildUpdate = userAgent.split("-")[1].split("+")[0];
     let season = build;
     let lobby: string = "";
-    let SeasonX: string = "";
+    let background: string = "";
 
     switch (true) {
       case Number.isNaN(netcl):
@@ -55,15 +55,16 @@ export default function uaparser(userAgent: string | undefined): SeasonInfo | nu
         break;
 
       case season === 10:
-        SeasonX = "seasonx";
+        background = "seasonx";
         break;
 
       default:
         lobby = `Lobby${season}`;
+        background = `season${season}`;
         break;
     }
 
-    return { season, build, netcl, lobby, buildUpdate, SeasonX };
+    return { season, build, netcl, lobby, buildUpdate, background };
   };
 
   const buildID = getBuildID();
