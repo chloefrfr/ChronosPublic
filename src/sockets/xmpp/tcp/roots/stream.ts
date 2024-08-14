@@ -48,4 +48,3 @@ export default function (socket: net.Socket, message: string | Buffer) {
       .toString(),
   );
 }
-

@@ -4,7 +4,7 @@ export function GetDefaultEngine(): string {
   return `[OnlineSubsystemMcp.Xmpp]
 bUseSSL=false
 Protocol=${config.tcp ? "tcp" : "ws"}
-ServerAddr="127.0.0.1"
+ServerAddr="ws://127.0.0.1:${config.tcp ? 7777 : 8080}"
 ServerPort=${config.tcp ? 7777 : 8080}
 bPrivateChatFriendsOnly=true
 bResetPingTimeoutOnReceiveStanza=true
@@ -14,7 +14,7 @@ ${config.tcp ? "bUsePlainTextAuth=true" : ""}
 [OnlineSubsystemMcp.Xmpp Prod]
 bUseSSL=false
 Protocol=${config.tcp ? "tcp" : "ws"}
-ServerAddr="127.0.0.1"
+ServerAddr="ws://127.0.0.1:${config.tcp ? 7777 : 8080}"
 ServerPort=${config.tcp ? 7777 : 8080}
 ${config.tcp ? "bUsePlainTextAuth=true" : ""}
 

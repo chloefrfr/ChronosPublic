@@ -26,39 +26,23 @@ export default class PermissionInfo {
   }
 
   private init(): void {
-    this.addPermission({
-      resource: "fortnite:cloudstorage:system",
-      abilities: "READ",
-      action: 1,
-    });
-    this.addPermission({
-      resource: "fortnite:cloudstorage:system:*",
-      abilities: "READ",
-      action: 2,
-    });
-
-    if (this.grant !== "client_credentials") {
-      this.addPermission({
-        resource: `friends:${this.accountId}`,
-        abilities: "READ,UPDATE,DELETE",
-        action: 15,
-      });
-      this.addPermission({
-        resource: `fortnite:profile:${this.accountId}:commands`,
-        abilities: "*",
-        action: 10,
-      });
-      this.addPermission({
-        resource: `fortnite:profile:${this.accountId}:receipts`,
-        abilities: "*",
-        action: 10,
-      });
-      this.addPermission({
-        resource: "fortnite:calender",
+    const permissions: Permission[] = [
+      { resource: "fortnite:cloudstorage:system", abilities: "READ", action: 1 },
+      { resource: "fortnite:cloudstorage:system:*", abilities: "READ", action: 2 },
+      { resource: `friends:${this.accountId}`, abilities: "READ,UPDATE,DELETE", action: 15 },
+      { resource: `fortnite:profile:${this.accountId}:commands`, abilities: "*", action: 10 },
+      { resource: `fortnite:profile:${this.accountId}:receipts`, abilities: "*", action: 10 },
+      { resource: "fortnite:calender", abilities: "READ", action: 2 },
+      { resource: "fortnite:cloudstorage:system:DefaultEngine.ini", abilities: "READ", action: 1 },
+      { resource: "fortnite:cloudstorage:system:DefaultGame.ini", abilities: "READ", action: 1 },
+      {
+        resource: "fortnite:cloudstorage:system:DefaultRuntimeOptions.ini",
         abilities: "READ",
-        action: 2,
-      });
-    }
+        action: 1,
+      },
+    ];
+
+    permissions.forEach((permission) => this.addPermission(permission));
   }
 
   public removePermission(resource: string): boolean {
@@ -94,24 +78,28 @@ export default class PermissionInfo {
       logger.error(`Permission ${resource} does not exist.`);
       return false;
     }
-
     const abilitiesArray = Array.isArray(requiredAbilities)
-      ? requiredAbilities
-      : [requiredAbilities];
+      ? requiredAbilities.map((ra) => ra.trim())
+      : [requiredAbilities.trim()];
+
     const permAbilities = parseAbilities(perm.abilities);
 
     const hasRequiredAbilities = abilitiesArray.some(
-      (ra) => permAbilities.includes(ra as any) || ra === "*",
+      (ra) =>
+        permAbilities.includes(ra) ||
+        ra === "*" ||
+        permAbilities.includes("*") ||
+        ra === "READ,UPDATE,DELETE",
     );
 
-    console.debug(hasRequiredAbilities);
-
     if (!hasRequiredAbilities) {
-      logger.error(`Required abilities ${abilitiesArray} not found for resource ${resource}`);
+      logger.error(
+        `Required abilities ${abilitiesArray.join(", ")} not found for resource ${resource}`,
+      );
       return false;
     }
 
-    return hasRequiredAbilities;
+    return true;
   }
 
   private isPermissionValid(permission: Permission): boolean {

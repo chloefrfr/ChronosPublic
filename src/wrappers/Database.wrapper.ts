@@ -12,7 +12,6 @@ import { LoggerFactory } from "typeorm/logger/LoggerFactory.js";
 import { User } from "../tables/user";
 import { Account } from "../tables/account";
 import { Tokens } from "../tables/tokens";
-import { Timeline } from "../tables/timeline";
 import { Profiles } from "../tables/profiles";
 import { Hype } from "../tables/hype";
 import { Friends } from "../tables/friends";
@@ -65,7 +64,6 @@ export default class Database {
           User,
           Account,
           Tokens,
-          Timeline,
           Profiles,
           Hype,
           Friends,
@@ -80,7 +78,6 @@ export default class Database {
           User,
           Account,
           Tokens,
-          Timeline,
           Profiles,
           Hype,
           Friends,

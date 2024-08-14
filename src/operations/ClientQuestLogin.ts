@@ -254,6 +254,20 @@ export default async function (c: Context) {
         quantity: 1,
       });
 
+      if (uahelper.season >= 1 && uahelper.season <= 9) {
+        profile.items["GiftBox:GB_MakeGood"] = {
+          templateId: "GiftBox:GB_MakeGood",
+          attributes: {
+            fromAccountId: "Server",
+            lootList,
+            params: {
+              userMessage: "Thanks for playing!",
+            },
+          },
+          quantity: 1,
+        };
+      }
+
       await XmppUtilities.SendMessageToId(
         JSON.stringify({
           payload: {},

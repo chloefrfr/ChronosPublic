@@ -67,7 +67,11 @@ export default async function (
         }
         break;
       case "auth":
+        logger.debug("Auth");
         isAuthenticated = true;
+        break;
+      case "":
+        socket.write(message);
         break;
       default:
         logger.warn(`Missing root: ${root}`);

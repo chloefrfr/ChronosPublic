@@ -281,6 +281,10 @@ interface ProgressionInfo {
   highestDefeatedTier: number;
 }
 
+interface GiftParameters {
+  userMessage: string;
+}
+
 export interface ItemValue {
   platform: string;
   gender?: string;
@@ -299,6 +303,7 @@ export interface ItemValue {
   item_seen: boolean;
   refundsUsed?: number;
   refundCredits?: number;
+  params: GiftParameters;
   sectionStates?: any[];
   state?: string;
   cloud_save_info?: {

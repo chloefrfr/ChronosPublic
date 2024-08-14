@@ -31,8 +31,10 @@ tcpServer.on("connection", (socket) => {
         starttls(socket, isAuthenticated, message);
         break;
       case "auth":
+        logger.debug("Auth");
         isAuthenticated = true;
         break;
+ 
       default:
         logger.warn(`Missing root: ${root}`);
         break;
