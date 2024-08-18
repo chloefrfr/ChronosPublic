@@ -1,4 +1,4 @@
-import { createQueryBuilder, getManager, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { logger } from "../..";
 import NodeCache from "node-cache";
 import { Profiles } from "../../tables/profiles";
@@ -130,7 +130,7 @@ export default class ProfilesService {
   public async update(
     accountId: string,
     type: keyof Profiles,
-    data: Partial<any>,
+    data: Partial<unknown>,
   ): Promise<Profiles | null> {
     try {
       const result = await this.profilesRepository
@@ -160,7 +160,7 @@ export default class ProfilesService {
   }
 
   public async updateMultiple(
-    updates: { accountId: string; type: keyof Profiles; data: Partial<any> }[],
+    updates: { accountId: string; type: keyof Profiles; data: Partial<unknown> }[],
   ): Promise<void> {
     if (updates.length === 0) return;
 
@@ -175,7 +175,7 @@ export default class ProfilesService {
         )
         .join(" ");
 
-      const parameters = updates.flatMap((update, index) => [
+      const parameters = updates.flatMap((update) => [
         JSON.stringify(update.data),
         update.accountId,
       ]);
@@ -199,25 +199,4 @@ export default class ProfilesService {
       return false;
     }
   }
-
-  // public async findProfilesWithPagination(
-  //   accountId: string,
-  //   page: number = 1,
-  //   itemsPerPage: number = 10,
-  // ): Promise<{ profiles: Profiles[]; total: number }> {
-  //   try {
-  //     const offset = (page - 1) * itemsPerPage;
-  //     const [profiles, total] = await this.profilesRepository
-  //       .createQueryBuilder("profile")
-  //       .where("profile.accountId = :accountId", { accountId })
-  //       .skip(offset)
-  //       .take(itemsPerPage)
-  //       .getManyAndCount();
-
-  //     return { profiles, total };
-  //   } catch (error) {
-  //     logger.error(`Error finding profiles with pagination: ${error}`);
-  //     return { profiles: [], total: 0 };
-  //   }
-  // }
 }

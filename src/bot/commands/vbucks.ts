@@ -9,8 +9,8 @@ import BaseCommand from "../base/Base";
 import { accountService, profilesService, userService } from "../..";
 import ProfileHelper from "../../utilities/profiles";
 import { Profiles } from "../../tables/profiles";
-import { XmppUtilities } from "../../sockets/xmpp/utilities/XmppUtilities";
 import type { LootList } from "./grantall";
+import { SendMessageToId } from "../../sockets/xmpp/utilities/SendMessageToId";
 
 export default class VbucksCommand extends BaseCommand {
   data = {
@@ -91,7 +91,7 @@ export default class VbucksCommand extends BaseCommand {
 
     await profilesService.update(user.accountId, "common_core", profile);
 
-    XmppUtilities.SendMessageToId(
+    SendMessageToId(
       JSON.stringify({
         type: "com.epicgames.gift.received",
         payload: {},

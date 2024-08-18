@@ -1,8 +1,10 @@
 import { app, friendsService, userService } from "..";
 import { Validation } from "../middleware/validation";
+import { acceptFriendRequest } from "../sockets/xmpp/utilities/AcceptFriendRequest";
+import { getUserPresence } from "../sockets/xmpp/utilities/GetUserPresence";
+import { sendFriendRequest } from "../sockets/xmpp/utilities/SendFriendRequest";
 import { Friends, type Friend } from "../tables/friends";
 import errors from "../utilities/errors";
-import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 
 interface FriendList {
   accountId: string;
@@ -434,15 +436,15 @@ export default function () {
         );
 
       if (incomingFriends) {
-        if (!(await XmppUtilities.AcceptFriendRequest(user.accountId, friend.accountId)))
+        if (!(await acceptFriendRequest(user.accountId, friend.accountId)))
           return c.json(
             errors.createError(400, c.req.url, "Failed to accept friend request.", timestamp),
             400,
           );
 
-        await XmppUtilities.GetUserPresence(false, user.accountId, friend.accountId);
-        await XmppUtilities.GetUserPresence(false, friend.accountId, user.accountId);
-      } else if (!(await XmppUtilities.SendFriendRequest(user.accountId, friend.accountId)))
+        await getUserPresence(false, user.accountId, friend.accountId);
+        await getUserPresence(false, friend.accountId, user.accountId);
+      } else if (!(await sendFriendRequest(user.accountId, friend.accountId)))
         return c.json(
           errors.createError(400, c.req.url, "Failed to send friend request.", timestamp),
           400,

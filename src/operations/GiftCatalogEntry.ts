@@ -15,9 +15,8 @@ import type { ProfileId } from "../utilities/responses";
 import MCPResponses from "../utilities/responses";
 import type { LootList } from "../bot/commands/grantall";
 import { v4 as uuid } from "uuid";
-import { XmppService } from "../sockets/xmpp/saved/XmppServices";
-import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import { handleProfileSelection } from "./QueryProfile";
+import { SendMessageToId } from "../sockets/xmpp/utilities/SendMessageToId";
 
 const asyncForEach = async (array: any[], callback: Function) => {
   for (let index = 0; index < array.length; index++) {
@@ -194,7 +193,7 @@ export default async function (c: Context) {
           quantity: 1,
         });
 
-        await XmppUtilities.SendMessageToId(
+        SendMessageToId(
           JSON.stringify({
             payload: {},
             type: "com.epicgames.gift.received",

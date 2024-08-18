@@ -4,7 +4,7 @@ import xmlparser from "xml-parser";
 import { XmppService } from "../saved/XmppServices";
 import { logger } from "../../..";
 import xmlbuilder from "xmlbuilder";
-import { XmppUtilities } from "../utilities/XmppUtilities";
+import { sendMessageToClient } from "../utilities/SendMessageToClient";
 
 export default async function (socket: ServerWebSocket<ChronosSocket>, clientData: xmlparser.Node) {
   const findBodyContent = clientData.children.find((value) => value.name === "body");
@@ -90,6 +90,6 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, clientDat
   }
 
   if (bodyJSON !== null) {
-    await XmppUtilities.SendMessageToClient(socket.data.jid as string, body, clientData);
+    await sendMessageToClient(socket.data.jid as string, body, clientData);
   }
 }

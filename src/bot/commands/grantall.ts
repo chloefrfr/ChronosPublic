@@ -12,9 +12,7 @@ import path from "node:path";
 import { Account } from "../../tables/account";
 import ProfileHelper from "../../utilities/profiles";
 import { User } from "../../tables/user";
-import { Profiles } from "../../tables/profiles";
-import { v4 as uuid } from "uuid";
-import { XmppUtilities } from "../../sockets/xmpp/utilities/XmppUtilities";
+import { SendMessageToId } from "../../sockets/xmpp/utilities/SendMessageToId";
 
 export interface Gifts {
   templateId: string;
@@ -114,7 +112,7 @@ export default class GrantallCommand extends BaseCommand {
         .where("accountId = :accountId", { accountId: user.accountId })
         .execute();
 
-      XmppUtilities.SendMessageToId(
+      SendMessageToId(
         JSON.stringify({
           type: "com.epicgames.gift.received",
           payload: {},

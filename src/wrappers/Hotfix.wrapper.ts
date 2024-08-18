@@ -101,7 +101,7 @@ PingTimeout=3.0
 }
 
 export function GetDefaultGame(version: number): string {
-  let def: string = `[/Script/EngineSettings.GeneralProjectSettings]
+  const def: string = `[/Script/EngineSettings.GeneralProjectSettings]
 ProjectID=(A=-2011270876,B=1182903154,C=-965786730,D=-1399474123)
 ProjectName=Fortnite
 ProjectDisplayedTitle=NSLOCTEXT("Chronos", "FortniteMainWindowTitle", "Chronos")

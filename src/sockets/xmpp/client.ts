@@ -1,5 +1,4 @@
-import type { Server, ServerWebSocket } from "bun";
-import { TextDecoder } from "util";
+import type { ServerWebSocket } from "bun";
 import xmlparser from "xml-parser";
 import { logger } from "../..";
 import open from "./roots/open";
@@ -50,7 +49,7 @@ export class Client {
   }
 
   private async handle() {
-    let xmlDoc = xmlparser(this.message as string);
+    const xmlDoc = xmlparser(this.message as string);
 
     const { name } = xmlDoc.root;
 

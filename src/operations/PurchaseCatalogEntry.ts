@@ -18,11 +18,11 @@ import type { BattlePassEntry, Entries, ItemGrants } from "../shop/interfaces/De
 import { v4 as uuid } from "uuid";
 import { BattlepassManager, type Rewards } from "../utilities/managers/BattlepassManager";
 import { LevelsManager } from "../utilities/managers/LevelsManager";
-import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import ProfilesService from "../wrappers/database/ProfilesService";
 import type { Variants } from "../../types/profilesdefs";
 import { QuestManager, QuestType, type Objectives } from "../utilities/managers/QuestManager";
 import { object } from "zod";
+import { SendMessageToId } from "../sockets/xmpp/utilities/SendMessageToId";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -1004,7 +1004,7 @@ export default async function (c: Context) {
           quantity: currency.quantity,
         });
 
-        XmppUtilities.SendMessageToId(
+        SendMessageToId(
           JSON.stringify({
             payload: {},
             type: "com.epicgames.gift.received",

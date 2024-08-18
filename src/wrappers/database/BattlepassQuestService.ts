@@ -1,6 +1,5 @@
 import type { DeleteResult, Repository } from "typeorm";
 import type Database from "../Database.wrapper";
-import { logger } from "../..";
 import {
   BattlepassQuest,
   type BattlepassQuestData,

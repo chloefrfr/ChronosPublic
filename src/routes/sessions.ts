@@ -1,6 +1,5 @@
 import { accountService, app, config, profilesService, userService } from "..";
 import { Validation } from "../middleware/validation";
-import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import { Profiles } from "../tables/profiles";
 import errors from "../utilities/errors";
 import { LevelsManager } from "../utilities/managers/LevelsManager";
@@ -10,6 +9,7 @@ import { v4 as uuid } from "uuid";
 import MCPResponses from "../utilities/responses";
 import { BattlepassManager } from "../utilities/managers/BattlepassManager";
 import { servers } from "../sockets/matchmaker/server";
+import { SendMessageToId } from "../sockets/xmpp/utilities/SendMessageToId";
 
 export default function () {
   app.post("/gamesessions/setStatus", Validation.verifyBasicToken, async (c) => {
@@ -280,7 +280,7 @@ export default function () {
                 quantity: 1,
               });
 
-              XmppUtilities.SendMessageToId(
+              SendMessageToId(
                 JSON.stringify({
                   payload: {},
                   type: "com.epicgames.gift.received",
@@ -309,7 +309,7 @@ export default function () {
         await profilesService.update(user.accountId, "athena", athena);
         await profilesService.update(user.accountId, "common_core", common_core);
 
-        XmppUtilities.SendMessageToId(
+        SendMessageToId(
           JSON.stringify({
             type: "com.epicgames.gift.received",
             payload: {},

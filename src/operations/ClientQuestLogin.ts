@@ -18,9 +18,9 @@ import { Profiles } from "../tables/profiles";
 import { WeeklyQuestGranter } from "../utilities/granting/WeeklyQuestGranter";
 import { User } from "../tables/user";
 import type { LootList } from "../bot/commands/grantall";
-import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import { v4 as uuid } from "uuid";
 import { handleProfileSelection } from "./QueryProfile";
+import { SendMessageToId } from "../sockets/xmpp/utilities/SendMessageToId";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -268,7 +268,7 @@ export default async function (c: Context) {
         };
       }
 
-      await XmppUtilities.SendMessageToId(
+      SendMessageToId(
         JSON.stringify({
           payload: {},
           type: "com.epicgames.gift.received",
@@ -278,7 +278,6 @@ export default async function (c: Context) {
       );
     }
 
-    // trying something new (this should be faster)
     if (shouldUpdateProfile) {
       profile.rvn += 1;
       profile.commandRevision += 1;

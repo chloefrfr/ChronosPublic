@@ -4,10 +4,10 @@ import { Validation } from "../middleware/validation";
 import errors from "../utilities/errors";
 import { XmppService } from "../sockets/xmpp/saved/XmppServices";
 import { randomUUID } from "node:crypto";
-import { XmppUtilities } from "../sockets/xmpp/utilities/XmppUtilities";
 import uaparser from "../utilities/uaparser";
 import { time } from "discord.js";
 import { date } from "zod";
+import { SendMessageToId } from "../sockets/xmpp/utilities/SendMessageToId";
 
 export default function () {
   app.get(
@@ -139,7 +139,7 @@ export default function () {
     XmppService.parties[partyId] = newParty;
 
     newParty.members.forEach(async (member) => {
-      XmppUtilities.SendMessageToId(
+      SendMessageToId(
         JSON.stringify({
           captain_id: captain!.account_id,
           created_at: newParty.created_at,
@@ -208,7 +208,7 @@ export default function () {
       XmppService.parties[partyId] = newParty;
 
       newParty.members.forEach((m) => {
-        XmppUtilities.SendMessageToId(
+        SendMessageToId(
           JSON.stringify({
             account_id: accountId,
             account_dn: m.meta["urn:epic:member:dn_s"],
@@ -278,7 +278,7 @@ export default function () {
       }
 
       newParty.members.forEach((m) => {
-        XmppUtilities.SendMessageToId(
+        SendMessageToId(
           JSON.stringify({
             account_id: accountId,
             member_state_update: {},
@@ -356,7 +356,7 @@ export default function () {
       XmppService.parties[partyId] = newParty;
 
       newParty.members.forEach((member) => {
-        XmppUtilities.SendMessageToId(
+        SendMessageToId(
           JSON.stringify({
             account_dn: connection.meta["urn:epic:member:dn_s"],
             account_id: (connection.id || "").split("@prod")[0],
@@ -434,7 +434,7 @@ export default function () {
       if (!user)
         return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
-      XmppUtilities.SendMessageToId(
+      SendMessageToId(
         accountId,
         JSON.stringify({
           expires: ping.expires_at,
@@ -563,7 +563,7 @@ export default function () {
       XmppService.parties[newParty!.id] = newParty!;
 
       newParty!.members.forEach(async (member) => {
-        XmppUtilities.SendMessageToId(
+        SendMessageToId(
           JSON.stringify({
             account_dn: connection.meta["urn:epic:member:dn_s"],
             account_id: connectionId,

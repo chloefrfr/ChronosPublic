@@ -15,11 +15,6 @@ interface Attributes {
   ObjectiveState: Objectives[];
 }
 
-interface ObjectiveState {
-  name: string;
-  count: number;
-}
-
 @Entity()
 export class BattlepassQuest {
   @PrimaryGeneratedColumn("uuid")

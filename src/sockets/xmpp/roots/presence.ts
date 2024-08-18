@@ -4,7 +4,8 @@ import xmlparser from "xml-parser";
 import xmlbuilder from "xmlbuilder";
 import { logger } from "../../..";
 import { XmppService } from "../saved/XmppServices";
-import { XmppUtilities } from "../utilities/XmppUtilities";
+import { updatePresenceForFriend } from "../utilities/UpdatePresenceForFriend";
+import { getUserPresence } from "../utilities/GetUserPresence";
 
 export default async function (
   socket: ServerWebSocket<ChronosSocket>,
@@ -243,10 +244,6 @@ export default async function (
   let away: boolean = false;
   if (root.children.some((child) => child.name === "show")) away = true;
 
-  await XmppUtilities.UpdatePresenceForFriend(socket, status, false, away);
-  await XmppUtilities.GetUserPresence(
-    false,
-    socket.data.accountId as string,
-    socket.data.accountId as string,
-  );
+  await updatePresenceForFriend(socket, status, false, away);
+  await getUserPresence(false, socket.data.accountId as string, socket.data.accountId as string);
 }

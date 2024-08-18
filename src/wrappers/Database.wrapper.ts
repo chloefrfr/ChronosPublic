@@ -1,14 +1,5 @@
-import {
-  Repository,
-  DataSource,
-  type ObjectType,
-  EntityMetadata,
-  type EntityTarget,
-  type QueryRunner,
-  type Logger,
-} from "typeorm";
+import { Repository, DataSource, type ObjectLiteral, type EntityTarget } from "typeorm";
 import { config, logger } from "..";
-import { LoggerFactory } from "typeorm/logger/LoggerFactory.js";
 import { User } from "../tables/user";
 import { Account } from "../tables/account";
 import { Tokens } from "../tables/tokens";
@@ -24,33 +15,9 @@ interface DatabaseConfig {
   ssl?: boolean;
 }
 
-class ORMLogger implements Logger {
-  logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner): any {
-    const start = process.hrtime();
-    logger.info(`Query: ${query}`);
-    const duration = process.hrtime(start);
-    const milliseconds = duration[0] * 1000 + duration[1] / 1000000;
-    logger.info(`Duration: ${milliseconds.toFixed(2)}ms`);
-  }
-  logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner): any {
-    logger.error(`QueryError: ${error}, Query: ${query}`);
-  }
-  logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: QueryRunner): any {
-    logger.warn(`QuerySlow: ${time}ms, Query: ${query}`);
-  }
-  logSchemaBuild(message: string, queryRunner?: QueryRunner): any {
-    logger.debug(`SchemaBuild: ${message}`);
-  }
-  logMigration(message: string, queryRunner?: QueryRunner): any {
-    logger.info(`Migration: ${message}`);
-  }
-  log(level: "log" | "info" | "warn", message: any, queryRunner?: QueryRunner | undefined) {}
-}
-
 export default class Database {
   private connection!: DataSource;
-  private repositories: Record<string, Repository<any>> = {};
-  private cache: Record<string, any> = {};
+  private repositories: Record<string, Repository<ObjectLiteral>> = {};
 
   constructor(private dbConfig: DatabaseConfig = {}) {}
 
@@ -166,36 +133,7 @@ export default class Database {
     }
   }
 
-  public getRepository(entityName: string): Repository<any> {
-    return this.connection.getRepository(entityName);
-  }
-
-  private async getFromCache(key: string): Promise<any | undefined> {
-    const cachedItem = this.cache[key];
-    if (cachedItem) {
-      const { value, expiry } = cachedItem;
-      if (expiry === 0 || Date.now() < expiry) {
-        return value;
-      } else {
-        delete this.cache[key];
-      }
-    }
-    return undefined;
-  }
-
-  private async setToCache(key: string, value: any, ttlSeconds: number = 3600): Promise<void> {
-    const expiry = ttlSeconds === 0 ? 0 : Date.now() + ttlSeconds * 1000;
-    this.cache[key] = { value, expiry };
-  }
-
-  public async getCachedRepository(entityName: string): Promise<Repository<any>> {
-    const cachedRepo = await this.getFromCache(`repo_${entityName}`);
-    if (cachedRepo) {
-      return cachedRepo;
-    } else {
-      const repository = this.connection.getRepository(entityName);
-      await this.setToCache(`repo_${entityName}`, repository);
-      return repository;
-    }
+  public getRepository<T extends ObjectLiteral>(entity: EntityTarget<T>): Repository<T> {
+    return this.connection.getRepository(entity);
   }
 }

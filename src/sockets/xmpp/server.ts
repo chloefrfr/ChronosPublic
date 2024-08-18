@@ -2,7 +2,7 @@ import type { ServerWebSocket } from "bun";
 import { logger } from "../..";
 import { Client } from "./client";
 import { XmppService } from "./saved/XmppServices";
-import { XmppUtilities } from "./utilities/XmppUtilities";
+import { updatePresenceForFriend } from "./utilities/UpdatePresenceForFriend";
 
 export interface ChronosSocket extends ServerWebSocket {
   isLoggedIn?: boolean;
@@ -35,10 +35,10 @@ export const xmppServer = Bun.serve<ChronosSocket>({
       const client = XmppService.clients[clientIndex];
       if (clientIndex === -1) return;
 
-      await XmppUtilities.UpdatePresenceForFriend(socket, "{}", true, false);
+      await updatePresenceForFriend(socket, "{}", true, false);
       XmppService.clients.splice(clientIndex, 1);
 
-      for (let muc of XmppService.joinedMUCs) {
+      for (const muc of XmppService.joinedMUCs) {
         const MUCRoom = XmppService.xmppMucs[muc];
 
         if (MUCRoom) {

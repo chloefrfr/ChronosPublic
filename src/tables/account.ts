@@ -1,5 +1,4 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import type { Permission } from "../../types/permissionsdefs";
 
 export interface SeasonStats {
   wins: number;
@@ -27,8 +26,8 @@ export interface BattlePass {
   battlestars_currency: number;
   battlestars: number;
   intro_game_played: boolean;
-  purchased_battle_pass_tier_offers: any[];
-  purchased_bp_offers: any[];
+  purchased_battle_pass_tier_offers: unknown[];
+  purchased_bp_offers: unknown[];
   xp: number;
 }
 
@@ -58,7 +57,7 @@ export class Account extends BaseEntity {
 
   // will be used for something else
   @Column({ type: "jsonb", nullable: false, default: [] })
-  permissions!: any[];
+  permissions!: unknown[];
 
   @Column({ type: "jsonb", nullable: false, default: [] })
   receipts!: FortniteReceipts[];

@@ -11,8 +11,8 @@ export class ItemStorageService {
     this.itemCache = new Map<ItemTypes, Item>();
   }
 
-  public async addItem(data: any, type: ItemTypes): Promise<Item> {
-    let existingItem = await this.itemRepository.findOne({ where: { type } });
+  public async addItem(data: unknown | unknown[], type: ItemTypes): Promise<Item> {
+    const existingItem = await this.itemRepository.findOne({ where: { type } });
 
     if (existingItem) {
       existingItem.data = data;
