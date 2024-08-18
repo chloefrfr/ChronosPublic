@@ -1,13 +1,39 @@
-[![pnpm](https://img.shields.io/badge/maintained%20with-bun-ac98ff.svg?style=for-the-badge&logo=bun)](https://bun.sh/)
-![Size](https://img.shields.io/github/repo-size/chloefrfr/ChronosPrivate?label=Size&style=for-the-badge)
+[![Maintained with Bun](https://img.shields.io/badge/maintained%20with-bun-ac98ff.svg?style=for-the-badge&logo=bun)](https://bun.sh/)![Size](https://img.shields.io/github/repo-size/chloefrfr/ChronosPrivate?label=Size&style=for-the-badge)
 
 ![Banner](https://cdn2.unrealengine.com/13br-galaxycup-newsheader-1900x600-1900x600-482668392.jpg)
-
-**Advanced Fortnite Backend**
 
 ## Supported MCP Operations
 
 `QueryProfile` `BulkEquipBattleRoyaleCustomization` `ClaimMfaEnabled` `PurchaseCatalogEntry` `MarkItemSeen` `RefundMtxPurchase` `RemoveGiftBox` `SetBattleRoyaleBanner` `SetCosmeticLockerSlot` `SetMtxPlatform` `EquipBattleRoyaleCustomization` `SetItemFavoriteStatusBatch` `GiftCatalogEntry` `ClientQuestLogin`
+
+## Requirements
+
+- [Bun](https://bun.sh)
+- [Git](https://git-scm.com/downloads)
+
+## Installation
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/chloefrfr/ChronosPrivate
+```
+
+2. **Install packages**
+
+```bash
+bun install
+```
+
+3. **Configure environment variables**
+
+Rename `.example.env` to .env and add the necessary information.
+
+3. **Run**
+
+```bash
+bun run src/index.ts
+```
 
 ## What's Next?
 
@@ -18,10 +44,10 @@
 
 # Available Quests
 
-- Season9 (Only Daily)
-- Season13 (Week 1 & Daily)
+- **Season 9:** Daily quests only
+- **Season 13:** Week 1 and daily quests
 
-- Weekly Quests do NOT work as of now
+_Note: Weekly quests are currently unavailable._
 
 ## Planned Features
 
