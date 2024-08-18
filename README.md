@@ -47,7 +47,7 @@ bun run src/index.ts
 - **Season 9:** Daily quests only
 - **Season 13:** Week 1 and daily quests
 
-_Note: Weekly quests are currently unavailable._
+_Note: Weekly quests currently do not work._
 
 ## Planned Features
 
