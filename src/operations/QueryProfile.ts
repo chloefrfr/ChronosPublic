@@ -26,6 +26,9 @@ type AllowedProfileTypes =
   | "hasId"
   | "reload";
 
+// Caching the new items could be slow at times
+// And there's 100% a better way to do this
+// but it works and thats what counts :)
 export async function handleProfileSelection(profileId: ProfileId, accountId: string) {
   const profileTypes: { [key in ProfileId]?: AllowedProfileTypes } = {
     athena: "athena",

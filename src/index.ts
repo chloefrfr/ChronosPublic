@@ -20,6 +20,7 @@ import DailyQuestService from "./wrappers/database/DailyQuestService";
 import BattlepassQuestService from "./wrappers/database/BattlepassQuestService";
 import { cors } from "hono/cors";
 import type PermissionInfo from "./utilities/permissions/permissioninfo";
+import errors from "./utilities/errors";
 
 export type Variables = {
   user: User;
@@ -38,6 +39,17 @@ app.use(async (c, next) => {
 
   logger.info(`${c.req.url} | ${c.req.method} | ${c.res.status}`);
 });
+
+app.notFound((c) =>
+  c.json(
+    errors.createError(
+      404,
+      c.req.url,
+      "The specified route was not found.",
+      new Date().toISOString(),
+    ),
+  ),
+);
 
 export const db = new Database({
   connectionString: config.databaseUrl,

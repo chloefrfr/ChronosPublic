@@ -3,12 +3,30 @@ import { config } from "..";
 interface ErrorData {
   errorCode: number;
   errorMessage: string;
-  messageVars?: string[] | null[];
+  messageVars?: (string | null)[];
   numericErrorCode: number;
   originatingService: string;
   intent: string;
   createdAt: string;
-  // severity: ErrorSeverity;
+}
+
+class ErrorManager {
+  private errorData: ErrorData;
+
+  constructor(errorData: ErrorData) {
+    this.errorData = errorData;
+  }
+
+  setMessageVar(messageVar: string | null): this {
+    if (this.errorData.messageVars) {
+      this.errorData.messageVars.push(messageVar);
+    }
+    return this;
+  }
+
+  getError(): ErrorData {
+    return this.errorData;
+  }
 }
 
 export default class errors {
@@ -19,14 +37,30 @@ export default class errors {
     route: string | null,
     message: string,
     timestamp: string,
-  ): ErrorData {
+  ): ErrorManager | ErrorData {
     let sanitizedRoute: string | null = null;
-    if (route !== null) sanitizedRoute = route.replace(/.*\/fortnite/, "");
+
+    if (route !== null) {
+      sanitizedRoute = route.replace(/^(https?:\/\/)?([a-zA-Z0-9.-]+)(:\d+)?/, "");
+      sanitizedRoute = sanitizedRoute.replace(/.*\/fortnite/, "");
+    }
+
+    if (!sanitizedRoute) {
+      return new ErrorManager({
+        errorCode: code,
+        errorMessage: message,
+        messageVars: [],
+        numericErrorCode: code,
+        originatingService: "Chronos",
+        intent: "prod-live",
+        createdAt: timestamp,
+      }).getError();
+    }
 
     const errorData: ErrorData = {
       errorCode: code,
       errorMessage: message,
-      messageVars: [],
+      messageVars: [sanitizedRoute],
       numericErrorCode: code,
       originatingService: "Chronos",
       intent: "prod-live",
@@ -34,7 +68,7 @@ export default class errors {
     };
     this.errors.push(errorData);
 
-    return errorData;
+    return new ErrorManager(errorData).getError();
   }
 
   static getErrors(): ErrorData[] {
