@@ -120,67 +120,76 @@ export default async function (c: Context) {
         404,
       );
 
-    if (profileId === "collections") {
-      profile.stats.attributes.current_season = uahelper.season;
-      await profilesService.update(user.accountId, "athena", profile);
-    }
+    switch (profileId) {
+      case "collections":
+        profile.stats.attributes.current_season = uahelper.season;
+        await profilesService.update(user.accountId, "athena", profile);
+        break;
+      case "athena":
+        profile.stats.attributes.season_num = uahelper.season;
 
-    if (profileId === "athena") {
-      profile.stats.attributes.season_num = uahelper.season;
+        const { attributes } = profile.stats;
 
-      const { attributes } = profile.stats;
+        let { past_seasons } = attributes;
 
-      let { past_seasons } = attributes;
-
-      if (!Array.isArray(past_seasons)) {
-        past_seasons = [];
-        attributes.past_seasons = past_seasons;
-      }
-
-      let currentSeasonIndex = -1;
-      for (let i = 0; i < past_seasons.length; i++) {
-        if (past_seasons[i].seasonNumber === uahelper.season) {
-          currentSeasonIndex = i;
-          break;
+        if (!Array.isArray(past_seasons)) {
+          past_seasons = [];
+          attributes.past_seasons = past_seasons;
         }
-      }
 
-      if (currentSeasonIndex !== -1) {
-        const currentSeason = past_seasons[currentSeasonIndex];
-        attributes.book_level = currentSeason.bookLevel;
-        attributes.book_xp = currentSeason.bookXp;
-        attributes.xp = currentSeason.seasonXp;
-        attributes.book_purchased = currentSeason.purchasedVIP;
-        attributes.level = currentSeason.seasonLevel;
-        attributes.season!.numWins = currentSeason.numWins;
-        attributes.season!.numLowBracket = currentSeason.numLowBracket;
-        attributes.season!.numHighBracket = currentSeason.numHighBracket;
-      } else {
-        past_seasons.push({
-          seasonNumber: attributes.season_num as number,
-          numWins: 0,
-          numHighBracket: 0,
-          numLowBracket: 0,
-          seasonXp: 0,
-          seasonLevel: 1,
-          bookXp: 0,
-          bookLevel: 1,
-          purchasedVIP: false,
-          numRoyalRoyales: 0,
-          survivorTier: 0,
-          survivorPrestige: 0,
-        });
+        let currentSeasonIndex = -1;
+        for (let i = 0; i < past_seasons.length; i++) {
+          if (past_seasons[i].seasonNumber === uahelper.season) {
+            currentSeasonIndex = i;
+            break;
+          }
+        }
 
-        attributes.xp = 0;
-        attributes.level = 1;
-        attributes.book_purchased = false;
-        attributes.book_level = 1;
-        attributes.book_xp = 0;
-      }
+        if (currentSeasonIndex !== -1) {
+          const currentSeason = past_seasons[currentSeasonIndex];
+          attributes.book_level = currentSeason.bookLevel;
+          attributes.book_xp = currentSeason.bookXp;
+          attributes.xp = currentSeason.seasonXp;
+          attributes.book_purchased = currentSeason.purchasedVIP;
+          attributes.level = currentSeason.seasonLevel;
+          attributes.season!.numWins = currentSeason.numWins;
+          attributes.season!.numLowBracket = currentSeason.numLowBracket;
+          attributes.season!.numHighBracket = currentSeason.numHighBracket;
+        } else {
+          past_seasons.push({
+            seasonNumber: attributes.season_num as number,
+            numWins: 0,
+            numHighBracket: 0,
+            numLowBracket: 0,
+            seasonXp: 0,
+            seasonLevel: 1,
+            bookXp: 0,
+            bookLevel: 1,
+            purchasedVIP: false,
+            numRoyalRoyales: 0,
+            survivorTier: 0,
+            survivorPrestige: 0,
+          });
 
-      attributes.past_seasons = past_seasons;
+          attributes.xp = 0;
+          attributes.level = 1;
+          attributes.book_purchased = false;
+          attributes.book_level = 1;
+          attributes.book_xp = 0;
+        }
 
-      await profilesService.update(user.accountId, "athena", profile);
+        attributes.past_seasons = past_seasons;
+
+        await profilesService.update(user.accountId, "athena", profile);
+        break;
+
+      case "common_core":
+        for (const permission of account.permissions) {
+          profile.stats.attributes.permissions!.push(permission.resource);
+        }
+
+        await profilesService.update(user.accountId, "common_core", profile);
+        break;
     }
 
     const applyProfileChanges = [

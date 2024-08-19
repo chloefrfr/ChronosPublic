@@ -12,6 +12,7 @@
 
 - [Bun](https://bun.sh)
 - [Git](https://git-scm.com/downloads)
+- [Postgres](https://www.postgresql.org/download/)
 
 ## Installation
 

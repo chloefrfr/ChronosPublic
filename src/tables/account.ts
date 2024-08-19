@@ -1,4 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import type { Permission } from "../../types/permissionsdefs";
 
 export interface SeasonStats {
   wins: number;
@@ -55,9 +56,8 @@ export class Account extends BaseEntity {
   @Column({ type: "json", nullable: false, default: {} })
   stats!: Stats;
 
-  // will be used for something else
   @Column({ type: "jsonb", nullable: false, default: [] })
-  permissions!: unknown[];
+  permissions!: Permission[];
 
   @Column({ type: "jsonb", nullable: false, default: [] })
   receipts!: FortniteReceipts[];

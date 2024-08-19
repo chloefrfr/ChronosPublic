@@ -127,6 +127,7 @@ export default class RegisterCommand extends BaseCommand {
             battlepass: ProfileHelper.createBattlePassTemplate(),
             stats: ProfileHelper.createStatsTemplate(),
             arenaHype: 0,
+            permissions: [],
           });
 
           await profilesService.createOrUpdate(newUser?.accountId, "athena", athena);
