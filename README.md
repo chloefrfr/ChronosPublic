@@ -40,7 +40,6 @@ bun run src/index.ts
 - Leaderboards (Live-Updating)
 - Save the World (Will never be finished)
 - TCP XMPP
-- Proper Authentication (Permissions, etc)
 
 # Available Quests
 
@@ -72,6 +71,7 @@ _Note: Weekly quests currently do not work._
 - [x] Arena
 - [ ] Tournaments
 - [x] GameSessions
+- [x] Authentication using Permissions
 - [ ] Seasonal Rewards
 
 ## Planned Bot Commands

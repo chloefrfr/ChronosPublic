@@ -67,24 +67,6 @@ export default function () {
       });
     }
 
-    permissions.addPermission({
-      resource: "fortnite:cloudstorage:system:DefaultEngine.ini",
-      abilities: "READ",
-      action: 16,
-    });
-
-    permissions.addPermission({
-      resource: "fortnite:cloudstorage:system:DefaultGame.ini",
-      abilities: "READ",
-      action: 16,
-    });
-
-    permissions.addPermission({
-      resource: "fortnite:cloudstorage:system:DefaultRuntimeOptions.ini",
-      abilities: "READ",
-      action: 16,
-    });
-
     return c.json(CloudStorage.files, 200);
   });
 
@@ -155,33 +137,28 @@ export default function () {
 
     const file = c.req.param("file");
     const accountId = c.req.param("accountId");
+    const timestamp = new Date().toISOString();
 
     const clientSettingsFile = path.join(clientSettings, `ClientSettings-${accountId}.Sav`);
 
     if (file !== "ClientSettings.Sav" || !existsSync(clientSettingsFile)) {
-      c.status(404);
-      return c.json({
-        errorCode: "errors.com.epicgames.cloudstorage.file_not_found",
-        errorMessage: `Sorry, we couldn't find a settings file with the filename ${file} for the accountId ${accountId}`,
-        messageVars: undefined,
-        numericErrorCode: 12007,
-        originatingService: "any",
-        intent: "prod-live",
-        error_description: `Sorry, we couldn't find a settings file with the filename ${file} for the accountId ${accountId}`,
-        error: "fortnite",
-      });
+      return c.json(
+        errors.createError(
+          404,
+          c.req.url,
+          `Sorry, we couldn't find a settings file with the filename ${file} for the accountId ${accountId}`,
+          timestamp,
+        ),
+        404,
+      );
     }
 
-    try {
-      c.header("Content-Disposition", `attachment; filename=${file}`);
-      c.header("Content-Type", "application/octet-stream");
-      c.status(200);
+    const data = await readFile(clientSettingsFile);
 
-      return c.json({});
+    try {
+      return c.body(data as any);
     } catch (err) {
-      console.error("Error sending file:", err);
-      c.status(500);
-      return c.text("Internal Server Error");
+      return c.json(errors.createError(500, c.req.url, "Internal Server Error.", timestamp), 500);
     }
   });
 
@@ -230,17 +207,19 @@ export default function () {
     "/fortnite/api/cloudstorage/user/:accountId/:file",
     Validation.verifyToken,
     async (c, next) => {
-      if (Buffer.byteLength(await c.req.raw.text()) >= 400000) {
-        console.log("File size exceeds the maximum allowed limit (400KB).");
-        c.status(403);
-        return c.json({
-          error: "File size exceeds the maximum allowed limit (400KB).",
-        });
+      const raw = await c.req.arrayBuffer();
+      const body = Buffer.from(raw);
+      const timestamp = new Date().toISOString();
+
+      if (Buffer.byteLength(body) >= 400000) {
+        return c.json(
+          errors.createError(403, c.req.url, "Raw body is bigger than 400000.", timestamp),
+          403,
+        );
       }
 
       if (c.req.param("file") !== "ClientSettings.Sav") {
-        c.status(404);
-        return c.json({ error: "File not found." });
+        return c.json(errors.createError(404, c.req.url, "File not found.", timestamp), 404);
       }
 
       const clientSettings: string = path.join(
@@ -255,7 +234,7 @@ export default function () {
         `ClientSettings-${c.req.param("accountId")}.Sav`,
       );
 
-      await writeFile(clientSettingsFile, await c.req.raw.clone().text(), "latin1");
+      await writeFile(clientSettingsFile, body, "latin1");
       return c.json([]);
     },
   );
