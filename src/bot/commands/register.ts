@@ -160,7 +160,7 @@ export default class RegisterCommand extends BaseCommand {
         .setColor("Blurple")
         .addFields(
           {
-            name: "Dispaly Name",
+            name: "Display Name",
             value: display_name as string,
             inline: false,
           },
