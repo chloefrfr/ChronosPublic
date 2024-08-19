@@ -184,8 +184,14 @@ export default async function (c: Context) {
         break;
 
       case "common_core":
+        if (!profile.stats.attributes.permissions) {
+          profile.stats.attributes.permissions = [];
+        }
+
         for (const permission of account.permissions) {
-          profile.stats.attributes.permissions!.push(permission.resource);
+          if (!profile.stats.attributes.permissions.includes(permission.resource)) {
+            profile.stats.attributes.permissions.push(permission.resource);
+          }
         }
 
         await profilesService.update(user.accountId, "common_core", profile);
