@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Repository, UpdateQueryBuilder } from "typeorm";
 import Database from "../Database.wrapper";
 import { logger } from "../..";
 import { Account } from "../../tables/account";
@@ -104,6 +104,29 @@ export default class AccountService {
     } catch (error) {
       logger.error(`Error finding top accounts: ${error}`);
       return [];
+    }
+  }
+
+  public async updateAccount(accountId: string, updateData: Partial<Account>): Promise<boolean> {
+    try {
+      const queryBuilder: UpdateQueryBuilder<Account> = this.accountRepository
+        .createQueryBuilder()
+        .update(Account)
+        .set(updateData as any)
+        .where("accountId = :accountId", { accountId });
+
+      const result = await queryBuilder.execute();
+
+      if (result.affected === 0) {
+        logger.error(`No rows updated for account ${accountId}.`);
+        return false;
+      }
+
+      this.cache.del(`account_${accountId}`);
+      return true;
+    } catch (error) {
+      logger.error(`Error updating account: ${error}`);
+      return false;
     }
   }
 }

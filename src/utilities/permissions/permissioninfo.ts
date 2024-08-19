@@ -64,18 +64,23 @@ export default class PermissionInfo {
 
   public async removePermission(resource: string): Promise<boolean> {
     try {
-      const result = await Account.createQueryBuilder()
-        .update(Account)
-        .set({ permissions: () => `jsonb_set(permissions, '{${resource}}', 'null')` })
-        .where("accountId = :accountId", { accountId: this.accountId })
-        .execute();
-
-      if (result.affected === 0) {
-        logger.error(`Permission ${resource} does not exist.`);
+      if (!this.accountId) {
+        logger.error("Account ID is not set.");
         return false;
       }
 
-      return true;
+      const account = await accountService.findUserByAccountId(this.accountId);
+      if (!account) {
+        logger.error(`Account ${this.accountId} does not exist.`);
+        return false;
+      }
+
+      const permissions = (account.permissions as Permission[]) || [];
+      const updatedPermissions = permissions.filter((p) => p.resource !== resource);
+
+      return await accountService.updateAccount(this.accountId, {
+        permissions: updatedPermissions,
+      });
     } catch (error) {
       logger.error(`Error removing permission: ${error}`);
       return false;
@@ -84,6 +89,11 @@ export default class PermissionInfo {
 
   public async addPermission(permission: Permission): Promise<boolean> {
     try {
+      if (!this.accountId) {
+        logger.error("Account ID is not set.");
+        return false;
+      }
+
       if (!this.isPermissionValid(permission)) {
         logger.error(
           `Attempted to add invalid permission: ${permission.resource} [${JSON.stringify(
@@ -93,37 +103,19 @@ export default class PermissionInfo {
         return false;
       }
 
-      const account = await accountService.findUserByAccountId(this.accountId as string);
+      const account = await accountService.findUserByAccountId(this.accountId);
       if (!account) {
         logger.error(`Account ${this.accountId} does not exist.`);
         return false;
       }
 
       const permissions = (account.permissions as Permission[]) || [];
-      const existingPermissionIndex = permissions.findIndex(
-        (p) => p.resource === permission.resource,
-      );
+      const updatedPermissions = permissions.filter((p) => p.resource !== permission.resource);
+      updatedPermissions.push(permission);
 
-      if (existingPermissionIndex !== -1) {
-        const existingPermission = permissions[existingPermissionIndex];
-
-        if (
-          existingPermission.abilities !== permission.abilities ||
-          existingPermission.action !== permission.action
-        ) {
-          permissions[existingPermissionIndex] = permission;
-        }
-      } else {
-        permissions.push(permission);
-      }
-
-      await Account.createQueryBuilder()
-        .update(Account)
-        .set({ permissions: permissions })
-        .where("accountId = :accountId", { accountId: this.accountId })
-        .execute();
-
-      return true;
+      return await accountService.updateAccount(this.accountId, {
+        permissions: updatedPermissions,
+      });
     } catch (error) {
       logger.error(`Error adding permission: ${error}`);
       return false;
