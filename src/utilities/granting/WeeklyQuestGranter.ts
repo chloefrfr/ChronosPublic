@@ -4,7 +4,6 @@ import { QuestManager, type Objectives } from "../managers/QuestManager";
 
 export namespace WeeklyQuestGranter {
   export async function grant(pastSeasons: PastSeasons, accountId: string) {
-    const grantedQuestInstanceIds: string[] = [];
     const multiUpdates: object[] = [];
     let XPQuantity: number = 0;
 

@@ -77,7 +77,6 @@ _Note: Weekly quests currently do not work._
 
 ## Planned Bot Commands
 
-- [ ] Account Refresh command
 - [x] Vbucks command
 - [x] Stats command
 - [ ] Arena leaderboard command
