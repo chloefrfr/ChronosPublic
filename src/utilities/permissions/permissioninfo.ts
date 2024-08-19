@@ -40,6 +40,7 @@ export default class PermissionInfo {
         abilities: "READ",
         action: 1,
       },
+      { resource: "fortnite:stats", abilities: "READ", action: 2 },
     ];
 
     permissions.forEach((permission) => this.addPermission(permission));
