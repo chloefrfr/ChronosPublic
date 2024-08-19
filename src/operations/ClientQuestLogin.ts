@@ -52,27 +52,28 @@ export default async function (c: Context) {
 
     const profile = await handleProfileSelection(profileId, user.accountId);
 
-    if (!profile && profileId !== "athena" && profileId !== "common_core")
+    if (!profile && profileId !== "athena" && profileId !== "common_core") {
       return c.json(
         errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
         404,
       );
-
-    if (!profile)
+    }
+    if (!profile) {
       return c.json(
-        errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
+        errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
         404,
       );
+    }
 
     const common_core = await ProfileHelper.getProfile(user.accountId, "common_core");
-    if (!common_core)
+    if (!common_core) {
       return c.json(
         errors.createError(404, c.req.url, `Profile 'common_core' not found.`, timestamp),
         404,
       );
+    }
 
     const uahelper = uaparser(useragent);
-
     if (!uahelper) {
       return c.json(
         errors.createError(400, c.req.url, "Failed to parse User-Agent.", timestamp),
@@ -81,7 +82,6 @@ export default async function (c: Context) {
     }
 
     const storage = await dailyQuestService.get(user.accountId);
-
     if (!storage) {
       return c.json(
         errors.createError(404, c.req.url, "ItemStore 'daily_quest' not found.", timestamp),
@@ -102,16 +102,11 @@ export default async function (c: Context) {
           profile.stats.attributes.quest_manager!.dailyQuestRerolls += 1;
 
           const maxDailyQuests = 5;
-
           const currentQuestCount = storage.length;
-
           const questsToAdd = Math.max(0, maxDailyQuests - currentQuestCount);
-
-          const data: object[] = [];
 
           for (let i = 0; i < questsToAdd; i++) {
             const dailyQuests = await QuestManager.getRandomQuest(user.accountId);
-
             if (!dailyQuests) continue;
 
             const questData = QuestManager.buildBase(
@@ -124,6 +119,8 @@ export default async function (c: Context) {
                 [dailyQuests.Name]: questData,
               },
             ]);
+
+            profile.items[dailyQuests.Name] = questData;
 
             const newQuestItem = {
               changeType: "itemAdded",
@@ -159,50 +156,9 @@ export default async function (c: Context) {
 
           shouldUpdateProfile = true;
         }
-
-        if (pastSeasons.seasonNumber === config.currentSeason) {
-          storage.map((obj) => {
-            const questKey = Object.keys(obj)[0];
-            const templateId = obj[questKey].templateId;
-
-            const newQuestItem = {
-              changeType: "itemAdded",
-              itemId: templateId,
-              item: {
-                templateId: templateId,
-                attributes: {
-                  creation_time: new Date().toISOString(),
-                  level: -1,
-                  item_seen: false,
-                  playlists: [],
-                  sent_new_notification: true,
-                  challenge_bundle_id: "",
-                  xp_reward_scalar: 1,
-                  challenge_linked_quest_given: "",
-                  quest_pool: "",
-                  quest_state: "Active",
-                  bucket: "",
-                  last_state_change_time: new Date().toISOString(),
-                  challenge_linked_quest_parent: "",
-                  max_level_bonus: 0,
-                  xp: 0,
-                  quest_rarity: "uncommon",
-                  favorite: false,
-                  [obj[questKey].attributes.ObjectiveState[0].Name]:
-                    obj[questKey].attributes.ObjectiveState[0].Value,
-                },
-                quantity: 1,
-              },
-            };
-
-            multiUpdates.push(newQuestItem);
-            shouldUpdateProfile = true;
-          });
-        }
       }
     }
 
-    // Daily Rewards
     const now = new Date(currentDate);
     const lastLoginDate = new Date(user.lastLogin || 0);
 
@@ -213,7 +169,7 @@ export default async function (c: Context) {
         .where("accountId = :accountId", { accountId: user.accountId })
         .execute();
 
-      const lootList = [
+      const lootList: LootList[] = [
         {
           itemType: "Currency:MtxGiveaway",
           itemGuid: "Currency:MtxGiveaway",
@@ -255,7 +211,7 @@ export default async function (c: Context) {
       });
 
       if (uahelper.season >= 1 && uahelper.season <= 9) {
-        profile.items["GiftBox:GB_MakeGood"] = {
+        profile.items[uuid()] = {
           templateId: "GiftBox:GB_MakeGood",
           attributes: {
             fromAccountId: "Server",
@@ -283,8 +239,10 @@ export default async function (c: Context) {
       profile.commandRevision += 1;
       profile.updatedAt = new Date().toISOString();
 
-      await profilesService.update(user.accountId, "athena", profile);
-      await profilesService.update(user.accountId, "common_core", common_core);
+      await Promise.all([
+        profilesService.update(user.accountId, "athena", profile),
+        profilesService.update(user.accountId, "common_core", common_core),
+      ]);
     }
 
     return c.json(MCPResponses.generate(profile, multiUpdates, profileId));

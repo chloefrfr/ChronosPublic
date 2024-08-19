@@ -104,6 +104,7 @@ export default class RegisterCommand extends BaseCommand {
             ProfileHelper.createProfile(newUser, "collection_book_people0"),
             ProfileHelper.createProfile(newUser, "collection_book_schematics0"),
             ProfileHelper.createProfile(newUser, "outpost0"),
+            ProfileHelper.createProfile(newUser, "creative"),
           ];
 
           const [
@@ -115,6 +116,7 @@ export default class RegisterCommand extends BaseCommand {
             collection_book_people0,
             collection_book_schematics0,
             outpost0,
+            creative,
           ] = await Promise.all(promises);
 
           await accountService.create({
@@ -134,6 +136,8 @@ export default class RegisterCommand extends BaseCommand {
           await profilesService.createOrUpdate(newUser?.accountId, "metadata", metadata);
           await profilesService.createOrUpdate(newUser?.accountId, "theater0", theater0);
           await profilesService.createOrUpdate(newUser?.accountId, "outpost0", outpost0);
+          await profilesService.createOrUpdate(newUser?.accountId, "creative", creative);
+
           await profilesService.createOrUpdate(
             newUser?.accountId,
             "collection_book_people0",

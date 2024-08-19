@@ -29,6 +29,8 @@ export default function () {
         400,
       );
 
+    if (uahelper.season === 0 || uahelper.season === 1) return c.json({});
+
     const storefrontData = await itemStorageService.getItemByType("storefront");
 
     if (!storefrontData)

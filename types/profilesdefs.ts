@@ -1,3 +1,5 @@
+import type { Objectives } from "../src/utilities/managers/QuestManager";
+
 export type FavoriteSlotName =
   | "favorite_dance"
   | "favorite_itemwraps"
@@ -60,6 +62,13 @@ export interface IProfile {
 }
 
 export interface StatsAttributes {
+  current_season: number;
+  last_used_project: string;
+  max_island_plots: number;
+  publish_allowed: boolean;
+  support_code: string;
+  last_used_plot: string;
+  creator_name: string;
   use_random_loadout: boolean;
   fromAccountId: string;
   past_seasons: PastSeasons[];
@@ -285,6 +294,11 @@ interface GiftParameters {
   userMessage: string;
 }
 
+interface ObjectiveState {
+  Name: string;
+  Value: number;
+}
+
 export interface ItemValue {
   platform: string;
   gender?: string;
@@ -297,6 +311,8 @@ export interface ItemValue {
   portrait?: string;
   building_slot_used?: number;
   set_bonus?: string;
+  sent_new_notification: boolean;
+  ObjectiveState: ObjectiveState[];
   lootList?: any[];
   alterationDefinitions?: any[];
   baseClipSize?: number;

@@ -64,4 +64,24 @@ export default class DailyQuestService {
       await entityManager.save(dailyQuest);
     });
   }
+
+  async updateQuest(
+    accountId: string,
+    templateId: string,
+    updatedQuest: DailyQuestData,
+  ): Promise<void | null> {
+    let dailyQuest = await this.dailyQuestRepository.findOne({ where: { accountId } });
+
+    if (!dailyQuest) return null;
+
+    dailyQuest.data = dailyQuest.data.map((quest) => {
+      const questTemplateId = Object.values(quest)[0]?.templateId;
+      if (questTemplateId === templateId) {
+        return updatedQuest;
+      }
+      return quest;
+    });
+
+    await this.dailyQuestRepository.save(dailyQuest);
+  }
 }

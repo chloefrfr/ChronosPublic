@@ -1,6 +1,7 @@
 import path from "node:path";
 import fs from "node:fs/promises";
-import { config, dailyQuestService, logger } from "../..";
+import { dailyQuestService, logger, profilesService } from "../..";
+import Config from "../../wrappers/Env.wrapper";
 
 interface DailyQuestDef {
   Type: string;
@@ -66,8 +67,16 @@ export enum QuestType {
   BATTLEPASS = "battlepass",
   WEEKLY = "weekly",
 }
-
-const baseFolder = path.join(__dirname, "..", "..", "memory", "season", "quests", "Season9");
+const config = new Config().getConfig();
+const baseFolder = path.join(
+  __dirname,
+  "..",
+  "..",
+  "memory",
+  "season",
+  "quests",
+  `Season${config.currentSeason}`,
+);
 
 export namespace QuestManager {
   export const listedQuests: Record<QuestType, DailyQuestDef[]> = {
@@ -132,9 +141,16 @@ export namespace QuestManager {
   export async function isQuestUsed(quest: DailyQuestDef, accountId: string): Promise<boolean> {
     try {
       const storage = await dailyQuestService.getQuest(accountId, quest.Name);
+      const profile = await profilesService.findByAccountId(accountId);
+
+      if (!profile) return false;
+
+      if (!profile.athena.items[quest.Name]) return false;
+
       if (!storage) return false;
 
       if (storage) return true;
+      if (profile.athena.items[quest.Name]) return true;
 
       return false;
     } catch (error) {

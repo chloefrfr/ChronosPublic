@@ -21,6 +21,7 @@ import BattlepassQuestService from "./wrappers/database/BattlepassQuestService";
 import { cors } from "hono/cors";
 import type PermissionInfo from "./utilities/permissions/permissioninfo";
 import errors from "./utilities/errors";
+import { logger as httplogging } from "hono/logger";
 
 export type Variables = {
   user: User;
@@ -33,12 +34,7 @@ export const logger = new Logger(LogLevel.DEBUG);
 export const config = new Config().getConfig();
 
 app.use("*", cors());
-
-app.use(async (c, next) => {
-  await next();
-
-  logger.info(`${c.req.url} | ${c.req.method} | ${c.res.status}`);
-});
+app.use(httplogging());
 
 app.notFound((c) =>
   c.json(

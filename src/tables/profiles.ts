@@ -35,4 +35,10 @@ export class Profiles extends BaseEntity {
 
   @Column({ type: "jsonb", default: {} })
   outpost0!: IProfile;
+
+  @Column({ type: "jsonb", default: {} })
+  creative!: IProfile;
+
+  @Column({ type: "jsonb", default: {} })
+  collections!: IProfile;
 }

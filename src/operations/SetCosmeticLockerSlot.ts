@@ -152,7 +152,13 @@ export default async function (c: Context) {
     profile.commandRevision += 1;
     profile.updatedAt = new Date().toISOString();
 
-    await profilesService.update(user.accountId, "athena", profile);
+    await profilesService.updateMultiple([
+      {
+        accountId: user.accountId,
+        type: "athena",
+        data: profile,
+      },
+    ]);
   }
 
   const endTimestamp = Date.now();

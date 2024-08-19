@@ -6,6 +6,7 @@ import ProfileHelper from "../utilities/profiles";
 import MCPResponses from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
 import { LRUCache } from "lru-cache";
+import type { IProfile } from "../../types/profilesdefs";
 
 const profileCache = new LRUCache<string, { data: any; timestamp: number }>({
   max: 1000,
@@ -22,6 +23,8 @@ type AllowedProfileTypes =
   | "collection_book_people0"
   | "collection_book_schematics0"
   | "outpost0"
+  | "creative"
+  | "collections"
   | "id"
   | "hasId"
   | "reload";
@@ -38,6 +41,8 @@ export async function handleProfileSelection(profileId: ProfileId, accountId: st
     campaign: "campaign",
     metadata: "metadata",
     theater0: "theater0",
+    creative: "creative",
+    collections: "collections",
     collection_book_people0: "collection_book_people0",
     collection_book_schematics0: "collection_book_schematics0",
     outpost0: "outpost0",
@@ -53,14 +58,14 @@ export async function handleProfileSelection(profileId: ProfileId, accountId: st
   const cachedEntry = profileCache.get(profileId);
 
   if (cachedEntry) {
-    return cachedEntry.data;
+    return cachedEntry.data as IProfile;
   }
 
-  const profilePromise = ProfileHelper.getProfile(accountId, profileType);
+  const profilePromise = await ProfileHelper.getProfile(accountId, profileType);
 
   profileCache.set(profileId, { data: await profilePromise, timestamp: Date.now() });
 
-  return await profilePromise;
+  return profilePromise || null;
 }
 
 export default async function (c: Context) {
@@ -115,6 +120,11 @@ export default async function (c: Context) {
         404,
       );
 
+    if (profileId === "collections") {
+      profile.stats.attributes.current_season = uahelper.season;
+      await profilesService.update(user.accountId, "athena", profile);
+    }
+
     if (profileId === "athena") {
       profile.stats.attributes.season_num = uahelper.season;
 
@@ -143,7 +153,6 @@ export default async function (c: Context) {
         attributes.book_purchased = currentSeason.purchasedVIP;
         attributes.level = currentSeason.seasonLevel;
         attributes.season!.numWins = currentSeason.numWins;
-        attributes.accountLevel! += currentSeason.seasonLevel;
         attributes.season!.numLowBracket = currentSeason.numLowBracket;
         attributes.season!.numHighBracket = currentSeason.numHighBracket;
       } else {
