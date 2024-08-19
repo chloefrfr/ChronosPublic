@@ -2,6 +2,8 @@
 
 ![Banner](https://cdn2.unrealengine.com/13br-galaxycup-newsheader-1900x600-1900x600-482668392.jpg)
 
+**Fortnite Backend written in TypeScript using Postgres powered by TypeORM**
+
 ## Supported MCP Operations
 
 `QueryProfile` `BulkEquipBattleRoyaleCustomization` `ClaimMfaEnabled` `PurchaseCatalogEntry` `MarkItemSeen` `RefundMtxPurchase` `RemoveGiftBox` `SetBattleRoyaleBanner` `SetCosmeticLockerSlot` `SetMtxPlatform` `EquipBattleRoyaleCustomization` `SetItemFavoriteStatusBatch` `GiftCatalogEntry` `ClientQuestLogin`
@@ -72,7 +74,7 @@ _Note: Weekly quests currently do not work._
 - [x] ClientSettings
 - [ ] Tournaments
 - [x] GameSessions
-- [x] Authentication using Permissions
+- [x] Authentication using Permissions (eg... `fortnite:profile:abcd1234:commands`)
 - [ ] Seasonal Rewards
 
 ## Planned Bot Commands
