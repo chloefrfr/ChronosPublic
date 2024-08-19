@@ -6,7 +6,7 @@
 
 ## Supported MCP Operations
 
-`QueryProfile` `BulkEquipBattleRoyaleCustomization` `ClaimMfaEnabled` `PurchaseCatalogEntry` `MarkItemSeen` `RefundMtxPurchase` `RemoveGiftBox` `SetBattleRoyaleBanner` `SetCosmeticLockerSlot` `SetMtxPlatform` `EquipBattleRoyaleCustomization` `SetItemFavoriteStatusBatch` `GiftCatalogEntry` `ClientQuestLogin`
+`QueryProfile` `BulkEquipBattleRoyaleCustomization` `ClaimMfaEnabled` `PurchaseCatalogEntry` `MarkItemSeen` `RefundMtxPurchase` `RemoveGiftBox` `SetBattleRoyaleBanner` `SetCosmeticLockerSlot` `SetMtxPlatform` `EquipBattleRoyaleCustomization` `SetItemFavoriteStatusBatch` `GiftCatalogEntry` `ClientQuestLogin` `MarkNewQuestNotificationSent`
 
 ## Requirements
 
