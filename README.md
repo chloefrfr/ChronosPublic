@@ -40,7 +40,6 @@ bun run src/index.ts
 
 ## What's Next?
 
-- Leaderboards (Live-Updating)
 - Save the World (Will never be finished)
 - TCP XMPP
 
@@ -77,6 +76,7 @@ _Note: Weekly quests currently do not work._
 - [x] GameSessions
 - [x] Authentication using Permissions (eg... `fortnite:profile:abcd1234:commands`)
 - [ ] Seasonal Rewards
+- [x] Leaderboards (Stats)
 
 ## Planned Bot Commands
 
