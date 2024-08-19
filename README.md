@@ -69,6 +69,7 @@ _Note: Weekly quests currently do not work._
 - [x] Refunding
 - [ ] Save the World
 - [x] Arena
+- [x] ClientSettings
 - [ ] Tournaments
 - [x] GameSessions
 - [x] Authentication using Permissions
