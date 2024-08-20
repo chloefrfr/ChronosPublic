@@ -3,19 +3,11 @@ import fs from "node:fs/promises";
 import type { JSONResponse, CosmeticSet } from "./interfaces/FortniteAPI";
 import { config, logger } from "..";
 import { CosmeticTypes } from "./enums/CosmeticTypes";
-import type {
-  BattlePassEntry,
-  BattlePassStorefront,
-  ItemGrants,
-  Set,
-  Shop,
-} from "./interfaces/Declarations";
+import type { BattlePassEntry, BattlePassStorefront, Set, Shop } from "./interfaces/Declarations";
 import { ShopHelper } from "./helpers/shophelper";
 import path from "node:path";
 import { createBattlePassEntryTemplate, createItemEntryTemplate } from "./helpers/template";
 import { v4 as uuid } from "uuid";
-import getRandomWeightedIndex from "./functions/getRandomWeightedIndex";
-import { itemTypeProbabilities, rarityProbabilities } from "../constants/probabilities";
 import { setDisplayAsset, setNewDisplayAssetPath } from "./helpers/displayAssets";
 import { getPrice } from "./helpers/itemprices";
 import getRandomFullSetLength from "./functions/getRandomFullSetLength";

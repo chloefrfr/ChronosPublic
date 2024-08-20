@@ -302,24 +302,23 @@ export default function () {
       return c.json(errors.createError(400, c.req.url, "Body isn't Valid JSON!", timestamp));
     }
 
-    const matchedServerByRegion = servers.find(
-      (s) => s.options.region === body.attributes.REGION_s,
-    );
+    let response;
 
-    if (!matchedServerByRegion)
-      return c.json(errors.createError(400, c.req.url, "Server not found.", timestamp), 400);
+    for (const allServers of servers) {
+      const currentBucketId = allServers.identifier.split(":")[0];
 
-    const currentBucketId = matchedServerByRegion.identifier.split(":")[0];
-    logger.debug(
-      `Session ${matchedServerByRegion.sessionId} ${matchedServerByRegion.address}:${matchedServerByRegion.port} - ${currentBucketId}`,
-    );
+      logger.debug(
+        `Session ${allServers.sessionId} ${allServers.address}:${allServers.port} - ${currentBucketId}`,
+      );
 
-    return c.json({
-      id: matchedServerByRegion.sessionId,
-      sessionId: matchedServerByRegion.sessionId,
-      serverAddress: matchedServerByRegion.address,
-      serverPort: body.serverPort,
-      ...body,
-    });
+      response = {
+        sessionId: allServers.sessionId,
+        serverAddress: allServers.address,
+        serverPort: body.serverPort,
+        ...body,
+      };
+    }
+
+    return c.json(response);
   });
 }
