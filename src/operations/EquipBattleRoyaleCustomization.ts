@@ -6,6 +6,9 @@ import MCPResponses from "../utilities/responses";
 import { handleProfileSelection } from "./QueryProfile";
 import type { FavoriteSlotName, Variants } from "../../types/profilesdefs";
 
+const MAX_SLOT_INDEX = 5;
+const ITEM_WRAP_COUNT = 7;
+
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
   const rvn = c.req.query("rvn");
@@ -37,28 +40,29 @@ export default async function (c: Context) {
       );
     }
 
-    let body: any;
-    try {
-      body = await c.req.json();
-    } catch {
-      return c.json({ error: "Invalid JSON body." }, 400);
+    const body = await c.req.json().catch(() => null);
+    if (!body) {
+      return c.json(
+        errors.createError(400, c.req.url, "Invalid body.", new Date().toISOString()),
+        400,
+      );
     }
 
     const { itemToSlot, indexWithinSlot, slotName, variantUpdates } = body;
     const itemAttributes = profile.items[itemToSlot]?.attributes || {};
     const variantsMap = new Map(
-      itemAttributes.variants?.map((v: Variants) => [v.channel, v]) || [],
+      (itemAttributes.variants || []).map((v: Variants) => [v.channel, v]),
     );
 
-    for (const variant of variantUpdates) {
+    variantUpdates.forEach((variant: Variants) => {
       const existingVariant = variantsMap.get(variant.channel);
       if (existingVariant) {
         existingVariant.active = variant.active;
       }
-    }
+    });
 
     const updatedVariants = Array.from(variantsMap.values());
-    const applyProfileChanges: object[] = [];
+    const applyProfileChanges = [];
     let shouldUpdateProfile = false;
 
     if (profile.items[itemToSlot]) {
@@ -73,9 +77,6 @@ export default async function (c: Context) {
 
     const activeLoadoutId =
       profile.stats.attributes.loadouts?.[profile.stats.attributes.active_loadout_index!];
-    const cosmeticTemplateId = profile.items[itemToSlot]?.templateId || itemToSlot;
-    const favoriteSlotName = `favorite_${slotName.toLowerCase()}` as FavoriteSlotName;
-
     if (!activeLoadoutId) {
       return c.json(
         errors.createError(
@@ -88,9 +89,12 @@ export default async function (c: Context) {
       );
     }
 
+    const cosmeticTemplateId = profile.items[itemToSlot]?.templateId || itemToSlot;
+    const favoriteSlotName = `favorite_${slotName.toLowerCase()}` as FavoriteSlotName;
+
     const slotUpdates: Record<string, (index: number, value: string) => void> = {
       Dance: (index, value) => {
-        if (index >= 0 && index <= 5) {
+        if (index <= MAX_SLOT_INDEX) {
           profile.stats.attributes.favorite_dance![index] = value;
           const slotData =
             profile.items[activeLoadoutId!]?.attributes.locker_slots_data?.slots[slotName];
@@ -106,11 +110,12 @@ export default async function (c: Context) {
       },
       ItemWrap: () => {
         const favoriteArray = profile.stats.attributes.favorite_itemwraps!;
-        for (let i = 0; i < 7; i++) {
-          favoriteArray[i] = itemToSlot;
-          profile.items.sandbox_loadout.attributes.locker_slots_data!.slots.ItemWrap.items[i] =
-            cosmeticTemplateId;
-        }
+        favoriteArray.fill(itemToSlot, 0, ITEM_WRAP_COUNT);
+        profile.items.sandbox_loadout.attributes.locker_slots_data!.slots.ItemWrap.items.fill(
+          cosmeticTemplateId,
+          0,
+          ITEM_WRAP_COUNT,
+        );
 
         applyProfileChanges.push({
           changeType: "statModified",
@@ -136,13 +141,8 @@ export default async function (c: Context) {
       profile.rvn++;
       profile.commandRevision++;
       profile.updatedAt = new Date().toISOString();
-
       await profilesService.updateMultiple([
-        {
-          accountId: user.accountId,
-          type: "athena",
-          data: profile,
-        },
+        { accountId: user.accountId, type: "athena", data: profile },
       ]);
     }
 
