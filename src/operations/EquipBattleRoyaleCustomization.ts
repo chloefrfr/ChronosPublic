@@ -7,8 +7,6 @@ import { handleProfileSelection } from "./QueryProfile";
 import type { FavoriteSlotName, Variants } from "../../types/profilesdefs";
 
 export default async function (c: Context) {
-  const startTimestamp = Date.now();
-
   const accountId = c.req.param("accountId");
   const rvn = c.req.query("rvn");
   const profileId = c.req.query("profileId") as ProfileId;
@@ -21,30 +19,18 @@ export default async function (c: Context) {
   }
 
   try {
-    const [user, account] = await Promise.all([
+    const [user, account, profile] = await Promise.all([
       userService.findUserByAccountId(accountId),
       accountService.findUserByAccountId(accountId),
+      handleProfileSelection(profileId, accountId),
     ]);
 
-    if (!user || !account) {
+    if (!user || !account || !profile) {
       return c.json(
         errors.createError(
           404,
           c.req.url,
-          "Failed to find user or account.",
-          new Date().toISOString(),
-        ),
-        404,
-      );
-    }
-
-    const profile = await handleProfileSelection(profileId, user.accountId);
-    if (!profile) {
-      return c.json(
-        errors.createError(
-          404,
-          c.req.url,
-          `Profile '${profileId}' not found.`,
+          "User, Account, or Profile not found.",
           new Date().toISOString(),
         ),
         404,
@@ -55,24 +41,24 @@ export default async function (c: Context) {
     try {
       body = await c.req.json();
     } catch {
-      return c.json({ error: "Body isn't valid JSON" }, 400);
+      return c.json({ error: "Invalid JSON body." }, 400);
     }
 
     const { itemToSlot, indexWithinSlot, slotName, variantUpdates } = body;
     const itemAttributes = profile.items[itemToSlot]?.attributes || {};
     const variantsMap = new Map(
-      (itemAttributes.variants || []).map((v: Variants) => [v.channel, v]),
+      itemAttributes.variants?.map((v: Variants) => [v.channel, v]) || [],
     );
 
-    variantUpdates.forEach((variant: Variants) => {
-      if (variantsMap.has(variant.channel)) {
-        // @ts-ignore
-        variantsMap.get(variant.channel)!.active = variant.active;
+    for (const variant of variantUpdates) {
+      const existingVariant = variantsMap.get(variant.channel);
+      if (existingVariant) {
+        existingVariant.active = variant.active;
       }
-    });
+    }
 
     const updatedVariants = Array.from(variantsMap.values());
-    let applyProfileChanges: object[] = [];
+    const applyProfileChanges: object[] = [];
     let shouldUpdateProfile = false;
 
     if (profile.items[itemToSlot]) {
@@ -86,16 +72,28 @@ export default async function (c: Context) {
     }
 
     const activeLoadoutId =
-      profile.stats.attributes.loadouts![profile.stats.attributes.active_loadout_index!];
+      profile.stats.attributes.loadouts?.[profile.stats.attributes.active_loadout_index!];
     const cosmeticTemplateId = profile.items[itemToSlot]?.templateId || itemToSlot;
     const favoriteSlotName = `favorite_${slotName.toLowerCase()}` as FavoriteSlotName;
 
-    const slotUpdates: { [key: string]: (index: number, value: string) => void } = {
+    if (!activeLoadoutId) {
+      return c.json(
+        errors.createError(
+          400,
+          c.req.url,
+          "'active_loadout_index' is undefined.",
+          new Date().toISOString(),
+        ),
+        400,
+      );
+    }
+
+    const slotUpdates: Record<string, (index: number, value: string) => void> = {
       Dance: (index, value) => {
         if (index >= 0 && index <= 5) {
           profile.stats.attributes.favorite_dance![index] = value;
           const slotData =
-            profile.items[activeLoadoutId]?.attributes.locker_slots_data?.slots[slotName];
+            profile.items[activeLoadoutId!]?.attributes.locker_slots_data?.slots[slotName];
           if (Array.isArray(slotData?.items) && index < slotData.items.length) {
             slotData.items[index] = cosmeticTemplateId;
             applyProfileChanges.push({
@@ -106,21 +104,19 @@ export default async function (c: Context) {
           }
         }
       },
-      ItemWrap: (index, value) => {
-        if ((index >= 0 && index <= 7) || index === -1) {
-          const favoriteArray = profile.stats.attributes.favorite_itemwraps;
-          for (let i = 0; i < 7; i++) {
-            favoriteArray![i] = itemToSlot;
-            profile.items.sandbox_loadout.attributes.locker_slots_data!.slots.ItemWrap.items[i] =
-              cosmeticTemplateId;
-          }
-
-          applyProfileChanges.push({
-            changeType: "statModified",
-            name: "favorite_itemwraps",
-            value: favoriteArray,
-          });
+      ItemWrap: () => {
+        const favoriteArray = profile.stats.attributes.favorite_itemwraps!;
+        for (let i = 0; i < 7; i++) {
+          favoriteArray[i] = itemToSlot;
+          profile.items.sandbox_loadout.attributes.locker_slots_data!.slots.ItemWrap.items[i] =
+            cosmeticTemplateId;
         }
+
+        applyProfileChanges.push({
+          changeType: "statModified",
+          name: "favorite_itemwraps",
+          value: favoriteArray,
+        });
       },
       default: () => {
         profile.stats.attributes[favoriteSlotName] = itemToSlot;
@@ -140,6 +136,7 @@ export default async function (c: Context) {
       profile.rvn++;
       profile.commandRevision++;
       profile.updatedAt = new Date().toISOString();
+
       await profilesService.updateMultiple([
         {
           accountId: user.accountId,
@@ -149,11 +146,9 @@ export default async function (c: Context) {
       ]);
     }
 
-    logger.info(`Execution time: ${Date.now() - startTimestamp} ms`);
-
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
   } catch (error) {
-    void logger.error(`Error in EquipBattleRoyaleCustomization: ${error}`);
+    logger.error(`Error in EquipBattleRoyaleCustomization: ${error}`);
     return c.json(
       errors.createError(500, c.req.url, "Internal server error.", new Date().toISOString()),
       500,

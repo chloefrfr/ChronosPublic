@@ -9,8 +9,6 @@ import type { FavoriteSlotName, Variants } from "../../types/profilesdefs";
 import { handleProfileSelection } from "./QueryProfile";
 
 export default async function (c: Context) {
-  const startTimestamp = Date.now();
-
   const accountId = c.req.param("accountId");
   const rvn = c.req.query("rvn");
   const profileId = c.req.query("profileId") as ProfileId;
@@ -160,12 +158,6 @@ export default async function (c: Context) {
       },
     ]);
   }
-
-  const endTimestamp = Date.now();
-
-  const executionTimeMs = endTimestamp - startTimestamp;
-
-  logger.info(`Execution time: ${executionTimeMs} ms`);
 
   return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
 }

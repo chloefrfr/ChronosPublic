@@ -33,9 +33,17 @@ export default class PermissionInfo {
         const defaultPermissions: Permission[] = [
           { resource: "fortnite:cloudstorage:system", abilities: "READ", action: 1 },
           { resource: "fortnite:cloudstorage:system:*", abilities: "READ", action: 2 },
-          { resource: `friends:${this.accountId}`, abilities: "READ,UPDATE,DELETE", action: 15 },
-          { resource: `fortnite:profile:${this.accountId}:commands`, abilities: "*", action: 10 },
-          { resource: `fortnite:profile:${this.accountId}:receipts`, abilities: "*", action: 10 },
+          { resource: `friends:${account.accountId}`, abilities: "READ,UPDATE,DELETE", action: 15 },
+          {
+            resource: `fortnite:profile:${account.accountId}:commands`,
+            abilities: "*",
+            action: 10,
+          },
+          {
+            resource: `fortnite:profile:${account.accountId}:receipts`,
+            abilities: "*",
+            action: 10,
+          },
           { resource: "fortnite:calender", abilities: "READ", action: 2 },
           {
             resource: "fortnite:cloudstorage:system:DefaultEngine.ini",

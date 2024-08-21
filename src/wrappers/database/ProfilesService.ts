@@ -1,9 +1,32 @@
-import { Repository } from "typeorm";
+import { Repository, type QueryRunner } from "typeorm";
 import { logger } from "../..";
 import NodeCache from "node-cache";
 import { Profiles } from "../../tables/profiles";
 import type Database from "../Database.wrapper";
 import type { IProfile } from "../../../types/profilesdefs";
+import asyncPool from "tiny-async-pool";
+
+// Calculates the batch size based on the estimated data size.
+// This is the only way I know how to do something like this.
+// There's probably a better way, but this gets the job done.
+function getOptimalBatchSize(
+  updates: { accountId: string; type: keyof Profiles; data: Partial<unknown> }[],
+  targetBatchSizeInBytes: number = 1_000_000,
+  minBatchSize: number = 100,
+  maxBatchSize: number = 5000,
+): number {
+  if (updates.length === 0) return 0;
+
+  const estimatedSizes = updates.map((update) => Buffer.byteLength(JSON.stringify(update)));
+
+  const averageUpdateSize = estimatedSizes.reduce((sum, size) => sum + size, 0) / updates.length;
+
+  let calculatedBatchSize = Math.floor(targetBatchSizeInBytes / averageUpdateSize);
+
+  calculatedBatchSize = Math.max(minBatchSize, Math.min(calculatedBatchSize, maxBatchSize));
+
+  return calculatedBatchSize;
+}
 
 enum ProfileType {
   Athena = "athena",
@@ -173,25 +196,42 @@ export default class ProfilesService {
   ): Promise<void> {
     if (updates.length === 0) return;
 
+    const adaptiveBatchSize = getOptimalBatchSize(updates);
+    const concurrencyLimit = 4;
+
+    const queryRunner: QueryRunner = this.profilesRepository.manager.connection.createQueryRunner();
+    await queryRunner.startTransaction();
+
     try {
-      const updateQueries = updates
-        .map(
-          (update, index) => `
-        UPDATE "profiles"
-        SET "${update.type}" = $${index * 2 + 1}
-        WHERE "accountId" = $${index * 2 + 2};
-      `,
-        )
-        .join(" ");
+      const batches = [];
+      for (let i = 0; i < updates.length; i += adaptiveBatchSize) {
+        batches.push(updates.slice(i, i + adaptiveBatchSize));
+      }
 
-      const parameters = updates.flatMap((update) => [
-        JSON.stringify(update.data),
-        update.accountId,
-      ]);
+      await asyncPool(concurrencyLimit, batches, async (batch) => {
+        const updateQuery = `
+      UPDATE "profiles"
+      SET "${batch[0].type}" = data_table.data
+      FROM (VALUES
+        ${batch.map((_, index) => `($${index * 2 + 1}, $${index * 2 + 2}::jsonb)`).join(",\n")}
+      ) AS data_table(account_id, data)
+      WHERE "profiles"."accountId" = data_table.account_id;
+    `;
 
-      await this.profilesRepository.query(updateQueries, parameters);
+        const parameters = batch.flatMap((update) => [
+          update.accountId,
+          JSON.stringify(update.data),
+        ]);
+
+        await queryRunner.query(updateQuery, parameters);
+      });
+
+      await queryRunner.commitTransaction();
     } catch (error) {
+      await queryRunner.rollbackTransaction();
       logger.error(`Error updating multiple profiles: ${error}`);
+    } finally {
+      await queryRunner.release();
     }
   }
 
