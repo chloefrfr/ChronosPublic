@@ -7,7 +7,6 @@ import NodeCache from "node-cache";
 export default class AccountService {
   private accountRepository: Repository<Account>;
   private cache: NodeCache;
-  private static actionCounter = 0;
 
   constructor(private database: Database) {
     this.accountRepository = this.database.getRepository("account");

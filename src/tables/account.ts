@@ -17,21 +17,6 @@ export interface Stats {
   ltm: SeasonStats;
 }
 
-export interface BattlePass {
-  book_purchased: boolean;
-  book_level: number;
-  book_xp: number;
-  season_friend_match_boost: number;
-  season_match_boost: number;
-  level: number;
-  battlestars_currency: number;
-  battlestars: number;
-  intro_game_played: boolean;
-  purchased_battle_pass_tier_offers: unknown[];
-  purchased_bp_offers: unknown[];
-  xp: number;
-}
-
 export interface FortniteReceipts {
   appStore: string;
   appStoreId: string;
@@ -49,9 +34,6 @@ export class Account extends BaseEntity {
 
   @Column({ type: "varchar", length: 255, nullable: false })
   discordId!: string;
-
-  @Column({ type: "json", nullable: false, default: {} })
-  battlepass!: BattlePass;
 
   @Column({ type: "json", nullable: false, default: {} })
   stats!: Stats;
