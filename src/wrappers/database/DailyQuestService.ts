@@ -1,4 +1,4 @@
-import type { DeleteResult, Repository } from "typeorm";
+import type { DeleteResult, Repository, EntityManager, UpdateResult } from "typeorm";
 import type Database from "../Database.wrapper";
 import { DailyQuest, type DailyQuestData } from "../../tables/storage/other/dailyQuestStorage";
 
@@ -10,54 +10,46 @@ export default class DailyQuestService {
   }
 
   async add(accountId: string, data: DailyQuestData[]): Promise<void> {
-    let dailyQuest = await this.dailyQuestRepository.findOne({ where: { accountId } });
+    await this.dailyQuestRepository.manager.transaction(async (entityManager) => {
+      let dailyQuest = await entityManager.findOne(DailyQuest, { where: { accountId } });
 
-    if (!dailyQuest) {
-      dailyQuest = new DailyQuest();
-      dailyQuest.accountId = accountId;
-      dailyQuest.data = data;
-    } else {
-      dailyQuest.data = [...dailyQuest.data, ...data];
-    }
-
-    await this.dailyQuestRepository.save(dailyQuest);
+      if (!dailyQuest) {
+        dailyQuest = new DailyQuest();
+        dailyQuest.accountId = accountId;
+        dailyQuest.data = data;
+        await entityManager.save(dailyQuest);
+      } else {
+        dailyQuest.data.push(...data);
+        await entityManager.update(DailyQuest, { accountId }, { data: dailyQuest.data });
+      }
+    });
   }
 
   async get(accountId: string): Promise<DailyQuestData[]> {
-    const query = this.dailyQuestRepository
-      .createQueryBuilder("daily_quest")
-      .where("daily_quest.accountId = :accountId", { accountId });
-
-    const result = await query.getOne();
-    return result ? result.data : [];
+    const dailyQuest = await this.dailyQuestRepository.findOne({ where: { accountId } });
+    return dailyQuest ? dailyQuest.data : [];
   }
 
   async getQuest(accountId: string, templateId: string): Promise<DailyQuestData | null> {
-    const dailyQuest = await this.dailyQuestRepository.findOne({
-      where: { accountId },
-    });
+    const dailyQuest = await this.dailyQuestRepository.findOne({ where: { accountId } });
 
-    if (!dailyQuest) {
-      return null;
-    }
+    if (!dailyQuest) return null;
 
-    const questData = dailyQuest.data.find((quest) => {
-      const questTemplateId = Object.values(quest)[0]?.templateId;
-      return questTemplateId === templateId;
-    });
-
-    return questData || null;
+    return (
+      dailyQuest.data.find((quest) => {
+        return Object.values(quest)[0]?.templateId === templateId;
+      }) || null
+    );
   }
 
   async delete(accountId: string): Promise<DeleteResult> {
-    const result = await this.dailyQuestRepository.delete({ accountId });
-    return result;
+    return this.dailyQuestRepository.delete({ accountId });
   }
 
   async updateMultiple(accountId: string, newData: DailyQuestData[]): Promise<void> {
-    const entityManager = this.dailyQuestRepository.manager;
-    await entityManager.transaction(async (entityManager) => {
+    await this.dailyQuestRepository.manager.transaction(async (entityManager) => {
       await entityManager.delete(DailyQuest, { accountId });
+
       const dailyQuest = new DailyQuest();
       dailyQuest.accountId = accountId;
       dailyQuest.data = newData;
@@ -70,18 +62,17 @@ export default class DailyQuestService {
     templateId: string,
     updatedQuest: DailyQuestData,
   ): Promise<void | null> {
-    let dailyQuest = await this.dailyQuestRepository.findOne({ where: { accountId } });
+    await this.dailyQuestRepository.manager.transaction(async (entityManager) => {
+      const dailyQuest = await entityManager.findOne(DailyQuest, { where: { accountId } });
 
-    if (!dailyQuest) return null;
+      if (!dailyQuest) return null;
 
-    dailyQuest.data = dailyQuest.data.map((quest) => {
-      const questTemplateId = Object.values(quest)[0]?.templateId;
-      if (questTemplateId === templateId) {
-        return updatedQuest;
-      }
-      return quest;
+      const updatedData = dailyQuest.data.map((quest) => {
+        const questTemplateId = Object.values(quest)[0]?.templateId;
+        return questTemplateId === templateId ? updatedQuest : quest;
+      });
+
+      await entityManager.update(DailyQuest, { accountId }, { data: updatedData });
     });
-
-    await this.dailyQuestRepository.save(dailyQuest);
   }
 }

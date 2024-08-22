@@ -17,7 +17,12 @@ export default async function rotate() {
       logger.info(`Next shop generates at ${nextRun}`);
       logger.info("Successfully generated storefront.");
 
-      await itemStorageService.addItem([ShopHelper.getCurrentShop()], "storefront");
+      await itemStorageService.addItems([
+        {
+          data: ShopHelper.getCurrentShop(),
+          type: "storefront",
+        },
+      ]);
     },
     {
       timezone: "America/Phoenix",

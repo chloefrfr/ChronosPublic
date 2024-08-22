@@ -1,6 +1,6 @@
 import { EntityManager, In, Repository, type QueryRunner } from "typeorm";
 import { logger } from "../..";
-import LRU from "lru-cache";
+import { LRUCache } from "lru-cache";
 import { Profiles } from "../../tables/profiles";
 import type Database from "../Database.wrapper";
 import { ProfileType, type IProfile } from "../../../types/profilesdefs";
@@ -25,11 +25,11 @@ function getOptimalBatchSize(
 
 export default class ProfilesService {
   private profilesRepository: Repository<Profiles>;
-  private cache: LRU.LRUCache<string, Profiles>;
+  private cache: LRUCache<string, Profiles>;
 
   constructor(private database: Database) {
     this.profilesRepository = database.getRepository(Profiles);
-    this.cache = new LRU.LRUCache<string, Profiles>({
+    this.cache = new LRUCache<string, Profiles>({
       max: 1000,
       ttl: 300 * 1000,
     });

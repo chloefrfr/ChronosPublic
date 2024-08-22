@@ -1,4 +1,4 @@
-import { Repository, In } from "typeorm";
+import { Repository, In, EntityManager } from "typeorm";
 import { Item, type ItemTypes } from "../../tables/storage/item";
 import Database from "../Database.wrapper";
 
@@ -11,33 +11,64 @@ export class ItemStorageService {
     this.itemCache = new Map<ItemTypes, Item>();
   }
 
-  public async addItem(data: unknown | unknown[], type: ItemTypes): Promise<Item> {
-    const existingItem = await this.itemRepository.findOne({ where: { type } });
+  public async addItems(data: { data: unknown | unknown[]; type: ItemTypes }[]): Promise<Item[]> {
+    return await this.itemRepository.manager.transaction(
+      async (transactionalEntityManager: EntityManager) => {
+        const types = data.map((item) => item.type);
+        const existingItems = await transactionalEntityManager.find(Item, {
+          where: { type: In(types) },
+        });
 
-    if (existingItem) {
-      existingItem.data = data;
-      await this.itemRepository.save(existingItem);
-      this.addToCache(existingItem);
-      return existingItem;
-    } else {
-      const newItem = this.itemRepository.create({ data, type });
-      const savedItem = await this.itemRepository.save(newItem);
-      this.addToCache(savedItem);
-      return savedItem;
-    }
+        const existingItemsMap = new Map<ItemTypes, Item>(
+          existingItems.map((item) => [item.type, item]),
+        );
+        const newItems: Item[] = [];
+        const updatedItems: Item[] = [];
+
+        data.forEach(({ data, type }) => {
+          if (existingItemsMap.has(type)) {
+            const existingItem = existingItemsMap.get(type)!;
+            existingItem.data = data;
+            updatedItems.push(existingItem);
+          } else {
+            const newItem = transactionalEntityManager.create(Item, { data, type });
+            newItems.push(newItem);
+          }
+        });
+
+        if (newItems.length > 0) {
+          await transactionalEntityManager.save(Item, newItems);
+        }
+        if (updatedItems.length > 0) {
+          await transactionalEntityManager.save(Item, updatedItems);
+        }
+
+        const allItems = [...newItems, ...updatedItems];
+        allItems.forEach((item) => this.itemCache.set(item.type, item));
+
+        return allItems;
+      },
+    );
   }
 
   public async getItemByType(type: ItemTypes): Promise<Item | null> {
-    const item = await this.itemRepository.findOne({ where: { type } });
+    if (this.itemCache.has(type)) {
+      return this.itemCache.get(type) || null;
+    }
 
+    const item = await this.itemRepository.findOne({ where: { type } });
+    if (item) {
+      this.itemCache.set(item.type, item);
+    }
     return item;
   }
 
-  public async deleteItem(type: ItemTypes): Promise<boolean> {
-    const result = await this.itemRepository.delete({ type });
+  public async deleteItemsByTypes(types: ItemTypes[]): Promise<boolean> {
+    if (types.length === 0) return false;
 
+    const result = await this.itemRepository.delete({ type: In(types) });
     if (result.affected! > 0) {
-      this.removeFromCache(type);
+      types.forEach((type) => this.itemCache.delete(type));
       return true;
     }
 
@@ -45,29 +76,23 @@ export class ItemStorageService {
   }
 
   public async getAllItems(): Promise<Item[]> {
-    return await this.itemRepository.find();
+    const items = await this.itemRepository.find();
+    items.forEach((item) => this.itemCache.set(item.type, item));
+    return items;
   }
 
   public async getItemsByTypes(types: ItemTypes[]): Promise<Item[]> {
-    return await this.itemRepository.find({ where: { type: In(types) } });
-  }
+    const cachedItems = types
+      .map((type) => this.itemCache.get(type))
+      .filter((item) => item !== undefined) as Item[];
+    const typesToFetch = types.filter((type) => !this.itemCache.has(type));
 
-  public async deleteItemsByTypes(types: ItemTypes[]): Promise<boolean> {
-    const result = await this.itemRepository.delete({ type: In(types) });
-
-    if (result.affected! > 0) {
-      types.forEach((type) => this.removeFromCache(type));
-      return true;
+    if (typesToFetch.length > 0) {
+      const fetchedItems = await this.itemRepository.find({ where: { type: In(typesToFetch) } });
+      fetchedItems.forEach((item) => this.itemCache.set(item.type, item));
+      return [...cachedItems, ...fetchedItems];
     }
 
-    return false;
-  }
-
-  private addToCache(item: Item): void {
-    this.itemCache.set(item.type, item);
-  }
-
-  private removeFromCache(type: ItemTypes): void {
-    this.itemCache.delete(type);
+    return cachedItems;
   }
 }

@@ -153,7 +153,12 @@ export default class RegisterCommand extends BaseCommand {
             accountId: newUser.accountId,
           });
 
-          await itemStorageService.addItem([], "weekly_quest");
+          await itemStorageService.addItems([
+            {
+              data: [],
+              type: "weekly_quest",
+            },
+          ]);
           await dailyQuestService.add(newUser?.accountId, []);
           await battlepassQuestService.add(newUser?.accountId, []);
         });

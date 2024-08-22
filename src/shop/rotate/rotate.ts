@@ -5,7 +5,8 @@ import { ShopGenerator } from "../shop";
 export default async function () {
   await ShopGenerator.generate();
 
-  const addedItems = await itemStorageService.addItem(ShopHelper.getCurrentShop(), "storefront");
+  const shopData = ShopHelper.getCurrentShop();
+  const addedItems = await itemStorageService.addItems([{ data: shopData, type: "storefront" }]);
 
   if (!addedItems) return false;
 

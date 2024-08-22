@@ -13,7 +13,7 @@ export namespace DiscordWebhook {
             title: "Our Backend Services have restarted!",
             description:
               "All of our services have restarted! **Please restart your game if necessary!**",
-            color: 0x2db3ff,
+            color: 0x7289da,
           },
         ],
       }),
