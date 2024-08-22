@@ -220,7 +220,7 @@
     "Tier": 21
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_949_temple_styleb",
+    "TemplateId": "CosmeticVariantToken:VTID_949_Temple_StyleB",
     "Quantity": 1,
     "Tier": 22
   },
@@ -245,7 +245,7 @@
     "Tier": 27
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_934_progressivejonesy_backbling_styleb",
+    "TemplateId": "CosmeticVariantToken:VTID_934_ProgressiveJonesy_Backbling_StyleB",
     "Quantity": 1,
     "Tier": 28
   },
@@ -285,7 +285,7 @@
     "Tier": 36
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_940_dinohunter_styleb",
+    "TemplateId": "CosmeticVariantToken:VTID_940_DinoHunter_StyleB",
     "Quantity": 1,
     "Tier": 37
   },
@@ -335,7 +335,7 @@
     "Tier": 48
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_937_progressivejonesy_backbling_stylee",
+    "TemplateId": "CosmeticVariantToken:VTID_937_ProgressiveJonesy_Backbling_StyleE",
     "Quantity": 1,
     "Tier": 49
   },
@@ -385,7 +385,7 @@
     "Tier": 59
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_935_progressivejonesy_backbling_stylec",
+    "TemplateId": "CosmeticVariantToken:VTID_935_ProgressiveJonesy_Backbling_StyleC",
     "Quantity": 1,
     "Tier": 60
   },
@@ -420,7 +420,7 @@
     "Tier": 66
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_933_chickenwarrior_backbling_stylec",
+    "TemplateId": "CosmeticVariantToken:VTID_933_ChickenWarrior_Backbling_StyleC",
     "Quantity": 1,
     "Tier": 67
   },
@@ -430,12 +430,12 @@
     "Tier": 68
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_943_chickenwarrior_stylec",
+    "TemplateId": "CosmeticVariantToken:VTID_943_ChickenWarrior_StyleC",
     "Quantity": 1,
     "Tier": 69
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_956_chickenwarriorglider_stylec",
+    "TemplateId": "CosmeticVariantToken:VTID_956_ChickenWarriorGlider_StyleC",
     "Quantity": 1,
     "Tier": 69
   },
@@ -465,7 +465,7 @@
     "Tier": 75
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_936_progressivejonesy_backbling_styled",
+    "TemplateId": "CosmeticVariantToken:VTID_936_ProgressiveJonesy_Backbling_StyleD",
     "Quantity": 1,
     "Tier": 76
   },
@@ -505,7 +505,7 @@
     "Tier": 84
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_938_obsidian_styleb",
+    "TemplateId": "CosmeticVariantToken:VTID_938_Obsidian_StyleB",
     "Quantity": 1,
     "Tier": 85
   },

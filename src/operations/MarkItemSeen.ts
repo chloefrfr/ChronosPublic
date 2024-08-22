@@ -26,9 +26,7 @@ export default async function (c: Context) {
     ]);
 
     if (!user || !profile || !athena) {
-      return c.json(
-        errors.createError(400, c.req.url, "User, Profile, or Athena not found.", timestamp),
-      );
+      return c.json(errors.createError(400, c.req.url, "User profile not found.", timestamp));
     }
 
     const body = await c.req.json().catch(() => null);
@@ -40,11 +38,21 @@ export default async function (c: Context) {
     }
 
     const { itemIds } = body;
+    const validItemIds = itemIds.filter((itemId: string) => athena.items[itemId]);
+
+    if (validItemIds.length === 0) {
+      return c.json(
+        errors.createError(400, c.req.url, "Invalid or empty itemIds.", timestamp),
+        400,
+      );
+    }
+
     let shouldUpdateProfile = false;
     const applyProfileChanges: object[] = [];
-
-    for (const itemId of itemIds) {
+    for (let i = 0; i < validItemIds.length; i++) {
+      const itemId = validItemIds[i];
       const athenaItem = athena.items[itemId];
+
       if (athenaItem?.attributes?.item_seen !== true) {
         athenaItem.attributes.item_seen = true;
         applyProfileChanges.push({

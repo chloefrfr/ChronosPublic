@@ -122,6 +122,8 @@ export default async function (c: Context) {
 
     switch (profileId) {
       case "collections":
+        if (profile.stats.attributes.current_season === uahelper.season) return;
+
         profile.stats.attributes.current_season = uahelper.season;
         await profilesService.update(user.accountId, "athena", profile);
         break;

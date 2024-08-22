@@ -29,18 +29,26 @@ export default function () {
 
     Pages.dynamicbackgrounds.backgrounds.backgrounds.push(
       {
+        stage: uahelper.background,
+        _type: "DynamicBackground",
+        key: "vault",
+      },
+      {
+        stage: uahelper.background,
+        _type: "DynamicBackground",
+        key: "lobby",
+      },
+    );
+
+    if (uahelper.season >= 19) {
+      Pages.dynamicbackgrounds.backgrounds.backgrounds.push({
         stage: "defaultnotris",
         _type: "DynamicBackground",
         key: "lobby",
         backgroundimage:
           "https://cdn2.unrealengine.com/nocturnal-storebg-cms-1921x1081-796115fa0fc9.png",
-      },
-      {
-        stage: uahelper.background,
-        _type: "DynamicBackground",
-        key: "vault",
-      },
-    );
+      });
+    }
 
     return c.json(Pages);
   });

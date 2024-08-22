@@ -682,32 +682,7 @@ export default async function (c: Context) {
 
                 logger.debug(`Attempting to find rewards for TemplateId: ${rewards.TemplateId}`);
 
-                const vtidMapping: { [key: string]: string } = {
-                  vtid_655_razerzero_styleb: "VTID_655_RazerZero_StyleB",
-                  vtid_656_razerzero_stylec: "VTID_656_RazerZero_StyleC",
-                  vtid_949_temple_styleb: "VTID_949_Temple_StyleB",
-                  vtid_934_progressivejonesy_backbling_styleb:
-                    "VTID_934_ProgressiveJonesy_Backbling_StyleB",
-                  vtid_940_dinohunter_styleb: "VTID_940_DinoHunter_StyleB",
-                  vtid_937_progressivejonesy_backbling_stylee:
-                    "VTID_937_ProgressiveJonesy_Backbling_StyleE",
-                  vtid_935_progressivejonesy_backbling_stylec:
-                    "VTID_935_ProgressiveJonesy_Backbling_StyleC",
-                  vtid_933_chickenwarrior_backbling_stylec:
-                    "VTID_933_ChickenWarrior_Backbling_StyleC",
-                  vtid_943_chickenwarrior_stylec: "VTID_943_ChickenWarrior_StyleC",
-                  vtid_956_chickenwarriorglider_stylec: "VTID_956_ChickenWarriorGlider_StyleC",
-                  vtid_936_progressivejonesy_backbling_styled:
-                    "VTID_936_ProgressiveJonesy_Backbling_StyleD",
-                  vtid_938_obsidian_styleb: "VTID_938_Obsidian_StyleB",
-                  vtid_199_petcarrier_robokitty_styleb: "VTID_199_PetCarrier_RoboKitty_StyleB",
-                  vtid_201_petcarrier_robokitty_styled: "VTID_201_PetCarrier_RoboKitty_StyleD",
-                  vtid_200_petcarrier_robokitty_stylec: "VTID_200_PetCarrier_RoboKitty_StyleC",
-                  vtid_202_rooster_styleb: "VTID_202_Rooster_StyleB",
-                };
-
-                const reward =
-                  tokens[vtidMapping[rewards.TemplateId.replace("CosmeticVariantToken:", "")]];
+                const reward = tokens[rewards.TemplateId.replace("CosmeticVariantToken:", "")];
                 if (!reward) {
                   continue;
                 }
@@ -737,9 +712,6 @@ export default async function (c: Context) {
                     owned: [reward.value],
                   });
                 }
-
-                console.log(existingVariant?.owned);
-                console.log(newVariant);
 
                 applyProfileChanges.push({
                   changeType: "itemAttrChanged",

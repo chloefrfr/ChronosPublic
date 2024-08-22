@@ -270,7 +270,7 @@
     "Tier": 45
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_199_petcarrier_robokitty_styleb",
+    "TemplateId": "CosmeticVariantToken:VTID_199_PetCarrier_RoboKitty_StyleB",
     "Quantity": 1,
     "Tier": 46
   },
@@ -345,7 +345,7 @@
     "Tier": 59
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_201_petcarrier_robokitty_styled",
+    "TemplateId": "CosmeticVariantToken:VTID_201_PetCarrier_RoboKitty_StyleD",
     "Quantity": 1,
     "Tier": 60
   },
@@ -420,7 +420,7 @@
     "Tier": 73
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_200_petcarrier_robokitty_stylec",
+    "TemplateId": "CosmeticVariantToken:VTID_200_PetCarrier_RoboKitty_StyleC",
     "Quantity": 1,
     "Tier": 74
   },
@@ -550,7 +550,7 @@
     "Tier": 98
   },
   {
-    "TemplateId": "CosmeticVariantToken:vtid_202_rooster_styleb",
+    "TemplateId": "CosmeticVariantToken:VTID_202_Rooster_StyleB",
     "Quantity": 1,
     "Tier": 99
   },
