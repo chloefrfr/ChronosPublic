@@ -124,7 +124,6 @@ export default class RegisterCommand extends BaseCommand {
 
             discordId,
 
-            battlepass: ProfileHelper.createBattlePassTemplate(),
             stats: ProfileHelper.createStatsTemplate(),
             arenaHype: 0,
           });

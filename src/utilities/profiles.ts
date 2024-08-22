@@ -2,7 +2,7 @@ import type { User } from "../tables/user";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { v4 as uuid } from "uuid";
-import type { BattlePass, Stats } from "../tables/account";
+import type { Stats } from "../tables/account";
 import type { ProfileId } from "./responses";
 import { logger, profilesService } from "..";
 import type { Profiles } from "../tables/profiles";
@@ -51,14 +51,6 @@ export default class ProfileHelper {
       logger.error(`Failed to get profile of type ${profileName}: ${error}`);
       return null;
     }
-  }
-
-  static createBattlePassTemplate(): BattlePass {
-    return {
-      ...createDefaultBattlePassProperties(),
-      purchased_battle_pass_tier_offers: [],
-      purchased_bp_offers: [],
-    };
   }
 
   static createStatsTemplate(): Stats {

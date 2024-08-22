@@ -3,12 +3,8 @@ import { logger } from "../..";
 import { LRUCache } from "lru-cache";
 import { Profiles } from "../../tables/profiles";
 import type Database from "../Database.wrapper";
-import { ProfileType, type IProfile } from "../../../types/profilesdefs";
 import asyncPool from "tiny-async-pool";
 
-// Calculates the batch size based on the estimated data size.
-// This is the only way I know how to do something like this.
-// There's probably a better way, but this gets the job done.
 function getOptimalBatchSize(
   updates: { accountId: string; type: keyof Profiles; data: Partial<unknown> }[],
   targetBatchSizeInBytes = 1_000_000,
@@ -31,36 +27,31 @@ export default class ProfilesService {
     this.profilesRepository = database.getRepository(Profiles);
     this.cache = new LRUCache<string, Profiles>({
       max: 1000,
-      ttl: 300 * 1000,
+      ttl: 600 * 1000,
     });
+  }
+
+  private generateCacheKey(accountId: string): string {
+    return `profile_accountId_${accountId}`;
   }
 
   public async findByName(
     accountId: string,
     profileName: keyof Omit<Profiles, "accountId">,
   ): Promise<Profiles | null> {
-    const queryRunner: QueryRunner = this.profilesRepository.manager.connection.createQueryRunner();
-
     try {
-      await queryRunner.startTransaction("READ COMMITTED");
+      const profile = await this.profilesRepository
+        .createQueryBuilder("profiles")
+        .select(["profiles.id", "profiles.accountId", `profiles.${profileName}`])
+        .where("profiles.accountId = :accountId", { accountId })
+        .getOne();
 
-      const profile = await queryRunner.query(
-        `SELECT "id", "accountId", "${profileName}" 
-       FROM profiles 
-       WHERE "accountId" = $1 LIMIT 1`,
-        [accountId],
-      );
-
-      await queryRunner.commitTransaction();
-      return profile.length ? profile[0] : null;
+      return profile;
     } catch (error) {
-      await queryRunner.rollbackTransaction();
       logger.error(
         `Error finding profile by accountId ${accountId} and profileName ${profileName}: ${error}`,
       );
       return null;
-    } finally {
-      await queryRunner.release();
     }
   }
 
@@ -69,48 +60,42 @@ export default class ProfilesService {
   ): Promise<Map<string, Profiles | null>> {
     const results = new Map<string, Profiles | null>();
 
-    const cacheKeys = new Set(accountIds.map((id) => `profile_accountId_${id}`));
-    const cachedProfiles = Array.from(cacheKeys).reduce((acc, key) => {
-      const cachedProfile = this.cache.get(key);
-      if (cachedProfile) {
-        acc.push({ id: key.replace("profile_accountId_", ""), profile: cachedProfile });
-      }
-      return acc;
-    }, [] as { id: string; profile: Profiles }[]);
+    const cacheKeys = accountIds.map(this.generateCacheKey.bind(this));
+    const cachedProfiles = cacheKeys
+      .map((key, index) => ({ key, profile: this.cache.get(key), accountId: accountIds[index] }))
+      .filter((entry) => entry.profile);
 
-    cachedProfiles.forEach(({ id, profile }) => {
-      results.set(id, profile);
+    cachedProfiles.forEach(({ accountId, profile }) => {
+      if (profile) results.set(accountId, profile);
     });
 
     const accountIdsToFetch = accountIds.filter((id) => !results.has(id));
+    if (accountIdsToFetch.length === 0) return results;
 
-    if (accountIdsToFetch.length > 0) {
-      try {
-        await this.profilesRepository.manager.transaction(async (manager: EntityManager) => {
-          await manager.query("SET TRANSACTION ISOLATION LEVEL READ COMMITTED");
+    try {
+      await this.profilesRepository.manager.transaction(async (manager: EntityManager) => {
+        await manager.query("SET TRANSACTION ISOLATION LEVEL READ COMMITTED");
 
-          const profiles = await manager.find(Profiles, {
-            where: { accountId: In(accountIdsToFetch) },
-          });
-
-          profiles.forEach((profile) => {
-            const key = `profile_accountId_${profile.accountId}`;
-            this.cache.set(key, profile);
-            results.set(profile.accountId, profile);
-          });
-
-          accountIdsToFetch.forEach((id) => {
-            if (!results.has(id)) {
-              results.set(id, null);
-            }
-          });
+        const profiles = await manager.find(Profiles, {
+          select: ["id", "accountId", "athena", "common_core", "common_public"],
+          where: { accountId: In(accountIdsToFetch) },
         });
-      } catch (error) {
-        logger.error(
-          `Error finding profiles by accountIds ${accountIdsToFetch.join(", ")}: ${error}`,
-        );
-        accountIdsToFetch.forEach((id) => results.set(id, null));
-      }
+
+        profiles.forEach((profile) => {
+          const key = this.generateCacheKey(profile.accountId);
+          this.cache.set(key, profile);
+          results.set(profile.accountId, profile);
+        });
+
+        accountIdsToFetch.forEach((id) => {
+          if (!results.has(id)) results.set(id, null);
+        });
+      });
+    } catch (error) {
+      logger.error(
+        `Error finding profiles by accountIds ${accountIdsToFetch.join(", ")}: ${error}`,
+      );
+      accountIdsToFetch.forEach((id) => results.set(id, null));
     }
 
     return results;
@@ -118,8 +103,8 @@ export default class ProfilesService {
 
   public async findByAccountId(accountId: string): Promise<Profiles | null> {
     try {
-      const batchResults = await this.findProfilesByAccountIds([accountId]);
-      return batchResults.get(accountId) || null;
+      const results = await this.findProfilesByAccountIds([accountId]);
+      return results.get(accountId) || null;
     } catch (error) {
       logger.error(`Error finding profile by accountId ${accountId}: ${error}`);
       return null;
@@ -129,35 +114,34 @@ export default class ProfilesService {
   public async createOrUpdate(
     accountId: string,
     type: keyof Omit<Profiles, "id" | "accountId">,
-    data: Partial<IProfile>,
+    data: Partial<unknown>,
   ): Promise<Profiles | null> {
-    const queryRunner: QueryRunner = this.profilesRepository.manager.connection.createQueryRunner();
+    const queryRunner = this.profilesRepository.manager.connection.createQueryRunner();
+    await queryRunner.startTransaction("READ COMMITTED");
 
     try {
-      await queryRunner.startTransaction("READ COMMITTED");
-
-      let profile = await queryRunner.query(
+      const existingProfile = await queryRunner.query(
         `SELECT * FROM profiles WHERE "accountId" = $1 LIMIT 1`,
         [accountId],
       );
 
-      if (profile.length === 0) {
-        await queryRunner.query(
+      let profile;
+      if (existingProfile.length === 0) {
+        profile = await queryRunner.query(
           `INSERT INTO profiles ("accountId", "${type}") VALUES ($1, $2) RETURNING *`,
-          [accountId, { profileId: type, ...data }],
+          [accountId, data],
         );
       } else {
-        profile = profile[0];
-
-        await queryRunner.query(`UPDATE profiles SET "${type}" = $2 WHERE "accountId" = $1`, [
-          accountId,
-          { profileId: type, ...data },
-        ]);
+        profile = await queryRunner.query(
+          `UPDATE profiles SET "${type}" = $2 WHERE "accountId" = $1 RETURNING *`,
+          [accountId, data],
+        );
       }
 
       await queryRunner.commitTransaction();
 
-      this.cache.set(`profile_accountId_${accountId}`, profile);
+      profile = profile[0];
+      this.cache.set(this.generateCacheKey(accountId), profile);
 
       return profile;
     } catch (error) {
@@ -184,8 +168,8 @@ export default class ProfilesService {
         .execute();
 
       if (result.affected && result.affected > 0) {
-        const updatedProfile = await this.profilesRepository.findOne({ where: { accountId } });
-        if (updatedProfile) this.cache.set(`profile_accountId_${accountId}`, updatedProfile);
+        const updatedProfile = result.raw[0];
+        this.cache.set(this.generateCacheKey(accountId), updatedProfile);
         return updatedProfile;
       }
 
@@ -203,8 +187,8 @@ export default class ProfilesService {
 
     const batchSize = getOptimalBatchSize(updates);
     const concurrencyLimit = 4;
-    const queryRunner = this.profilesRepository.manager.connection.createQueryRunner();
 
+    const queryRunner = this.profilesRepository.manager.connection.createQueryRunner();
     await queryRunner.startTransaction();
 
     try {
@@ -227,6 +211,7 @@ export default class ProfilesService {
           update.accountId,
           JSON.stringify(update.data),
         ]);
+
         await queryRunner.query(updateQuery, parameters);
       });
 
@@ -243,7 +228,7 @@ export default class ProfilesService {
     try {
       const result = await this.profilesRepository.delete({ accountId });
       if (result.affected && result.affected > 0) {
-        this.cache.delete(`profile_accountId_${accountId}`);
+        this.cache.delete(this.generateCacheKey(accountId));
         return true;
       }
       return false;
