@@ -3,8 +3,8 @@ import { Validation } from "../middleware/validation";
 import errors from "../utilities/errors";
 import type { Stats } from "../tables/account";
 
-const legacyController = app.basePath("/fortnite/api");
-const controller = app.basePath("/statsproxy/api");
+const controller = app.basePath("/fortnite/api");
+const proxy = app.basePath("/statsproxy/api");
 
 type PlaylistType = "solos" | "duos" | "squads" | "ltm";
 
@@ -13,66 +13,62 @@ type PlaylistType = "solos" | "duos" | "squads" | "ltm";
 // pc_m0_p9 (PC - SQUADS)
 
 export default function () {
-  legacyController.get(
-    "/game/v2/leaderboards/cohort/:accountId",
-    Validation.verifyToken,
-    async (c) => {
-      const playlist = c.req.query("playlist");
-      const timestamp = new Date().toISOString();
-      const accountId = c.req.param("accountId");
+  controller.get("/game/v2/leaderboards/cohort/:accountId", Validation.verifyToken, async (c) => {
+    const playlist = c.req.query("playlist");
+    const timestamp = new Date().toISOString();
+    const accountId = c.req.param("accountId");
 
-      if (!playlist)
-        return c.json(
-          errors.createError(400, c.req.url, "Query parameter 'playlist' not found.", timestamp),
-          400,
-        );
+    if (!playlist)
+      return c.json(
+        errors.createError(400, c.req.url, "Query parameter 'playlist' not found.", timestamp),
+        400,
+      );
 
-      const user = await userService.findUserByAccountId(accountId);
-      const account = await accountService.findUserByAccountId(accountId);
+    const user = await userService.findUserByAccountId(accountId);
+    const account = await accountService.findUserByAccountId(accountId);
 
-      if (!user || !account)
-        return c.json(errors.createError(404, c.req.url, "User not found.", timestamp), 404);
+    if (!user || !account)
+      return c.json(errors.createError(404, c.req.url, "User not found.", timestamp), 404);
 
-      logger.debug(`Playlist: ${playlist}`);
+    logger.debug(`Playlist: ${playlist}`);
 
-      try {
-        const playlists: { [key: string]: PlaylistType } = {
-          pc_m0_p10: "solos",
-          pc_m0_p2: "duos",
-          pc_m0_p9: "squads",
-        };
+    try {
+      const playlists: { [key: string]: PlaylistType } = {
+        pc_m0_p10: "solos",
+        pc_m0_p2: "duos",
+        pc_m0_p9: "squads",
+      };
 
-        const specificPlaylist = playlists[playlist];
-        const stats = account.stats[specificPlaylist];
+      const specificPlaylist = playlists[playlist];
+      const stats = account.stats[specificPlaylist];
 
-        if (!stats)
-          return c.json(errors.createError(404, c.req.url, "Stat not found..", timestamp), 404);
+      if (!stats)
+        return c.json(errors.createError(404, c.req.url, "Stat not found..", timestamp), 404);
 
-        const friends = await friendsService.findFriendByAccountId(user.accountId);
+      const friends = await friendsService.findFriendByAccountId(user.accountId);
 
-        if (!friends)
-          return c.json(errors.createError(404, c.req.url, "No friends found.", timestamp), 404);
+      if (!friends)
+        return c.json(errors.createError(404, c.req.url, "No friends found.", timestamp), 404);
 
-        const accountIds: string[] = [];
+      const accountIds: string[] = [];
 
-        for (const acceptedFriends of friends.accepted) {
-          accountIds.push(acceptedFriends.accountId);
-        }
-
-        return c.json({
-          accountId: user.accountId,
-          cohortAccountIds: accountIds,
-          expiresAt: "9999-01-01T00:00:00Z",
-          playlist,
-        });
-      } catch (error) {
-        logger.error(`Error getting leaderboard data: ${error}`);
-        return c.json(errors.createError(500, c.req.url, "Internal Server Error.", timestamp), 500);
+      for (const acceptedFriends of friends.accepted) {
+        accountIds.push(acceptedFriends.accountId);
       }
-    },
-  );
 
-  controller.get(
+      return c.json({
+        accountId: user.accountId,
+        cohortAccountIds: accountIds,
+        expiresAt: "9999-01-01T00:00:00Z",
+        playlist,
+      });
+    } catch (error) {
+      logger.error(`Error getting leaderboard data: ${error}`);
+      return c.json(errors.createError(500, c.req.url, "Internal Server Error.", timestamp), 500);
+    }
+  });
+
+  proxy.get(
     "/statsv2/leaderboards/:leaderboardName",
     Validation.verifyPermissions,
     Validation.verifyToken,
@@ -86,7 +82,7 @@ export default function () {
       const permissions = c.get("permission");
       const timestamp = new Date().toISOString();
 
-      const hasPermission = permissions.hasPermission("fortnite:stats", "READ");
+      const hasPermission = await permissions.hasPermission("fortnite:stats", "READ");
 
       if (!hasPermission)
         return c.json(
@@ -160,13 +156,12 @@ export default function () {
     "accountId": "17aa73e6e694484296cf00d7f11f4acb"
   }
   */
+
   controller.get(
     "/statsv2/account/:accountId",
     Validation.verifyPermissions,
     Validation.verifyToken,
     async (c) => {
-      const accountId = c.req.param("accountId");
-
       const permissions = c.get("permission");
       const timestamp = new Date().toISOString();
 
@@ -182,6 +177,8 @@ export default function () {
           ),
           401,
         );
+
+      const accountId = c.req.param("accountId");
 
       const user = await userService.findUserByAccountId(accountId);
       const account = await accountService.findUserByAccountId(accountId);
@@ -239,34 +236,29 @@ export default function () {
     },
   );
 
-  controller.post(
-    "/statsv2/query",
-    Validation.verifyPermissions,
-    Validation.verifyToken,
-    async (c) => {
-      const permissions = c.get("permission");
-      const timestamp = new Date().toISOString();
+  proxy.post("/statsv2/query", Validation.verifyPermissions, Validation.verifyToken, async (c) => {
+    const permissions = c.get("permission");
+    const timestamp = new Date().toISOString();
 
-      const hasPermission = permissions.hasPermission("fortnite:stats", "READ");
+    const hasPermission = permissions.hasPermission("fortnite:stats", "READ");
 
-      if (!hasPermission)
-        return c.json(
-          errors.createError(
-            401,
-            c.req.url,
-            permissions.errorReturn("fortnite:stats", "READ"),
-            timestamp,
-          ),
+    if (!hasPermission)
+      return c.json(
+        errors.createError(
           401,
-        );
+          c.req.url,
+          permissions.errorReturn("fortnite:stats", "READ"),
+          timestamp,
+        ),
+        401,
+      );
 
-      const body = await c.req.json();
-      const query = c.req.query();
+    const body = await c.req.json();
+    const query = c.req.query();
 
-      console.log(body);
-      console.log(query);
+    console.log(body);
+    console.log(query);
 
-      return c.json({});
-    },
-  );
+    return c.json({});
+  });
 }

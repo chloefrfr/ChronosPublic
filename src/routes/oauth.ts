@@ -91,7 +91,7 @@ export default function () {
             400,
           );
 
-        if (userByHWID && !userByHWID) await updateHwid(user, deviceId);
+        if (userByHWID || !userByHWID) await updateHwid(user, deviceId);
 
         if (user.banned && userByHWID && userByHWID?.banned) {
           await updateHwid(user, deviceId);

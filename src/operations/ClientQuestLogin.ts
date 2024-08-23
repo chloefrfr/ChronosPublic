@@ -123,8 +123,6 @@ export default async function (c: Context) {
               },
             ]);
 
-            profile.items[dailyQuests.Name] = questData;
-
             const newQuestItem = {
               changeType: "itemAdded",
               itemId: dailyQuests.Name,
