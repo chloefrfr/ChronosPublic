@@ -236,6 +236,85 @@ export default function () {
     },
   );
 
+  proxy.get(
+    "/statsv2/account/:accountId",
+    Validation.verifyPermissions,
+    Validation.verifyToken,
+    async (c) => {
+      const permissions = c.get("permission");
+      const timestamp = new Date().toISOString();
+
+      const hasPermission = permissions.hasPermission("fortnite:stats", "READ");
+
+      if (!hasPermission)
+        return c.json(
+          errors.createError(
+            401,
+            c.req.url,
+            permissions.errorReturn("fortnite:stats", "READ"),
+            timestamp,
+          ),
+          401,
+        );
+
+      const accountId = c.req.param("accountId");
+
+      const user = await userService.findUserByAccountId(accountId);
+      const account = await accountService.findUserByAccountId(accountId);
+
+      if (!user || !account)
+        return c.json(errors.createError(404, c.req.url, "User not found.", timestamp), 404);
+
+      try {
+        const now = new Date();
+
+        const startOfDay = new Date(now);
+        startOfDay.setHours(0, 0, 0, 0);
+
+        const endOfWeek = new Date(now);
+        const dayOfWeek = now.getDay();
+        const daysUntilEndOfWeek = 6 - dayOfWeek + 1;
+        endOfWeek.setDate(now.getDate() + daysUntilEndOfWeek);
+        endOfWeek.setHours(23, 59, 59, 999);
+
+        const startTime = startOfDay.getTime();
+        const endTime = endOfWeek.getTime();
+
+        return c.json({
+          startTime,
+          endTime,
+          stats: {
+            br_score_keyboardmouse_m0_playlist_defaultsolo: account.stats["solos"].wins,
+            br_score_keyboardmouse_m0_playlist_defaultduo: account.stats["duos"].wins,
+            br_score_keyboardmouse_m0_playlist_defaultsquad: account.stats["squads"].wins,
+            br_kills_keyboardmouse_m0_playlist_defaultsolo: account.stats["solos"].kills,
+            br_kills_keyboardmouse_m0_playlist_defaultduo: account.stats["duos"].kills,
+            br_kills_keyboardmouse_m0_playlist_defaultsquad: account.stats["squads"].kills,
+            br_matchesplayed_keyboardmouse_m0_playlist_defaultsolo:
+              account.stats["solos"].matchesplayed,
+            br_matchesplayed_keyboardmouse_m0_playlist_defaultduo:
+              account.stats["duos"].matchesplayed,
+            br_matchesplayed_keyboardmouse_m0_playlist_defaultsquad:
+              account.stats["squads"].matchesplayed,
+            br_placetop25_keyboardmouse_m0_playlist_defaultsolo: account.stats["solos"].top25,
+            br_placetop25_keyboardmouse_m0_playlist_defaultduo: account.stats["duos"].top25,
+            br_placetop25_keyboardmouse_m0_playlist_defaultsquad: account.stats["squads"].top25,
+            br_placetop10_keyboardmouse_m0_playlist_defaultsolo: account.stats["solos"].top10,
+            br_placetop10_keyboardmouse_m0_playlist_defaultduo: account.stats["duos"].top10,
+            br_placetop10_keyboardmouse_m0_playlist_defaultsquad: account.stats["squads"].top10,
+            br_placetop1_keyboardmouse_m0_playlist_defaultsolo: account.stats["solos"].top1,
+            br_placetop1_keyboardmouse_m0_playlist_defaultduo: account.stats["duos"].top1,
+            br_placetop1_keyboardmouse_m0_playlist_defaultsquad: account.stats["squads"].top1,
+          },
+          accountId: user.accountId,
+        });
+      } catch (error) {
+        logger.error(`Failed to get stats: ${error}`);
+        return c.json(errors.createError(500, c.req.url, "Internal Server Error", timestamp), 500);
+      }
+    },
+  );
+
   proxy.post("/statsv2/query", Validation.verifyPermissions, Validation.verifyToken, async (c) => {
     const permissions = c.get("permission");
     const timestamp = new Date().toISOString();
