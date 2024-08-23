@@ -87,8 +87,8 @@ export namespace QuestManager {
     [QuestType.WEEKLY]: new Map(),
   };
 
-  export const listedBattlepassQuests: Set<string> = new Set();
-  export const listedWeeklyQuests: Set<string> = new Set();
+  export const listedBattlepassQuests: Set<BattlepassQuestDef> = new Set();
+  export const listedWeeklyQuests: Set<BattlepassQuestDef> = new Set();
 
   function isDailyQuest(quest: DailyQuestDef | BattlepassQuestDef): quest is DailyQuestDef {
     return (quest as DailyQuestDef).Type !== undefined;
@@ -123,13 +123,13 @@ export namespace QuestManager {
             }
           } else {
             const bpQuest = quest as BattlepassQuestDef;
-            if (!listedBattlepassQuests.has(bpQuest.Name)) {
-              listedBattlepassQuests.add(bpQuest.Name);
-              listedBattlepassQuests.add(bpQuest.Name);
+            if (!listedBattlepassQuests.has(bpQuest)) {
+              listedBattlepassQuests.add(bpQuest);
+              listedBattlepassQuests.add(bpQuest);
             }
             if (folder.includes("weekly")) {
-              if (!listedWeeklyQuests.has(bpQuest.Name)) {
-                listedWeeklyQuests.add(bpQuest.Name);
+              if (!listedWeeklyQuests.has(bpQuest)) {
+                listedWeeklyQuests.add(bpQuest);
               }
             }
           }
@@ -200,8 +200,8 @@ export namespace QuestManager {
           const content = await fs.readFile(filePath, "utf-8");
           const quest = JSON.parse(content) as BattlepassQuestDef;
 
-          if (!listedBattlepassQuests.has(quest.Name)) {
-            listedBattlepassQuests.add(quest.Name);
+          if (!listedBattlepassQuests.has(quest)) {
+            listedBattlepassQuests.add(quest);
             allBPQuests.push(quest);
           }
         } catch (error) {

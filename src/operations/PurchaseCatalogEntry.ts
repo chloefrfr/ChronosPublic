@@ -358,8 +358,10 @@ export default async function (c: Context) {
 
               if (!battlepassQuests) continue;
 
-              const filteredMatchingQuest = battlepassQuests.filter(
-                (q) => q?.ChallengeBundleSchedule === reward.TemplateId,
+              const battlepassQuestsArray = Array.from(battlepassQuests);
+
+              const filteredMatchingQuest = battlepassQuestsArray.filter(
+                (q) => q.ChallengeBundleSchedule === reward.TemplateId,
               );
 
               if (!filteredMatchingQuest) continue;
@@ -741,11 +743,11 @@ export default async function (c: Context) {
 
                 if (!battlepassQuests) continue;
 
-                const filteredMatchingQuest = battlepassQuests.filter(
+                const battlepassQuestsArray = Array.from(battlepassQuests);
+
+                const filteredMatchingQuest = battlepassQuestsArray.filter(
                   (q) => q?.ChallengeBundleSchedule === rewards.TemplateId,
                 );
-
-                if (!filteredMatchingQuest) continue;
 
                 for (const quest of filteredMatchingQuest) {
                   if (!quest) continue;

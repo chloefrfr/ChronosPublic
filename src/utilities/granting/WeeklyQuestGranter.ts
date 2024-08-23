@@ -7,7 +7,7 @@ export namespace WeeklyQuestGranter {
     const multiUpdates: object[] = [];
     let XPQuantity: number = 0;
 
-    const weeklyQuests = QuestManager.listedWeeklyQuests;
+    const weeklyQuests = Array.from(QuestManager.listedWeeklyQuests);
 
     if (!weeklyQuests || weeklyQuests.length === 0) {
       return { multiUpdates, XPQuantity };

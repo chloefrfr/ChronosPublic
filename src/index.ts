@@ -44,6 +44,7 @@ app.notFound((c) =>
       "The specified route was not found.",
       new Date().toISOString(),
     ),
+    404,
   ),
 );
 
