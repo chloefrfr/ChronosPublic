@@ -84,7 +84,7 @@ export default async function (c: Context) {
 
     return c.json(MCPResponses.generate(profile, applyProfileChanges, "athena"));
   } catch (error) {
-    logger.error(`MarkNewQuestNotificationSent: ${error}`);
+    logger.error(`SetParyAssist: ${error}`);
     return c.json(errors.createError(500, c.req.url, "Internal Server Error", timestamp), 500);
   }
 }
