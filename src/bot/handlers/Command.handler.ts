@@ -1,43 +1,54 @@
-import {
-  Collection,
-  type CacheType,
-  type Client,
-  type CommandInteraction,
-  type Interaction,
-} from "discord.js";
 import fs from "node:fs/promises";
-import { join } from "node:path";
-
-import type { Command, ExtendedClient } from "../interfaces/ExtendedClient";
+import path from "node:path";
+import { Collection } from "discord.js";
+import type { ExtendedClient } from "../interfaces/ExtendedClient";
+import type { Command } from "../interfaces/ExtendedClient";
 import { logger } from "../..";
 
 export default async function CommandHandler(client: ExtendedClient) {
-  const commandsDir = await fs.readdir(join(__dirname, "..", "commands"));
-  const commands = commandsDir.filter((cmd) => cmd.endsWith(".ts"));
+  client.commands = new Collection<string, Command>();
 
-  const commandData = await Promise.all(
-    commands.map(async (cmd) => {
-      const { default: CommandClass } = await import(`../commands/${cmd}`);
-      const CommandInstance = new CommandClass();
+  const commandsDir = path.join(__dirname, "..", "commands");
 
-      client.commands.set(CommandInstance.data.name, CommandInstance);
+  try {
+    const files = await fs.readdir(commandsDir);
+    const commandFiles = files.filter((file) => file.endsWith(".ts"));
 
-      return CommandInstance.data;
-    }),
-  );
+    for (const file of commandFiles) {
+      const filePath = path.join(commandsDir, file);
 
-  client.on("interactionCreate" as any, async (interaction: CommandInteraction) => {
+      try {
+        const { default: CommandClass } = await import(filePath);
+        const commandInstance = new CommandClass();
+
+        if (commandInstance.data && commandInstance.execute) {
+          client.commands.set(commandInstance.data.name, commandInstance);
+        }
+      } catch (error) {
+        logger.error(`Failed to import command ${file}: ${error}`);
+      }
+    }
+  } catch (error) {
+    logger.error(`Failed to read commands directory: ${error}`);
+  }
+
+  client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
 
-    const { commandName } = interaction;
-    const command = client.commands.get(commandName);
+    const command = client.commands.get(interaction.commandName);
 
-    if (!command) return;
+    if (!command) {
+      await interaction.reply({ content: "Unknown command", ephemeral: true });
+      return;
+    }
 
     try {
-      await command.execute(interaction, {});
+      await command.execute(interaction, { ephemeral: true });
     } catch (error) {
-      await interaction.reply("There was an error executing that command!");
+      logger.error(`Error executing command ${interaction.commandName}: ${error}`);
+      await interaction.reply({
+        content: "There was an error executing that command!",
+      });
     }
   });
 }

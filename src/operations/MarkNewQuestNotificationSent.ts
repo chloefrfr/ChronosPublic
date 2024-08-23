@@ -59,13 +59,15 @@ export default async function (c: Context) {
     const { itemIds } = body;
 
     for (const id of itemIds) {
-      console.log(id);
       const questData = await dailyQuestService.getQuest(user.accountId, id);
 
-      if (!questData || !questData[id])
-        return c.json(errors.createError(404, c.req.url, "Quest not found.", timestamp), 404);
+      if (!questData)
+        return c.json(
+          errors.createError(404, c.req.url, `Quest '${id}' not found.`, timestamp),
+          404,
+        );
 
-      questData[id].attributes.sent_new_notification = true;
+      questData.attributes.sent_new_notification = true;
 
       await Promise.all([dailyQuestService.updateQuest(user.accountId, id, questData)]);
 

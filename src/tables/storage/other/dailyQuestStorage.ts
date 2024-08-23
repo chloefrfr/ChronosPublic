@@ -8,7 +8,7 @@ export interface DailyQuestData {
   };
 }
 
-interface Attributes {
+export interface Attributes {
   sent_new_notification: boolean;
   ObjectiveState: ObjectiveState[];
 }

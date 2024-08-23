@@ -67,6 +67,7 @@ export enum QuestType {
   BATTLEPASS = "battlepass",
   WEEKLY = "weekly",
 }
+
 const config = new Config().getConfig();
 const baseFolder = path.join(
   __dirname,
@@ -79,59 +80,71 @@ const baseFolder = path.join(
 );
 
 export namespace QuestManager {
-  export const listedQuests: Record<QuestType, DailyQuestDef[]> = {
-    [QuestType.REPEATABLE]: [],
-    [QuestType.SEASONAL]: [],
-    [QuestType.BATTLEPASS]: [],
-    [QuestType.WEEKLY]: [],
+  export const listedQuests: Record<QuestType, Map<string, DailyQuestDef>> = {
+    [QuestType.REPEATABLE]: new Map(),
+    [QuestType.SEASONAL]: new Map(),
+    [QuestType.BATTLEPASS]: new Map(),
+    [QuestType.WEEKLY]: new Map(),
   };
 
-  export const listedBattlepassQuests: Partial<BattlepassQuestDef[]> = [];
-  export const listedWeeklyQuests: Partial<BattlepassQuestDef[]> = [];
+  export const listedBattlepassQuests: Set<string> = new Set();
+  export const listedWeeklyQuests: Set<string> = new Set();
 
-  async function readAllQuests(folder: string): Promise<DailyQuestDef[]> {
-    let allQuests: DailyQuestDef[] = [];
+  function isDailyQuest(quest: DailyQuestDef | BattlepassQuestDef): quest is DailyQuestDef {
+    return (quest as DailyQuestDef).Type !== undefined;
+  }
 
+  async function readAllQuests(folder: string): Promise<void> {
     const files = await fs.readdir(folder);
-
-    for (const file of files) {
+    const fileReadPromises = files.map(async (file) => {
       const filePath = path.join(folder, file);
       const stat = await fs.stat(filePath);
 
       if (stat.isDirectory()) {
-        const subdirectoryQuests = await readAllQuests(filePath);
-        allQuests = [...allQuests, ...subdirectoryQuests];
+        await readAllQuests(filePath);
       } else if (file.endsWith(".json")) {
         try {
           const content = await fs.readFile(filePath, "utf-8");
-          const quest = JSON.parse(content);
+          const quest = JSON.parse(content) as DailyQuestDef | BattlepassQuestDef;
 
-          if (folder.includes("repeatable")) {
-            listedQuests[QuestType.REPEATABLE].push(quest);
-          } else if (folder.includes("seasonal")) {
-            listedQuests[QuestType.SEASONAL].push(quest);
-          } else if (folder.includes("battlepass")) {
-            listedQuests[QuestType.BATTLEPASS].push(quest);
-            listedBattlepassQuests.push(quest as BattlepassQuestDef);
-          } else if (folder.includes("weekly")) {
-            listedQuests[QuestType.WEEKLY].push(quest);
-            listedWeeklyQuests.push(quest as BattlepassQuestDef);
+          if (isDailyQuest(quest)) {
+            const type = folder.includes("repeatable")
+              ? QuestType.REPEATABLE
+              : folder.includes("seasonal")
+              ? QuestType.SEASONAL
+              : folder.includes("battlepass")
+              ? QuestType.BATTLEPASS
+              : folder.includes("weekly")
+              ? QuestType.WEEKLY
+              : undefined;
+
+            if (type && !listedQuests[type].has(quest.Name)) {
+              listedQuests[type].set(quest.Name, quest);
+            }
+          } else {
+            const bpQuest = quest as BattlepassQuestDef;
+            if (!listedBattlepassQuests.has(bpQuest.Name)) {
+              listedBattlepassQuests.add(bpQuest.Name);
+              listedBattlepassQuests.add(bpQuest.Name);
+            }
+            if (folder.includes("weekly")) {
+              if (!listedWeeklyQuests.has(bpQuest.Name)) {
+                listedWeeklyQuests.add(bpQuest.Name);
+              }
+            }
           }
-
-          allQuests.push(quest);
         } catch (error) {
-          logger.error(`Error parsing Quest ${filePath}: ${error}`);
+          logger.error(`Error parsing Quest ${file}: ${error}`);
         }
       }
-    }
+    });
 
-    return allQuests;
+    await Promise.all(fileReadPromises);
   }
 
   export async function initQuests(): Promise<void> {
     try {
       await readAllQuests(baseFolder);
-
       logger.startup("Initialized Quests.");
     } catch (error) {
       logger.error(`Error initializing quests: ${error}`);
@@ -145,23 +158,16 @@ export namespace QuestManager {
 
       if (!profile) return false;
 
-      if (!profile.athena.items[quest.Name]) return false;
-
-      if (!storage) return false;
-
-      if (storage) return true;
-      if (profile.athena.items[quest.Name]) return true;
-
-      return false;
+      return true || !!storage;
     } catch (error) {
       return false;
     }
   }
 
   export async function getRandomQuest(accountId: string): Promise<DailyQuestDef | undefined> {
-    const quests = listedQuests[QuestType.REPEATABLE];
+    const quests = Array.from(listedQuests[QuestType.REPEATABLE].values());
 
-    if (!quests || quests.length === 0) return;
+    if (quests.length === 0) return;
 
     const availableQuests = await Promise.all(
       quests.map(async (quest) => ({
@@ -182,32 +188,29 @@ export namespace QuestManager {
     let allBPQuests: BattlepassQuestDef[] = [];
 
     const files = await fs.readdir(baseFolder);
+    const fileReadPromises = files.map(async (file) => {
+      const filePath = path.join(baseFolder, file);
+      const stat = await fs.stat(filePath);
 
-    await Promise.all(
-      files.map(async (file) => {
-        const filePath = path.join(baseFolder, file);
-        const stat = await fs.stat(filePath);
+      if (stat.isDirectory()) {
+        const subdirectoryBPQuests = await getBPQuests();
+        allBPQuests = [...allBPQuests, ...subdirectoryBPQuests];
+      } else if (file.endsWith(".json")) {
+        try {
+          const content = await fs.readFile(filePath, "utf-8");
+          const quest = JSON.parse(content) as BattlepassQuestDef;
 
-        if (stat.isDirectory()) {
-          const subdirectoryQuests = await getBPQuests();
-          allBPQuests = [...allBPQuests, ...subdirectoryQuests];
-        } else if (file.endsWith(".json")) {
-          try {
-            const content = await fs.readFile(filePath, "utf-8");
-            const quest = JSON.parse(content) as BattlepassQuestDef;
-
-            if (baseFolder.includes("battlepass")) {
-              listedBattlepassQuests.push(quest);
-            }
-
+          if (!listedBattlepassQuests.has(quest.Name)) {
+            listedBattlepassQuests.add(quest.Name);
             allBPQuests.push(quest);
-          } catch (error) {
-            logger.error(`Error parsing Quest ${filePath}: ${error}`);
           }
+        } catch (error) {
+          logger.error(`Error parsing Quest ${file}: ${error}`);
         }
-      }),
-    );
+      }
+    });
 
+    await Promise.all(fileReadPromises);
     return allBPQuests;
   }
 

@@ -9,7 +9,7 @@ import BaseCommand from "../base/Base";
 import { userService } from "../..";
 import rotate from "../../shop/rotate/rotate";
 
-export default class LookupCommand extends BaseCommand {
+export default class RotateCommand extends BaseCommand {
   data = {
     name: "rotate",
     description: "Rotates the item shop.",

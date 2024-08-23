@@ -30,7 +30,7 @@ export interface LootList {
   quantity: number;
 }
 
-export default class GrantallCommand extends BaseCommand {
+export default class GrantAllCommand extends BaseCommand {
   data = {
     name: "grantall",
     description: "Grants a user all cosmetics.",
