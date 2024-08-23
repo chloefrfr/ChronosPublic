@@ -126,7 +126,7 @@ export default class PermissionCommand extends BaseCommand {
           "authorization_code",
         );
 
-        const success = permissionInfo.addPermission({
+        const success = await permissionInfo.addPermission({
           resource: permission.value as string,
           abilities: abilities,
           action: action,
@@ -167,7 +167,7 @@ export default class PermissionCommand extends BaseCommand {
           "authorization_code",
         );
 
-        const success = permissionInfo.removePermission(permission.value as string);
+        const success = await permissionInfo.removePermission(permission.value as string);
 
         const embed = new EmbedBuilder()
           .setTitle(success ? "Permission Removed" : "Failed to Remove Permission")

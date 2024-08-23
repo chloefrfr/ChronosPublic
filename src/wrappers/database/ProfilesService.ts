@@ -27,7 +27,7 @@ export default class ProfilesService {
     this.profilesRepository = database.getRepository(Profiles);
     this.cache = new LRUCache<string, Profiles>({
       max: 1000,
-      ttl: 600 * 1000,
+      ttl: 100,
     });
   }
 
@@ -187,6 +187,7 @@ export default class ProfilesService {
 
     const batchSize = getOptimalBatchSize(updates);
     const concurrencyLimit = 4;
+    const updatedProfiles = new Map<string, Partial<Profiles>>();
 
     const queryRunner = this.profilesRepository.manager.connection.createQueryRunner();
     await queryRunner.startTransaction();
@@ -213,9 +214,32 @@ export default class ProfilesService {
         ]);
 
         await queryRunner.query(updateQuery, parameters);
+
+        batch.forEach((update) => {
+          updatedProfiles.set(update.accountId, update.data);
+        });
       });
 
       await queryRunner.commitTransaction();
+
+      updatedProfiles.forEach((data, accountId) => {
+        const key = this.generateCacheKey(accountId);
+        const cachedProfile = this.cache.get(key);
+        if (cachedProfile) {
+          const updateType = updates.find((u) => u.accountId === accountId)?.type;
+
+          if (updateType) {
+            const updatedProfile = {
+              ...cachedProfile,
+              [updateType]: data,
+            } as Profiles;
+
+            if (this.cache && updatedProfile) {
+              this.cache.set(key, updatedProfile);
+            }
+          }
+        }
+      });
     } catch (error) {
       await queryRunner.rollbackTransaction();
       logger.error(`Error updating multiple profiles: ${error}`);

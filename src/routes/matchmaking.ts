@@ -109,7 +109,7 @@ export default function () {
       };
 
       return c.json({
-        serviceUrl: "ws://72.23.79.224:443",
+        serviceUrl: "ws://127.0.0.1:443",
         ticketType: "mms-player",
         payload: JSON.stringify(payload),
         signature: Encryption.encrypt(

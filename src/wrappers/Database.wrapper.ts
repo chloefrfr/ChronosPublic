@@ -9,7 +9,6 @@ import { Friends } from "../tables/friends";
 import { Item } from "../tables/storage/item";
 import { DailyQuest } from "../tables/storage/other/dailyQuestStorage";
 import { BattlepassQuest } from "../tables/storage/other/battlepassQuestStorage";
-import { ProfilesSubscriber } from "./subscribers/ProfilesSubscriber";
 
 interface DatabaseConfig {
   connectionString?: string;
@@ -39,7 +38,6 @@ export default class Database {
           DailyQuest,
           BattlepassQuest,
         ],
-        subscribers: [ProfilesSubscriber],
         synchronize: true,
         // logging: true,
         // logger: new ORMLogger(),

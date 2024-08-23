@@ -101,7 +101,10 @@ export default async function (c: Context) {
           profile.stats.attributes.quest_manager!.dailyLoginInterval = currentDate;
           profile.stats.attributes.quest_manager!.dailyQuestRerolls += 1;
 
-          const maxDailyQuests = 5;
+          let maxDailyQuests = 5;
+
+          if (uahelper.season < 10) maxDailyQuests = 3;
+
           const currentQuestCount = storage.length;
           const questsToAdd = Math.max(0, maxDailyQuests - currentQuestCount);
 

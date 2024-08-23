@@ -59,13 +59,12 @@ export default async function (c: Context) {
     const { itemIds } = body;
 
     for (const id of itemIds) {
+      console.log(id);
       const questData = await dailyQuestService.getQuest(user.accountId, id);
-      const questInProfile = athena.items[id];
 
-      if (!questData || !questData[id] || !questInProfile)
+      if (!questData || !questData[id])
         return c.json(errors.createError(404, c.req.url, "Quest not found.", timestamp), 404);
 
-      questInProfile.attributes.sent_new_notification = true;
       questData[id].attributes.sent_new_notification = true;
 
       await Promise.all([dailyQuestService.updateQuest(user.accountId, id, questData)]);
