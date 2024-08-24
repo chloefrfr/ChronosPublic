@@ -83,7 +83,7 @@ export default function () {
         return c.json(errors.createError(403, c.req.url, "This user is banned.", timestamp), 403);
 
       const updateHwidIfNeeded = async () => {
-        if (userByHWID && !userByHWID) await updateHwid(user!, deviceId as string);
+        if (userByHWID || !userByHWID) await updateHwid(user!, deviceId as string);
         if (user!.banned && userByHWID && userByHWID?.banned) {
           await updateHwid(user!, deviceId as string);
           return c.json(
@@ -335,7 +335,7 @@ export default function () {
 
     if (uahelper.season !== 2) {
       const userByHWID = await userService.findUserByHWID(deviceId as string);
-      if (userByHWID && !userByHWID) await updateHwid(user, deviceId as string);
+      if (userByHWID || !userByHWID) await updateHwid(user, deviceId as string);
       if (user.banned && userByHWID && userByHWID?.banned) {
         await updateHwid(user, deviceId as string);
         return c.json(

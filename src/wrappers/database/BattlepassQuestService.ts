@@ -40,6 +40,11 @@ export default class BattlepassQuestService {
     );
   }
 
+  async getAll(accountId: string): Promise<BattlepassQuestData[]> {
+    const battlepassQuest = await this.battlepassQuestRepository.findOne({ where: { accountId } });
+    return battlepassQuest ? battlepassQuest.data : [];
+  }
+
   async delete(accountId: string): Promise<DeleteResult> {
     return this.battlepassQuestRepository.delete({ accountId });
   }

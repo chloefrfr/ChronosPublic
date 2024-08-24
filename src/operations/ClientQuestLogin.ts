@@ -83,9 +83,18 @@ export default async function (c: Context) {
     }
 
     const storage = await dailyQuestService.get(user.accountId);
+    const battlepassStorage = await battlepassQuestService.getAll(user.accountId);
+
     if (!storage) {
       return c.json(
         errors.createError(404, c.req.url, "ItemStore 'daily_quest' not found.", timestamp),
+        404,
+      );
+    }
+
+    if (!battlepassStorage) {
+      return c.json(
+        errors.createError(404, c.req.url, "ItemStore 'battlepass_quest' not found.", timestamp),
         404,
       );
     }
@@ -157,6 +166,84 @@ export default async function (c: Context) {
           }
 
           shouldUpdateProfile = true;
+        }
+
+        if (pastSeasons.seasonNumber === config.currentSeason) {
+          storage.map((obj) => {
+            const questKey = Object.keys(obj)[0];
+            const templateId = obj[questKey].templateId;
+
+            const newQuestItem = {
+              changeType: "itemAdded",
+              itemId: templateId,
+              item: {
+                templateId: templateId,
+                attributes: {
+                  creation_time: new Date().toISOString(),
+                  level: -1,
+                  item_seen: false,
+                  playlists: [],
+                  sent_new_notification: true,
+                  challenge_bundle_id: "",
+                  xp_reward_scalar: 1,
+                  challenge_linked_quest_given: "",
+                  quest_pool: "",
+                  quest_state: "Active",
+                  bucket: "",
+                  last_state_change_time: new Date().toISOString(),
+                  challenge_linked_quest_parent: "",
+                  max_level_bonus: 0,
+                  xp: 0,
+                  quest_rarity: "uncommon",
+                  favorite: false,
+                  [obj[questKey].attributes.ObjectiveState[0].Name]:
+                    obj[questKey].attributes.ObjectiveState[0].Value,
+                },
+                quantity: 1,
+              },
+            };
+
+            multiUpdates.push(newQuestItem);
+            shouldUpdateProfile = true;
+          });
+
+          battlepassStorage.map((obj) => {
+            const questKey = Object.keys(obj)[0];
+            const templateId = obj[questKey].templateId;
+
+            const newQuestItem = {
+              changeType: "itemAdded",
+              itemId: templateId,
+              item: {
+                templateId: templateId,
+                attributes: {
+                  creation_time: new Date().toISOString(),
+                  level: -1,
+                  item_seen: false,
+                  playlists: [],
+                  sent_new_notification: true,
+                  challenge_bundle_id: "",
+                  xp_reward_scalar: 1,
+                  challenge_linked_quest_given: "",
+                  quest_pool: "",
+                  quest_state: "Active",
+                  bucket: "",
+                  last_state_change_time: new Date().toISOString(),
+                  challenge_linked_quest_parent: "",
+                  max_level_bonus: 0,
+                  xp: 0,
+                  quest_rarity: "uncommon",
+                  favorite: false,
+                  [obj[questKey].attributes.ObjectiveState[0].BackendName]:
+                    obj[questKey].attributes.ObjectiveState[0].Stage,
+                },
+                quantity: 1,
+              },
+            };
+
+            multiUpdates.push(newQuestItem);
+            shouldUpdateProfile = true;
+          });
         }
       }
     }

@@ -96,8 +96,10 @@ export namespace QuestManager {
 
   async function readAllQuests(folder: string): Promise<void> {
     const files = await fs.readdir(folder);
+
     const fileReadPromises = files.map(async (file) => {
       const filePath = path.join(folder, file);
+
       const stat = await fs.stat(filePath);
 
       if (stat.isDirectory()) {
@@ -118,13 +120,14 @@ export namespace QuestManager {
               ? QuestType.WEEKLY
               : undefined;
 
-            if (type && !listedQuests[type].has(quest.Name)) {
-              listedQuests[type].set(quest.Name, quest);
+            if (type) {
+              if (!listedQuests[type].has(quest.Name)) {
+                listedQuests[type].set(quest.Name, quest);
+              }
             }
           } else {
             const bpQuest = quest as BattlepassQuestDef;
             if (!listedBattlepassQuests.has(bpQuest)) {
-              listedBattlepassQuests.add(bpQuest);
               listedBattlepassQuests.add(bpQuest);
             }
             if (folder.includes("weekly")) {
@@ -156,10 +159,14 @@ export namespace QuestManager {
       const storage = await dailyQuestService.getQuest(accountId, quest.Name);
       const profile = await profilesService.findByAccountId(accountId);
 
-      if (!profile) return false;
+      if (!profile) {
+        return false;
+      }
 
-      return true || !!storage;
+      const isUsed = !!storage;
+      return isUsed;
     } catch (error) {
+      logger.error(`Error checking if quest is used: ${error}`);
       return false;
     }
   }
@@ -167,7 +174,9 @@ export namespace QuestManager {
   export async function getRandomQuest(accountId: string): Promise<DailyQuestDef | undefined> {
     const quests = Array.from(listedQuests[QuestType.REPEATABLE].values());
 
-    if (quests.length === 0) return;
+    if (quests.length === 0) {
+      return;
+    }
 
     const availableQuests = await Promise.all(
       quests.map(async (quest) => ({
@@ -178,9 +187,12 @@ export namespace QuestManager {
 
     const filteredQuests = availableQuests.filter(({ isUsed }) => !isUsed);
 
-    if (filteredQuests.length === 0) return;
+    if (filteredQuests.length === 0) {
+      return;
+    }
 
     const randomIndex = Math.floor(Math.random() * filteredQuests.length);
+    logger.debug(`Randomly selected quest index: ${randomIndex}`);
     return filteredQuests[randomIndex].quest;
   }
 
@@ -188,8 +200,10 @@ export namespace QuestManager {
     let allBPQuests: BattlepassQuestDef[] = [];
 
     const files = await fs.readdir(baseFolder);
+
     const fileReadPromises = files.map(async (file) => {
       const filePath = path.join(baseFolder, file);
+
       const stat = await fs.stat(filePath);
 
       if (stat.isDirectory()) {
@@ -215,6 +229,7 @@ export namespace QuestManager {
   }
 
   export function buildBase(name: string, objectives: DailyQuestObjectives[]) {
+    logger.debug(`Building base for quest: ${name}`);
     return {
       templateId: `Quest:${name}`,
       attributes: {
