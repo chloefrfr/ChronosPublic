@@ -4,6 +4,7 @@ import uaparser from "../utilities/uaparser";
 import errors from "../utilities/errors";
 import {
   accountService,
+  battlepassQuestService,
   config,
   dailyQuestService,
   itemStorageService,

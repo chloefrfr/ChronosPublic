@@ -39,31 +39,8 @@
   "battleroyalenews": {
     "news": {
       "_type": "Battle Royale News",
-      "messages": [
-        {
-          "image": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
-          "hidden": false,
-          "messagetype": "normal",
-          "_type": "CommonUI Simple Message Base",
-          "title": "Arena",
-          "body": "Arena is now available to play!",
-          "spotlight": false
-        }
-      ],
-      "motds": [
-        {
-          "body": "Arena is now available to play!",
-          "entryType": "Playlist",
-          "hidden": false,
-          "id": "542b8798-3649-4166-9eb1-a04329ea8be8",
-          "image": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
-          "playlistId": "Playlist_ShowdownAlt_Solo",
-          "sortingPriority": 1,
-          "spotlight": false,
-          "tileImage": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
-          "title": "Arena"
-        }
-      ],
+      "messages": [],
+      "motds": [],
       "platform_messages": []
     },
     "_title": "battleroyalenews",
@@ -79,20 +56,7 @@
   "battleroyalenewsv2": {
     "news": {
       "_type": "Battle Royale News v2",
-      "motds": [
-        {
-          "body": "Arena is now available to play!",
-          "entryType": "Playlist",
-          "hidden": false,
-          "id": "2707ce7a-a82b-4859-8495-e3e6f4e95610",
-          "image": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
-          "playlistId": "Playlist_ShowdownAlt_Solo",
-          "sortingPriority": 1,
-          "spotlight": false,
-          "tileImage": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
-          "title": "Arena"
-        }
-      ]
+      "motds": []
     },
     "_title": "battleroyalenewsv2",
     "_noIndex": false,

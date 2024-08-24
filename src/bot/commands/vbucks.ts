@@ -11,6 +11,9 @@ import ProfileHelper from "../../utilities/profiles";
 import { Profiles } from "../../tables/profiles";
 import type { LootList } from "./grantall";
 import { SendMessageToId } from "../../sockets/xmpp/utilities/SendMessageToId";
+import RefreshAccount from "../../utilities/refresh";
+import { v4 as uuid } from "uuid";
+import { handleProfileSelection } from "../../operations/QueryProfile";
 
 export default class VbucksCommand extends BaseCommand {
   data = {
@@ -61,7 +64,7 @@ export default class VbucksCommand extends BaseCommand {
 
     const lootList: LootList[] = [];
 
-    const profile = await ProfileHelper.getProfile(account.accountId, "common_core");
+    const profile = await handleProfileSelection("common_core", user.accountId);
     if (!profile) {
       const embed = new EmbedBuilder()
         .setTitle("Failed to find Profile")
@@ -83,22 +86,22 @@ export default class VbucksCommand extends BaseCommand {
 
     profile.stats.attributes.gifts!.push({
       templateId: "GiftBox:GB_MakeGood",
-      attributes: {
-        lootList: lootList,
-      },
-      quntity: 1,
+      fromAccountId: uuid(),
+      templateIdHashed: uuid(),
+      lootList,
+      userMessage: "Thanks for playing Fortnite!",
+      time: new Date().toISOString(),
     });
 
-    await profilesService.update(user.accountId, "common_core", profile);
+    await RefreshAccount(user.accountId, user.username);
 
-    SendMessageToId(
-      JSON.stringify({
-        type: "com.epicgames.gift.received",
-        payload: {},
-        timestamp: new Date().toISOString(),
-      }),
-      user.accountId,
-    );
+    await profilesService.updateMultiple([
+      {
+        accountId: user.accountId,
+        data: profile,
+        type: "common_core",
+      },
+    ]);
 
     const embed = new EmbedBuilder()
       .setTitle("Vbucks Changed")

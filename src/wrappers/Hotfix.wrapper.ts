@@ -2,20 +2,15 @@ import { config } from "..";
 
 export function GetDefaultEngine(): string {
   return `[OnlineSubsystemMcp.Xmpp]
-bUseSSL=false
 Protocol=${config.tcp ? "tcp" : "ws"}
-ServerAddr="ws://127.0.0.1:${config.tcp ? 7777 : 8080}"
-ServerPort=${config.tcp ? 7777 : 8080}
-bPrivateChatFriendsOnly=true
-bResetPingTimeoutOnReceiveStanza=true
+ServerAddr="${config.tcp ? "127.0.0.1" : "ws://127.0.0.1:8080"}"
+ServerPort=${config.tcp ? "7777" : "8080"}
 ${config.tcp ? "bUsePlainTextAuth=true" : ""}
 
-
 [OnlineSubsystemMcp.Xmpp Prod]
-bUseSSL=false
 Protocol=${config.tcp ? "tcp" : "ws"}
-ServerAddr="ws://127.0.0.1:${config.tcp ? 7777 : 8080}"
-ServerPort=${config.tcp ? 7777 : 8080}
+ServerAddr="${config.tcp ? "127.0.0.1" : "ws://127.0.0.1:8080"}"
+ServerPort=${config.tcp ? "7777" : "8080"}
 ${config.tcp ? "bUsePlainTextAuth=true" : ""}
 
 [OnlineSubsystemMcp]
@@ -101,7 +96,7 @@ PingTimeout=3.0
 }
 
 export function GetDefaultGame(version: number): string {
-  const def: string = `[/Script/EngineSettings.GeneralProjectSettings]
+  let def: string = `[/Script/EngineSettings.GeneralProjectSettings]
 ProjectID=(A=-2011270876,B=1182903154,C=-965786730,D=-1399474123)
 ProjectName=Fortnite
 ProjectDisplayedTitle=NSLOCTEXT("Chronos", "FortniteMainWindowTitle", "Chronos")
@@ -144,10 +139,9 @@ ReplayStreamerOverride=FortniteDSSReplayStreamer
 bUsePlayspaceSystem=true
 
 [/Script/FortniteGame.FortGameStateAthena]
+; BR: Whether to allow the player to build through objects that would normally block placement
 bAllowBuildingThroughBlockingObjects=true
 
-[AssetHotfix]
-+CurveTable=/Game/Athena/Balance/DataTables/AthenaGameData;RowUpdate;Default.SafeZone.Damage;0;0
 
 [/Script/FortniteGame.FortGameInstance]
 KairosMinSupportedAppVersion=20
@@ -160,7 +154,7 @@ FrontEndPlaylistData=(PlaylistName=Playlist_DefaultSolo, PlaylistAccess=(bEnable
 
 ; Arena
 +FrontEndPlaylistData=(PlaylistName=Playlist_ShowdownAlt_Solo, PlaylistAccess=(bEnabled=True, bIsDefaultPlaylist=true, bVisibleWhenDisabled=false, bDisplayAsNew=true, CategoryIndex=1, bDisplayAsLimitedTime=false, DisplayPriority=17))
-+FrontEndPlaylistData=(PlaylistName=Playlist_ShowdownAlt_Duos, PlaylistAccess=(bEnabled=False, bIsDefaultPlaylist=true, bVisibleWhenDisabled=true, bDisplayAsNew=true, CategoryIndex=1, bDisplayAsLimitedTime=false, DisplayPriority=19))
++FrontEndPlaylistData=(PlaylistName=Playlist_ShowdownAlt_Duos, PlaylistAccess=(bEnabled=False, bIsDefaultPlaylist=true, bVisibleWhenDisabled=false, bDisplayAsNew=true, CategoryIndex=1, bDisplayAsLimitedTime=false, DisplayPriority=19))
 +ExperimentalBucketPercentList=(ExperimentNum=23,Name="BattlePassPurchaseScreen",BucketPercents=(0, 50, 50))
 
 [/Script/FortniteGame.FortPlayerPawn]
@@ -220,7 +214,7 @@ bLeavePartyOnDisconnect=false
 bSetDesiredPrivacyOnLocalPlayerBecomesLeader=false
 DefaultMaxPartySize=16`;
 
-  if (version > 4 && version <= 10) {
+  if (version === 4) {
     def.replace(
       `+FrontEndPlaylistData=(PlaylistName=Playlist_BattleLab, PlaylistAccess=(bEnabled=False, bIsDefaultPlaylist=false, bVisibleWhenDisabled=true, bDisplayAsNew=false, CategoryIndex=1, bDisplayAsLimitedTime=false, DisplayPriority=16))`,
       `+FrontEndPlaylistData=(PlaylistName=Playlist_Playground, PlaylistAccess=(bEnabled=True, bIsDefaultPlaylist=true, bVisibleWhenDisabled=false, bDisplayAsNew=true, CategoryIndex=1, bDisplayAsLimitedTime=false, DisplayPriority=16))`,

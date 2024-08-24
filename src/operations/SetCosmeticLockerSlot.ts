@@ -55,33 +55,30 @@ export default async function (c: Context) {
   const { itemToSlot, lockerItem, category, slotIndex, variantUpdates } = body;
   const favoriteSlotName = `favorite_${category.toLowerCase()}` as FavoriteSlotName;
 
-  let shouldUpdateProfile: boolean = false;
-  const applyProfileChanges: object[] = [];
+  const itemAttributes = profile.items[itemToSlot]?.attributes || {};
+  const variantsMap = new Map((itemAttributes.variants || []).map((v: Variants) => [v.channel, v]));
+
+  if (variantUpdates) {
+    variantUpdates.forEach((variant: Variants) => {
+      const existingVariant = variantsMap.get(variant.channel);
+      if (existingVariant) {
+        existingVariant.active = variant.active;
+      }
+    });
+  }
+
+  const updatedVariants = Array.from(variantsMap.values());
+  const applyProfileChanges = [];
+  let shouldUpdateProfile = false;
 
   if (profile.items[itemToSlot]) {
-    if (variantUpdates.length > 0 && Array.isArray(variantUpdates)) {
-      variantUpdates.forEach((variant: Variants) => {
-        const { channel, active } = variant;
-        const itemAttributes = profile.items[itemToSlot].attributes;
-
-        const existingVariant = itemAttributes.variants?.find(
-          (v: Variants) => v.channel === channel,
-        );
-
-        if (!existingVariant) return;
-
-        if (existingVariant.owned.includes(active)) return;
-
-        existingVariant.active = active;
-      });
-
-      applyProfileChanges.push({
-        changeType: "itemAttrChanged",
-        itemId: itemToSlot,
-        attributeName: "variants",
-        attributeValue: profile.items[itemToSlot].attributes.variants,
-      });
-    }
+    applyProfileChanges.push({
+      changeType: "itemAttrChanged",
+      itemId: itemToSlot,
+      attributeName: "variants",
+      attributeValue: updatedVariants,
+    });
+    shouldUpdateProfile = true;
   }
 
   const updateFavoriteSlot = (slotName: string, items: any[]) => {

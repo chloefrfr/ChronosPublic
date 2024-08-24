@@ -5,6 +5,7 @@ import TokenUtilities from "../utilities/tokens";
 import { v4 as uuid } from "uuid";
 import jwt, { decode, type JwtPayload } from "jsonwebtoken";
 import crypto from "node:crypto";
+import uaparser from "../utilities/uaparser";
 
 export function validateBase64(input: string) {
   return /^[A-Za-z0-9+/]*={0,2}$/.test(input);
@@ -28,6 +29,7 @@ export default function () {
   app.post("/account/api/oauth/token", async (c) => {
     const tokenHeader = c.req.header("Authorization");
     const timestamp = new Date().toISOString();
+    const uahelper = uaparser(c.req.header("User-Agent"));
 
     if (!tokenHeader)
       return c.json(errors.createError(400, c.req.url, "Invalid Headers.", timestamp), 400);
@@ -45,7 +47,17 @@ export default function () {
       return c.json(errors.createError(400, c.req.url, "Invalid body.", timestamp), 400);
     }
 
-    const deviceId = c.req.header("X-Epic-Device-ID");
+    if (!uahelper) {
+      return c.json(
+        errors.createError(400, c.req.url, "Failed to parse User-Agent.", timestamp),
+        400,
+      );
+    }
+
+    let deviceId = null;
+    if (uahelper.season !== 2) {
+      deviceId = c.req.header("X-Epic-Device-ID");
+    }
 
     let { grant_type } = body;
 
@@ -54,175 +66,283 @@ export default function () {
     if (!clientId)
       return c.json(errors.createError(400, c.req.url, "Invalid client.", timestamp), 400);
 
-    if (!deviceId)
-      return c.json(errors.createError(400, c.req.url, "No 'HWID' provided.", timestamp), 400);
+    if (uahelper.season !== 2) {
+      if (!deviceId)
+        return c.json(errors.createError(400, c.req.url, "No 'HWID' provided.", timestamp), 400);
 
-    if (!validateHWID(deviceId))
-      return c.json(errors.createError(400, c.req.url, "Invalid HWID format.", timestamp), 400);
+      if (!validateHWID(deviceId))
+        return c.json(errors.createError(400, c.req.url, "Invalid HWID format.", timestamp), 400);
+    }
 
     let user: User | null;
 
-    const userByHWID = await userService.findUserByHWID(deviceId);
+    if (uahelper.season !== 2) {
+      const userByHWID = await userService.findUserByHWID(deviceId as string);
 
-    if (userByHWID && userByHWID.banned)
-      return c.json(errors.createError(403, c.req.url, "This user is banned.", timestamp), 403);
+      if (userByHWID && userByHWID.banned)
+        return c.json(errors.createError(403, c.req.url, "This user is banned.", timestamp), 403);
 
-    switch (grant_type) {
-      case "password":
-        const { username, password } = body;
-
-        if (!password || !username)
-          return c.json(
-            errors.createError(400, c.req.url, "username or password is missing.", timestamp),
-            400,
-          );
-
-        user = await userService.findUserByEmail(username as string);
-
-        if (!user)
-          return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
-
-        if (user.banned)
-          return c.json(errors.createError(403, c.req.url, "This user is banned.", timestamp), 403);
-
-        if (!(await Bun.password.verify(password as string, user.password)))
-          return c.json(
-            errors.createError(400, c.req.url, "Invalid account credentials.", timestamp),
-            400,
-          );
-
-        if (userByHWID || !userByHWID) await updateHwid(user, deviceId);
-
-        if (user.banned && userByHWID && userByHWID?.banned) {
-          await updateHwid(user, deviceId);
-
+      const updateHwidIfNeeded = async () => {
+        if (userByHWID && !userByHWID) await updateHwid(user!, deviceId as string);
+        if (user!.banned && userByHWID && userByHWID?.banned) {
+          await updateHwid(user!, deviceId as string);
           return c.json(
             errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
             403,
           );
         }
+      };
 
-        break;
+      switch (grant_type) {
+        case "password":
+          const { username, password } = body;
 
-      case "client_credentials":
-        const token = jwt.sign(
-          {
-            p: crypto.randomBytes(128).toString("base64"),
-            clsvc: "fortnite",
-            t: "s",
-            mver: false,
-            clid: clientId,
-            ic: true,
-            exp: Math.floor(Date.now() / 1000) + 240 * 240,
-            am: "client_credentials",
-            iat: Math.floor(Date.now() / 1000),
-            jti: crypto.randomBytes(32).toString("hex"),
-            creation_date: new Date().toISOString(),
-            expires_in: 1,
-          },
-          config.client_secret,
-        );
+          if (!password || !username)
+            return c.json(
+              errors.createError(400, c.req.url, "username or password is missing.", timestamp),
+              400,
+            );
 
-        return c.json({
-          access_token: `eg1~${token}`,
-          expires_in: 3600,
-          expires_at: new Date(Date.now() + 3600 * 1000).toISOString(),
-          token_type: "bearer",
-          client_id: clientId,
-          internal_client: true,
-          client_service: "fortnite",
-        });
+          user = await userService.findUserByEmail(username as string);
 
-      case "exchange_code":
-        const { exchange_code } = body;
+          if (!user)
+            return c.json(
+              errors.createError(404, c.req.url, "Failed to find user.", timestamp),
+              404,
+            );
 
-        if (!exchange_code)
-          return c.json(
-            errors.createError(400, c.req.url, "Missing body 'exchange_code'", timestamp),
-            400,
+          if (user.banned)
+            return c.json(
+              errors.createError(403, c.req.url, "This user is banned.", timestamp),
+              403,
+            );
+
+          if (!(await Bun.password.verify(password as string, user.password)))
+            return c.json(
+              errors.createError(400, c.req.url, "Invalid account credentials.", timestamp),
+              400,
+            );
+
+          await updateHwidIfNeeded();
+          break;
+
+        case "client_credentials":
+          const token = jwt.sign(
+            {
+              p: crypto.randomBytes(128).toString("base64"),
+              clsvc: "fortnite",
+              t: "s",
+              mver: false,
+              clid: clientId,
+              ic: true,
+              exp: Math.floor(Date.now() / 1000) + 240 * 240,
+              am: "client_credentials",
+              iat: Math.floor(Date.now() / 1000),
+              jti: crypto.randomBytes(32).toString("hex"),
+              creation_date: new Date().toISOString(),
+              expires_in: 1,
+            },
+            config.client_secret,
           );
 
-        const userToken = jwt.verify(exchange_code as string, config.client_secret) as JwtPayload;
+          return c.json({
+            access_token: `eg1~${token}`,
+            expires_in: 3600,
+            expires_at: new Date(Date.now() + 3600 * 1000).toISOString(),
+            token_type: "bearer",
+            client_id: clientId,
+            internal_client: true,
+            client_service: "fortnite",
+          });
 
-        if (!userToken)
-          return c.json(errors.createError(404, c.req.url, "Invalid Token.", timestamp), 404);
+        case "exchange_code":
+          const { exchange_code } = body;
 
-        user = await userService.findUserByAccountId(userToken.sub as string);
+          if (!exchange_code)
+            return c.json(
+              errors.createError(400, c.req.url, "Missing body 'exchange_code'", timestamp),
+              400,
+            );
 
-        if (!user)
-          return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
+          const userToken = jwt.verify(exchange_code as string, config.client_secret) as JwtPayload;
 
-        if (userByHWID && !userByHWID) await updateHwid(user, deviceId);
+          if (!userToken)
+            return c.json(errors.createError(404, c.req.url, "Invalid Token.", timestamp), 404);
 
-        if (user.banned && userByHWID && userByHWID?.banned) {
-          await updateHwid(user, deviceId);
+          user = await userService.findUserByAccountId(userToken.sub as string);
 
-          return c.json(
-            errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
-            403,
+          if (!user)
+            return c.json(
+              errors.createError(404, c.req.url, "Failed to find user.", timestamp),
+              404,
+            );
+
+          await updateHwidIfNeeded();
+          break;
+
+        case "refresh_token":
+          const { refresh_token } = body;
+
+          if (!refresh_token)
+            return c.json(
+              errors.createError(400, c.req.url, "Missing body 'refresh_token'", timestamp),
+              400,
+            );
+
+          const cleanedRefreshToken = refresh_token.toString().replace("eg1~", "");
+
+          const refreshToken = await tokensService.getToken(cleanedRefreshToken);
+          if (!refreshToken)
+            return c.json(
+              errors.createError(400, c.req.url, "Invalid Refresh Token.", timestamp),
+              400,
+            );
+
+          user = await userService.findUserByAccountId(refreshToken.accountId);
+          if (!user)
+            return c.json(
+              errors.createError(404, c.req.url, "Failed to find user.", timestamp),
+              404,
+            );
+
+          await updateHwidIfNeeded();
+          break;
+
+        default:
+          logger.warn(`Missing GrantType: ${grant_type}`);
+          return c.json(errors.createError(400, c.req.url, "Invalid Grant.", timestamp), 400);
+      }
+    } else {
+      switch (grant_type) {
+        case "password":
+          const { username, password } = body;
+
+          if (!password || !username)
+            return c.json(
+              errors.createError(400, c.req.url, "username or password is missing.", timestamp),
+              400,
+            );
+
+          user = await userService.findUserByEmail(username as string);
+
+          if (!user)
+            return c.json(
+              errors.createError(404, c.req.url, "Failed to find user.", timestamp),
+              404,
+            );
+
+          if (user.banned)
+            return c.json(
+              errors.createError(403, c.req.url, "This user is banned.", timestamp),
+              403,
+            );
+
+          if (!(await Bun.password.verify(password as string, user.password)))
+            return c.json(
+              errors.createError(400, c.req.url, "Invalid account credentials.", timestamp),
+              400,
+            );
+          break;
+
+        case "client_credentials":
+          const token = jwt.sign(
+            {
+              p: crypto.randomBytes(128).toString("base64"),
+              clsvc: "fortnite",
+              t: "s",
+              mver: false,
+              clid: clientId,
+              ic: true,
+              exp: Math.floor(Date.now() / 1000) + 240 * 240,
+              am: "client_credentials",
+              iat: Math.floor(Date.now() / 1000),
+              jti: crypto.randomBytes(32).toString("hex"),
+              creation_date: new Date().toISOString(),
+              expires_in: 1,
+            },
+            config.client_secret,
           );
-        }
 
-        break;
+          return c.json({
+            access_token: `eg1~${token}`,
+            expires_in: 3600,
+            expires_at: new Date(Date.now() + 3600 * 1000).toISOString(),
+            token_type: "bearer",
+            client_id: clientId,
+            internal_client: true,
+            client_service: "fortnite",
+          });
 
-      case "refresh_token":
-        const { refresh_token } = body;
+        case "exchange_code":
+          const { exchange_code } = body;
 
-        if (!refresh_token)
-          return c.json(
-            errors.createError(400, c.req.url, "Missing body 'refresh_token'", timestamp),
-            400,
-          );
+          if (!exchange_code)
+            return c.json(
+              errors.createError(400, c.req.url, "Missing body 'exchange_code'", timestamp),
+              400,
+            );
 
-        const cleanedRefreshToken = refresh_token.toString().replace("eg1~", "");
+          const userToken = jwt.verify(exchange_code as string, config.client_secret) as JwtPayload;
 
-        const refreshToken = await tokensService.getToken(cleanedRefreshToken);
-        if (!refreshToken)
-          return c.json(
-            errors.createError(400, c.req.url, "Invalid Refresh Token.", timestamp),
-            400,
-          );
+          if (!userToken)
+            return c.json(errors.createError(404, c.req.url, "Invalid Token.", timestamp), 404);
 
-        user = await userService.findUserByAccountId(refreshToken.accountId);
-        if (!user)
-          return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
+          user = await userService.findUserByAccountId(userToken.sub as string);
 
-        if (userByHWID && !userByHWID) await updateHwid(user, deviceId);
+          if (!user)
+            return c.json(
+              errors.createError(404, c.req.url, "Failed to find user.", timestamp),
+              404,
+            );
 
-        if (userByHWID && userByHWID!.banned) {
-          await updateHwid(user, deviceId);
+          break;
 
-          return c.json(
-            errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
-            403,
-          );
-        }
+        case "refresh_token":
+          const { refresh_token } = body;
 
-        if (user.banned)
-          return c.json(
-            errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
-            403,
-          );
+          if (!refresh_token)
+            return c.json(
+              errors.createError(400, c.req.url, "Missing body 'refresh_token'", timestamp),
+              400,
+            );
 
-        break;
+          const cleanedRefreshToken = refresh_token.toString().replace("eg1~", "");
 
-      default:
-        logger.warn(`Missing GrantType: ${grant_type}`);
-        return c.json(errors.createError(400, c.req.url, "Invalid Grant.", timestamp), 400);
+          const refreshToken = await tokensService.getToken(cleanedRefreshToken);
+          if (!refreshToken)
+            return c.json(
+              errors.createError(400, c.req.url, "Invalid Refresh Token.", timestamp),
+              400,
+            );
+
+          user = await userService.findUserByAccountId(refreshToken.accountId);
+          if (!user)
+            return c.json(
+              errors.createError(404, c.req.url, "Failed to find user.", timestamp),
+              404,
+            );
+
+          break;
+
+        default:
+          logger.warn(`Missing GrantType: ${grant_type}`);
+          return c.json(errors.createError(400, c.req.url, "Invalid Grant.", timestamp), 400);
+      }
     }
 
     if (!user)
       return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
-    if (userByHWID && !userByHWID) await updateHwid(user, deviceId);
-
-    if (user.banned && userByHWID && userByHWID?.banned) {
-      await updateHwid(user, deviceId);
-
-      return c.json(
-        errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
-        403,
-      );
+    if (uahelper.season !== 2) {
+      const userByHWID = await userService.findUserByHWID(deviceId as string);
+      if (userByHWID && !userByHWID) await updateHwid(user, deviceId as string);
+      if (user.banned && userByHWID && userByHWID?.banned) {
+        await updateHwid(user, deviceId as string);
+        return c.json(
+          errors.createError(403, c.req.url, "This user is currently banned.", timestamp),
+          403,
+        );
+      }
     }
 
     await tokensService.deleteByType(user.accountId, "accesstoken");

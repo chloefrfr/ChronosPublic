@@ -54,12 +54,14 @@ export default async function (c: Context) {
       (itemAttributes.variants || []).map((v: Variants) => [v.channel, v]),
     );
 
-    variantUpdates.forEach((variant: Variants) => {
-      const existingVariant = variantsMap.get(variant.channel);
-      if (existingVariant) {
-        existingVariant.active = variant.active;
-      }
-    });
+    if (variantUpdates) {
+      variantUpdates.forEach((variant: Variants) => {
+        const existingVariant = variantsMap.get(variant.channel);
+        if (existingVariant) {
+          existingVariant.active = variant.active;
+        }
+      });
+    }
 
     const updatedVariants = Array.from(variantsMap.values());
     const applyProfileChanges = [];

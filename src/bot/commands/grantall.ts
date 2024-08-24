@@ -13,6 +13,7 @@ import { Account } from "../../tables/account";
 import ProfileHelper from "../../utilities/profiles";
 import { User } from "../../tables/user";
 import { SendMessageToId } from "../../sockets/xmpp/utilities/SendMessageToId";
+import RefreshAccount from "../../utilities/refresh";
 
 export interface Gifts {
   templateId: string;
@@ -112,14 +113,7 @@ export default class GrantAllCommand extends BaseCommand {
         .where("accountId = :accountId", { accountId: user.accountId })
         .execute();
 
-      SendMessageToId(
-        JSON.stringify({
-          type: "com.epicgames.gift.received",
-          payload: {},
-          timestamp: new Date().toISOString(),
-        }),
-        user.accountId,
-      );
+      await RefreshAccount(user.accountId, user.username);
 
       const embed = new EmbedBuilder()
         .setTitle("Success")

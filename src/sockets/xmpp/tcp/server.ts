@@ -16,25 +16,25 @@ tcpServer.on("connection", (socket) => {
   socket.on("data", async (message: Buffer | string) => {
     if (Buffer.isBuffer(message)) message = message.toString();
 
+    logger.info(`Data: ${message.toString()}`);
+
     const msg = xmlparser(message);
     const root = msg.root ? msg.root.name : "";
 
-    logger.info(root);
+    logger.info(`Root: ${root}`);
 
     switch (root) {
       case "stream:stream":
         stream(socket, message);
-        isAuthenticated = true;
         break;
       case "starttls":
-        isAuthenticated = true;
         starttls(socket, isAuthenticated, message);
         break;
-      case "auth":
-        logger.debug("Auth");
-        isAuthenticated = true;
+
+      case "":
+        socket.write(message);
         break;
- 
+
       default:
         logger.warn(`Missing root: ${root}`);
         break;

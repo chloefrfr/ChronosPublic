@@ -8,6 +8,7 @@ import {
 import BaseCommand from "../base/Base";
 import { userService } from "../..";
 import rotate from "../../shop/rotate/rotate";
+import RefreshAccount from "../../utilities/refresh";
 
 export default class RotateCommand extends BaseCommand {
   data = {
