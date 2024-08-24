@@ -22,6 +22,7 @@ import type { LootList } from "../bot/commands/grantall";
 import { v4 as uuid } from "uuid";
 import { handleProfileSelection } from "./QueryProfile";
 import { SendMessageToId } from "../sockets/xmpp/utilities/SendMessageToId";
+import RefreshAccount from "../utilities/refresh";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -299,28 +300,7 @@ export default async function (c: Context) {
         quantity: 1,
       });
 
-      if (uahelper.season >= 1 && uahelper.season <= 9) {
-        profile.items[uuid()] = {
-          templateId: "GiftBox:GB_MakeGood",
-          attributes: {
-            fromAccountId: "Server",
-            lootList,
-            params: {
-              userMessage: "Thanks for playing!",
-            },
-          },
-          quantity: 1,
-        };
-      }
-
-      SendMessageToId(
-        JSON.stringify({
-          payload: {},
-          type: "com.epicgames.gift.received",
-          timestamp: now.toISOString(),
-        }),
-        user.accountId,
-      );
+      await RefreshAccount(user.accountId, user.username);
     }
 
     if (shouldUpdateProfile) {
