@@ -1,4 +1,4 @@
-import type { DeleteResult, Repository, EntityManager } from "typeorm";
+import type { DeleteResult, Repository } from "typeorm";
 import type Database from "../Database.wrapper";
 import {
   BattlepassQuest,
@@ -14,16 +14,21 @@ export default class BattlepassQuestService {
 
   async add(accountId: string, data: BattlepassQuestData[]): Promise<void> {
     await this.battlepassQuestRepository.manager.transaction(async (entityManager) => {
-      let battlepassQuest = await entityManager.findOne(BattlepassQuest, { where: { accountId } });
+      const existingQuest = await entityManager.findOne(BattlepassQuest, { where: { accountId } });
 
-      if (!battlepassQuest) {
-        battlepassQuest = new BattlepassQuest();
-        battlepassQuest.accountId = accountId;
-        battlepassQuest.data = data;
-        await entityManager.save(battlepassQuest);
+      if (!existingQuest) {
+        await entityManager.insert(BattlepassQuest, {
+          accountId,
+          data,
+        });
       } else {
-        battlepassQuest.data.push(...data);
-        await entityManager.update(BattlepassQuest, { accountId }, { data: battlepassQuest.data });
+        await entityManager.update(
+          BattlepassQuest,
+          { accountId },
+          {
+            data: [...existingQuest.data, ...data],
+          },
+        );
       }
     });
   }
@@ -42,21 +47,36 @@ export default class BattlepassQuestService {
 
   async getAll(accountId: string): Promise<BattlepassQuestData[]> {
     const battlepassQuest = await this.battlepassQuestRepository.findOne({ where: { accountId } });
-    return battlepassQuest ? battlepassQuest.data : [];
+    return battlepassQuest?.data || [];
   }
 
   async delete(accountId: string): Promise<DeleteResult> {
     return this.battlepassQuestRepository.delete({ accountId });
   }
 
+  async update(accountId: string, updatedQuest: BattlepassQuestData): Promise<void> {
+    await this.battlepassQuestRepository.manager.transaction(async (entityManager) => {
+      const battlepassQuest = await entityManager.findOne(BattlepassQuest, {
+        where: { accountId },
+      });
+
+      if (battlepassQuest) {
+        const updatedData = battlepassQuest.data.map((quest) =>
+          quest.templateId === updatedQuest.templateId ? updatedQuest : quest,
+        );
+        await entityManager.update(BattlepassQuest, { accountId }, { data: updatedData });
+      }
+    });
+  }
+
   async updateMultiple(accountId: string, newData: BattlepassQuestData[]): Promise<void> {
     await this.battlepassQuestRepository.manager.transaction(async (entityManager) => {
       await entityManager.delete(BattlepassQuest, { accountId });
 
-      const battlepassQuest = new BattlepassQuest();
-      battlepassQuest.accountId = accountId;
-      battlepassQuest.data = newData;
-      await entityManager.save(battlepassQuest);
+      await entityManager.insert(BattlepassQuest, {
+        accountId,
+        data: newData,
+      });
     });
   }
 }

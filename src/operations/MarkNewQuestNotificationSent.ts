@@ -1,5 +1,12 @@
 import type { Context } from "hono";
-import { accountService, dailyQuestService, logger, profilesService, userService } from "..";
+import {
+  accountService,
+  battlepassQuestService,
+  dailyQuestService,
+  logger,
+  profilesService,
+  userService,
+} from "..";
 import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
 import ProfileHelper from "../utilities/profiles";
@@ -55,23 +62,45 @@ export default async function (c: Context) {
     }
 
     let shouldUpdateProfile: boolean = false;
+    const applyProfileChanges: object[] = [];
 
     const { itemIds } = body;
 
     for (const id of itemIds) {
-      const questData = await dailyQuestService.getQuest(user.accountId, id);
+      const dailyQuest = await dailyQuestService.getQuest(user.accountId, id);
+      const battlepassQuests = await battlepassQuestService.get(user.accountId, id);
 
-      if (!questData)
-        return c.json(
-          errors.createError(404, c.req.url, `Quest '${id}' not found.`, timestamp),
-          404,
-        );
+      if (dailyQuest) {
+        dailyQuest.attributes.sent_new_notification = true;
+        profile.items[id].attributes.sent_new_notification = true;
 
-      questData.attributes.sent_new_notification = true;
+        await Promise.all([dailyQuestService.updateQuest(user.accountId, id, dailyQuest)]);
 
-      await Promise.all([dailyQuestService.updateQuest(user.accountId, id, questData)]);
+        applyProfileChanges.push({
+          changeType: "itemAttrChanged",
+          itemId: id,
+          attributeNam: "sent_new_notification",
+          attributeValue: true,
+        });
 
-      shouldUpdateProfile = true;
+        shouldUpdateProfile = true;
+      }
+
+      if (battlepassQuests) {
+        battlepassQuests[id].attributes.sent_new_notification = true;
+        profile.items[id].attributes.sent_new_notification = true;
+
+        await Promise.all([battlepassQuestService.update(user.accountId, battlepassQuests)]);
+
+        applyProfileChanges.push({
+          changeType: "itemAttrChanged",
+          itemId: id,
+          attributeNam: "sent_new_notification",
+          attributeValue: true,
+        });
+
+        shouldUpdateProfile = true;
+      }
     }
 
     if (shouldUpdateProfile) {
@@ -79,7 +108,13 @@ export default async function (c: Context) {
       profile.commandRevision += 1;
       profile.updatedAt = new Date().toISOString();
 
-      await Promise.all([profilesService.update(user.accountId, "athena", athena)]);
+      await profilesService.updateMultiple([
+        {
+          type: "athena",
+          accountId: user.accountId,
+          data: profile,
+        },
+      ]);
     }
 
     return c.json(MCPResponses.generate(profile, [], profileId));
