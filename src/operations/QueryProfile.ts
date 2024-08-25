@@ -1,12 +1,21 @@
 import type { Context } from "hono";
-import { userService, accountService, logger, profilesService } from "..";
+import {
+  userService,
+  accountService,
+  logger,
+  profilesService,
+  config,
+  dailyQuestService,
+  battlepassQuestService,
+} from "..";
 import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
 import ProfileHelper from "../utilities/profiles";
 import MCPResponses from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
 import { LRUCache } from "lru-cache";
-import type { IProfile } from "../../types/profilesdefs";
+import type { IProfile, ItemValue } from "../../types/profilesdefs";
+import axios from "axios";
 
 const profileCache = new LRUCache<string, { data: any; timestamp: number }>({
   max: 1000,
@@ -120,8 +129,6 @@ export default async function (c: Context) {
         404,
       );
 
-    logger.debug(`requested profileId: ${profileId}`);
-
     switch (profileId) {
       case "athena":
         profile.stats.attributes.season_num = uahelper.season;
@@ -153,6 +160,55 @@ export default async function (c: Context) {
           attributes.season!.numWins = currentSeason.numWins;
           attributes.season!.numLowBracket = currentSeason.numLowBracket;
           attributes.season!.numHighBracket = currentSeason.numHighBracket;
+
+          if (currentSeason.seasonNumber === config.currentSeason) {
+            try {
+              const allDailyQuests = await dailyQuestService.get(user.accountId);
+              const allBattlepassQuests = await battlepassQuestService.getAll(user.accountId);
+
+              const updatedItems: {
+                [key: string]: {
+                  templateId: string;
+                  attributes: Partial<ItemValue>;
+                  quantity: number;
+                };
+              } = {};
+
+              for (const quests of allDailyQuests) {
+                const keys = Object.keys(quests);
+
+                for (const quest of keys) {
+                  if (!profile.items[quest]) {
+                    updatedItems[quest] = quests[quest];
+                  }
+                }
+              }
+
+              for (const quests of allBattlepassQuests) {
+                const keys = Object.keys(quests);
+
+                for (const quest of keys) {
+                  if (!profile.items[quest]) {
+                    profile.items[quest] = quests[quest];
+                  }
+                }
+              }
+
+              if (Object.keys(updatedItems).length > 0) {
+                profile.items = { ...profile.items, ...updatedItems };
+
+                await profilesService.updateMultiple([
+                  {
+                    accountId: user.accountId,
+                    type: "athena",
+                    data: profile,
+                  },
+                ]);
+              }
+            } catch (error) {
+              logger.error(`Error updating profile: ${error}`);
+            }
+          }
         } else {
           past_seasons.push({
             seasonNumber: attributes.season_num as number,

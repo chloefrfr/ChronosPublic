@@ -10,6 +10,8 @@ import MCPResponses from "../utilities/responses";
 import { BattlepassManager } from "../utilities/managers/BattlepassManager";
 import { servers } from "../sockets/matchmaker/server";
 import { SendMessageToId } from "../sockets/xmpp/utilities/SendMessageToId";
+import { handleProfileSelection } from "../operations/QueryProfile";
+import RefreshAccount from "../utilities/refresh";
 
 export default function () {
   app.post("/gamesessions/setStatus", Validation.verifyBasicToken, async (c) => {
@@ -62,8 +64,8 @@ export default function () {
         return c.json(errors.createError(404, c.req.url, "User not found!", timestamp), 404);
 
       const [common_core, athena] = await Promise.all([
-        ProfileHelper.getProfile(user.accountId, "common_core"),
-        ProfileHelper.getProfile(user.accountId, "athena"),
+        handleProfileSelection("common_core", user.accountId),
+        handleProfileSelection("athena", user.accountId),
       ]);
 
       if (!common_core)
@@ -111,6 +113,8 @@ export default function () {
         await profilesService.update(user.accountId, "common_core", common_core);
         await profilesService.update(user.accountId, "athena", athena);
 
+        await RefreshAccount(user.accountId, user.username);
+
         return c.json(MCPResponses.generate(common_core, changes, "common_core"));
       } catch (error) {
         return c.json({ error: `Internal Server Error: ${error}` }, 500);
@@ -131,7 +135,7 @@ export default function () {
           return c.json(errors.createError(404, c.req.url, "User not found!", timestamp), 404);
         }
 
-        const athena = await ProfileHelper.getProfile(user.accountId, "athena");
+        const athena = await handleProfileSelection("athena", user.accountId);
         if (!athena) {
           return c.json(
             errors.createError(404, c.req.url, "Profile 'athena' was not found!", timestamp),
@@ -139,7 +143,7 @@ export default function () {
           );
         }
 
-        const common_core = await ProfileHelper.getProfile(user.accountId, "common_core");
+        const common_core = await handleProfileSelection("common_core", user.accountId);
         if (!common_core) {
           return c.json(
             errors.createError(404, c.req.url, "Profile 'common_core' was not found!", timestamp),
@@ -279,15 +283,6 @@ export default function () {
                 },
                 quantity: 1,
               });
-
-              SendMessageToId(
-                JSON.stringify({
-                  payload: {},
-                  type: "com.epicgames.gift.received",
-                  timestamp: new Date().toISOString(),
-                }),
-                user.accountId,
-              );
             }
 
             attributes.level = updater.pastSeasons.seasonLevel;
@@ -303,20 +298,16 @@ export default function () {
               xp: attributes.xp,
               last_xp_interaction: attributes.last_xp_interaction,
             });
+
+            await RefreshAccount(user.accountId, user.username);
           }
         }
 
         await profilesService.update(user.accountId, "athena", athena);
         await profilesService.update(user.accountId, "common_core", common_core);
 
-        SendMessageToId(
-          JSON.stringify({
-            type: "com.epicgames.gift.received",
-            payload: {},
-            timestamp: new Date().toISOString(),
-          }),
-          user.accountId,
-        );
+        await RefreshAccount(user.accountId, user.username);
+
         return c.json(MCPResponses.generate(athena, changes, "athena"));
       } catch (error) {
         return c.json(errors.createError(500, c.req.url, "Internal Server Error", timestamp), 500);

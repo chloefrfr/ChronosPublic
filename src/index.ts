@@ -34,7 +34,7 @@ export const logger = new Logger(LogLevel.DEBUG);
 export const config = new Config().getConfig();
 
 app.use("*", cors());
-app.use(httplogging());
+// app.use(httplogging());
 
 app.notFound((c) =>
   c.json(

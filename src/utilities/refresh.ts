@@ -1,11 +1,11 @@
 import fetch from "node-fetch";
 import https from "https";
-import { logger } from "..";
+import { config, logger } from "..";
 
 export default async function RefreshAccount(accountId: string, username: string) {
   try {
     const response = await fetch(
-      `http://127.0.0.1:5555/fortnite/api/game/v3/profile/${accountId}/client/emptygift`,
+      `http://127.0.0.1:${config.port}/fortnite/api/game/v3/profile/${accountId}/client/emptygift`,
       {
         method: "POST",
         headers: {

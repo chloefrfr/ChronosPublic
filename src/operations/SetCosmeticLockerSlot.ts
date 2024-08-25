@@ -1,12 +1,13 @@
 import type { Context } from "hono";
 import type { ProfileId } from "../utilities/responses";
 import errors from "../utilities/errors";
-import { accountService, app, logger, profilesService, userService } from "..";
+import { accountService, app, config, logger, profilesService, userService } from "..";
 import ProfileHelper from "../utilities/profiles";
 import { Profiles } from "../tables/profiles";
 import MCPResponses from "../utilities/responses";
 import type { FavoriteSlotName, Variants } from "../../types/profilesdefs";
 import { handleProfileSelection } from "./QueryProfile";
+import axios from "axios";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");

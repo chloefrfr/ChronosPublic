@@ -23,6 +23,7 @@ import type { Variants } from "../../types/profilesdefs";
 import { QuestManager, QuestType, type Objectives } from "../utilities/managers/QuestManager";
 import { object } from "zod";
 import RefreshAccount from "../utilities/refresh";
+import { handleProfileSelection } from "./QueryProfile";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -64,8 +65,8 @@ export default async function (c: Context) {
     }
 
     const [common_core, athena] = await Promise.all([
-      ProfileHelper.getProfile(user.accountId, "common_core"),
-      ProfileHelper.getProfile(user.accountId, "athena"),
+      handleProfileSelection("common_core", user.accountId),
+      handleProfileSelection("athena", user.accountId),
     ]);
 
     if (!common_core || !athena) {
@@ -735,8 +736,6 @@ export default async function (c: Context) {
                     owned: [reward.value],
                   });
                 }
-
-                console.log(athena.items[templateId].attributes.variants);
 
                 applyProfileChanges.push({
                   changeType: "itemAttrChanged",

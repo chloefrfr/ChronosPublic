@@ -27,7 +27,7 @@ export default class ProfilesService {
     this.profilesRepository = database.getRepository(Profiles);
     this.cache = new LRUCache<string, Profiles>({
       max: 1000,
-      ttl: 100,
+      ttl: 5 * 60 * 1000, // 5 minutes TTL for cache
     });
   }
 
@@ -129,12 +129,12 @@ export default class ProfilesService {
       if (existingProfile.length === 0) {
         profile = await queryRunner.query(
           `INSERT INTO profiles ("accountId", "${type}") VALUES ($1, $2) RETURNING *`,
-          [accountId, data],
+          [accountId, JSON.stringify(data)],
         );
       } else {
         profile = await queryRunner.query(
           `UPDATE profiles SET "${type}" = $2 WHERE "accountId" = $1 RETURNING *`,
-          [accountId, data],
+          [accountId, JSON.stringify(data)],
         );
       }
 
@@ -234,9 +234,7 @@ export default class ProfilesService {
               [updateType]: data,
             } as Profiles;
 
-            if (this.cache && updatedProfile) {
-              this.cache.set(key, updatedProfile);
-            }
+            this.cache.set(key, updatedProfile);
           }
         }
       });

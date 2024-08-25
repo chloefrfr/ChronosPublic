@@ -309,8 +309,11 @@ interface GiftParameters {
 }
 
 interface ObjectiveState {
-  Name: string;
-  Value: number;
+  Name?: string;
+  Value?: number;
+  BackendName?: string;
+  Count?: number;
+  Stage?: number;
 }
 
 export interface ItemValue {

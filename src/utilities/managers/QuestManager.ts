@@ -2,6 +2,7 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import { dailyQuestService, logger, profilesService } from "../..";
 import Config from "../../wrappers/Env.wrapper";
+import { handleProfileSelection } from "../../operations/QueryProfile";
 
 interface DailyQuestDef {
   Type: string;
@@ -157,14 +158,30 @@ export namespace QuestManager {
   export async function isQuestUsed(quest: DailyQuestDef, accountId: string): Promise<boolean> {
     try {
       const storage = await dailyQuestService.getQuest(accountId, quest.Name);
-      const profile = await profilesService.findByAccountId(accountId);
 
+      const profile = await profilesService.findByAccountId(accountId);
       if (!profile) {
         return false;
       }
 
-      const isUsed = !!storage;
-      return isUsed;
+      const profileQuests = await handleProfileSelection("athena", accountId);
+      if (!profileQuests || !profileQuests.items) {
+        return false;
+      }
+
+      if (!profileQuests.items[quest.Name]) return false;
+
+      delete profileQuests.items[quest.Name];
+
+      await profilesService.updateMultiple([
+        {
+          accountId,
+          data: profileQuests,
+          type: "athena",
+        },
+      ]);
+
+      return !!storage;
     } catch (error) {
       logger.error(`Error checking if quest is used: ${error}`);
       return false;

@@ -4,7 +4,6 @@ import uaparser from "../utilities/uaparser";
 import errors from "../utilities/errors";
 import {
   accountService,
-  battlepassQuestService,
   config,
   dailyQuestService,
   itemStorageService,
@@ -22,7 +21,6 @@ import type { LootList } from "../bot/commands/grantall";
 import { v4 as uuid } from "uuid";
 import { handleProfileSelection } from "./QueryProfile";
 import { SendMessageToId } from "../sockets/xmpp/utilities/SendMessageToId";
-import RefreshAccount from "../utilities/refresh";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -84,18 +82,9 @@ export default async function (c: Context) {
     }
 
     const storage = await dailyQuestService.get(user.accountId);
-    const battlepassStorage = await battlepassQuestService.getAll(user.accountId);
-
     if (!storage) {
       return c.json(
         errors.createError(404, c.req.url, "ItemStore 'daily_quest' not found.", timestamp),
-        404,
-      );
-    }
-
-    if (!battlepassStorage) {
-      return c.json(
-        errors.createError(404, c.req.url, "ItemStore 'battlepass_quest' not found.", timestamp),
         404,
       );
     }
@@ -104,43 +93,41 @@ export default async function (c: Context) {
     const multiUpdates: object[] = [];
 
     if (profileId === "athena") {
-      for (const pastSeasons of profile.stats.attributes.past_seasons!) {
-        if (
-          pastSeasons.seasonNumber === config.currentSeason &&
-          profile.stats.attributes.quest_manager!.dailyLoginInterval !== currentDate
-        ) {
-          profile.stats.attributes.quest_manager!.dailyLoginInterval = currentDate;
-          profile.stats.attributes.quest_manager!.dailyQuestRerolls += 1;
+      const { past_seasons: pastSeasons, quest_manager: questManager } = profile.stats.attributes;
 
-          let maxDailyQuests = 5;
+      if (!questManager)
+        return c.json(errors.createError(400, c.req.url, "Invalid Profile", timestamp), 400);
 
-          if (uahelper.season < 10) maxDailyQuests = 3;
+      const { dailyLoginInterval, dailyQuestRerolls } = questManager;
+      const currentSeason = config.currentSeason;
+      const maxDailyQuests = uahelper.season < 10 ? 3 : 5;
+
+      for (const pastSeason of pastSeasons || []) {
+        if (pastSeason.seasonNumber === currentSeason && dailyLoginInterval !== currentDate) {
+          questManager.dailyLoginInterval = currentDate;
+          questManager.dailyQuestRerolls = (dailyQuestRerolls || 0) + 1;
 
           const currentQuestCount = storage.length;
           const questsToAdd = Math.max(0, maxDailyQuests - currentQuestCount);
 
           for (let i = 0; i < questsToAdd; i++) {
-            const dailyQuests = await QuestManager.getRandomQuest(user.accountId);
-            if (!dailyQuests) continue;
+            const dailyQuest = await QuestManager.getRandomQuest(user.accountId);
+            if (!dailyQuest) continue;
 
             const questData = QuestManager.buildBase(
-              dailyQuests.Name,
-              dailyQuests.Properties.Objectives,
+              dailyQuest.Name,
+              dailyQuest.Properties.Objectives,
             );
+            await dailyQuestService.add(user.accountId, [{ [dailyQuest.Name]: questData }]);
 
-            await dailyQuestService.add(user.accountId, [
-              {
-                [dailyQuests.Name]: questData,
-              },
-            ]);
-
+            const creationTime = new Date().toISOString();
             const newQuestItem = {
               changeType: "itemAdded",
-              itemId: dailyQuests.Name,
+              itemId: dailyQuest.Name,
               item: {
                 templateId: questData.templateId,
                 attributes: {
-                  creation_time: new Date().toISOString(),
+                  creation_time: creationTime,
                   level: -1,
                   item_seen: false,
                   playlists: [],
@@ -151,13 +138,13 @@ export default async function (c: Context) {
                   quest_pool: "",
                   quest_state: "Active",
                   bucket: "",
-                  last_state_change_time: new Date().toISOString(),
+                  last_state_change_time: creationTime,
                   challenge_linked_quest_parent: "",
                   max_level_bonus: 0,
                   xp: 0,
                   quest_rarity: "uncommon",
                   favorite: false,
-                  [`completion_${dailyQuests.Properties.Objectives[0].BackendName}`]: 0,
+                  [`completion_${dailyQuest.Properties.Objectives[0].BackendName}`]: 0,
                 },
                 quantity: 1,
               },
@@ -167,84 +154,6 @@ export default async function (c: Context) {
           }
 
           shouldUpdateProfile = true;
-        }
-
-        if (pastSeasons.seasonNumber === config.currentSeason) {
-          storage.map((obj) => {
-            const questKey = Object.keys(obj)[0];
-            const templateId = obj[questKey].templateId;
-
-            const newQuestItem = {
-              changeType: "itemAdded",
-              itemId: templateId,
-              item: {
-                templateId: templateId,
-                attributes: {
-                  creation_time: new Date().toISOString(),
-                  level: -1,
-                  item_seen: false,
-                  playlists: [],
-                  sent_new_notification: true,
-                  challenge_bundle_id: "",
-                  xp_reward_scalar: 1,
-                  challenge_linked_quest_given: "",
-                  quest_pool: "",
-                  quest_state: "Active",
-                  bucket: "",
-                  last_state_change_time: new Date().toISOString(),
-                  challenge_linked_quest_parent: "",
-                  max_level_bonus: 0,
-                  xp: 0,
-                  quest_rarity: "uncommon",
-                  favorite: false,
-                  [obj[questKey].attributes.ObjectiveState[0].Name]:
-                    obj[questKey].attributes.ObjectiveState[0].Value,
-                },
-                quantity: 1,
-              },
-            };
-
-            multiUpdates.push(newQuestItem);
-            shouldUpdateProfile = true;
-          });
-
-          battlepassStorage.map((obj) => {
-            const questKey = Object.keys(obj)[0];
-            const templateId = obj[questKey].templateId;
-
-            const newQuestItem = {
-              changeType: "itemAdded",
-              itemId: templateId,
-              item: {
-                templateId: templateId,
-                attributes: {
-                  creation_time: new Date().toISOString(),
-                  level: -1,
-                  item_seen: false,
-                  playlists: [],
-                  sent_new_notification: true,
-                  challenge_bundle_id: "",
-                  xp_reward_scalar: 1,
-                  challenge_linked_quest_given: "",
-                  quest_pool: "",
-                  quest_state: "Active",
-                  bucket: "",
-                  last_state_change_time: new Date().toISOString(),
-                  challenge_linked_quest_parent: "",
-                  max_level_bonus: 0,
-                  xp: 0,
-                  quest_rarity: "uncommon",
-                  favorite: false,
-                  [obj[questKey].attributes.ObjectiveState[0].BackendName]:
-                    obj[questKey].attributes.ObjectiveState[0].Stage,
-                },
-                quantity: 1,
-              },
-            };
-
-            multiUpdates.push(newQuestItem);
-            shouldUpdateProfile = true;
-          });
         }
       }
     }
@@ -300,7 +209,28 @@ export default async function (c: Context) {
         quantity: 1,
       });
 
-      await RefreshAccount(user.accountId, user.username);
+      if (uahelper.season >= 1 && uahelper.season <= 9) {
+        profile.items[uuid()] = {
+          templateId: "GiftBox:GB_MakeGood",
+          attributes: {
+            fromAccountId: "Server",
+            lootList,
+            params: {
+              userMessage: "Thanks for playing!",
+            },
+          },
+          quantity: 1,
+        };
+      }
+
+      SendMessageToId(
+        JSON.stringify({
+          payload: {},
+          type: "com.epicgames.gift.received",
+          timestamp: now.toISOString(),
+        }),
+        user.accountId,
+      );
     }
 
     if (shouldUpdateProfile) {

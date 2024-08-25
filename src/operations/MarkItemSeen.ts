@@ -4,6 +4,7 @@ import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
 import ProfileHelper from "../utilities/profiles";
 import MCPResponses from "../utilities/responses";
+import { handleProfileSelection } from "./QueryProfile";
 
 export default async function (c: Context) {
   const timestamp = new Date().toISOString();
@@ -12,76 +13,106 @@ export default async function (c: Context) {
     const accountId = c.req.param("accountId");
     const profileId = c.req.query("profileId") as ProfileId;
 
-    if (!accountId || !profileId) {
-      return c.json(
-        errors.createError(400, c.req.url, "Missing accountId or profileId.", timestamp),
-        400,
-      );
-    }
-
-    const [user, athena, profile] = await Promise.all([
+    const [user, athenaProfile, profile] = await Promise.all([
       userService.findUserByAccountId(accountId),
-      ProfileHelper.getProfile(accountId, "athena"),
+      handleProfileSelection("athena", accountId),
       profilesService.findByAccountId(accountId),
     ]);
 
-    if (!user || !profile || !athena) {
-      return c.json(errors.createError(400, c.req.url, "User profile not found.", timestamp));
+    if (!user || !profile || !athenaProfile) {
+      return c.json(
+        errors.createError(400, c.req.url, "User, Profile, or Athena not found.", timestamp),
+      );
     }
 
-    const body = await c.req.json().catch(() => null);
-    if (!body || !Array.isArray(body.itemIds) || body.itemIds.length === 0) {
-      return c.json(
-        errors.createError(400, c.req.url, "Invalid or empty itemIds.", timestamp),
-        400,
-      );
+    const athena = athenaProfile || {
+      items: {},
+      rvn: 0,
+      commandRevision: 0,
+      updatedAt: new Date().toISOString(),
+    };
+
+    let body;
+    try {
+      body = await c.req.json();
+    } catch (error) {
+      return c.json(errors.createError(400, c.req.url, "Body isn't valid JSON.", timestamp), 400);
     }
 
     const { itemIds } = body;
-    const validItemIds = itemIds.filter((itemId: string) => athena.items[itemId]);
 
-    if (validItemIds.length === 0) {
-      return c.json(
-        errors.createError(400, c.req.url, "Invalid or empty itemIds.", timestamp),
-        400,
-      );
-    }
-
+    const applyProfileChanges = [];
     let shouldUpdateProfile = false;
-    const applyProfileChanges: object[] = [];
-    for (let i = 0; i < validItemIds.length; i++) {
-      const itemId = validItemIds[i];
-      const athenaItem = athena.items[itemId];
 
-      if (athenaItem?.attributes?.item_seen !== true) {
-        athenaItem.attributes.item_seen = true;
+    const updatedItems = new Map<string, any>();
+
+    for (const itemId of itemIds) {
+      if (athena.items[itemId]) {
+        if (athena.items[itemId].attributes) {
+          if (!athena.items[itemId].attributes.item_seen) {
+            athena.items[itemId].attributes.item_seen = true;
+            applyProfileChanges.push({
+              changeType: "itemAttrChanged",
+              itemId,
+              attributeName: "item_seen",
+              attributeValue: true,
+            });
+            updatedItems.set(itemId, athena.items[itemId]);
+            shouldUpdateProfile = true;
+          }
+        } else {
+          athena.items[itemId].attributes = { item_seen: true };
+          applyProfileChanges.push({
+            changeType: "itemAttrChanged",
+            itemId,
+            attributeName: "item_seen",
+            attributeValue: true,
+          });
+          updatedItems.set(itemId, athena.items[itemId]);
+          shouldUpdateProfile = true;
+        }
+      } else {
+        athena.items[itemId] = {
+          templateId: itemId,
+          attributes: {
+            level: 1,
+            item_seen: true,
+            xp: 0,
+            variants: [],
+            favorite: false,
+          },
+          quantity: 1,
+        };
         applyProfileChanges.push({
-          changeType: "itemAttrChanged",
+          changeType: "itemAdded",
           itemId,
           attributeName: "item_seen",
           attributeValue: true,
         });
+        updatedItems.set(itemId, athena.items[itemId]);
         shouldUpdateProfile = true;
       }
     }
 
     if (shouldUpdateProfile) {
-      athena.rvn++;
-      athena.commandRevision++;
-      athena.updatedAt = timestamp;
+      athena.rvn += 1;
+      athena.commandRevision += 1;
+      athena.updatedAt = new Date().toISOString();
+
+      const updatedProfile = { ...profile, athena };
 
       await profilesService.updateMultiple([
         {
           accountId: user.accountId,
-          data: athena,
           type: "athena",
+          data: updatedProfile,
         },
       ]);
     }
 
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
   } catch (error) {
-    logger.error(`MarkItemSeen Error: ${error}`);
+    logger.error(`MarkItemSeen: ${error}`);
     return c.json(errors.createError(500, c.req.url, "Internal Server Error.", timestamp));
   }
 }
