@@ -16,6 +16,7 @@ import uaparser from "../utilities/uaparser";
 import { LRUCache } from "lru-cache";
 import type { IProfile, ItemValue } from "../../types/profilesdefs";
 import axios from "axios";
+import type { Attributes, ObjectiveState } from "../tables/storage/other/dailyQuestStorage";
 
 const profileCache = new LRUCache<string, { data: any; timestamp: number }>({
   max: 1000,
@@ -162,41 +163,28 @@ export default async function (c: Context) {
           attributes.season!.numHighBracket = currentSeason.numHighBracket;
 
           if (currentSeason.seasonNumber === config.currentSeason) {
-            try {
-              const allDailyQuests = await dailyQuestService.get(user.accountId);
-              const allBattlepassQuests = await battlepassQuestService.getAll(user.accountId);
+            const allDailyQuests = await dailyQuestService.get(user.accountId);
+            const allBattlepassQuests = await battlepassQuestService.getAll(user.accountId);
 
-              const updatedItems: {
-                [key: string]: {
-                  templateId: string;
-                  attributes: Partial<ItemValue>;
-                  quantity: number;
+            for (const quests of allDailyQuests) {
+              const keys = Object.keys(quests);
+
+              for (const quest of keys) {
+                const dailyQuest = quests[quest];
+
+                const profileItem = {
+                  templateId: dailyQuest.templateId,
+                  attributes: {
+                    ...dailyQuest.attributes,
+                    ...dailyQuest.attributes.ObjectiveState.reduce((acc, { Name, Value }) => {
+                      acc[Name] = Value;
+                      return acc;
+                    }, {} as Record<string, any>),
+                  },
+                  quantity: 1,
                 };
-              } = {};
 
-              for (const quests of allDailyQuests) {
-                const keys = Object.keys(quests);
-
-                for (const quest of keys) {
-                  if (!profile.items[quest]) {
-                    updatedItems[quest] = quests[quest];
-                  }
-                }
-              }
-
-              for (const quests of allBattlepassQuests) {
-                const keys = Object.keys(quests);
-
-                for (const quest of keys) {
-                  if (!profile.items[quest]) {
-                    profile.items[quest] = quests[quest];
-                  }
-                }
-              }
-
-              if (Object.keys(updatedItems).length > 0) {
-                profile.items = { ...profile.items, ...updatedItems };
-
+                profile.items[dailyQuest.templateId] = profileItem;
                 await profilesService.updateMultiple([
                   {
                     accountId: user.accountId,
@@ -205,8 +193,38 @@ export default async function (c: Context) {
                   },
                 ]);
               }
-            } catch (error) {
-              logger.error(`Error updating profile: ${error}`);
+            }
+
+            for (const quests of allBattlepassQuests) {
+              const keys = Object.keys(quests);
+
+              for (const quest of keys) {
+                const battlepassQuest = quests[quest];
+
+                const profileItem = {
+                  templateId: battlepassQuest.templateId,
+                  attributes: {
+                    ...battlepassQuest.attributes,
+                    ...battlepassQuest.attributes.ObjectiveState.reduce(
+                      (acc, { BackendName, Stage }) => {
+                        acc[BackendName] = Stage;
+                        return acc;
+                      },
+                      {} as Record<string, any>,
+                    ),
+                  },
+                  quantity: 1,
+                };
+
+                profile.items[battlepassQuest.templateId] = profileItem;
+                await profilesService.updateMultiple([
+                  {
+                    accountId: user.accountId,
+                    type: "athena",
+                    data: profile,
+                  },
+                ]);
+              }
             }
           }
         } else {

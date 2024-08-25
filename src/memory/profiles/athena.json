@@ -12,10 +12,7 @@
       "use_random_loadout": false,
       "past_seasons": [],
       "season_match_boost": 0,
-      "loadouts": [
-        "sandbox_loadout",
-        "chronos-loadout"
-      ],
+      "loadouts": ["sandbox_loadout", "chronos-loadout"],
       "mfa_reward_claimed": true,
       "rested_xp_overflow": 0,
       "current_mtx_platform": "Epic",
@@ -62,28 +59,12 @@
       "favorite_musicpack": "",
       "banner_icon": "BRSeason01",
       "favorite_character": "AthenaCharacter:CID_001_Athena_Commando_F_Default",
-      "favorite_itemwraps": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-      ],
+      "favorite_itemwraps": ["", "", "", "", "", "", ""],
       "favorite_skydivecontrail": "",
       "favorite_pickaxe": "",
       "favorite_glider": "AthenaGlider:DefaultGlider",
       "favorite_backpack": "",
-      "favorite_dance": [
-        "AthenaDance:EID_DanceMoves",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-      ],
+      "favorite_dance": ["AthenaDance:EID_DanceMoves", "", "", "", "", "", ""],
       "favorite_loadingscreen": "",
       "banner_color": "DefaultColor1"
     }
@@ -95,30 +76,17 @@
         "locker_slots_data": {
           "slots": {
             "Pickaxe": {
-              "items": [
-                "AthenaPickaxe:DefaultPickaxe"
-              ],
+              "items": ["AthenaPickaxe:DefaultPickaxe"],
               "activeVariants": []
             },
             "Dance": {
-              "items": [
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
-              ]
+              "items": ["", "", "", "", "", ""]
             },
             "Glider": {
-              "items": [
-                "AthenaGlider:DefaultGlider"
-              ]
+              "items": ["AthenaGlider:DefaultGlider"]
             },
             "Character": {
-              "items": [
-                "AthenaCharacter:CID_001_Athena_Commando_F_Default"
-              ],
+              "items": ["AthenaCharacter:CID_001_Athena_Commando_F_Default"],
               "activeVariants": [
                 {
                   "variants": []
@@ -126,9 +94,7 @@
               ]
             },
             "Backpack": {
-              "items": [
-                ""
-              ],
+              "items": [""],
               "activeVariants": [
                 {
                   "variants": []
@@ -136,48 +102,20 @@
               ]
             },
             "ItemWrap": {
-              "items": [
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
-              ],
-              "activeVariants": [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-              ]
+              "items": ["", "", "", "", "", "", ""],
+              "activeVariants": [null, null, null, null, null, null, null]
             },
             "LoadingScreen": {
-              "items": [
-                ""
-              ],
-              "activeVariants": [
-                null
-              ]
+              "items": [""],
+              "activeVariants": [null]
             },
             "MusicPack": {
-              "items": [
-                ""
-              ],
-              "activeVariants": [
-                null
-              ]
+              "items": [""],
+              "activeVariants": [null]
             },
             "SkyDiveContrail": {
-              "items": [
-                ""
-              ],
-              "activeVariants": [
-                null
-              ]
+              "items": [""],
+              "activeVariants": [null]
             }
           }
         },
@@ -196,30 +134,17 @@
         "locker_slots_data": {
           "slots": {
             "Pickaxe": {
-              "items": [
-                "AthenaPickaxe:DefaultPickaxe"
-              ],
+              "items": ["AthenaPickaxe:DefaultPickaxe"],
               "activeVariants": []
             },
             "Dance": {
-              "items": [
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
-              ]
+              "items": ["", "", "", "", "", ""]
             },
             "Glider": {
-              "items": [
-                "AthenaGlider:DefaultGlider"
-              ]
+              "items": ["AthenaGlider:DefaultGlider"]
             },
             "Character": {
-              "items": [
-                "AthenaCharacter:CID_001_Athena_Commando_F_Default"
-              ],
+              "items": ["AthenaCharacter:CID_001_Athena_Commando_F_Default"],
               "activeVariants": [
                 {
                   "variants": []
@@ -227,9 +152,7 @@
               ]
             },
             "Backpack": {
-              "items": [
-                ""
-              ],
+              "items": [""],
               "activeVariants": [
                 {
                   "variants": []
@@ -237,48 +160,20 @@
               ]
             },
             "ItemWrap": {
-              "items": [
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
-              ],
-              "activeVariants": [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-              ]
+              "items": ["", "", "", "", "", "", ""],
+              "activeVariants": [null, null, null, null, null, null, null]
             },
             "LoadingScreen": {
-              "items": [
-                ""
-              ],
-              "activeVariants": [
-                null
-              ]
+              "items": [""],
+              "activeVariants": [null]
             },
             "MusicPack": {
-              "items": [
-                ""
-              ],
-              "activeVariants": [
-                null
-              ]
+              "items": [""],
+              "activeVariants": [null]
             },
             "SkyDiveContrail": {
-              "items": [
-                ""
-              ],
-              "activeVariants": [
-                null
-              ]
+              "items": [""],
+              "activeVariants": [null]
             }
           }
         },

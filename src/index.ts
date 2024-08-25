@@ -22,6 +22,7 @@ import { cors } from "hono/cors";
 import type PermissionInfo from "./utilities/permissions/permissioninfo";
 import errors from "./utilities/errors";
 import { logger as httplogging } from "hono/logger";
+import { handleProfileSelection } from "./operations/QueryProfile";
 
 export type Variables = {
   user: User;

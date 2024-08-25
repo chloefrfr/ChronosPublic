@@ -169,17 +169,23 @@ export namespace QuestManager {
         return false;
       }
 
-      if (!profileQuests.items[quest.Name]) return false;
+      for (const test of Object.values(profileQuests.items)) {
+        if (test.templateId.includes("Quest_")) {
+          console.log(test.templateId);
+        }
+      }
 
-      delete profileQuests.items[quest.Name];
+      // if (!profileQuests.items[quest.Name]) return false;
 
-      await profilesService.updateMultiple([
-        {
-          accountId,
-          data: profileQuests,
-          type: "athena",
-        },
-      ]);
+      // delete profileQuests.items[quest.Name];
+
+      // await profilesService.updateMultiple([
+      //   {
+      //     accountId,
+      //     data: profileQuests,
+      //     type: "athena",
+      //   },
+      // ]);
 
       return !!storage;
     } catch (error) {
@@ -246,7 +252,6 @@ export namespace QuestManager {
   }
 
   export function buildBase(name: string, objectives: DailyQuestObjectives[]) {
-    logger.debug(`Building base for quest: ${name}`);
     return {
       templateId: `Quest:${name}`,
       attributes: {
@@ -255,6 +260,22 @@ export namespace QuestManager {
           Name: `completion_${obj.BackendName}`,
           Value: 0,
         })),
+        creation_time: new Date().toISOString(),
+        level: -1,
+        item_seen: false,
+        playlists: [],
+        challenge_bundle_id: "",
+        xp_reward_scalar: 1,
+        challenge_linked_quest_given: "",
+        quest_pool: "",
+        quest_state: "Active",
+        bucket: "",
+        last_state_change_time: new Date().toISOString(),
+        challenge_linked_quest_parent: "",
+        max_level_bonus: 0,
+        xp: 0,
+        quest_rarity: "uncommon",
+        favorite: false,
       },
       quantity: 1,
     };

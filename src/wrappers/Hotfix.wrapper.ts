@@ -240,20 +240,18 @@ bAlwaysPlayTrailerMovie=false
 MaxPartySizeAthena=16
 MaxPartySizeCampaign=16
 MaxSquadSize=16
+bAllowMimicingEmotes=true
 !ExperimentalCohortPercent=ClearArray
 +ExperimentalCohortPercent=(CohortPercent=100,ExperimentNum=20)
 
-[Vivox]
-bEnabled=true
-ServerUrl="https://unity.vivox.com/appconfig/46738-lunar-79863-udash"
-Domain="mtu1xp.vivox.com"
-MaxConnectRetries=3
-MaxLoginRetries=3
-MaxJoinRetries=3
-MaxMuteRetries=3
-; Retry delay = Rand(-RetryTimeJitter, RetryTimeJitter) + RetryTimeMultiplier * Pow(RetryTimeBase, Retry)
-RetryTimeJitter=0.5
-RetryTimeBase=2.0
-RetryTimeMultiplier=0.5
-MaxRetryDelay=30.0`;
+bShowStoreBanner=true
+bEnableCatabaDynamicBackground=true
+NewMtxStoreCohortSampleSet=100
++ExperimentalCohortPercent=(CohortPercent=100,ExperimentNum=14)
++ExperimentalCohortPercent=(CohortPercent=100,ExperimentNum=15)
+
+ShowdownTournamentCacheExpirationHours=1
+TournamentRefreshPlayerMaxRateSeconds=60
+TournamentRefreshEventsMaxRateSeconds=60
+TournamentRefreshPayoutMaxRateSeconds=60`;
 }

@@ -101,57 +101,82 @@ export default async function (c: Context) {
 
       const { dailyLoginInterval, dailyQuestRerolls } = questManager;
       const currentSeason = config.currentSeason;
-      const maxDailyQuests = uahelper.season < 10 ? 3 : 5;
 
       for (const pastSeason of pastSeasons || []) {
         if (pastSeason.seasonNumber === currentSeason && dailyLoginInterval !== currentDate) {
           questManager.dailyLoginInterval = currentDate;
           questManager.dailyQuestRerolls = (dailyQuestRerolls || 0) + 1;
 
-          const currentQuestCount = storage.length;
-          const questsToAdd = Math.max(0, maxDailyQuests - currentQuestCount);
+          multiUpdates.push({
+            changeType: "statModified",
+            name: "quest_manager",
+            value: {
+              dailyLoginInterval: currentDate,
+              dailyQuestRerolls: questManager.dailyQuestRerolls,
+            },
+          });
 
-          for (let i = 0; i < questsToAdd; i++) {
-            const dailyQuest = await QuestManager.getRandomQuest(user.accountId);
-            if (!dailyQuest) continue;
+          const maxDailyQuests = uahelper.season === 13 ? 5 : 3;
 
-            const questData = QuestManager.buildBase(
-              dailyQuest.Name,
-              dailyQuest.Properties.Objectives,
-            );
-            await dailyQuestService.add(user.accountId, [{ [dailyQuest.Name]: questData }]);
+          if (storage.length < maxDailyQuests) {
+            const dailyQuestsNeeded = maxDailyQuests - storage.length;
 
-            const creationTime = new Date().toISOString();
-            const newQuestItem = {
-              changeType: "itemAdded",
-              itemId: dailyQuest.Name,
-              item: {
-                templateId: questData.templateId,
-                attributes: {
-                  creation_time: creationTime,
-                  level: -1,
-                  item_seen: false,
-                  playlists: [],
-                  sent_new_notification: true,
-                  challenge_bundle_id: "",
-                  xp_reward_scalar: 1,
-                  challenge_linked_quest_given: "",
-                  quest_pool: "",
-                  quest_state: "Active",
-                  bucket: "",
-                  last_state_change_time: creationTime,
-                  challenge_linked_quest_parent: "",
-                  max_level_bonus: 0,
-                  xp: 0,
-                  quest_rarity: "uncommon",
-                  favorite: false,
-                  [`completion_${dailyQuest.Properties.Objectives[0].BackendName}`]: 0,
-                },
-                quantity: 1,
-              },
-            };
+            for (let i = 0; i < dailyQuestsNeeded; i++) {
+              try {
+                const dailyQuest = await QuestManager.getRandomQuest(user.accountId);
+                if (!dailyQuest) continue;
 
-            multiUpdates.push(newQuestItem);
+                if (dailyQuest.Name && dailyQuest.Properties.Objectives.length > 1) {
+                  // TODO: Handle Daily Quests with multiple objectives.
+                } else {
+                  multiUpdates.push({
+                    changeType: "itemAdded",
+                    itemId: dailyQuest.Name,
+                    item: {
+                      templateId: `Quest:${dailyQuest.Name}`,
+                      attributes: {
+                        creation_time: new Date().toISOString(),
+                        level: -1,
+                        item_seen: false,
+                        playlists: [],
+                        sent_new_notification: true,
+                        challenge_bundle_id: "",
+                        xp_reward_scalar: 1,
+                        challenge_linked_quest_given: "",
+                        quest_pool: "",
+                        quest_state: "Active",
+                        bucket: "",
+                        last_state_change_time: new Date().toISOString(),
+                        challenge_linked_quest_parent: "",
+                        max_level_bonus: 0,
+                        xp: 0,
+                        quest_rarity: "uncommon",
+                        favorite: false,
+                        [`completion_${dailyQuest.Properties.Objectives[0].BackendName}`]: 0,
+                      },
+                      quantity: 1,
+                    },
+                  });
+
+                  const questData = QuestManager.buildBase(
+                    dailyQuest.Name,
+                    dailyQuest.Properties.Objectives,
+                  );
+                  await dailyQuestService.add(user.accountId, [{ [dailyQuest.Name]: questData }]);
+                }
+              } catch (error) {
+                logger.error(`Failed to initialize daily quests: ${error}`);
+                return c.json(
+                  errors.createError(
+                    400,
+                    c.req.url,
+                    "Failed to initialize daily quests.",
+                    timestamp,
+                  ),
+                  400,
+                );
+              }
+            }
           }
 
           shouldUpdateProfile = true;
