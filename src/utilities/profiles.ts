@@ -7,10 +7,7 @@ import type { ProfileId } from "./responses";
 import { logger, profilesService } from "..";
 import type { Profiles } from "../tables/profiles";
 import type { IProfile } from "../../types/profilesdefs";
-import {
-  createDefaultBattlePassProperties,
-  createGameModeStats,
-} from "./creations/static_creations";
+import { createGameModeStats } from "./creations/static_creations";
 
 export default class ProfileHelper {
   static async createProfile(user: Partial<User>, profile: ProfileId) {

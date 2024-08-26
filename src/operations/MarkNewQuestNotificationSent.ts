@@ -6,6 +6,7 @@ import {
   logger,
   profilesService,
   userService,
+  weeklyQuestService,
 } from "..";
 import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
@@ -69,6 +70,7 @@ export default async function (c: Context) {
     for (const id of itemIds) {
       const dailyQuest = await dailyQuestService.getQuest(user.accountId, id);
       const battlepassQuests = await battlepassQuestService.get(user.accountId, id);
+      const weeklyQuests = await weeklyQuestService.get(user.accountId, id);
 
       if (dailyQuest) {
         dailyQuest.attributes.sent_new_notification = true;
@@ -91,6 +93,22 @@ export default async function (c: Context) {
         profile.items[id].attributes.sent_new_notification = true;
 
         await Promise.all([battlepassQuestService.update(user.accountId, battlepassQuests)]);
+
+        applyProfileChanges.push({
+          changeType: "itemAttrChanged",
+          itemId: id,
+          attributeNam: "sent_new_notification",
+          attributeValue: true,
+        });
+
+        shouldUpdateProfile = true;
+      }
+
+      if (weeklyQuests) {
+        weeklyQuests[id].attributes.sent_new_notification = true;
+        profile.items[id].attributes.sent_new_notification = true;
+
+        await Promise.all([weeklyQuestService.update(user.accountId, weeklyQuests)]);
 
         applyProfileChanges.push({
           changeType: "itemAttrChanged",

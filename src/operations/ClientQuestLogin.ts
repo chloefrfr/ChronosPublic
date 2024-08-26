@@ -4,18 +4,20 @@ import uaparser from "../utilities/uaparser";
 import errors from "../utilities/errors";
 import {
   accountService,
+  battlepassQuestService,
   config,
   dailyQuestService,
   itemStorageService,
   logger,
   profilesService,
   userService,
+  weeklyQuestService,
 } from "..";
 import ProfileHelper from "../utilities/profiles";
 import { QuestManager } from "../utilities/managers/QuestManager";
 import MCPResponses from "../utilities/responses";
 import { Profiles } from "../tables/profiles";
-import { WeeklyQuestGranter } from "../utilities/granting/WeeklyQuestGranter";
+import { WeeklyQuestGranter } from "../utilities/quests/WeeklyQuestGranter";
 import { User } from "../tables/user";
 import type { LootList } from "../bot/commands/grantall";
 import { v4 as uuid } from "uuid";
@@ -83,9 +85,26 @@ export default async function (c: Context) {
     }
 
     const storage = await dailyQuestService.get(user.accountId);
+    const battlepassStorage = await battlepassQuestService.getAll(user.accountId);
+    const weeklyStorage = await weeklyQuestService.getAll(user.accountId);
+
     if (!storage) {
       return c.json(
         errors.createError(404, c.req.url, "ItemStore 'daily_quest' not found.", timestamp),
+        404,
+      );
+    }
+
+    if (!battlepassStorage) {
+      return c.json(
+        errors.createError(404, c.req.url, "ItemStore 'battlepass_quest' not found.", timestamp),
+        404,
+      );
+    }
+
+    if (!weeklyStorage) {
+      return c.json(
+        errors.createError(404, c.req.url, "ItemStore 'weekly_quest' not found.", timestamp),
         404,
       );
     }
@@ -180,6 +199,133 @@ export default async function (c: Context) {
           }
 
           shouldUpdateProfile = true;
+        }
+
+        const granter = await WeeklyQuestGranter.grant(user.accountId, pastSeason);
+
+        if (!granter) {
+          return c.json(
+            errors.createError(400, c.req.url, "Failed to grant weekly quests.", timestamp),
+            400,
+          );
+        }
+
+        multiUpdates.push(granter.multiUpdates);
+
+        if (pastSeason.seasonNumber === config.currentSeason) {
+          storage.map((obj) => {
+            const questKey = Object.keys(obj)[0];
+            const templateId = obj[questKey].templateId;
+
+            const newQuestItem = {
+              changeType: "itemAdded",
+              itemId: templateId,
+              item: {
+                templateId: templateId,
+                attributes: {
+                  creation_time: new Date().toISOString(),
+                  level: -1,
+                  item_seen: false,
+                  playlists: [],
+                  sent_new_notification: true,
+                  challenge_bundle_id: "",
+                  xp_reward_scalar: 1,
+                  challenge_linked_quest_given: "",
+                  quest_pool: "",
+                  quest_state: "Active",
+                  bucket: "",
+                  last_state_change_time: new Date().toISOString(),
+                  challenge_linked_quest_parent: "",
+                  max_level_bonus: 0,
+                  xp: 0,
+                  quest_rarity: "uncommon",
+                  favorite: false,
+                  [obj[questKey].attributes.ObjectiveState[0].Name]:
+                    obj[questKey].attributes.ObjectiveState[0].Value,
+                },
+                quantity: 1,
+              },
+            };
+
+            multiUpdates.push(newQuestItem);
+            shouldUpdateProfile = true;
+          });
+
+          battlepassStorage.map((obj) => {
+            const questKey = Object.keys(obj)[0];
+            const templateId = obj[questKey].templateId;
+
+            const newQuestItem = {
+              changeType: "itemAdded",
+              itemId: templateId,
+              item: {
+                templateId: templateId,
+                attributes: {
+                  creation_time: new Date().toISOString(),
+                  level: -1,
+                  item_seen: false,
+                  playlists: [],
+                  sent_new_notification: true,
+                  challenge_bundle_id: "",
+                  xp_reward_scalar: 1,
+                  challenge_linked_quest_given: "",
+                  quest_pool: "",
+                  quest_state: "Active",
+                  bucket: "",
+                  last_state_change_time: new Date().toISOString(),
+                  challenge_linked_quest_parent: "",
+                  max_level_bonus: 0,
+                  xp: 0,
+                  quest_rarity: "uncommon",
+                  favorite: false,
+                  [obj[questKey].attributes.ObjectiveState[0].BackendName]:
+                    obj[questKey].attributes.ObjectiveState[0].Stage,
+                },
+                quantity: 1,
+              },
+            };
+
+            multiUpdates.push(newQuestItem);
+            shouldUpdateProfile = true;
+          });
+
+          weeklyStorage.map((obj) => {
+            const questKey = Object.keys(obj)[0];
+            const templateId = obj[questKey].templateId;
+
+            const newQuestItem = {
+              changeType: "itemAdded",
+              itemId: templateId,
+              item: {
+                templateId: templateId,
+                attributes: {
+                  creation_time: new Date().toISOString(),
+                  level: -1,
+                  item_seen: false,
+                  playlists: [],
+                  sent_new_notification: true,
+                  challenge_bundle_id: "",
+                  xp_reward_scalar: 1,
+                  challenge_linked_quest_given: "",
+                  quest_pool: "",
+                  quest_state: "Active",
+                  bucket: "",
+                  last_state_change_time: new Date().toISOString(),
+                  challenge_linked_quest_parent: "",
+                  max_level_bonus: 0,
+                  xp: 0,
+                  quest_rarity: "uncommon",
+                  favorite: false,
+                  [obj[questKey].attributes.ObjectiveState[0].BackendName]:
+                    obj[questKey].attributes.ObjectiveState[0].Stage,
+                },
+                quantity: 1,
+              },
+            };
+
+            multiUpdates.push(newQuestItem);
+            shouldUpdateProfile = true;
+          });
         }
       }
     }

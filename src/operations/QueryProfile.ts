@@ -7,6 +7,7 @@ import {
   config,
   dailyQuestService,
   battlepassQuestService,
+  weeklyQuestService,
 } from "..";
 import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
@@ -165,6 +166,7 @@ export default async function (c: Context) {
           if (currentSeason.seasonNumber === config.currentSeason) {
             const allDailyQuests = await dailyQuestService.get(user.accountId);
             const allBattlepassQuests = await battlepassQuestService.getAll(user.accountId);
+            const allWeeklyQuests = await weeklyQuestService.getAll(user.accountId);
 
             for (const quests of allDailyQuests) {
               const keys = Object.keys(quests);
@@ -217,6 +219,38 @@ export default async function (c: Context) {
                 };
 
                 profile.items[battlepassQuest.templateId] = profileItem;
+                await profilesService.updateMultiple([
+                  {
+                    accountId: user.accountId,
+                    type: "athena",
+                    data: profile,
+                  },
+                ]);
+              }
+            }
+
+            for (const quests of allWeeklyQuests) {
+              const keys = Object.keys(quests);
+
+              for (const quest of keys) {
+                const weeklyQuest = quests[quest];
+
+                const profileItem = {
+                  templateId: weeklyQuest.templateId,
+                  attributes: {
+                    ...weeklyQuest.attributes,
+                    ...weeklyQuest.attributes.ObjectiveState.reduce(
+                      (acc, { BackendName, Stage }) => {
+                        acc[BackendName] = Stage;
+                        return acc;
+                      },
+                      {} as Record<string, any>,
+                    ),
+                  },
+                  quantity: 1,
+                };
+
+                profile.items[weeklyQuest.templateId] = profileItem;
                 await profilesService.updateMultiple([
                   {
                     accountId: user.accountId,

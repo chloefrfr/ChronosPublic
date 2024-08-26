@@ -15,6 +15,7 @@ import {
   logger,
   profilesService,
   userService,
+  weeklyQuestService,
 } from "../..";
 import { v4 as uuid } from "uuid";
 import ProfileHelper from "../../utilities/profiles";
@@ -152,14 +153,9 @@ export default class RegisterCommand extends BaseCommand {
             accountId: newUser.accountId,
           });
 
-          await itemStorageService.addItems([
-            {
-              data: [],
-              type: "weekly_quest",
-            },
-          ]);
           await dailyQuestService.add(newUser?.accountId, []);
           await battlepassQuestService.add(newUser?.accountId, []);
+          await weeklyQuestService.add(newUser?.accountId, []);
         });
 
       const embed = new EmbedBuilder()

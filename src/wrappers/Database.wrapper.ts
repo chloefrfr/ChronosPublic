@@ -9,6 +9,7 @@ import { Friends } from "../tables/friends";
 import { Item } from "../tables/storage/item";
 import { DailyQuest } from "../tables/storage/other/dailyQuestStorage";
 import { BattlepassQuest } from "../tables/storage/other/battlepassQuestStorage";
+import { WeeklyQuest } from "../tables/storage/other/weeklyQuestStorage";
 
 interface DatabaseConfig {
   connectionString?: string;
@@ -37,6 +38,7 @@ export default class Database {
           Item,
           DailyQuest,
           BattlepassQuest,
+          WeeklyQuest,
         ],
         synchronize: true,
         // logging: true,
@@ -51,6 +53,7 @@ export default class Database {
           Item,
           DailyQuest,
           BattlepassQuest,
+          WeeklyQuest,
         ],
       });
 

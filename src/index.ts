@@ -23,6 +23,8 @@ import type PermissionInfo from "./utilities/permissions/permissioninfo";
 import errors from "./utilities/errors";
 import { logger as httplogging } from "hono/logger";
 import { handleProfileSelection } from "./operations/QueryProfile";
+import { WeeklyQuestGranter } from "./utilities/quests/WeeklyQuestGranter";
+import WeeklyQuestService from "./wrappers/database/WeeklyQuestService";
 
 export type Variables = {
   user: User;
@@ -64,6 +66,7 @@ export const friendsService = new FriendsService(db);
 export const itemStorageService = new ItemStorageService(db);
 export const dailyQuestService = new DailyQuestService(db);
 export const battlepassQuestService = new BattlepassQuestService(db);
+export const weeklyQuestService = new WeeklyQuestService(db);
 
 await loadRoutes(path.join(__dirname, "routes"), app);
 

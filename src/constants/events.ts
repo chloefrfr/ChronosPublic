@@ -38,6 +38,46 @@ export const SEASON_EVENTS: SeasonEvent[] = [
     ],
   },
   {
+    seasonNumber: 8,
+    events: [
+      {
+        eventType: "EventFlag.Spring2019",
+        activeUntil: "9999-01-01T00:00:00.000Z",
+        activeSince: "2020-01-01T00:00:00.000Z",
+      },
+      {
+        eventType: "EventFlag.Spring2019.Phase1",
+        activeUntil,
+        activeSince: "2020-01-01T00:00:00.000Z",
+      },
+      {
+        eventType: "EventFlag.LTM_Ashton",
+        activeUntil,
+        activeSince: "2020-01-01T00:00:00.000Z",
+      },
+      {
+        eventType: "EventFlag.LTM_Goose",
+        activeUntil,
+        activeSince: "2020-01-01T00:00:00.000Z",
+      },
+      {
+        eventType: "EventFlag.LTM_HighStakes",
+        activeUntil,
+        activeSince: "2020-01-01T00:00:00.000Z",
+      },
+      {
+        eventType: "EventFlag.LTE_BootyBay",
+        activeUntil,
+        activeSince: "2020-01-01T00:00:00.000Z",
+      },
+      {
+        eventType: "EventFlag.Spring2019.Phase2",
+        activeUntil,
+        activeSince: "2020-01-01T00:00:00.000Z",
+      },
+    ],
+  },
+  {
     seasonNumber: 10,
     events: [
       {
