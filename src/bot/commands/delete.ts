@@ -21,6 +21,7 @@ import {
   profilesService,
   tokensService,
   userService,
+  weeklyQuestService,
 } from "../..";
 
 export default class DeleteCommand extends BaseCommand {
@@ -102,6 +103,7 @@ export default class DeleteCommand extends BaseCommand {
             friendsService.delete(user.accountId),
             dailyQuestService.delete(user.accountId),
             battlepassQuestService.delete(user.accountId),
+            weeklyQuestService.delete(user.accountId),
           ];
 
           const [
@@ -111,6 +113,7 @@ export default class DeleteCommand extends BaseCommand {
             friendDelete,
             dailyDelete,
             battlepassDelete,
+            weeklyDelete,
           ] = await Promise.all(promises);
 
           if (
@@ -119,7 +122,8 @@ export default class DeleteCommand extends BaseCommand {
             profileDelete &&
             friendDelete &&
             dailyDelete &&
-            battlepassDelete
+            battlepassDelete &&
+            weeklyDelete
           ) {
             const embed = new EmbedBuilder()
               .setTitle("Account Deleted Successfully")
