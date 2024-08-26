@@ -26,9 +26,17 @@ export namespace WeeklyQuestGranter {
     const existingQuestIds = Object.keys(profile.items).filter(
       (id) => id.startsWith("Quest:") && !id.includes("Repeatable") && !id.includes("AthenaDaily"),
     );
-    existingQuestIds.forEach((id) => {
-      updates.push({ changeType: "itemRemoved", itemId: id });
+    existingQuestIds.forEach(async (id) => {
       delete profile.items[id];
+      updates.push({ changeType: "itemRemoved", itemId: id });
+
+      await profilesService.updateMultiple([
+        {
+          accountId,
+          type: "athena",
+          data: profile,
+        },
+      ]);
     });
 
     const questDataMap = new Map<string, any>();
