@@ -23,6 +23,14 @@ export namespace WeeklyQuestGranter {
       return { multiUpdates: [], shouldGrantItems: false };
     }
 
+    const existingQuestIds = Object.keys(profile.items).filter(
+      (id) => id.startsWith("Quest:") && !id.includes("Repeatable") && !id.includes("AthenaDaily"),
+    );
+    existingQuestIds.forEach((id) => {
+      updates.push({ changeType: "itemRemoved", itemId: id });
+      delete profile.items[id];
+    });
+
     const questDataMap = new Map<string, any>();
     const bundleResponsesMap = new Map<string, any>();
 
@@ -33,8 +41,63 @@ export namespace WeeklyQuestGranter {
 
       const bundlePromises = quest.Objects.map(async (questBundle) => {
         try {
-          if (await weeklyQuestService.get(accountId, quest.Name)) {
+          const exists = await weeklyQuestService.get(accountId, questBundle.Name);
+          if (exists) {
             logger.warn("Quests already exist.");
+
+            for (const rewards of questBundle.Rewards) {
+              if (rewards.TemplateId.startsWith("Quest:")) {
+                const alreadyExists = await weeklyQuestService.get(accountId, rewards.TemplateId);
+
+                if (alreadyExists) break;
+
+                const objectiveStates = questBundle.Objectives.reduce(
+                  (acc, { BackendName, Count }) => ({
+                    ...acc,
+                    [`completion_${BackendName}`]: Count,
+                  }),
+                  {},
+                );
+
+                const newQuestData = {
+                  templateId: questBundle.Name,
+                  attributes: {
+                    challenge_bundle_id: bundleName,
+                    sent_new_notification: false,
+                    ObjectiveState: questBundle.Objectives.map(({ BackendName, Count }) => ({
+                      BackendName: `completion_${BackendName}`,
+                      Stage: 0,
+                      Count,
+                    })),
+                  },
+                  quantity: 1,
+                };
+
+                const itemResponse = {
+                  templateId: questBundle.Name,
+                  attributes: {
+                    creation_time: new Date().toISOString(),
+                    level: -1,
+                    item_seen: false,
+                    playlists: [],
+                    sent_new_notification: true,
+                    challenge_bundle_id: bundleName,
+                    xp_reward_scalar: 1,
+                    quest_state: "Active",
+                    last_state_change_time: new Date().toISOString(),
+                    quest_rarity: "uncommon",
+                    favorite: false,
+                    ...objectiveStates,
+                  },
+                  quantity: 1,
+                };
+
+                grantedQuestInstanceIds.add(rewards.TemplateId);
+                questDataMap.set(rewards.TemplateId, newQuestData);
+                bundleResponsesMap.set(rewards.TemplateId, itemResponse);
+              }
+            }
+
             return null;
           }
 
@@ -90,7 +153,7 @@ export namespace WeeklyQuestGranter {
           questDataMap.set(questBundle.Name, newQuestData);
           bundleResponsesMap.set(questBundle.Name, itemResponse);
         } catch (error) {
-          logger.error(`Error processing quest bundle: ${error}`);
+          logger.error(`Error generating quest bundle: ${error}`);
           grantItems = false;
         }
       });

@@ -106,7 +106,6 @@ export default async function (c: Context) {
 
       if (weeklyQuests) {
         weeklyQuests[id].attributes.sent_new_notification = true;
-        profile.items[id].attributes.sent_new_notification = true;
 
         await Promise.all([weeklyQuestService.update(user.accountId, weeklyQuests)]);
 
