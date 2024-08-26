@@ -169,11 +169,11 @@ export namespace QuestManager {
         return false;
       }
 
-      for (const test of Object.values(profileQuests.items)) {
-        if (test.templateId.includes("Quest_")) {
-          console.log(test.templateId);
-        }
-      }
+      // for (const test of Object.values(profileQuests.items)) {
+      //   if (test.templateId.includes("Quest_")) {
+      //     console.log(test.templateId);
+      //   }
+      // }
 
       // if (!profileQuests.items[quest.Name]) return false;
 
