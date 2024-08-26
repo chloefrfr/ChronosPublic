@@ -45,10 +45,10 @@ bun run src/index.ts
 
 # Available Quests
 
-- **Season 9:** Daily quests only
-- **Season 13:** Week 1 and daily quests
-
-_Note: Weekly quests currently do not work._
+- **Season 7:** Daily & Week 1 Quests
+- **Season 8:** Daily & Week 1 Quests
+- **Season 9:** Daily & Week 1 Quests
+- **Season 13:** Daily & Week 1 Quests
 
 ## Planned Features
 
@@ -57,7 +57,7 @@ _Note: Weekly quests currently do not work._
 - [x] Auto shop
 - [x] Battle Pass
 - [x] XP & Leveling
-- [x] Challenges (Only Daily)
+- [x] Challenges
 - [x] Friends
 - [x] XMPP
 - [x] Matchmaker
