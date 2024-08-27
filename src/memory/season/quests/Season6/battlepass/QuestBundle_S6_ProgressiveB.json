@@ -1,0 +1,127 @@
+{
+  "Name": "QuestBundle_S6_ProgressiveB",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season6_progressiveb_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:Quest_BR_S6_Gain_SeasonXP_ProgressiveB_01",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_season_xp_gained",
+          "Count": 30000,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S6_Gain_SeasonXP_ProgressiveB_02",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_season_xp_gained",
+          "Count": 70000,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S6_Gain_SeasonXP_ProgressiveB_03",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_season_xp_gained",
+          "Count": 120000,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S6_Gain_SeasonXP_ProgressiveB_04",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_season_xp_gained",
+          "Count": 180000,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S6_Gain_SeasonXP_ProgressiveB_05",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_season_xp_gained",
+          "Count": 250000,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S6_Complete_WeeklyChallenges_ProgressiveB_01",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_s6_season_complete_weeklychallenges_progressive_b_01",
+          "Count": 20,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S6_Complete_WeeklyChallenges_ProgressiveB_02",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_s6_season_complete_weeklychallenges_progressive_b_02",
+          "Count": 40,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S6_Complete_WeeklyChallenges_ProgressiveB_03",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_s6_season_complete_weeklychallenges_progressive_b_03",
+          "Count": 60,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}
