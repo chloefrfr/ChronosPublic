@@ -16,10 +16,10 @@ import MCPResponses from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
 import { LRUCache } from "lru-cache";
 import type { IProfile } from "../../types/profilesdefs";
-import axios from "axios";
 import type { Profiles } from "../tables/profiles";
+import type { QuestItem } from "../../types/questdefs";
 
-const profileCache = new LRUCache<string, IProfile>({
+const profileCache = new LRUCache<string, { data: any; timestamp: number }>({
   max: 1000,
 });
 
@@ -54,34 +54,47 @@ const profileTypes = new Map<ProfileId, AllowedProfileTypes>([
   ["outpost0", "outpost0"],
 ]);
 
+const pendingProfiles = new Map<ProfileId, Promise<IProfile | null>>();
+
 export async function handleProfileSelection(
   profileId: ProfileId,
   accountId: string,
 ): Promise<IProfile | null> {
   const profileType = profileTypes.get(profileId);
-
   if (!profileType) {
     logger.error(`Invalid Profile Type: ${profileId}`);
     return null;
   }
 
-  let profile = profileCache.get(profileId);
-
-  if (profile) {
-    return profile;
+  if (pendingProfiles.has(profileId)) {
+    return pendingProfiles.get(profileId) as Promise<IProfile | null>;
   }
 
-  try {
-    profile = await ProfileHelper.getProfile(accountId, profileType);
-    if (profile) {
-      profileCache.set(profileId, profile);
+  const cachedProfile = profileCache.get(profileId);
+  if (cachedProfile) {
+    return cachedProfile.data as IProfile;
+  }
+
+  const getProfilePromise = (async () => {
+    try {
+      const profile = await ProfileHelper.getProfile(accountId, profileType);
+      if (!profile) return null;
+
+      await profilesService.updateMultiple([{ accountId, type: profileType, data: profile }]);
+
+      profileCache.set(profileId, { data: profile, timestamp: Date.now() });
       return profile;
+    } catch (error) {
+      logger.error(`Failed to get profile for account ${accountId}: ${error}`);
+      return null;
+    } finally {
+      pendingProfiles.delete(profileId);
     }
-    return null;
-  } catch (error) {
-    logger.error(`Failed to get profile for ${profileId}: ${error}`);
-    return null;
-  }
+  })();
+
+  pendingProfiles.set(profileId, getProfilePromise);
+
+  return getProfilePromise;
 }
 
 export default async function (c: Context) {
@@ -93,17 +106,19 @@ export default async function (c: Context) {
 
   const uahelper = uaparser(useragent);
 
-  if (!useragent)
+  if (!useragent) {
     return c.json(
-      errors.createError(400, c.req.url, "header 'User-Agent' is missing.", timestamp),
+      errors.createError(400, c.req.url, "Header 'User-Agent' is missing.", timestamp),
       400,
     );
+  }
 
-  if (!uahelper)
+  if (!uahelper) {
     return c.json(
       errors.createError(400, c.req.url, "Failed to parse User-Agent.", timestamp),
       400,
     );
+  }
 
   if (!accountId || !rvn || !profileId) {
     return c.json(errors.createError(400, c.req.url, "Missing query parameters.", timestamp), 400);
@@ -122,21 +137,18 @@ export default async function (c: Context) {
       );
     }
 
-    const profile = await handleProfileSelection(profileId, user.accountId);
+    let profile = await handleProfileSelection(profileId, user.accountId);
 
-    if (!profile && profileId !== "athena" && profileId !== "common_core")
-      return c.json(
-        errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
-        404,
-      );
-
-    if (!profile)
-      return c.json(
-        errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
-        404,
-      );
-
-    const profileUpdates: { [key: string]: any } = {};
+    if (!profile) {
+      if (profileId !== "athena" && profileId !== "common_core") {
+        return c.json(
+          errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
+          404,
+        );
+      } else {
+        profile = { stats: { attributes: {} }, items: {} } as IProfile;
+      }
+    }
 
     switch (profileId) {
       case "athena":
@@ -170,98 +182,41 @@ export default async function (c: Context) {
               weeklyQuestService.getAll(user.accountId),
             ]);
 
-            for (const quests of dailyQuests) {
-              const keys = Object.keys(quests);
+            const updateProfileItems = (quests: Record<string, QuestItem>[]) => {
+              quests.forEach((quest) => {
+                Object.values(quest).forEach((questItem) => {
+                  const profileItem = {
+                    templateId: questItem.templateId,
+                    attributes: {
+                      ...questItem.attributes,
+                      ...questItem.attributes.ObjectiveState.reduce<Record<string, any>>(
+                        (acc, { BackendName, Stage }) => {
+                          acc[BackendName] = Stage;
+                          return acc;
+                        },
+                        {},
+                      ),
+                    },
+                    quantity: 1,
+                  };
+                  profile.items[questItem.templateId] = profileItem;
+                });
+              });
+            };
 
-              for (const quest of keys) {
-                const dailyQuest = quests[quest];
+            updateProfileItems(dailyQuests as any);
+            updateProfileItems(battlepassQuests);
+            updateProfileItems(weeklyQuests);
 
-                const profileItem = {
-                  templateId: dailyQuest.templateId,
-                  attributes: {
-                    ...dailyQuest.attributes,
-                    ...dailyQuest.attributes.ObjectiveState.reduce((acc, { Name, Value }) => {
-                      acc[Name] = Value;
-                      return acc;
-                    }, {} as Record<string, any>),
-                  },
-                  quantity: 1,
-                };
+            await profilesService.updateMultiple([
+              {
+                accountId: user.accountId,
+                type: "athena",
+                data: profile,
+              },
+            ]);
 
-                profile.items[dailyQuest.templateId] = profileItem;
-                await profilesService.updateMultiple([
-                  {
-                    accountId: user.accountId,
-                    type: "athena",
-                    data: profile,
-                  },
-                ]);
-              }
-            }
-
-            for (const quests of battlepassQuests) {
-              const keys = Object.keys(quests);
-
-              for (const quest of keys) {
-                const battlepassQuest = quests[quest];
-
-                const profileItem = {
-                  templateId: battlepassQuest.templateId,
-                  attributes: {
-                    ...battlepassQuest.attributes,
-                    ...battlepassQuest.attributes.ObjectiveState.reduce(
-                      (acc, { BackendName, Stage }) => {
-                        acc[BackendName] = Stage;
-                        return acc;
-                      },
-                      {} as Record<string, any>,
-                    ),
-                  },
-                  quantity: 1,
-                };
-
-                profile.items[battlepassQuest.templateId] = profileItem;
-                await profilesService.updateMultiple([
-                  {
-                    accountId: user.accountId,
-                    type: "athena",
-                    data: profile,
-                  },
-                ]);
-              }
-            }
-
-            for (const quests of weeklyQuests) {
-              const keys = Object.keys(quests);
-
-              for (const quest of keys) {
-                const weeklyQuest = quests[quest];
-
-                const profileItem = {
-                  templateId: weeklyQuest.templateId,
-                  attributes: {
-                    ...weeklyQuest.attributes,
-                    ...weeklyQuest.attributes.ObjectiveState.reduce(
-                      (acc, { BackendName, Stage }) => {
-                        acc[BackendName] = Stage;
-                        return acc;
-                      },
-                      {} as Record<string, any>,
-                    ),
-                  },
-                  quantity: 1,
-                };
-
-                profile.items[weeklyQuest.templateId] = profileItem;
-                await profilesService.updateMultiple([
-                  {
-                    accountId: user.accountId,
-                    type: "athena",
-                    data: profile,
-                  },
-                ]);
-              }
-            }
+            profileCache.set(profileId, { data: profile, timestamp: Date.now() });
           }
         } else {
           past_seasons.push({
@@ -286,10 +241,19 @@ export default async function (c: Context) {
             book_level: 1,
             book_xp: 0,
           });
-        }
 
-        attributes.past_seasons = past_seasons;
-        profileUpdates["athena"] = profile;
+          attributes.past_seasons = past_seasons;
+
+          await profilesService.updateMultiple([
+            {
+              accountId: user.accountId,
+              type: "athena",
+              data: profile,
+            },
+          ]);
+
+          profileCache.set(profileId, { data: profile, timestamp: Date.now() });
+        }
         break;
 
       case "common_core":
@@ -303,16 +267,17 @@ export default async function (c: Context) {
           }
         });
 
-        profileUpdates["common_core"] = profile;
+        await profilesService.updateMultiple([
+          {
+            accountId: user.accountId,
+            type: "common_core",
+            data: profile,
+          },
+        ]);
+
+        profileCache.set(profileId, { data: profile, timestamp: Date.now() });
         break;
     }
-    await profilesService.updateMultiple(
-      Object.entries(profileUpdates).map(([type, data]) => ({
-        accountId: user.accountId,
-        type: type as keyof Profiles,
-        data,
-      })),
-    );
 
     const applyProfileChanges = [
       {
@@ -323,7 +288,7 @@ export default async function (c: Context) {
 
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
   } catch (error) {
-    void logger.error(`Error in QueryProfile: ${error}`);
+    logger.error(`Error in QueryProfile: ${error}`);
     return c.json(errors.createError(500, c.req.url, "Internal server error.", timestamp), 500);
   }
 }
