@@ -14,8 +14,6 @@ ServerPort=${config.tcp ? "7777" : "8080"}
 ${config.tcp ? "bUsePlainTextAuth=true" : ""}
 
 [OnlineSubsystemMcp]
-bEnabled=true
-bEnableXmpp=true
 bUsePartySystemV2=true
 
 [OnlineSubsystemMcp.OnlinePartySystemMcpAdapter]
@@ -25,11 +23,11 @@ bUsePartySystemV2=true
 bHasVoiceEnabled=true
 
 [OnlineSubsystemMcp.OnlineIdentityMcp]
-bAutoLoginToXmpp=false
+bAutoLoginToXmpp=true
 bShouldReconnectXmpp=true
 bOfflineAccountToken=true
 bOfflineClientToken=true
-bVerifyAuthIncludesPermissions=false
+bVerifyAuthIncludesPermissions=true
 
 
 [Voice]
@@ -233,7 +231,6 @@ bDisableGifting=false
 bDisableGiftingPC=false
 bDisableGiftingPS4=false
 bDisableGiftingXB=false
-bLoadDirectlyIntoLobby=True
 bEnableInGameMatchmaking=True
 bSkipTrailerMovie=true
 bAlwaysPlayTrailerMovie=false

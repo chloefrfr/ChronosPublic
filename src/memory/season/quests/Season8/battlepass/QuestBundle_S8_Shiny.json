@@ -1,0 +1,97 @@
+{
+  "Name": "QuestBundle_S8_Shiny",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season8_shiny_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:Quest_BR_S8_Shiny_Outlive_01",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_shiny_outlive_01",
+          "Count": 500,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S8_Shiny_Outlive_02",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_shiny_outlive_02",
+          "Count": 1000,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S8_Shiny_Outlive_03",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_shiny_outlive_03",
+          "Count": 2500,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S8_Shiny_Outlive_04",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_shiny_outlive_04",
+          "Count": 7500,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S8_Shiny_Outlive_05",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_shiny_outlive_05",
+          "Count": 15000,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S8_Shiny_Outlive_06",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_shiny_outlive_06",
+          "Count": 25000,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}

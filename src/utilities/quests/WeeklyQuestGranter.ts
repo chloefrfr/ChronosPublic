@@ -2,9 +2,10 @@ import { logger, profilesService, weeklyQuestService } from "../..";
 import { handleProfileSelection } from "../../operations/QueryProfile";
 import type { PastSeasons } from "../managers/LevelsManager";
 import { QuestManager, type Objectives } from "../managers/QuestManager";
+import RefreshAccount from "../refresh";
 
 export namespace WeeklyQuestGranter {
-  export async function grant(accountId: string, pastSeasons: PastSeasons) {
+  export async function grant(accountId: string, username: string, pastSeasons: PastSeasons) {
     const weeklyQuests = Array.from(QuestManager.listedWeeklyQuests);
 
     if (weeklyQuests.length === 0) {
@@ -18,47 +19,40 @@ export namespace WeeklyQuestGranter {
     const grantedQuestInstanceIds = new Set<string>();
     let grantItems = true;
 
+    const questDataMap = new Map<string, any>();
+    const bundleResponsesMap = new Map<string, any>();
+
     const profile = await handleProfileSelection("athena", accountId);
     if (!profile) {
       return { multiUpdates: [], shouldGrantItems: false };
     }
 
-    const existingQuestIds = Object.keys(profile.items).filter(
-      (id) => id.startsWith("Quest:") && !id.includes("Repeatable") && !id.includes("AthenaDaily"),
-    );
-    existingQuestIds.forEach(async (id) => {
-      delete profile.items[id];
-      updates.push({ changeType: "itemRemoved", itemId: id });
+    // const existingQuestIds = Object.keys(profile.items).filter(
+    //   (id) => id.startsWith("Quest:") && !id.includes("Repeatable") && !id.includes("AthenaDaily"),
+    // );
 
-      await profilesService.updateMultiple([
-        {
-          accountId,
-          type: "athena",
-          data: profile,
-        },
-      ]);
-    });
+    // const weeklyQuestIds = new Set(
+    //   weeklyQuests.flatMap((quest) => quest.Objects.map((bundle) => bundle.Name)),
+    // );
 
-    const questDataMap = new Map<string, any>();
-    const bundleResponsesMap = new Map<string, any>();
+    // for (const id of existingQuestIds) {
+    //   if (!weeklyQuestIds.has(id)) {
+    //     delete profile.items[id];
+    //     updates.push({ changeType: "itemRemoved", itemId: id });
+    //   }
+    // }
 
-    const questPromises = weeklyQuests.map(async (quest) => {
+    for (const quest of weeklyQuests) {
       const bundleName = `ChallengeBundle:${quest.Name}`;
       grantedBundles.add(bundleName);
       challengeBundleScheduleId = quest.ChallengeBundleSchedule;
 
-      const bundlePromises = quest.Objects.map(async (questBundle) => {
+      for (const questBundle of quest.Objects) {
         try {
           const exists = await weeklyQuestService.get(accountId, questBundle.Name);
           if (exists) {
-            logger.warn("Quests already exist.");
-
             for (const rewards of questBundle.Rewards) {
               if (rewards.TemplateId.startsWith("Quest:")) {
-                const alreadyExists = await weeklyQuestService.get(accountId, rewards.TemplateId);
-
-                if (alreadyExists) break;
-
                 const objectiveStates = questBundle.Objectives.reduce(
                   (acc, { BackendName, Count }) => ({
                     ...acc,
@@ -105,16 +99,15 @@ export namespace WeeklyQuestGranter {
                 bundleResponsesMap.set(rewards.TemplateId, itemResponse);
               }
             }
-
-            return null;
+            continue;
           }
 
           if (questBundle.Options.bRequiresVIP && !pastSeasons.purchasedVIP) {
             grantItems = false;
-            return null;
+            continue;
           }
 
-          if (questBundle.Options.hasExtra) return null;
+          if (questBundle.Options.hasExtra) continue;
 
           const objectiveStates = questBundle.Objectives.reduce(
             (acc, { BackendName, Count }) => ({
@@ -164,12 +157,8 @@ export namespace WeeklyQuestGranter {
           logger.error(`Error generating quest bundle: ${error}`);
           grantItems = false;
         }
-      });
-
-      await Promise.all(bundlePromises);
-    });
-
-    await Promise.all(questPromises);
+      }
+    }
 
     const scheduleItemResponse = {
       templateId: challengeBundleScheduleId,
@@ -220,32 +209,20 @@ export namespace WeeklyQuestGranter {
       { changeType: "itemAdded", itemId: challengeBundleScheduleId, item: scheduleItemResponse },
     );
 
-    await profilesService.updateMultiple([{ accountId, type: "athena", data: profile }]);
+    try {
+      await profilesService.updateMultiple([{ accountId, type: "athena", data: profile }]);
 
-    const addQuests = async (quests: Array<{ [key: string]: any }>) => {
-      try {
-        if (quests.length > 0) {
-          await weeklyQuestService.add(accountId, quests);
-        }
-      } catch (error) {
-        logger.error(`Error adding quests: ${error}`);
+      const questDataArray = Array.from(questDataMap.values()).map((data) => ({
+        [data.templateId]: data,
+      }));
+
+      if (questDataArray.length > 0) {
+        await weeklyQuestService.add(accountId, questDataArray);
       }
-    };
 
-    const questChunks = Array.from(questDataMap.values()).map((data) => ({
-      [data.templateId]: data,
-    }));
-    let retryCount = 0;
-    const maxRetries = 3;
-
-    while (retryCount < maxRetries) {
-      try {
-        await addQuests(questChunks);
-        break;
-      } catch (error) {
-        retryCount++;
-        logger.error(`Retry ${retryCount}/${maxRetries} failed: ${error}`);
-      }
+      await RefreshAccount(accountId, username);
+    } catch (error) {
+      logger.error(`Error updating profile or adding quests: ${error}`);
     }
 
     return { multiUpdates: updates, shouldGrantItems: grantItems };

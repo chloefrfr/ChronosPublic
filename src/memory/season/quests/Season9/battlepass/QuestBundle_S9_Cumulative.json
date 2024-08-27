@@ -1,0 +1,368 @@
+{
+  "Name": "QuestBundle_S9_Cumulative",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season9_cumulative_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_Collect_Glyphs",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:quest_br_superduper_a",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "Quest:quest_br_superduper_b",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "Quest:quest_br_superduper_c",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "Quest:quest_br_superduper_d",
+          "Quantity": 1
+        },
+        {
+          "TemplateId": "Quest:quest_br_superduper_e",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "athena_S9cumulative_collect_glyphs",
+          "Count": 90,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_SuperDuper_A",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "superduper_interact_athena_a",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_SuperDuper_B",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "superduper_interact_athena_b",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_SuperDuper_C",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "superduper_interact_athena_c",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_SuperDuper_D",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "superduper_interact_athena_d",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_SuperDuper_E",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "superduper_interact_athena_e",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_CollectTokens_001",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_S9_Cumulative_Quest01",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_season9_cumulative_token01",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_Quest01",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_interact_cumulative_quest_01",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_CollectTokens_002",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_season9_cumulative_token02",
+          "Count": 2,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_CollectTokens_003",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_S9_Cumulative_Quest03",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_season9_cumulative_token03",
+          "Count": 3,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_Quest03",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_interact_cumulative_quest_03",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_CollectTokens_004",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_season9_cumulative_token04",
+          "Count": 4,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_CollectTokens_005",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_S9_Cumulative_Quest05",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_season9_cumulative_token05",
+          "Count": 5,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_Quest05",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_interact_cumulative_quest_05",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_CollectTokens_006",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_season9_cumulative_token06",
+          "Count": 6,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_CollectTokens_007",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_S9_Cumulative_Quest07",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_season9_cumulative_token07",
+          "Count": 7,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_Quest07",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_interact_cumulative_quest_07",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_CollectTokens_008",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_season9_cumulative_token08",
+          "Count": 8,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_CollectTokens_009",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_S9_Cumulative_Quest09",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_season9_cumulative_token09",
+          "Count": 9,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_Quest09",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_interact_cumulative_quest_09",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Cumulative_CollectTokens_010",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_season9_cumulative_token10",
+          "Count": 10,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}

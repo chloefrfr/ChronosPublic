@@ -23,6 +23,7 @@ import { v4 as uuid } from "uuid";
 import { handleProfileSelection } from "./QueryProfile";
 import { SendMessageToId } from "../sockets/xmpp/utilities/SendMessageToId";
 import RefreshAccount from "../utilities/refresh";
+import { BattlepassQuestGranter } from "../utilities/quests/BattlepassQuestGranter";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -182,7 +183,7 @@ export default async function (c: Context) {
             shouldUpdateProfile = true;
           }
 
-          const granter = await WeeklyQuestGranter.grant(user.accountId, pastSeason);
+          const granter = await WeeklyQuestGranter.grant(user.accountId, user.username, pastSeason);
           if (!granter) {
             return c.json(
               errors.createError(400, c.req.url, "Failed to grant weekly quests.", timestamp),
@@ -191,51 +192,6 @@ export default async function (c: Context) {
           }
 
           multiUpdates.push(granter.multiUpdates);
-
-          if (pastSeason.seasonNumber === config.currentSeason) {
-            const addQuestItems = (storageList: any[], isBattlepass: boolean) => {
-              storageList.forEach((obj) => {
-                const questKey = Object.keys(obj)[0];
-                const templateId = obj[questKey].templateId;
-                const objective = obj[questKey].attributes.ObjectiveState[0];
-
-                const newQuestItem = {
-                  changeType: "itemAdded",
-                  itemId: templateId,
-                  item: {
-                    templateId: templateId,
-                    attributes: {
-                      creation_time: new Date().toISOString(),
-                      level: -1,
-                      item_seen: false,
-                      playlists: [],
-                      sent_new_notification: true,
-                      challenge_bundle_id: "",
-                      xp_reward_scalar: 1,
-                      challenge_linked_quest_given: "",
-                      quest_pool: "",
-                      quest_state: "Active",
-                      bucket: "",
-                      last_state_change_time: new Date().toISOString(),
-                      challenge_linked_quest_parent: "",
-                      max_level_bonus: 0,
-                      xp: 0,
-                      quest_rarity: "uncommon",
-                      favorite: false,
-                      [objective.Name]: isBattlepass ? objective.Stage : objective.Value,
-                    },
-                    quantity: 1,
-                  },
-                };
-
-                multiUpdates.push(newQuestItem);
-                shouldUpdateProfile = true;
-              });
-            };
-
-            addQuestItems(storage, false);
-            addQuestItems(battlepassStorage, true);
-          }
         }
       }
     }
