@@ -15,13 +15,12 @@ import ProfileHelper from "../utilities/profiles";
 import MCPResponses from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
 import { LRUCache } from "lru-cache";
-import type { IProfile, ItemValue } from "../../types/profilesdefs";
+import type { IProfile } from "../../types/profilesdefs";
 import axios from "axios";
-import type { Attributes, ObjectiveState } from "../tables/storage/other/dailyQuestStorage";
+import type { Profiles } from "../tables/profiles";
 
-const profileCache = new LRUCache<string, { data: any; timestamp: number }>({
+const profileCache = new LRUCache<string, IProfile>({
   max: 1000,
-  ttl: 1000 * 60 * 1,
 });
 
 type AllowedProfileTypes =
@@ -40,43 +39,49 @@ type AllowedProfileTypes =
   | "hasId"
   | "reload";
 
-// Caching the new items could be slow at times
-// And there's 100% a better way to do this
-// but it works and thats what counts :)
-export async function handleProfileSelection(profileId: ProfileId, accountId: string) {
-  const profileTypes: { [key in ProfileId]?: AllowedProfileTypes } = {
-    athena: "athena",
-    profile0: "athena",
-    common_core: "common_core",
-    common_public: "common_public",
-    campaign: "campaign",
-    metadata: "metadata",
-    theater0: "theater0",
-    creative: "creative",
-    collections: "collections",
-    collection_book_people0: "collection_book_people0",
-    collection_book_schematics0: "collection_book_schematics0",
-    outpost0: "outpost0",
-  };
+const profileTypes = new Map<ProfileId, AllowedProfileTypes>([
+  ["athena", "athena"],
+  ["profile0", "athena"],
+  ["common_core", "common_core"],
+  ["common_public", "common_public"],
+  ["campaign", "campaign"],
+  ["metadata", "metadata"],
+  ["theater0", "theater0"],
+  ["creative", "creative"],
+  ["collections", "collections"],
+  ["collection_book_people0", "collection_book_people0"],
+  ["collection_book_schematics0", "collection_book_schematics0"],
+  ["outpost0", "outpost0"],
+]);
 
-  const profileType = profileTypes[profileId];
+export async function handleProfileSelection(
+  profileId: ProfileId,
+  accountId: string,
+): Promise<IProfile | null> {
+  const profileType = profileTypes.get(profileId);
 
   if (!profileType) {
     logger.error(`Invalid Profile Type: ${profileId}`);
     return null;
   }
 
-  const cachedEntry = profileCache.get(profileId);
+  let profile = profileCache.get(profileId);
 
-  if (cachedEntry) {
-    return cachedEntry.data as IProfile;
+  if (profile) {
+    return profile;
   }
 
-  const profilePromise = await ProfileHelper.getProfile(accountId, profileType);
-
-  profileCache.set(profileId, { data: await profilePromise, timestamp: Date.now() });
-
-  return profilePromise || null;
+  try {
+    profile = await ProfileHelper.getProfile(accountId, profileType);
+    if (profile) {
+      profileCache.set(profileId, profile);
+      return profile;
+    }
+    return null;
+  } catch (error) {
+    logger.error(`Failed to get profile for ${profileId}: ${error}`);
+    return null;
+  }
 }
 
 export default async function (c: Context) {
@@ -131,44 +136,41 @@ export default async function (c: Context) {
         404,
       );
 
+    const profileUpdates: { [key: string]: any } = {};
+
     switch (profileId) {
       case "athena":
         profile.stats.attributes.season_num = uahelper.season;
 
         const { attributes } = profile.stats;
-
-        let { past_seasons } = attributes;
-
-        if (!Array.isArray(past_seasons)) {
-          past_seasons = [];
-          attributes.past_seasons = past_seasons;
-        }
-
-        let currentSeasonIndex = -1;
-        for (let i = 0; i < past_seasons.length; i++) {
-          if (past_seasons[i].seasonNumber === uahelper.season) {
-            currentSeasonIndex = i;
-            break;
-          }
-        }
+        const past_seasons = attributes.past_seasons || [];
+        const currentSeasonIndex = past_seasons.findIndex(
+          (season) => season.seasonNumber === uahelper.season,
+        );
 
         if (currentSeasonIndex !== -1) {
           const currentSeason = past_seasons[currentSeasonIndex];
-          attributes.book_level = currentSeason.bookLevel;
-          attributes.book_xp = currentSeason.bookXp;
-          attributes.xp = currentSeason.seasonXp;
-          attributes.book_purchased = currentSeason.purchasedVIP;
-          attributes.level = currentSeason.seasonLevel;
-          attributes.season!.numWins = currentSeason.numWins;
-          attributes.season!.numLowBracket = currentSeason.numLowBracket;
-          attributes.season!.numHighBracket = currentSeason.numHighBracket;
+          Object.assign(attributes, {
+            book_level: currentSeason.bookLevel,
+            book_xp: currentSeason.bookXp,
+            xp: currentSeason.seasonXp,
+            book_purchased: currentSeason.purchasedVIP,
+            level: currentSeason.seasonLevel,
+            season: {
+              numWins: currentSeason.numWins,
+              numLowBracket: currentSeason.numLowBracket,
+              numHighBracket: currentSeason.numHighBracket,
+            },
+          });
 
           if (currentSeason.seasonNumber === config.currentSeason) {
-            const allDailyQuests = await dailyQuestService.get(user.accountId);
-            const allBattlepassQuests = await battlepassQuestService.getAll(user.accountId);
-            const allWeeklyQuests = await weeklyQuestService.getAll(user.accountId);
+            const [dailyQuests, battlepassQuests, weeklyQuests] = await Promise.all([
+              dailyQuestService.get(user.accountId),
+              battlepassQuestService.getAll(user.accountId),
+              weeklyQuestService.getAll(user.accountId),
+            ]);
 
-            for (const quests of allDailyQuests) {
+            for (const quests of dailyQuests) {
               const keys = Object.keys(quests);
 
               for (const quest of keys) {
@@ -197,7 +199,7 @@ export default async function (c: Context) {
               }
             }
 
-            for (const quests of allBattlepassQuests) {
+            for (const quests of battlepassQuests) {
               const keys = Object.keys(quests);
 
               for (const quest of keys) {
@@ -229,7 +231,7 @@ export default async function (c: Context) {
               }
             }
 
-            for (const quests of allWeeklyQuests) {
+            for (const quests of weeklyQuests) {
               const keys = Object.keys(quests);
 
               for (const quest of keys) {
@@ -277,16 +279,17 @@ export default async function (c: Context) {
             survivorPrestige: 0,
           });
 
-          attributes.xp = 0;
-          attributes.level = 1;
-          attributes.book_purchased = false;
-          attributes.book_level = 1;
-          attributes.book_xp = 0;
+          Object.assign(attributes, {
+            xp: 0,
+            level: 1,
+            book_purchased: false,
+            book_level: 1,
+            book_xp: 0,
+          });
         }
 
         attributes.past_seasons = past_seasons;
-
-        await profilesService.update(user.accountId, "athena", profile);
+        profileUpdates["athena"] = profile;
         break;
 
       case "common_core":
@@ -294,15 +297,22 @@ export default async function (c: Context) {
           profile.stats.attributes.permissions = [];
         }
 
-        for (const permission of account.permissions) {
-          if (!profile.stats.attributes.permissions.includes(permission.resource)) {
-            profile.stats.attributes.permissions.push(permission.resource);
+        account.permissions.forEach((permission) => {
+          if (!profile.stats.attributes.permissions!.includes(permission.resource)) {
+            profile.stats.attributes.permissions!.push(permission.resource);
           }
-        }
+        });
 
-        await profilesService.update(user.accountId, "common_core", profile);
+        profileUpdates["common_core"] = profile;
         break;
     }
+    await profilesService.updateMultiple(
+      Object.entries(profileUpdates).map(([type, data]) => ({
+        accountId: user.accountId,
+        type: type as keyof Profiles,
+        data,
+      })),
+    );
 
     const applyProfileChanges = [
       {

@@ -34,19 +34,19 @@ export default class ProfileHelper {
   static async getProfile(
     accountId: string,
     profileName: keyof Omit<Profiles, "accountId">,
-  ): Promise<IProfile | null> {
+  ): Promise<IProfile | undefined> {
     try {
       const profile = await profilesService.findByName(accountId, profileName);
 
       if (!profile) {
         logger.error(`Profile of type ${profileName} not found.`);
-        return null;
+        return undefined;
       }
 
-      return ProfileHelper.getProfileData(profile, profileName);
+      return ProfileHelper.getProfileData(profile, profileName) || undefined;
     } catch (error) {
       logger.error(`Failed to get profile of type ${profileName}: ${error}`);
-      return null;
+      return undefined;
     }
   }
 

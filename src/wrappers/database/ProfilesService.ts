@@ -27,7 +27,6 @@ export default class ProfilesService {
     this.profilesRepository = database.getRepository(Profiles);
     this.cache = new LRUCache<string, Profiles>({
       max: 1000,
-      ttl: 5 * 60 * 1000,
     });
   }
 
