@@ -1,4 +1,4 @@
-import { battlepassQuestService } from "../..";
+import { battlepassQuestService, logger } from "../..";
 import type { PastSeasons } from "../managers/LevelsManager";
 import { QuestManager, type Objectives } from "../managers/QuestManager";
 import RefreshAccount from "../refresh";
@@ -15,7 +15,7 @@ export namespace BattlepassQuestGranter {
       (q) => q.ChallengeBundleSchedule === templateId,
     );
 
-    if (!filteredMatchingQuest) {
+    if (filteredMatchingQuest.length === 0) {
       return { multiUpdates: [] };
     }
 
@@ -28,11 +28,12 @@ export namespace BattlepassQuestGranter {
     const listOfBundles: Record<string, string[]> = {};
 
     for (const questData of filteredMatchingQuest) {
+      const bundleId = `ChallengeBundle:${questData.Name}`;
       if (!listOfBundles[questData.ChallengeBundleSchedule]) {
         listOfBundles[questData.ChallengeBundleSchedule] = [];
       }
 
-      listOfBundles[questData.ChallengeBundleSchedule].push(`ChallengeBundle:${questData.Name}`);
+      listOfBundles[questData.ChallengeBundleSchedule].push(bundleId);
 
       const listOfQuests: string[] = [];
       let currentXP = 0;
@@ -42,71 +43,90 @@ export namespace BattlepassQuestGranter {
 
         listOfQuests.push(quest.Name);
 
-        const storage = await battlepassQuestService.get(accountId, quest.Name);
+        try {
+          const storage = await battlepassQuestService.get(accountId, quest.Name);
 
-        if (!storage) {
-          const ObjectiveState: Objectives[] = quest.Objectives.map((objective) => {
-            const isXPObjective =
-              objective.BackendName.toLowerCase().includes("athena_season_xp_gained");
-            const value = isXPObjective ? Math.min(currentXP, objective.Count) : 0;
+          if (!storage) {
+            const ObjectiveState: Objectives[] = quest.Objectives.map((objective) => {
+              const isXPObjective =
+                objective.BackendName.toLowerCase().includes("athena_season_xp_gained");
+              const value = isXPObjective ? Math.min(currentXP, objective.Count) : 0;
 
-            return {
-              BackendName: `completion_${objective.BackendName}`,
-              Stage: value,
-              Count: objective.Count,
-            };
-          });
+              return {
+                BackendName: `completion_${objective.BackendName}`,
+                Stage: value,
+                Count: objective.Count,
+              };
+            });
 
-          await battlepassQuestService.add(accountId, [
-            {
-              [quest.Name]: {
-                templateId: quest.Name,
-                attributes: {
-                  challenge_bundle_id: `ChallengeBundle:${questData.Name}`,
-                  sent_new_notification: false,
-                  ObjectiveState,
+            await battlepassQuestService.add(accountId, [
+              {
+                [quest.Name]: {
+                  templateId: quest.Name,
+                  attributes: {
+                    challenge_bundle_id: bundleId,
+                    sent_new_notification: false,
+                    creation_time: new Date().toISOString(),
+                    level: -1,
+                    item_seen: false,
+                    playlists: [],
+                    xp_reward_scalar: 1,
+                    challenge_linked_quest_given: "",
+                    quest_pool: "",
+                    quest_state: "Active",
+                    bucket: "",
+                    last_state_change_time: new Date().toISOString(),
+                    challenge_linked_quest_parent: "",
+                    max_level_bonus: 0,
+                    xp: 0,
+                    quest_rarity: "uncommon",
+                    favorite: false,
+                    ObjectiveState,
+                  },
+                  quantity: 1,
                 },
-                quantity: 1,
               },
-            },
-          ]);
+            ]);
 
-          const newQuestItem = {
-            templateId: quest.Name,
-            attributes: {
-              creation_time: new Date().toISOString(),
-              level: -1,
-              item_seen: false,
-              playlists: [],
-              sent_new_notification: true,
-              challenge_bundle_id: `ChallengeBundle:${questData.Name}`,
-              xp_reward_scalar: 1,
-              challenge_linked_quest_given: "",
-              quest_pool: "",
-              quest_state: "Active",
-              bucket: "",
-              last_state_change_time: new Date().toISOString(),
-              challenge_linked_quest_parent: "",
-              max_level_bonus: 0,
-              xp: 0,
-              quest_rarity: "uncommon",
-              favorite: false,
-            },
-            quantity: 1,
-          };
+            const newQuestItem = {
+              templateId: quest.Name,
+              attributes: {
+                creation_time: new Date().toISOString(),
+                level: -1,
+                item_seen: false,
+                playlists: [],
+                sent_new_notification: true,
+                challenge_bundle_id: bundleId,
+                xp_reward_scalar: 1,
+                challenge_linked_quest_given: "",
+                quest_pool: "",
+                quest_state: "Active",
+                bucket: "",
+                last_state_change_time: new Date().toISOString(),
+                challenge_linked_quest_parent: "",
+                max_level_bonus: 0,
+                xp: 0,
+                quest_rarity: "uncommon",
+                favorite: false,
+              },
+              quantity: 1,
+            };
 
-          for (const obj of ObjectiveState) {
-            // @ts-ignore
-            newQuestItem.attributes[obj.BackendName] = obj.Stage;
+            for (const obj of ObjectiveState) {
+              // @ts-ignore
+              newQuestItem.attributes[obj.BackendName] = obj.Stage;
+            }
+
+            updates.push({
+              changeType: "itemAdded",
+              itemId: quest.Name,
+              item: newQuestItem,
+            });
+
+            await RefreshAccount(accountId, username);
           }
-
-          updates.push({
-            changeType: "itemAdded",
-            itemId: quest.Name,
-            item: newQuestItem,
-          });
-
-          await RefreshAccount(accountId, username);
+        } catch (error) {
+          console.error(`Error processing quest ${quest.Name} for account ${accountId}:`, error);
         }
       }
 
@@ -132,12 +152,12 @@ export namespace BattlepassQuestGranter {
 
       updates.push({
         changeType: "itemRemoved",
-        itemId: `ChallengeBundle:${questData.Name}`,
+        itemId: bundleId,
       });
 
       updates.push({
         changeType: "itemAdded",
-        itemId: `ChallengeBundle:${questData.Name}`,
+        itemId: bundleId,
         item: bundleAttributes,
       });
     }
@@ -171,7 +191,11 @@ export namespace BattlepassQuestGranter {
       });
     }
 
-    await RefreshAccount(accountId, username);
+    try {
+      await RefreshAccount(accountId, username);
+    } catch (error) {
+      logger.error(`Error refreshing account: ${error}`);
+    }
 
     return { multiUpdates: updates };
   }
