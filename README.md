@@ -2,7 +2,7 @@
 
 ![Banner](https://cdn2.unrealengine.com/13br-galaxycup-newsheader-1900x600-1900x600-482668392.jpg)
 
-**Fortnite Backend written in TypeScript using Postgres powered by TypeORM**
+**Universal Fortnite Backend written in TypeScript using Postgres powered by TypeORM**
 
 ## Supported MCP Operations
 
