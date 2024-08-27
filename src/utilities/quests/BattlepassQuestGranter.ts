@@ -1,4 +1,4 @@
-import { battlepassQuestService, logger } from "../..";
+import { battlepassQuestService, config, logger } from "../..";
 import type { PastSeasons } from "../managers/LevelsManager";
 import { QuestManager, type Objectives } from "../managers/QuestManager";
 import RefreshAccount from "../refresh";
@@ -44,7 +44,11 @@ export namespace BattlepassQuestGranter {
         listOfQuests.push(quest.Name);
 
         try {
-          const storage = await battlepassQuestService.get(accountId, quest.Name);
+          const storage = await battlepassQuestService.get(
+            accountId,
+            config.currentSeason,
+            quest.Name,
+          );
 
           if (!storage) {
             const ObjectiveState: Objectives[] = quest.Objectives.map((objective) => {
@@ -59,7 +63,7 @@ export namespace BattlepassQuestGranter {
               };
             });
 
-            await battlepassQuestService.add(accountId, [
+            await battlepassQuestService.add(accountId, config.currentSeason, [
               {
                 [quest.Name]: {
                   templateId: quest.Name,

@@ -19,6 +19,8 @@ import type { IProfile, ItemValue } from "../../types/profilesdefs";
 import axios from "axios";
 import type { Attributes, ObjectiveState } from "../tables/storage/other/dailyQuestStorage";
 import type { QuestItem } from "../../types/questdefs";
+import { QuestManager } from "../utilities/managers/QuestManager";
+import RefreshAccount from "../utilities/refresh";
 
 const profileCache = new LRUCache<string, { data: any; timestamp: number }>({
   max: 1000,
@@ -152,26 +154,31 @@ export default async function (c: Context) {
 
         if (currentSeasonIndex !== -1) {
           const currentSeason = past_seasons[currentSeasonIndex];
-          attributes.book_level = currentSeason.bookLevel;
-          attributes.book_xp = currentSeason.bookXp;
-          attributes.xp = currentSeason.seasonXp;
-          attributes.book_purchased = currentSeason.purchasedVIP;
-          attributes.level = currentSeason.seasonLevel;
-          attributes.season!.numWins = currentSeason.numWins;
-          attributes.season!.numLowBracket = currentSeason.numLowBracket;
-          attributes.season!.numHighBracket = currentSeason.numHighBracket;
+
+          Object.assign(attributes, {
+            book_level: currentSeason.bookLevel,
+            book_xp: currentSeason.bookXp,
+            xp: currentSeason.seasonXp,
+            book_purchased: currentSeason.purchasedVIP,
+            level: currentSeason.seasonLevel,
+            season: {
+              numWins: currentSeason.numWins,
+              numLowBracket: currentSeason.numLowBracket,
+              numHighBracket: currentSeason.numHighBracket,
+            },
+          });
 
           if (currentSeason.seasonNumber === config.currentSeason) {
             const [dailyQuests, battlepassQuests, weeklyQuests] = await Promise.all([
               dailyQuestService.get(user.accountId),
-              battlepassQuestService.getAll(user.accountId),
-              weeklyQuestService.getAll(user.accountId),
+              battlepassQuestService.getAll(user.accountId, uahelper.season),
+              weeklyQuestService.getAll(user.accountId, config.currentSeason),
             ]);
 
             const updateProfileItems = (quests: Record<string, QuestItem>[]) => {
               quests.forEach((quest) => {
                 Object.values(quest).forEach((questItem) => {
-                  const profileItem = {
+                  profile.items[questItem.templateId] = {
                     templateId: questItem.templateId,
                     attributes: {
                       ...questItem.attributes,
@@ -185,7 +192,6 @@ export default async function (c: Context) {
                     },
                     quantity: 1,
                   };
-                  profile.items[questItem.templateId] = profileItem;
                 });
               });
             };
@@ -201,6 +207,83 @@ export default async function (c: Context) {
                 data: profile,
               },
             ]);
+          } else {
+            const isQuestBundle = (itemId: string, season: number): boolean =>
+              itemId.includes("Quest:") && itemId.includes(`QuestBundle_S${season}`);
+
+            const isMissionOrChallenge = (itemId: string, season: number): boolean =>
+              itemId.includes(`MissionBundle_S${season}`) &&
+              itemId.includes(`ChallengeBundleSchedule:season${season}_`) &&
+              !itemId.includes("_Repeatable_");
+
+            const shouldRemoveItem = (itemId: string, season: number): boolean =>
+              isQuestBundle(itemId, season) || isMissionOrChallenge(itemId, season);
+
+            const deleteTasks = async (
+              itemId: string,
+              season: number,
+              accountId: string,
+            ): Promise<string | null> => {
+              try {
+                const [weeklyExists, battlepassExists] = await Promise.all([
+                  weeklyQuestService.get(accountId, season, itemId),
+                  battlepassQuestService.get(accountId, season, itemId),
+                ]);
+
+                if (weeklyExists) {
+                  await weeklyQuestService.deleteQuest(accountId, season, itemId);
+                }
+
+                if (battlepassExists) {
+                  await battlepassQuestService.deleteQuest(accountId, season, itemId);
+                }
+
+                return itemId;
+              } catch (error) {
+                logger.error(`Failed to delete quest with the itemId ${itemId}: ${error}`);
+                return null;
+              }
+            };
+
+            if (profile.items) {
+              const itemsToRemove = Object.keys(profile.items).filter((itemId) =>
+                shouldRemoveItem(itemId, uahelper.season),
+              );
+
+              const CHUNK_SIZE = 20;
+
+              const itemKeys = Object.keys(profile.items);
+
+              for (let i = 0; i < itemKeys.length; i += CHUNK_SIZE) {
+                const chunk = itemKeys.slice(i, i + CHUNK_SIZE);
+                const deletionResults = await Promise.all(
+                  chunk.map((itemId) =>
+                    shouldRemoveItem(itemId, uahelper.season)
+                      ? deleteTasks(itemId, uahelper.season, user.accountId)
+                      : Promise.resolve(null),
+                  ),
+                );
+
+                const retainedItems = deletionResults
+                  .filter((item): item is string => item !== null)
+                  .reduce((acc, itemId) => {
+                    if (profile.items[itemId]) {
+                      acc[itemId] = profile.items[itemId];
+                    }
+                    return acc;
+                  }, {} as Record<string, any>);
+
+                profile.items = retainedItems;
+
+                await profilesService.updateMultiple([
+                  {
+                    accountId: user.accountId,
+                    type: "athena",
+                    data: profile,
+                  },
+                ]);
+              }
+            }
           }
         } else {
           past_seasons.push({

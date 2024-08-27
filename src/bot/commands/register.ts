@@ -9,6 +9,7 @@ import BaseCommand from "../base/Base";
 import {
   accountService,
   battlepassQuestService,
+  config,
   dailyQuestService,
   friendsService,
   itemStorageService,
@@ -154,8 +155,8 @@ export default class RegisterCommand extends BaseCommand {
           });
 
           await dailyQuestService.add(newUser?.accountId, []);
-          await battlepassQuestService.add(newUser?.accountId, []);
-          await weeklyQuestService.add(newUser?.accountId, []);
+          await battlepassQuestService.add(newUser?.accountId, config.currentSeason, []);
+          await weeklyQuestService.add(newUser?.accountId, config.currentSeason, []);
         });
 
       const embed = new EmbedBuilder()

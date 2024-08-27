@@ -1,4 +1,4 @@
-import { logger, profilesService, weeklyQuestService } from "../..";
+import { config, logger, profilesService, weeklyQuestService } from "../..";
 import { handleProfileSelection } from "../../operations/QueryProfile";
 import type { PastSeasons } from "../managers/LevelsManager";
 import { QuestManager, type Objectives } from "../managers/QuestManager";
@@ -34,7 +34,11 @@ export namespace WeeklyQuestGranter {
 
       for (const questBundle of quest.Objects) {
         try {
-          const exists = await weeklyQuestService.get(accountId, questBundle.Name);
+          const exists = await weeklyQuestService.get(
+            accountId,
+            config.currentSeason,
+            questBundle.Name,
+          );
           if (exists) {
             for (const rewards of questBundle.Rewards) {
               if (rewards.TemplateId.startsWith("Quest:")) {
@@ -200,7 +204,7 @@ export namespace WeeklyQuestGranter {
       }));
 
       if (questDataArray.length > 0) {
-        await weeklyQuestService.add(accountId, questDataArray);
+        await weeklyQuestService.add(accountId, config.currentSeason, questDataArray);
       }
 
       await RefreshAccount(accountId, username);

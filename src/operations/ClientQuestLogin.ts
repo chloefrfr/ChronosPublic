@@ -85,8 +85,8 @@ export default async function (c: Context) {
 
     const [storage, battlepassStorage, weeklyStorage] = await Promise.all([
       dailyQuestService.get(user.accountId),
-      battlepassQuestService.getAll(user.accountId),
-      weeklyQuestService.getAll(user.accountId),
+      battlepassQuestService.getAll(user.accountId, config.currentSeason),
+      weeklyQuestService.getAll(user.accountId, config.currentSeason),
     ]);
 
     if (!storage || !battlepassStorage || !weeklyStorage) {

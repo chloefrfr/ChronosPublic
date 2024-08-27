@@ -2,6 +2,7 @@ import type { Context } from "hono";
 import {
   accountService,
   battlepassQuestService,
+  config,
   dailyQuestService,
   logger,
   profilesService,
@@ -13,6 +14,7 @@ import type { ProfileId } from "../utilities/responses";
 import ProfileHelper from "../utilities/profiles";
 import MCPResponses from "../utilities/responses";
 import { handleProfileSelection } from "./QueryProfile";
+import uaparser from "../utilities/uaparser";
 
 export default async function (c: Context) {
   const timestamp = new Date().toISOString();
@@ -65,12 +67,22 @@ export default async function (c: Context) {
     let shouldUpdateProfile: boolean = false;
     const applyProfileChanges: object[] = [];
 
+    const uahelper = uaparser(c.req.header("User-Agent"));
+
+    if (!uahelper) {
+      return c.json(errors.createError(400, c.req.url, "Invalid User-Agent.", timestamp), 400);
+    }
+
     const { itemIds } = body;
 
     for (const id of itemIds) {
       const dailyQuest = await dailyQuestService.getQuest(user.accountId, id);
-      const battlepassQuests = await battlepassQuestService.get(user.accountId, id);
-      const weeklyQuests = await weeklyQuestService.get(user.accountId, id);
+      const battlepassQuests = await battlepassQuestService.get(
+        user.accountId,
+        uahelper.season,
+        id,
+      );
+      const weeklyQuests = await weeklyQuestService.get(user.accountId, config.currentSeason, id);
 
       if (dailyQuest) {
         dailyQuest.attributes.sent_new_notification = true;
@@ -92,7 +104,9 @@ export default async function (c: Context) {
         battlepassQuests[id].attributes.sent_new_notification = true;
         profile.items[id].attributes.sent_new_notification = true;
 
-        await Promise.all([battlepassQuestService.update(user.accountId, battlepassQuests)]);
+        await Promise.all([
+          battlepassQuestService.update(user.accountId, config.currentSeason, battlepassQuests),
+        ]);
 
         applyProfileChanges.push({
           changeType: "itemAttrChanged",
@@ -107,7 +121,9 @@ export default async function (c: Context) {
       if (weeklyQuests) {
         weeklyQuests[id].attributes.sent_new_notification = true;
 
-        await Promise.all([weeklyQuestService.update(user.accountId, weeklyQuests)]);
+        await Promise.all([
+          weeklyQuestService.update(user.accountId, config.currentSeason, weeklyQuests),
+        ]);
 
         applyProfileChanges.push({
           changeType: "itemAttrChanged",

@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import type { Objectives } from "../../../utilities/managers/QuestManager";
+import Config from "../../../wrappers/Env.wrapper";
 
 export interface BattlepassQuestData {
   [key: string]: {
@@ -8,6 +9,8 @@ export interface BattlepassQuestData {
     quantity: number;
   };
 }
+
+const config = new Config().getConfig();
 
 interface Attributes {
   sent_new_notification: boolean;
@@ -43,6 +46,9 @@ export class BattlepassQuest {
 
   @Column({ type: "varchar", length: 256, nullable: false, unique: true })
   accountId!: string;
+
+  @Column({ nullable: false, default: config.currentSeason })
+  season!: number;
 
   @Column({ type: "jsonb" })
   data!: BattlepassQuestData[];
