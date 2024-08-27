@@ -1,5 +1,5 @@
 import { logger } from "..";
-import { activeUntil, SEASON_EVENTS, type Event } from "../constants/events";
+import { activeUntil, SEASON_EVENTS, type Event } from "../memory/constants/events";
 import uaparser from "./uaparser";
 
 export interface SeasonEvent {
