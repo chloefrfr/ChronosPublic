@@ -27,21 +27,6 @@ export namespace WeeklyQuestGranter {
       return { multiUpdates: [], shouldGrantItems: false };
     }
 
-    // const existingQuestIds = Object.keys(profile.items).filter(
-    //   (id) => id.startsWith("Quest:") && !id.includes("Repeatable") && !id.includes("AthenaDaily"),
-    // );
-
-    // const weeklyQuestIds = new Set(
-    //   weeklyQuests.flatMap((quest) => quest.Objects.map((bundle) => bundle.Name)),
-    // );
-
-    // for (const id of existingQuestIds) {
-    //   if (!weeklyQuestIds.has(id)) {
-    //     delete profile.items[id];
-    //     updates.push({ changeType: "itemRemoved", itemId: id });
-    //   }
-    // }
-
     for (const quest of weeklyQuests) {
       const bundleName = `ChallengeBundle:${quest.Name}`;
       grantedBundles.add(bundleName);
@@ -198,16 +183,14 @@ export namespace WeeklyQuestGranter {
 
       profile.items[bundle] = bundleItemResponse;
 
-      updates.push(
-        { changeType: "itemRemoved", itemId: bundle },
-        { changeType: "itemAdded", itemId: bundle, item: bundleItemResponse },
-      );
+      updates.push({ changeType: "itemAdded", itemId: bundle, item: bundleItemResponse });
     });
 
-    updates.push(
-      { changeType: "itemRemoved", itemId: challengeBundleScheduleId },
-      { changeType: "itemAdded", itemId: challengeBundleScheduleId, item: scheduleItemResponse },
-    );
+    updates.push({
+      changeType: "itemAdded",
+      itemId: challengeBundleScheduleId,
+      item: scheduleItemResponse,
+    });
 
     try {
       await profilesService.updateMultiple([{ accountId, type: "athena", data: profile }]);
