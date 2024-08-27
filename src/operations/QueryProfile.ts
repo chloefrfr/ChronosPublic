@@ -15,12 +15,14 @@ import ProfileHelper from "../utilities/profiles";
 import MCPResponses from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
 import { LRUCache } from "lru-cache";
-import type { IProfile } from "../../types/profilesdefs";
-import type { Profiles } from "../tables/profiles";
+import type { IProfile, ItemValue } from "../../types/profilesdefs";
+import axios from "axios";
+import type { Attributes, ObjectiveState } from "../tables/storage/other/dailyQuestStorage";
 import type { QuestItem } from "../../types/questdefs";
 
 const profileCache = new LRUCache<string, { data: any; timestamp: number }>({
   max: 1000,
+  ttl: 1000 * 60 * 1,
 });
 
 type AllowedProfileTypes =
@@ -54,47 +56,25 @@ const profileTypes = new Map<ProfileId, AllowedProfileTypes>([
   ["outpost0", "outpost0"],
 ]);
 
-const pendingProfiles = new Map<ProfileId, Promise<IProfile | null>>();
-
-export async function handleProfileSelection(
-  profileId: ProfileId,
-  accountId: string,
-): Promise<IProfile | null> {
+export async function handleProfileSelection(profileId: ProfileId, accountId: string) {
   const profileType = profileTypes.get(profileId);
+
   if (!profileType) {
     logger.error(`Invalid Profile Type: ${profileId}`);
     return null;
   }
 
-  if (pendingProfiles.has(profileId)) {
-    return pendingProfiles.get(profileId) as Promise<IProfile | null>;
+  const cachedEntry = profileCache.get(profileId);
+
+  if (cachedEntry) {
+    return cachedEntry.data as IProfile;
   }
 
-  const cachedProfile = profileCache.get(profileId);
-  if (cachedProfile) {
-    return cachedProfile.data as IProfile;
-  }
+  const profilePromise = await ProfileHelper.getProfile(accountId, profileType);
 
-  const getProfilePromise = (async () => {
-    try {
-      const profile = await ProfileHelper.getProfile(accountId, profileType);
-      if (!profile) return null;
+  profileCache.set(profileId, { data: await profilePromise, timestamp: Date.now() });
 
-      await profilesService.updateMultiple([{ accountId, type: profileType, data: profile }]);
-
-      profileCache.set(profileId, { data: profile, timestamp: Date.now() });
-      return profile;
-    } catch (error) {
-      logger.error(`Failed to get profile for account ${accountId}: ${error}`);
-      return null;
-    } finally {
-      pendingProfiles.delete(profileId);
-    }
-  })();
-
-  pendingProfiles.set(profileId, getProfilePromise);
-
-  return getProfilePromise;
+  return profilePromise || null;
 }
 
 export default async function (c: Context) {
@@ -106,19 +86,17 @@ export default async function (c: Context) {
 
   const uahelper = uaparser(useragent);
 
-  if (!useragent) {
+  if (!useragent)
     return c.json(
-      errors.createError(400, c.req.url, "Header 'User-Agent' is missing.", timestamp),
+      errors.createError(400, c.req.url, "header 'User-Agent' is missing.", timestamp),
       400,
     );
-  }
 
-  if (!uahelper) {
+  if (!uahelper)
     return c.json(
       errors.createError(400, c.req.url, "Failed to parse User-Agent.", timestamp),
       400,
     );
-  }
 
   if (!accountId || !rvn || !profileId) {
     return c.json(errors.createError(400, c.req.url, "Missing query parameters.", timestamp), 400);
@@ -137,43 +115,51 @@ export default async function (c: Context) {
       );
     }
 
-    let profile = await handleProfileSelection(profileId, user.accountId);
+    const profile = await handleProfileSelection(profileId, user.accountId);
 
-    if (!profile) {
-      if (profileId !== "athena" && profileId !== "common_core") {
-        return c.json(
-          errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
-          404,
-        );
-      } else {
-        profile = { stats: { attributes: {} }, items: {} } as IProfile;
-      }
-    }
+    if (!profile && profileId !== "athena" && profileId !== "common_core")
+      return c.json(
+        errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
+        404,
+      );
+
+    if (!profile)
+      return c.json(
+        errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
+        404,
+      );
 
     switch (profileId) {
       case "athena":
         profile.stats.attributes.season_num = uahelper.season;
 
         const { attributes } = profile.stats;
-        const past_seasons = attributes.past_seasons || [];
-        const currentSeasonIndex = past_seasons.findIndex(
-          (season) => season.seasonNumber === uahelper.season,
-        );
+
+        let { past_seasons } = attributes;
+
+        if (!Array.isArray(past_seasons)) {
+          past_seasons = [];
+          attributes.past_seasons = past_seasons;
+        }
+
+        let currentSeasonIndex = -1;
+        for (let i = 0; i < past_seasons.length; i++) {
+          if (past_seasons[i].seasonNumber === uahelper.season) {
+            currentSeasonIndex = i;
+            break;
+          }
+        }
 
         if (currentSeasonIndex !== -1) {
           const currentSeason = past_seasons[currentSeasonIndex];
-          Object.assign(attributes, {
-            book_level: currentSeason.bookLevel,
-            book_xp: currentSeason.bookXp,
-            xp: currentSeason.seasonXp,
-            book_purchased: currentSeason.purchasedVIP,
-            level: currentSeason.seasonLevel,
-            season: {
-              numWins: currentSeason.numWins,
-              numLowBracket: currentSeason.numLowBracket,
-              numHighBracket: currentSeason.numHighBracket,
-            },
-          });
+          attributes.book_level = currentSeason.bookLevel;
+          attributes.book_xp = currentSeason.bookXp;
+          attributes.xp = currentSeason.seasonXp;
+          attributes.book_purchased = currentSeason.purchasedVIP;
+          attributes.level = currentSeason.seasonLevel;
+          attributes.season!.numWins = currentSeason.numWins;
+          attributes.season!.numLowBracket = currentSeason.numLowBracket;
+          attributes.season!.numHighBracket = currentSeason.numHighBracket;
 
           if (currentSeason.seasonNumber === config.currentSeason) {
             const [dailyQuests, battlepassQuests, weeklyQuests] = await Promise.all([
@@ -215,8 +201,6 @@ export default async function (c: Context) {
                 data: profile,
               },
             ]);
-
-            profileCache.set(profileId, { data: profile, timestamp: Date.now() });
           }
         } else {
           past_seasons.push({
@@ -234,26 +218,16 @@ export default async function (c: Context) {
             survivorPrestige: 0,
           });
 
-          Object.assign(attributes, {
-            xp: 0,
-            level: 1,
-            book_purchased: false,
-            book_level: 1,
-            book_xp: 0,
-          });
-
-          attributes.past_seasons = past_seasons;
-
-          await profilesService.updateMultiple([
-            {
-              accountId: user.accountId,
-              type: "athena",
-              data: profile,
-            },
-          ]);
-
-          profileCache.set(profileId, { data: profile, timestamp: Date.now() });
+          attributes.xp = 0;
+          attributes.level = 1;
+          attributes.book_purchased = false;
+          attributes.book_level = 1;
+          attributes.book_xp = 0;
         }
+
+        attributes.past_seasons = past_seasons;
+
+        await profilesService.update(user.accountId, "athena", profile);
         break;
 
       case "common_core":
@@ -261,21 +235,13 @@ export default async function (c: Context) {
           profile.stats.attributes.permissions = [];
         }
 
-        account.permissions.forEach((permission) => {
-          if (!profile.stats.attributes.permissions!.includes(permission.resource)) {
-            profile.stats.attributes.permissions!.push(permission.resource);
+        for (const permission of account.permissions) {
+          if (!profile.stats.attributes.permissions.includes(permission.resource)) {
+            profile.stats.attributes.permissions.push(permission.resource);
           }
-        });
+        }
 
-        await profilesService.updateMultiple([
-          {
-            accountId: user.accountId,
-            type: "common_core",
-            data: profile,
-          },
-        ]);
-
-        profileCache.set(profileId, { data: profile, timestamp: Date.now() });
+        await profilesService.update(user.accountId, "common_core", profile);
         break;
     }
 
@@ -288,7 +254,7 @@ export default async function (c: Context) {
 
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
   } catch (error) {
-    logger.error(`Error in QueryProfile: ${error}`);
+    void logger.error(`Error in QueryProfile: ${error}`);
     return c.json(errors.createError(500, c.req.url, "Internal server error.", timestamp), 500);
   }
 }
