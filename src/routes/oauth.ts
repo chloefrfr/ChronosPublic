@@ -54,8 +54,6 @@ export default function () {
       );
     }
 
-    logger.debug(`Headers: ${JSON.stringify(c.req.header())}`);
-
     const blacklistedSeasons = new Set([1, 2, 3, 4, 5, 6, 7]);
     let deviceId = null;
     const isSeasonBlacklisted = blacklistedSeasons.has(uahelper.season);
