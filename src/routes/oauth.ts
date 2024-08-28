@@ -54,8 +54,13 @@ export default function () {
       );
     }
 
+    logger.debug(`Headers: ${JSON.stringify(c.req.header())}`);
+
+    const blacklistedSeasons = new Set([1, 2, 3, 4, 5, 6, 7]);
     let deviceId = null;
-    if (uahelper.season !== 2) {
+    const isSeasonBlacklisted = blacklistedSeasons.has(uahelper.season);
+
+    if (!isSeasonBlacklisted) {
       deviceId = c.req.header("X-Epic-Device-ID");
     }
 
@@ -66,7 +71,7 @@ export default function () {
     if (!clientId)
       return c.json(errors.createError(400, c.req.url, "Invalid client.", timestamp), 400);
 
-    if (uahelper.season !== 2) {
+    if (!isSeasonBlacklisted) {
       if (!deviceId)
         return c.json(errors.createError(400, c.req.url, "No 'HWID' provided.", timestamp), 400);
 
@@ -76,7 +81,7 @@ export default function () {
 
     let user: User | null;
 
-    if (uahelper.season !== 2) {
+    if (!isSeasonBlacklisted) {
       const userByHWID = await userService.findUserByHWID(deviceId as string);
 
       if (userByHWID && userByHWID.banned)
@@ -294,7 +299,6 @@ export default function () {
               errors.createError(404, c.req.url, "Failed to find user.", timestamp),
               404,
             );
-
           break;
 
         case "refresh_token":
@@ -321,7 +325,6 @@ export default function () {
               errors.createError(404, c.req.url, "Failed to find user.", timestamp),
               404,
             );
-
           break;
 
         default:
@@ -333,7 +336,7 @@ export default function () {
     if (!user)
       return c.json(errors.createError(404, c.req.url, "Failed to find user.", timestamp), 404);
 
-    if (uahelper.season !== 2) {
+    if (!isSeasonBlacklisted) {
       const userByHWID = await userService.findUserByHWID(deviceId as string);
       if (userByHWID || !userByHWID) await updateHwid(user, deviceId as string);
       if (user.banned && userByHWID && userByHWID?.banned) {
