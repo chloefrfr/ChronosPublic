@@ -66,17 +66,20 @@ bun run src/index.ts
 - [x] Daily rewards
 - [x] Gifting
 - [x] Purchasing from item shop
-- [ ] IP Bans
 - [x] HWID Bans
 - [x] Refunding
 - [ ] Save the World
 - [x] Arena
 - [x] ClientSettings
-- [ ] Tournaments
 - [x] GameSessions
 - [x] Authentication using Permissions (eg... `fortnite:profile:abcd1234:commands`)
-- [ ] Seasonal Rewards
 - [x] Leaderboards (Stats)
+
+## Maybe Features?
+
+- [ ] IP Bans
+- [ ] Seasonal Rewards
+- [ ] Tournaments
 
 ## Planned Bot Commands
 
