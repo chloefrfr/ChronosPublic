@@ -18,12 +18,12 @@ import { QuestManager } from "../utilities/managers/QuestManager";
 import MCPResponses from "../utilities/responses";
 import { WeeklyQuestGranter } from "../utilities/quests/WeeklyQuestGranter";
 import { User } from "../tables/user";
-import type { LootList } from "../bot/commands/grantall";
 import { v4 as uuid } from "uuid";
 import { handleProfileSelection } from "./QueryProfile";
 import { SendMessageToId } from "../sockets/xmpp/utilities/SendMessageToId";
 import RefreshAccount from "../utilities/refresh";
 import { BattlepassQuestGranter } from "../utilities/quests/BattlepassQuestGranter";
+import type { Lootlist } from "../../types/profilesdefs";
 
 export default async function (c: Context) {
   const accountId = c.req.param("accountId");
@@ -206,7 +206,7 @@ export default async function (c: Context) {
         .where("accountId = :accountId", { accountId: user.accountId })
         .execute();
 
-      const lootList: LootList[] = [
+      const lootList: Lootlist[] = [
         {
           itemType: "Currency:MtxGiveaway",
           itemGuid: "Currency:MtxGiveaway",
@@ -217,37 +217,30 @@ export default async function (c: Context) {
 
       common_core.items["Currency:MtxPurchased"].quantity += 50;
 
-      const randomGiftBoxId = uuid();
-      const giftBox = {
+      multiUpdates.push({
         changeType: "itemAdded",
-        itemId: randomGiftBoxId,
+        itemId: "Currency:MtxGiveaway",
         item: {
-          templateId: "GiftBox:GB_MakeGood",
+          templateId: "Currency:MtxGiveaway",
           attributes: {
-            fromAccountId: "Server",
-            lootList,
-            params: {
-              userMessage: "Thanks for playing!",
-            },
+            platform: "EpicPC",
+            item_seen: false,
           },
           quantity: 1,
         },
-      };
+      });
 
-      multiUpdates.push(giftBox);
-      common_core.stats.attributes.gifts!.push({
+      common_core.stats.attributes.gifts?.push({
         templateId: "GiftBox:GB_MakeGood",
         attributes: {
-          fromAccountId: "Server",
           lootList,
-          params: {
-            userMessage: "Thanks for playing!",
-          },
         },
-        quantity: 1,
+        quntity: 1,
       });
 
       await RefreshAccount(user.accountId, user.username);
+
+      shouldUpdateProfile = true;
     }
 
     if (shouldUpdateProfile) {

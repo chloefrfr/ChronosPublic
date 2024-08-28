@@ -255,7 +255,7 @@ export interface StatsAttributes {
   mfa_enabled: boolean;
   allowed_to_receive_gifts: boolean;
   gift_history: any;
-  gifts: any[];
+  gifts: Gifts[];
   ban_status: {
     bRequiresUserAck: boolean;
     bBanHasStarted: boolean;
@@ -274,10 +274,11 @@ export interface Variants {
   owned: string[];
 }
 
-interface Lootlist {
+export interface Lootlist {
   itemType: string;
   itemGuid: string;
-  quantity: string;
+  itemProfile: string;
+  quantity: number;
 }
 
 interface Gifts {
