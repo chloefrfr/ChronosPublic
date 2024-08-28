@@ -15,13 +15,15 @@ import { matchRegex } from "./functions/regex";
 
 export namespace ShopGenerator {
   export function createShop(): Shop {
-    const today = new Date();
-    today.setUTCHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setUTCDate(today.getUTCDate() + 1);
+    const date = new Date();
+
+    date.setUTCHours(0, 0, 0, 0);
+    date.setUTCDate(date.getUTCDate() + 1);
+
+    const expiration = date.toISOString();
 
     return {
-      expiration: tomorrow.toISOString(),
+      expiration: expiration.toString(),
       refreshIntervalHrs: 1,
       dailyPurchaseHrs: 24,
       storefronts: [],
