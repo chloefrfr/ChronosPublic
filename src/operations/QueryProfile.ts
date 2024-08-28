@@ -246,42 +246,19 @@ export default async function (c: Context) {
             };
 
             if (profile.items) {
-              const itemsToRemove = Object.keys(profile.items).filter((itemId) =>
-                shouldRemoveItem(itemId, uahelper.season),
-              );
-
               const CHUNK_SIZE = 20;
 
               const itemKeys = Object.keys(profile.items);
 
               for (let i = 0; i < itemKeys.length; i += CHUNK_SIZE) {
                 const chunk = itemKeys.slice(i, i + CHUNK_SIZE);
-                const deletionResults = await Promise.all(
+                await Promise.all(
                   chunk.map((itemId) =>
                     shouldRemoveItem(itemId, uahelper.season)
                       ? deleteTasks(itemId, uahelper.season, user.accountId)
                       : Promise.resolve(null),
                   ),
                 );
-
-                const retainedItems = deletionResults
-                  .filter((item): item is string => item !== null)
-                  .reduce((acc, itemId) => {
-                    if (profile.items[itemId]) {
-                      acc[itemId] = profile.items[itemId];
-                    }
-                    return acc;
-                  }, {} as Record<string, any>);
-
-                profile.items = retainedItems;
-
-                await profilesService.updateMultiple([
-                  {
-                    accountId: user.accountId,
-                    type: "athena",
-                    data: profile,
-                  },
-                ]);
               }
             }
           }
