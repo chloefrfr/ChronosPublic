@@ -206,7 +206,7 @@ export default function () {
         config.client_secret,
       );
 
-      return c.redirect(`chronos://auth:${newToken}`);
+      return c.redirect(`demeter://auth:${newToken}`);
     } catch (error) {
       logger.error(`Failed to get discord user: ${error}`);
       return c.json(errors.createError(500, c.req.url, "Internal Server Error", timestamp), 500);
