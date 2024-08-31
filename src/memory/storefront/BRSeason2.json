@@ -35,7 +35,7 @@
             "requirements": [
                 {
                     "requirementType": "DenyOnFulfillment",
-                    "requiredId": "2B4936F24F3179416FEFD49DA5C4B64C",
+                    "requiredId": "C3BA14F04F4D56FC1D490F8011B56553",
                     "minQuantity": 1
                 }
             ],
