@@ -38,7 +38,7 @@
             "requirements": [
                 {
                     "requirementType": "DenyOnFulfillment",
-                    "requiredId": "A3A60070669140F198A0AFD38220CF22",
+                    "requiredId": "3C1777684B7D65BECE90F28BB05CB4AF",
                     "minQuantity": 1
                 }
             ],
@@ -145,7 +145,7 @@
             "requirements": [
                 {
                     "requirementType": "DenyOnFulfillment",
-                    "requiredId": "A3A60070669140F198A0AFD38220CF22",
+                    "requiredId": "A9DB423A2EDB4D8CA4D97204CE3F0D79",
                     "minQuantity": 1
                 },
                 {
