@@ -145,7 +145,7 @@
             "requirements": [
                 {
                     "requirementType": "DenyOnFulfillment",
-                    "requiredId": "3D30A5B3128A4D539A548792BBFFACD4",
+                    "requiredId": "1355545DCD4C4627888C3EB5AE97D7BF",
                     "minQuantity": 1
                 },
                 {
