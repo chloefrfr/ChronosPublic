@@ -343,6 +343,118 @@ export default function () {
   );
 
   app.post(
+    "/friends/api/public/friends/:accountId/:friendId",
+    Validation.verifyPermissions,
+    Validation.verifyToken,
+    async (c) => {
+      const accountId = c.req.param("accountId");
+      const friendId = c.req.param("friendId");
+      const timestamp = new Date().toISOString();
+
+      if (!accountId || !friendId)
+        return c.json(errors.createError(400, c.req.url, "Missing parameters.", timestamp), 400);
+
+      const frienduser = await friendsService.findFriendByAccountId(accountId);
+      const friendInList = await friendsService.findFriendByAccountId(friendId);
+
+      if (!frienduser || !friendInList)
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to find friends.", timestamp),
+          400,
+        );
+
+      const user = await userService.findUserByAccountId(frienduser.accountId);
+      const friend = await userService.findUserByAccountId(friendInList.accountId);
+
+      if (!user || !friend)
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to find user or friend.", timestamp),
+          400,
+        );
+
+      if (user.banned || friend.banned)
+        return c.json(
+          errors.createError(403, c.req.url, "Friend or User is banned.", timestamp),
+          403,
+        );
+
+      const permissions = c.get("permission");
+
+      const hasPermission = permissions.hasPermission(`friends:${user.accountId}`, [
+        "READ,UPDATE,DELETE",
+      ]);
+
+      if (!hasPermission)
+        return c.json(
+          errors.createError(
+            401,
+            c.req.url,
+            permissions.errorReturn(`friends:${user.accountId}`, "READ,UPDATE,DELETE"),
+            timestamp,
+          ),
+          401,
+        );
+
+      const acceptedFriends = frienduser.accepted.find(
+        (accepted) => accepted.accountId === friend.accountId,
+      );
+
+      const incomingFriends = frienduser.incoming.find(
+        (incoming) => incoming.accountId === friend.accountId,
+      );
+
+      const outgoingFriends = frienduser.outgoing.find(
+        (outgoing) => outgoing.accountId === friend.accountId,
+      );
+
+      if (acceptedFriends)
+        return c.json(
+          errors.createError(
+            400,
+            c.req.url,
+            `Friendship between ${user.accountId} and ${friend.accountId} already exists.`,
+            timestamp,
+          ),
+          400,
+        );
+
+      if (outgoingFriends)
+        return c.json(
+          errors.createError(
+            400,
+            c.req.url,
+            `Friendship request has already been sent to ${friend.accountId}`,
+            timestamp,
+          ),
+          400,
+        );
+
+      if (user.accountId === friend.accountId)
+        return c.json(
+          errors.createError(400, c.req.url, "You cannot add yourself.", timestamp),
+          400,
+        );
+
+      if (incomingFriends) {
+        if (!(await acceptFriendRequest(user.accountId, friend.accountId)))
+          return c.json(
+            errors.createError(400, c.req.url, "Failed to accept friend request.", timestamp),
+            400,
+          );
+
+        await getUserPresence(false, user.accountId, friend.accountId);
+        await getUserPresence(false, friend.accountId, user.accountId);
+      } else if (!(await sendFriendRequest(user.accountId, friend.accountId)))
+        return c.json(
+          errors.createError(400, c.req.url, "Failed to send friend request.", timestamp),
+          400,
+        );
+
+      return c.json([]);
+    },
+  );
+
+  app.post(
     "/friends/api/v1/:accountId/friends/:friendId",
     Validation.verifyPermissions,
     Validation.verifyToken,

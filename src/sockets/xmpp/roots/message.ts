@@ -5,6 +5,7 @@ import { XmppService } from "../saved/XmppServices";
 import { logger } from "../../..";
 import xmlbuilder from "xmlbuilder";
 import { sendMessageToClient } from "../utilities/SendMessageToClient";
+import { SendMessageToSender } from "../utilities/SendMessageToSender";
 
 export default async function (socket: ServerWebSocket<ChronosSocket>, clientData: xmlparser.Node) {
   const findBodyContent = clientData.children.find((value) => value.name === "body");
@@ -22,7 +23,7 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, clientDat
       if (body.length >= 300) return;
 
       const client = XmppService.clients.find(
-        (client) => client.accountId === clientData.attributes.to.split("@")[0],
+        (client) => client.accountId === socket.data.accountId,
       );
 
       const sender = XmppService.clients.find(
@@ -30,6 +31,9 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, clientDat
       );
 
       if (!client || !sender) return;
+
+      console.log(client.displayName);
+      console.log(sender.accountId);
 
       client.socket.send(
         xmlbuilder
@@ -78,18 +82,16 @@ export default async function (socket: ServerWebSocket<ChronosSocket>, clientDat
         );
       });
       break;
+
+    default:
+      SendMessageToSender(
+        body,
+        socket.data.accountId!,
+        clientData.attributes.to.split("@")[0],
+        clientData.attributes.id,
+      );
+      break;
   }
 
-  let bodyJSON: string = "";
-
-  try {
-    bodyJSON = JSON.parse(body);
-  } catch (error) {
-    logger.error(`Failed to Parse Body Content: ${error}`);
-    return;
-  }
-
-  if (bodyJSON !== null) {
-    await sendMessageToClient(socket.data.jid as string, body, clientData);
-  }
+  await sendMessageToClient(socket.data.jid as string, body, clientData);
 }

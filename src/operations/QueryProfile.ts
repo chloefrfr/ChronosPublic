@@ -16,13 +16,10 @@ import MCPResponses from "../utilities/responses";
 import uaparser from "../utilities/uaparser";
 import { LRUCache } from "lru-cache";
 import type { IProfile, ItemValue } from "../../types/profilesdefs";
-import axios from "axios";
 import type { Attributes, ObjectiveState } from "../tables/storage/other/dailyQuestStorage";
 import type { QuestItem } from "../../types/questdefs";
-import { QuestManager } from "../utilities/managers/QuestManager";
-import RefreshAccount from "../utilities/refresh";
 
-const profileCache = new LRUCache<string, { data: any; timestamp: number }>({
+const profileCache = new LRUCache<string, { data: IProfile; timestamp: number }>({
   max: 1000,
   ttl: 1000 * 60 * 1,
 });
@@ -58,7 +55,10 @@ const profileTypes = new Map<ProfileId, AllowedProfileTypes>([
   ["outpost0", "outpost0"],
 ]);
 
-export async function handleProfileSelection(profileId: ProfileId, accountId: string) {
+export async function handleProfileSelection(
+  profileId: ProfileId,
+  accountId: string,
+): Promise<IProfile | null> {
   const profileType = profileTypes.get(profileId);
 
   if (!profileType) {
@@ -66,17 +66,27 @@ export async function handleProfileSelection(profileId: ProfileId, accountId: st
     return null;
   }
 
-  const cachedEntry = profileCache.get(profileId);
+  const cacheKey = `${accountId}:${profileId}`;
+  const cachedEntry = profileCache.get(cacheKey);
 
   if (cachedEntry) {
-    return cachedEntry.data as IProfile;
+    logger.info(`Cache hit for profileId: ${profileId} and accountId: ${accountId}`);
+    return cachedEntry.data;
   }
 
-  const profilePromise = await ProfileHelper.getProfile(accountId, profileType);
+  logger.info(`Cache miss for profileId: ${profileId} and accountId: ${accountId}.`);
 
-  profileCache.set(profileId, { data: await profilePromise, timestamp: Date.now() });
+  const profile = await ProfileHelper.getProfile(accountId, profileType);
 
-  return profilePromise || null;
+  if (!profile) {
+    logger.warn(`Profile not found for profileId: ${profileId} and accountId: ${accountId}`);
+    return null;
+  }
+
+  logger.info(`Caching profileId: ${profileId} and accountId: ${accountId}`);
+  profileCache.set(cacheKey, { data: profile, timestamp: Date.now() });
+
+  return profile;
 }
 
 export default async function (c: Context) {
@@ -88,17 +98,19 @@ export default async function (c: Context) {
 
   const uahelper = uaparser(useragent);
 
-  if (!useragent)
+  if (!useragent) {
     return c.json(
       errors.createError(400, c.req.url, "header 'User-Agent' is missing.", timestamp),
       400,
     );
+  }
 
-  if (!uahelper)
+  if (!uahelper) {
     return c.json(
       errors.createError(400, c.req.url, "Failed to parse User-Agent.", timestamp),
       400,
     );
+  }
 
   if (!accountId || !rvn || !profileId) {
     return c.json(errors.createError(400, c.req.url, "Missing query parameters.", timestamp), 400);
@@ -119,38 +131,23 @@ export default async function (c: Context) {
 
     const profile = await handleProfileSelection(profileId, user.accountId);
 
-    if (!profile && profileId !== "athena" && profileId !== "common_core")
-      return c.json(
-        errors.createError(404, c.req.url, `Profile ${profileId} was not found.`, timestamp),
-        404,
-      );
-
-    if (!profile)
+    if (!profile) {
       return c.json(
         errors.createError(404, c.req.url, `Profile '${profileId}' not found.`, timestamp),
         404,
       );
+    }
 
     switch (profileId) {
       case "athena":
         profile.stats.attributes.season_num = uahelper.season;
 
         const { attributes } = profile.stats;
+        let past_seasons = attributes.past_seasons || [];
 
-        let { past_seasons } = attributes;
-
-        if (!Array.isArray(past_seasons)) {
-          past_seasons = [];
-          attributes.past_seasons = past_seasons;
-        }
-
-        let currentSeasonIndex = -1;
-        for (let i = 0; i < past_seasons.length; i++) {
-          if (past_seasons[i].seasonNumber === uahelper.season) {
-            currentSeasonIndex = i;
-            break;
-          }
-        }
+        let currentSeasonIndex = past_seasons.findIndex(
+          (season) => season.seasonNumber === uahelper.season,
+        );
 
         if (currentSeasonIndex !== -1) {
           const currentSeason = past_seasons[currentSeasonIndex];
@@ -264,7 +261,7 @@ export default async function (c: Context) {
           }
         } else {
           past_seasons.push({
-            seasonNumber: attributes.season_num as number,
+            seasonNumber: uahelper.season,
             numWins: 0,
             numHighBracket: 0,
             numLowBracket: 0,
@@ -314,7 +311,7 @@ export default async function (c: Context) {
 
     return c.json(MCPResponses.generate(profile, applyProfileChanges, profileId));
   } catch (error) {
-    void logger.error(`Error in QueryProfile: ${error}`);
+    logger.error(`Error in QueryProfile: ${error}`);
     return c.json(errors.createError(500, c.req.url, "Internal server error.", timestamp), 500);
   }
 }
