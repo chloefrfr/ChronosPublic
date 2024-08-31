@@ -3,7 +3,7 @@
     "catalogEntries": [
         {
             "devName": "BR.Season8.BattleBundle.01",
-            "offerId": "4F7D3A92B8E6C1E5D0A9B6C8F2D4E3A1",
+            "offerId": "18D9DA48000A40BFAEBAC55A99C55221",
             "fulfillmentIds": null,
             "dailyLimit": -1,
             "weeklyLimit": -1,
@@ -37,7 +37,7 @@
             "requirements": [
                 {
                     "requirementType": "DenyOnFulfillment",
-                    "requiredId": "battlepass8",
+                    "requiredId": "18D9DA48000A40BFAEBAC55A99C55221",
                     "minQuantity": 1
                 }
             ],
@@ -159,7 +159,7 @@
             "requirements": [
                 {
                     "requirementType": "DenyOnFulfillment",
-                    "requiredId": "9DF02EA14FB15E475EBBEBBFDBB988DB",
+                    "requiredId": "77F31B7F83FB422195DA60CDE683671D",
                     "minQuantity": 1
                 }
             ],
