@@ -19,7 +19,7 @@
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/chloefrfr/ChronosPrivate
+git clone https://github.com/chloefrfr/ChronosPublic
 ```
 
 2. **Install packages**
