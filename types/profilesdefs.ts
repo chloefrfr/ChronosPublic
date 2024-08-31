@@ -286,7 +286,7 @@ interface Gifts {
   attributes: {
     lootList: Lootlist[];
   };
-  quntity: number;
+  quantity: number;
 }
 
 interface SavedRecords {

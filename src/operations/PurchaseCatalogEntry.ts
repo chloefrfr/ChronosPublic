@@ -2,7 +2,6 @@ import type { Context } from "hono";
 import errors from "../utilities/errors";
 import {
   accountService,
-  battlepassQuestService,
   config,
   itemStorageService,
   logger,
@@ -19,7 +18,7 @@ import { v4 as uuid } from "uuid";
 import { BattlepassManager, type Rewards } from "../utilities/managers/BattlepassManager";
 import { LevelsManager } from "../utilities/managers/LevelsManager";
 import ProfilesService from "../wrappers/database/ProfilesService";
-import type { Variants } from "../../types/profilesdefs";
+import type { Lootlist, Variants } from "../../types/profilesdefs";
 import { QuestManager, QuestType, type Objectives } from "../utilities/managers/QuestManager";
 import { object } from "zod";
 import RefreshAccount from "../utilities/refresh";
@@ -723,7 +722,7 @@ export default async function (c: Context) {
         common_core.stats.attributes.gifts?.push({
           templateId: giftBoxTemplateId,
           attributes: {
-            lootList: notifications,
+            lootList: notifications as Lootlist[],
           },
           quantity: 1,
         });

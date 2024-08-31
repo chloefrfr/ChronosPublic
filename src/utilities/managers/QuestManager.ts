@@ -1,6 +1,6 @@
 import path from "node:path";
 import fs from "node:fs/promises";
-import { dailyQuestService, logger, profilesService } from "../..";
+import { logger, profilesService, questsService } from "../..";
 import Config from "../../wrappers/Env.wrapper";
 import { handleProfileSelection } from "../../operations/QueryProfile";
 
@@ -157,7 +157,11 @@ export namespace QuestManager {
 
   export async function isQuestUsed(quest: DailyQuestDef, accountId: string): Promise<boolean> {
     try {
-      const storage = await dailyQuestService.getQuest(accountId, quest.Name);
+      const storage = await questsService.findQuestByTemplateId(
+        accountId,
+        config.currentSeason,
+        quest.Name,
+      );
 
       const profile = await profilesService.findByAccountId(accountId);
       if (!profile) {
@@ -168,24 +172,6 @@ export namespace QuestManager {
       if (!profileQuests || !profileQuests.items) {
         return false;
       }
-
-      // for (const test of Object.values(profileQuests.items)) {
-      //   if (test.templateId.includes("Quest_")) {
-      //     console.log(test.templateId);
-      //   }
-      // }
-
-      // if (!profileQuests.items[quest.Name]) return false;
-
-      // delete profileQuests.items[quest.Name];
-
-      // await profilesService.updateMultiple([
-      //   {
-      //     accountId,
-      //     data: profileQuests,
-      //     type: "athena",
-      //   },
-      // ]);
 
       return !!storage;
     } catch (error) {
@@ -253,31 +239,27 @@ export namespace QuestManager {
 
   export function buildBase(name: string, objectives: DailyQuestObjectives[]) {
     return {
-      templateId: `Quest:${name}`,
-      attributes: {
-        sent_new_notification: false,
-        ObjectiveState: objectives.map((obj) => ({
-          Name: `completion_${obj.BackendName}`,
-          Value: 0,
-        })),
-        creation_time: new Date().toISOString(),
-        level: -1,
-        item_seen: false,
-        playlists: [],
-        challenge_bundle_id: "",
-        xp_reward_scalar: 1,
-        challenge_linked_quest_given: "",
-        quest_pool: "",
-        quest_state: "Active",
-        bucket: "",
-        last_state_change_time: new Date().toISOString(),
-        challenge_linked_quest_parent: "",
-        max_level_bonus: 0,
-        xp: 0,
-        quest_rarity: "uncommon",
-        favorite: false,
-      },
-      quantity: 1,
+      sent_new_notification: false,
+      ObjectiveState: objectives.map((obj) => ({
+        Name: `completion_${obj.BackendName}`,
+        Value: 0,
+      })),
+      creation_time: new Date().toISOString(),
+      level: -1,
+      item_seen: false,
+      playlists: [],
+      challenge_bundle_id: "",
+      xp_reward_scalar: 1,
+      challenge_linked_quest_given: "",
+      quest_pool: "",
+      quest_state: "Active",
+      bucket: "",
+      last_state_change_time: new Date().toISOString(),
+      challenge_linked_quest_parent: "",
+      max_level_bonus: 0,
+      xp: 0,
+      quest_rarity: "uncommon",
+      favorite: false,
     };
   }
 }

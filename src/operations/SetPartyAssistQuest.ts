@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { accountService, dailyQuestService, logger, profilesService, userService } from "..";
+import { accountService, logger, profilesService, userService } from "..";
 import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
 import ProfileHelper from "../utilities/profiles";

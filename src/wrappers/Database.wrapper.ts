@@ -7,9 +7,8 @@ import { Profiles } from "../tables/profiles";
 import { Hype } from "../tables/hype";
 import { Friends } from "../tables/friends";
 import { Item } from "../tables/storage/item";
-import { DailyQuest } from "../tables/storage/other/dailyQuestStorage";
-import { BattlepassQuest } from "../tables/storage/other/battlepassQuestStorage";
-import { WeeklyQuest } from "../tables/storage/other/weeklyQuestStorage";
+
+import { Quests } from "../tables/quests";
 
 interface DatabaseConfig {
   connectionString?: string;
@@ -28,33 +27,11 @@ export default class Database {
         type: "postgres",
         url: this.dbConfig.connectionString || config.databaseUrl,
         ssl: this.dbConfig.ssl ? { rejectUnauthorized: false } : false,
-        entities: [
-          User,
-          Account,
-          Tokens,
-          Profiles,
-          Hype,
-          Friends,
-          Item,
-          DailyQuest,
-          BattlepassQuest,
-          WeeklyQuest,
-        ],
+        entities: [User, Account, Tokens, Profiles, Hype, Friends, Item, Quests],
         synchronize: true,
         // logging: true,
         // logger: new ORMLogger(),
-        migrations: [
-          User,
-          Account,
-          Tokens,
-          Profiles,
-          Hype,
-          Friends,
-          Item,
-          DailyQuest,
-          BattlepassQuest,
-          WeeklyQuest,
-        ],
+        migrations: [User, Account, Tokens, Profiles, Hype, Friends, Item],
       });
 
       await this.connection.initialize();

@@ -8,15 +8,13 @@ import {
 import BaseCommand from "../base/Base";
 import {
   accountService,
-  battlepassQuestService,
   config,
-  dailyQuestService,
   friendsService,
   itemStorageService,
   logger,
   profilesService,
+  questsService,
   userService,
-  weeklyQuestService,
 } from "../..";
 import { v4 as uuid } from "uuid";
 import ProfileHelper from "../../utilities/profiles";
@@ -153,10 +151,6 @@ export default class RegisterCommand extends BaseCommand {
           await friendsService.create({
             accountId: newUser.accountId,
           });
-
-          await dailyQuestService.add(newUser?.accountId, []);
-          await battlepassQuestService.add(newUser?.accountId, config.currentSeason, []);
-          await weeklyQuestService.add(newUser?.accountId, config.currentSeason, []);
         });
 
       const embed = new EmbedBuilder()

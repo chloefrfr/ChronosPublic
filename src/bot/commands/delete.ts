@@ -14,14 +14,12 @@ import {
 import BaseCommand from "../base/Base";
 import {
   accountService,
-  battlepassQuestService,
-  dailyQuestService,
   friendsService,
   logger,
   profilesService,
+  questsService,
   tokensService,
   userService,
-  weeklyQuestService,
 } from "../..";
 
 export default class DeleteCommand extends BaseCommand {
@@ -101,30 +99,13 @@ export default class DeleteCommand extends BaseCommand {
             accountService.delete(user.accountId),
             profilesService.deleteByAccountId(user.accountId),
             friendsService.delete(user.accountId),
-            dailyQuestService.delete(user.accountId),
-            battlepassQuestService.delete(user.accountId),
-            weeklyQuestService.delete(user.accountId),
+            questsService.deleteQuestsByAccountId(user.accountId),
           ];
 
-          const [
-            userDelete,
-            accountDelete,
-            profileDelete,
-            friendDelete,
-            dailyDelete,
-            battlepassDelete,
-            weeklyDelete,
-          ] = await Promise.all(promises);
+          const [userDelete, accountDelete, profileDelete, friendDelete, questsDelete] =
+            await Promise.all(promises);
 
-          if (
-            userDelete &&
-            accountDelete &&
-            profileDelete &&
-            friendDelete &&
-            dailyDelete &&
-            battlepassDelete &&
-            weeklyDelete
-          ) {
+          if (userDelete && accountDelete && profileDelete && friendDelete && questsDelete) {
             const embed = new EmbedBuilder()
               .setTitle("Account Deleted Successfully")
               .setDescription("Your account has been successfully deleted.")

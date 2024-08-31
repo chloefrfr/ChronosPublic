@@ -7,3 +7,13 @@ export interface QuestItem {
     ObjectiveState: Objectives[];
   };
 }
+
+interface QuestAttributes {
+  attributes: any;
+  templateId: string;
+  quantity: number;
+}
+
+export interface QuestDictionary {
+  [key: string]: QuestAttributes;
+}

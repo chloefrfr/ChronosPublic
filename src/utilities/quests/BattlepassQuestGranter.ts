@@ -1,4 +1,4 @@
-import { battlepassQuestService, config, logger } from "../..";
+import { config, logger, questsService } from "../..";
 import type { PastSeasons } from "../managers/LevelsManager";
 import { QuestManager, type Objectives } from "../managers/QuestManager";
 import RefreshAccount from "../refresh";
@@ -44,7 +44,7 @@ export namespace BattlepassQuestGranter {
         listOfQuests.push(quest.Name);
 
         try {
-          const storage = await battlepassQuestService.get(
+          const storage = await questsService.findQuestByTemplateId(
             accountId,
             config.currentSeason,
             quest.Name,
@@ -63,34 +63,32 @@ export namespace BattlepassQuestGranter {
               };
             });
 
-            await battlepassQuestService.add(accountId, config.currentSeason, [
-              {
-                [quest.Name]: {
-                  templateId: quest.Name,
-                  attributes: {
-                    challenge_bundle_id: bundleId,
-                    sent_new_notification: false,
-                    creation_time: new Date().toISOString(),
-                    level: -1,
-                    item_seen: false,
-                    playlists: [],
-                    xp_reward_scalar: 1,
-                    challenge_linked_quest_given: "",
-                    quest_pool: "",
-                    quest_state: "Active",
-                    bucket: "",
-                    last_state_change_time: new Date().toISOString(),
-                    challenge_linked_quest_parent: "",
-                    max_level_bonus: 0,
-                    xp: 0,
-                    quest_rarity: "uncommon",
-                    favorite: false,
-                    ObjectiveState,
-                  },
-                  quantity: 1,
-                },
+            await questsService.addQuest({
+              templateId: quest.Name,
+              accountId,
+              entity: {
+                creation_time: new Date().toISOString(),
+                level: -1,
+                item_seen: false,
+                playlists: [],
+                sent_new_notification: true,
+                challenge_bundle_id: bundleId,
+                xp_reward_scalar: 1,
+                challenge_linked_quest_given: "",
+                quest_pool: "",
+                quest_state: "Active",
+                bucket: "",
+                last_state_change_time: new Date().toISOString(),
+                challenge_linked_quest_parent: "",
+                max_level_bonus: 0,
+                xp: 0,
+                quest_rarity: "uncommon",
+                favorite: false,
               },
-            ]);
+              isDaily: false,
+              season: config.currentSeason,
+              profileId: "athena",
+            });
 
             const newQuestItem = {
               templateId: quest.Name,
@@ -130,7 +128,7 @@ export namespace BattlepassQuestGranter {
             await RefreshAccount(accountId, username);
           }
         } catch (error) {
-          console.error(`Error processing quest ${quest.Name} for account ${accountId}:`, error);
+          logger.error(`Error generating quest: ${error}`);
         }
       }
 

@@ -1,14 +1,5 @@
 import type { Context } from "hono";
-import {
-  accountService,
-  battlepassQuestService,
-  config,
-  dailyQuestService,
-  logger,
-  profilesService,
-  userService,
-  weeklyQuestService,
-} from "..";
+import { accountService, config, logger, profilesService, questsService, userService } from "..";
 import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
 import ProfileHelper from "../utilities/profiles";
@@ -76,54 +67,19 @@ export default async function (c: Context) {
     const { itemIds } = body;
 
     for (const id of itemIds) {
-      const dailyQuest = await dailyQuestService.getQuest(user.accountId, id);
-      const battlepassQuests = await battlepassQuestService.get(
+      const quests = await questsService.findQuestByTemplateId(
         user.accountId,
-        uahelper.season,
+        config.currentSeason,
         id,
       );
-      const weeklyQuests = await weeklyQuestService.get(user.accountId, config.currentSeason, id);
 
-      if (dailyQuest) {
-        dailyQuest.attributes.sent_new_notification = true;
+      if (quests) {
+        // quests.entity.sent_new_notification = true;
         profile.items[id].attributes.sent_new_notification = true;
 
-        await Promise.all([dailyQuestService.updateQuest(user.accountId, id, dailyQuest)]);
-
-        applyProfileChanges.push({
-          changeType: "itemAttrChanged",
-          itemId: id,
-          attributeNam: "sent_new_notification",
-          attributeValue: true,
-        });
-
-        shouldUpdateProfile = true;
-      }
-
-      if (battlepassQuests) {
-        battlepassQuests[id].attributes.sent_new_notification = true;
-        profile.items[id].attributes.sent_new_notification = true;
-
-        await Promise.all([
-          battlepassQuestService.update(user.accountId, config.currentSeason, battlepassQuests),
-        ]);
-
-        applyProfileChanges.push({
-          changeType: "itemAttrChanged",
-          itemId: id,
-          attributeNam: "sent_new_notification",
-          attributeValue: true,
-        });
-
-        shouldUpdateProfile = true;
-      }
-
-      if (weeklyQuests) {
-        weeklyQuests[id].attributes.sent_new_notification = true;
-
-        await Promise.all([
-          weeklyQuestService.update(user.accountId, config.currentSeason, weeklyQuests),
-        ]);
+        // await Promise.all([
+        //   questsService.updateQuest(quests, user.accountId, config.currentSeason),
+        // ]);
 
         applyProfileChanges.push({
           changeType: "itemAttrChanged",

@@ -14,10 +14,10 @@ ServerPort=${config.tcp ? "7777" : "8080"}
 ${config.tcp ? "bUsePlainTextAuth=true" : ""}
 
 [OnlineSubsystemMcp]
-bUsePartySystemV2=true
+bUsePartySystemV2=false
 
 [OnlineSubsystemMcp.OnlinePartySystemMcpAdapter]
-bUsePartySystemV2=true
+bUsePartySystemV2=false
 
 [OnlineSubsystem]
 bHasVoiceEnabled=true

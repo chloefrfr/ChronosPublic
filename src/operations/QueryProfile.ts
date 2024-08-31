@@ -1,14 +1,5 @@
 import type { Context } from "hono";
-import {
-  userService,
-  accountService,
-  logger,
-  profilesService,
-  config,
-  dailyQuestService,
-  battlepassQuestService,
-  weeklyQuestService,
-} from "..";
+import { userService, accountService, logger, profilesService, questsService, config } from "..";
 import errors from "../utilities/errors";
 import type { ProfileId } from "../utilities/responses";
 import ProfileHelper from "../utilities/profiles";
@@ -17,7 +8,7 @@ import uaparser from "../utilities/uaparser";
 import { LRUCache } from "lru-cache";
 import type { IProfile, ItemValue } from "../../types/profilesdefs";
 import type { Attributes, ObjectiveState } from "../tables/storage/other/dailyQuestStorage";
-import type { QuestItem } from "../../types/questdefs";
+import { type QuestDictionary, type QuestItem } from "../../types/questdefs";
 
 const profileCache = new LRUCache<string, { data: IProfile; timestamp: number }>({
   max: 1000,
@@ -151,6 +142,16 @@ export default async function (c: Context) {
 
         if (currentSeasonIndex !== -1) {
           const currentSeason = past_seasons[currentSeasonIndex];
+          const existingQuests = await questsService.findAllQuestsByAccountId(user.accountId);
+
+          const questsToRemove = existingQuests.filter(
+            (quest) => quest.season !== config.currentSeason && !quest.isDaily,
+          );
+
+          if (questsToRemove.length > 0) {
+            const idsToRemove = questsToRemove.map((quest) => quest.id);
+            await questsService.deleteQuests(idsToRemove);
+          }
 
           Object.assign(attributes, {
             book_level: currentSeason.bookLevel,
@@ -165,100 +166,19 @@ export default async function (c: Context) {
             },
           });
 
-          if (currentSeason.seasonNumber === config.currentSeason) {
-            const [dailyQuests, battlepassQuests, weeklyQuests] = await Promise.all([
-              dailyQuestService.get(user.accountId),
-              battlepassQuestService.getAll(user.accountId, uahelper.season),
-              weeklyQuestService.getAll(user.accountId, config.currentSeason),
-            ]);
+          const quests = (await questsService.findAllQuests()).reduce<QuestDictionary>(
+            (acc, item) => {
+              acc[item.templateId] = {
+                attributes: item.entity,
+                templateId: item.templateId,
+                quantity: 1,
+              };
+              return acc;
+            },
+            {},
+          );
 
-            const updateProfileItems = (quests: Record<string, QuestItem>[]) => {
-              quests.forEach((quest) => {
-                Object.values(quest).forEach((questItem) => {
-                  profile.items[questItem.templateId] = {
-                    templateId: questItem.templateId,
-                    attributes: {
-                      ...questItem.attributes,
-                      ...questItem.attributes.ObjectiveState.reduce<Record<string, any>>(
-                        (acc, { BackendName, Stage }) => {
-                          acc[BackendName] = Stage;
-                          return acc;
-                        },
-                        {},
-                      ),
-                    },
-                    quantity: 1,
-                  };
-                });
-              });
-            };
-
-            updateProfileItems(dailyQuests as any);
-            updateProfileItems(battlepassQuests);
-            updateProfileItems(weeklyQuests);
-
-            await profilesService.updateMultiple([
-              {
-                accountId: user.accountId,
-                type: "athena",
-                data: profile,
-              },
-            ]);
-          } else {
-            const isQuestBundle = (itemId: string, season: number): boolean =>
-              itemId.includes("Quest:") && itemId.includes(`QuestBundle_S${season}`);
-
-            const isMissionOrChallenge = (itemId: string, season: number): boolean =>
-              itemId.includes(`MissionBundle_S${season}`) &&
-              itemId.includes(`ChallengeBundleSchedule:season${season}_`) &&
-              !itemId.includes("_Repeatable_");
-
-            const shouldRemoveItem = (itemId: string, season: number): boolean =>
-              isQuestBundle(itemId, season) || isMissionOrChallenge(itemId, season);
-
-            const deleteTasks = async (
-              itemId: string,
-              season: number,
-              accountId: string,
-            ): Promise<string | null> => {
-              try {
-                const [weeklyExists, battlepassExists] = await Promise.all([
-                  weeklyQuestService.get(accountId, season, itemId),
-                  battlepassQuestService.get(accountId, season, itemId),
-                ]);
-
-                if (weeklyExists) {
-                  await weeklyQuestService.deleteQuest(accountId, season, itemId);
-                }
-
-                if (battlepassExists) {
-                  await battlepassQuestService.deleteQuest(accountId, season, itemId);
-                }
-
-                return itemId;
-              } catch (error) {
-                logger.error(`Failed to delete quest with the itemId ${itemId}: ${error}`);
-                return null;
-              }
-            };
-
-            if (profile.items) {
-              const CHUNK_SIZE = 20;
-
-              const itemKeys = Object.keys(profile.items);
-
-              for (let i = 0; i < itemKeys.length; i += CHUNK_SIZE) {
-                const chunk = itemKeys.slice(i, i + CHUNK_SIZE);
-                await Promise.all(
-                  chunk.map((itemId) =>
-                    shouldRemoveItem(itemId, uahelper.season)
-                      ? deleteTasks(itemId, uahelper.season, user.accountId)
-                      : Promise.resolve(null),
-                  ),
-                );
-              }
-            }
-          }
+          profile.items = { ...quests, ...profile.items };
         } else {
           past_seasons.push({
             seasonNumber: uahelper.season,

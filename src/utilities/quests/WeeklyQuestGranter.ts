@@ -1,4 +1,4 @@
-import { config, logger, profilesService, weeklyQuestService } from "../..";
+import { config, logger, profilesService, questsService } from "../..";
 import { handleProfileSelection } from "../../operations/QueryProfile";
 import type { PastSeasons } from "../managers/LevelsManager";
 import { QuestManager, type Objectives } from "../managers/QuestManager";
@@ -34,12 +34,13 @@ export namespace WeeklyQuestGranter {
 
       for (const questBundle of quest.Objects) {
         try {
-          const exists = await weeklyQuestService.get(
+          const existingQuest = await questsService.findQuestByTemplateId(
             accountId,
             config.currentSeason,
             questBundle.Name,
           );
-          if (exists) {
+
+          if (existingQuest) {
             for (const rewards of questBundle.Rewards) {
               if (rewards.TemplateId.startsWith("Quest:")) {
                 const objectiveStates = questBundle.Objectives.reduce(
@@ -51,8 +52,10 @@ export namespace WeeklyQuestGranter {
                 );
 
                 const newQuestData = {
+                  accountId,
+                  profileId: "athena",
                   templateId: questBundle.Name,
-                  attributes: {
+                  entity: {
                     challenge_bundle_id: bundleName,
                     sent_new_notification: false,
                     ObjectiveState: questBundle.Objectives.map(({ BackendName, Count }) => ({
@@ -61,7 +64,8 @@ export namespace WeeklyQuestGranter {
                       Count,
                     })),
                   },
-                  quantity: 1,
+                  isDaily: false,
+                  season: config.currentSeason,
                 };
 
                 const itemResponse = {
@@ -107,8 +111,10 @@ export namespace WeeklyQuestGranter {
           );
 
           const newQuestData = {
+            accountId,
+            profileId: "athena",
             templateId: questBundle.Name,
-            attributes: {
+            entity: {
               challenge_bundle_id: bundleName,
               sent_new_notification: false,
               ObjectiveState: questBundle.Objectives.map(({ BackendName, Count }) => ({
@@ -117,7 +123,8 @@ export namespace WeeklyQuestGranter {
                 Count,
               })),
             },
-            quantity: 1,
+            isDaily: false,
+            season: config.currentSeason,
           };
 
           const itemResponse = {
@@ -200,11 +207,13 @@ export namespace WeeklyQuestGranter {
       await profilesService.updateMultiple([{ accountId, type: "athena", data: profile }]);
 
       const questDataArray = Array.from(questDataMap.values()).map((data) => ({
-        [data.templateId]: data,
+        ...data,
+        accountId,
+        profileId: "athena",
       }));
 
       if (questDataArray.length > 0) {
-        await weeklyQuestService.add(accountId, config.currentSeason, questDataArray);
+        await questsService.addQuests(questDataArray);
       }
 
       await RefreshAccount(accountId, username);
