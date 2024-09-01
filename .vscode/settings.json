@@ -1,9 +1,0 @@
-{
-  "files.autoSave": "afterDelay",
-  "prettier.singleQuote": false,
-  "prettier.trailingComma": "all",
-  "prettier.jsxSingleQuote": true,
-  "prettier.printWidth": 100,
-  "prettier.tabWidth": 2,
-  "prettier.useTabs": false
-}
