@@ -1,0 +1,22 @@
+{
+  "createdAt": "",
+  "updatedAt": "",
+  "rvn": 0,
+  "wipeNumber": 1,
+  "accountId": "",
+  "profileId": "creative",
+  "version": "",
+  "items": {},
+  "stats": {
+    "attributes": {
+      "last_used_project": "",
+      "max_island_plots": 50,
+      "publish_allowed": false,
+      "support_code": "",
+      "last_used_plot": "",
+      "permissions": [],
+      "creator_name": ""
+    }
+  },
+  "commandRevision": 0
+}

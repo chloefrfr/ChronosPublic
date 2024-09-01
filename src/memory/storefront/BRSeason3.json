@@ -1,0 +1,269 @@
+{
+    "name": "BRSeason3",
+    "catalogEntries": [
+        {
+            "offerId": "70487F4C4673CC98F2FEBEBB26505F44",
+            "devName": "BR.Season3.BattleBundle.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 4700,
+                    "finalPrice": 2800,
+                    "saleType": "PercentOff",
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 2800
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "2B4936F24F3179416FEFD49DA5C4B64B",
+                    "minQuantity": 1
+                }
+            ],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 0,
+            "title": {
+                "de": "Battle-Pass-Paket",
+                "ru": "Боевой комплект",
+                "ko": "배틀번들",
+                "zh-hant": "戰鬥套組",
+                "pt-br": "Pacotão de Batalha",
+                "en": "Battle Bundle",
+                "it": "Nuovo pacchetto battaglia",
+                "fr": "Pack de combat",
+                "zh-cn": "战斗套组",
+                "es": "Lote de batalla",
+                "ar": "Battle Bundle",
+                "ja": "バトルバンドル",
+                "pl": "Zestaw bojowy",
+                "es-419": "Paquete de batalla",
+                "tr": "Savaş Paketi"
+            },
+            "shortDescription": {
+                "de": "Battle Pass + 25 Stufen!",
+                "ru": "Боевой пропуск + 25 уровней!",
+                "ko": "배틀패스 + 25티어!",
+                "zh-hant": "英雄季卡增加25戰階！",
+                "pt-br": "Passe de Batalha + 25 categorias!",
+                "en": "Battle pass + 25 tiers!",
+                "it": "Pass battaglia + 25 livelli!",
+                "fr": "Passe de combat + 25 paliers !",
+                "zh-cn": "英雄季卡增加25战阶！",
+                "es": "¡Pase de batalla y 25 niveles!",
+                "ar": "Battle pass + 25 tiers!",
+                "ja": "バトルパス+25ティア！",
+                "pl": "Karnet bojowy + 25 stopni!",
+                "es-419": "¡Pase de batalla + 25 niveles!",
+                "tr": "Savaş Bileti + 25 aşama!"
+            },
+            "description": {
+                "de": "Saison 3: 22. Februar – 30. April\r\n\r\nErhalte sofort diese Gegenstände im Wert von über 8.000 V-Bucks.\r\n  • Missionsspezialist (Outfit)\r\n  • Rostmeister (Outfit)\r\n  • Sägezahn (Erntewerkzeug)\r\n  • Regenbogenritt (Hängegleiter)\r\n  • Regenbogen (Flugspur)\r\n  • +70 % Saison-Match-EP\r\n  • +20 % Saison-Match-EP für Freunde\r\n  • Zugang zu Wöchentlichen Herausforderungen\r\n  • und noch mehr!\r\n\r\nSpiele weiter und stufe deinen Battle Pass auf, um über 75 weitere Belohnungen freizuschalten (im Normalfall werden dafür 75 bis 150 Spielstunden benötigt). Das dauert dir zu lange? Mit V-Bucks kannst du jederzeit Stufen kaufen!\r\n  • Der Sensenmann und 3 weitere Outfits\r\n  • 1 Erntewerkzeug\r\n  • 1 Hängegleiter\r\n  • 2 Rücken-Accessoires\r\n  • 4 Flugspuren\r\n  • 1.300 V-Bucks\r\n  • und noch eine ganze Menge mehr!",
+                "ru": "Третий сезон: 22 февраля — 30 апреля\r\n\r\nСразу же получите предметы стоимостью более 8000 В-баксов!\r\n  • Экипировка «Миссия выполнима»;\r\n  • Экипировка «Повелитель ржавчины»;\r\n  • Кирка «Пилозуб»;\r\n  • Дельтаплан «Радужный гонщик»;\r\n  • Радужный след при падении;\r\n  • +70% к опыту за матчи сезона;\r\n  • +20% к опыту друзей за матчи сезона;\r\n  • доступ к еженедельным испытаниям.\r\n  • и это не всё!\r\n\r\nИграйте, повышайте уровень боевого пропуска — и вас ждут более 75 наград. Обычно, чтобы открыть все награды, требуется 75–150 часов игры; но если вы не хотите ждать, этот процесс можно ускорить за В-баксы.\r\n • Экипировка «Душегуб» и ещё 3 костюма;\r\n  • 1 кирка;\r\n  • 1 дельтаплан;\r\n  • 2 украшения на спину;\r\n  • 4 воздушных следа при падении;\r\n  • 1300 В-баксов;\r\n  • и это ещё не всё!",
+                "ko": "시즌 3: 2월 22일 - 4월 30일\r\n\r\n8000 V-Bucks 이상의 가치가 있는 여러 아이템을 즉시 받아가세요.\r\n  • 우주선 비행사 의상\r\n  • 고철왕 의상\r\n  • 톱날 수확 도구\r\n  • 무지개 글라이더\r\n  • 무지개 스카이다이빙 트레일\r\n  • 70% 보너스 시즌 매치 XP\r\n  • 20% 보너스 시즌 친구 매치 XP\r\n  • 주간 도전 이용 권한\r\n\r\n배틀패스 티어를 올려서 최대 75개 이상의 보상을 얻으세요(보통 75-150시간 소요). 더 빨리 얻고 싶으신가요? V-Bucks를 사용해서 언제든지 티어를 구매할 수 있습니다!\r\n  • 사신 의상 및 다른 의상 3개\r\n  • 수확 도구 1개\r\n  • 글라이더 1개\r\n  • 등 장신구 2개\r\n  • 스카이다이빙 트레일 4개\r\n  • 1300 V-Bucks\r\n  • 그 외 많은 혜택!",
+                "zh-hant": "第3賽季：2月22日——4月30日\r\n\r\n立即獲得這些價值8000V幣的物品。\r\n  • 任務專家服裝\r\n  • 廢土領主服裝\r\n  • 鋸齒採集工具\r\n  • 彩虹騎士滑翔傘\r\n  • 彩虹滑翔軌跡\r\n  • 70%額外賽季比賽經驗\r\n  • 20%額外賽季好友比賽經驗\r\n  •獲得每週挑戰許可權\r\n  •以及更多！\r\n\r\n通過遊玩提升英雄季卡戰階，解鎖75個以上獎勵(通常需要75到150個小時的遊玩時間)。希望更快嗎？你可以隨時使用V幣購買戰階！\r\n  •收割者以及其他3套服裝\r\n  • 1個採集工具\r\n  • 1個滑翔傘\r\n  • 2個背部裝飾\r\n  • 4個滑翔軌跡\r\n  • 1300V幣\r\n  • 以及更多獎勵！",
+                "pt-br": "Temporada 3: 22 de fevereiro — 30 de abril\r\n\r\nReceba instantaneamente estes itens avaliados em mais de 8.000 V-Bucks!\r\n  • Traje Especialista em Missão\r\n  • Traje Lorde da Ferrugem\r\n  • Ferramenta de Coleta Dente Serrilhado\r\n  • Asa-delta Arco-íris\r\n  • Rastro de Queda Livre Arco-íris\r\n  • 70% de Bônus de EXP da Temporada em Partidas\r\n  • 20% de Bônus de EXP da Temporada em Partidas com Amigos\r\n  • Acesso a Desafios Semanais\r\n  • e mais!\r\n\r\nJogue para subir o nível do seu Passe de Batalha, desbloqueando mais de 75 recompensas (leva em média 75 a 150 horas de jogo). Quer mais rápido? Você pode usar V-Bucks para comprar categorias a qualquer momento!\r\n  • O Ceifador e mais 3 outros trajes\r\n  • 1 Ferramenta de Coleta\r\n  • 1 Asa-delta\r\n  • 2 Acessórios para as Costas\r\n  • 4 Rastros de Queda Livre\r\n  • 1.300 V-Bucks\r\n  • e muito mais!",
+                "en": "Season 3: Feb 22 - April 30\r\n\r\nInstantly get these items valued at over 8000 V-Bucks.\r\n  • Mission Specialist Outfit\r\n  • Rust Lord Outfit\r\n  • Sawtooth Harvesting Tool\r\n  • Rainbow Rider Glider\r\n  • Rainbow Skydiving Trail\r\n  • 70% Bonus Season Match XP\r\n  • 20% Bonus Season Friend Match XP\r\n  • Access to Weekly Challenges\r\n  • and more!\r\n\r\nPlay to level up your Battle Pass, unlocking up to 75+ more rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\r\n  • The Reaper plus 3 other outfits\r\n  • 1 Harvesting Tool\r\n  • 1 Glider\r\n  • 2 Back Blings\r\n  • 4 Skydiving Trails\r\n  • 1300 V-Bucks\r\n  • and so much more!",
+                "it": "Stagione 3: 22 feb. - 30 apr.\r\n\r\nOttieni subito questi oggetti dal valore di oltre 8000 V-buck!\r\n  • Costume Specialista di missione\r\n  • Costume Signore della ruggine\r\n  • Strumento di raccolta Dente di sega\r\n  • Deltaplano Fantino arcobaleno\r\n  • Scia Volo dell'arcobaleno\r\n  • Bonus del 70% dei PE partite stagionali\r\n  • Bonus del 20% dei PE partite amico\r\n  • Accesso alle sfide settimanali\r\n  • ...e molto altro ancora!\r\n\r\nGioca per aumentare di livello il tuo Pass battaglia, sbloccando oltre 75 ricompense (necessarie tra le 75-150 ore di gioco). Vuoi tutto più in fretta? Puoi usare i V-buck per acquistare i livelli in qualsiasi momento!\r\n  • Il Mietitore e altri 3 costumi\r\n  • 1 strumento di raccolta\r\n  • 1 deltaplano\r\n  • 2 Dorsi decorativi\r\n  • 4 Scie Skydive\r\n  • 1300 V-buck\r\n • ...e molto altro ancora!",
+                "fr": "Saison 3 : 22 février - 30 avril\r\n\r\nRecevez immédiatement ces objets d'une valeur supérieure à 8000 V-bucks.\r\n  • Tenue de Spationaute\r\n  • Tenue de Roi de la rouille\r\n  • Outil de collecte Dent de scie\r\n  • Planeur magique\r\n  • Traînée de condensation Arc-en-ciel\r\n  • Bonus d'EXP de saison de 70%\r\n  • Bonus d'EXP de saison de 20% pour des amis\r\n  • L'accès aux défis hebdomadaires\r\n  • Et plus !\r\n\r\n Jouez pour augmenter le niveau de votre Passe de combat et déverrouiller plus de 75 récompenses (nécessitant de 75 à 150 heures de jeu). Envie d'aller plus vite ? Utilisez vos V-bucks pour acheter des niveaux à tout moment !\r\n  • Le Faucheur, ainsi que 3 autres tenues\r\n  • 1 outil de collecte\r\n  • 1 planeur\r\n  • 2 accessoires de dos\r\n  • 4 traînées de condensation\r\n  • 1300 V-bucks\r\n  • Et plus !",
+                "zh-cn": "第3赛季：2月22日——4月30日\r\n\r\n立即获得这些价值8000V币的物品。\r\n  • 任务专家服装\r\n  • 废土领主服装\r\n  • 锯齿采集工具\r\n  • 彩虹骑士滑翔伞\r\n  • 彩虹滑翔轨迹\r\n  • 70%额外赛季比赛经验\r\n  • 20%额外赛季好友比赛经验\r\n  •获得每周挑战权限\r\n  •以及更多！\r\n\r\n通过游玩提升英雄季卡战阶，解锁75个以上奖励(通常需要75到150个小时的游玩时间)。希望更快吗？你可以随时使用V币购买战阶！\r\n  •收割者以及其他3套服装\r\n  • 1个采集工具\r\n  • 1个滑翔伞\r\n  • 2个背部装饰\r\n  • 4个滑翔轨迹\r\n  • 1300V币\r\n  • 以及更多奖励！",
+                "es": "Temporada 3: 22 feb - 30 abr\r\n\r\nConsigue instantáneamente estos objetos valorados en más de 8000 paVos.\r\n  • Traje de especialista en misiones.\r\n  • Traje de señor del óxido.\r\n  • Herramienta de recolección dientes de sierra.\r\n  • Ala delta jinete arcoíris.\r\n  • Estela de descenso arcoíris.\r\n  • Bonificación de PE de partida de temporada del 70%.\r\n  • Bonificación de PE de partida amistosa de temporada del 20%.\r\n  • Acceso a los desafíos semanales.\r\n  • ¡Y mucho más!\r\n\r\nJuega para subir de nivel tu pase de batalla y desbloquea más de 75 recompensas (suele llevar entre 75 y 150 horas de juego). ¿Lo quieres más rápido? ¡Puedes usar paVos para comprar niveles siempre que quieras!\r\n  • Señor Muerte más otros 3 trajes.\r\n  • 1 herramienta de recolección.\r\n  • 1 ala delta.\r\n  • 2 popurrí de regalitos.\r\n  • 4 estelas de descenso.\r\n  • 1300 paVos.\r\n  • ¡Y mucho más!",
+                "ar": "Season 3: Feb 22 - April 30\r\n\r\nInstantly get these items valued at over 8000 V-Bucks.\r\n  • Mission Specialist Outfit\r\n  • Rust Lord Outfit\r\n  • Sawtooth Harvesting Tool\r\n  • Rainbow Rider Glider\r\n  • Rainbow Skydiving Trail\r\n  • 70% Bonus Season Match XP\r\n  • 20% Bonus Season Friend Match XP\r\n  • Access to Weekly Challenges\r\n  • and more!\r\n\r\nPlay to level up your Battle Pass, unlocking up to 75+ more rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\r\n  • The Reaper plus 3 other outfits\r\n  • 1 Harvesting Tool\r\n  • 1 Glider\r\n  • 2 Back Blings\r\n  • 4 Skydiving Trails\r\n  • 1300 V-Bucks\r\n  • and so much more!",
+                "ja": "シーズン3: 2月22日～4月30日\r\n\r\n8000 V-Bucks以上の価値があるアイテムをすぐに手に入れよう。\r\n  ・ミッションスペシャリストコスチューム\r\n  ・ジャンクロードコスチューム\r\n  ・ジャンクアックス収集ツール\r\n  ・レインボーライダーグライダー\r\n  ・レインボースカイダイビングトレイル\r\n  ・シーズンマッチXPの70%ボーナス\r\n  ・シーズンフレンドマッチXPの20%ボーナス\r\n  ・ウィークリーチャレンジへの挑戦権\r\n  ・他にも色々！\r\n\r\nたくさんプレイしてバトルパスのレベルを上げると、75以上の報酬をアンロックできます(およそ75～150時間程度のプレイが必要)。すぐに報酬が欲しい場合は、V-Bucksでいつでもティアを購入することができます！\r\n  ・ザ・リーパーコスチュームとさらに他のコスチューム3点\r\n  ・収集ツールx1\r\n  ・グライダーx1\r\n  ・バックアクセサリーx2\r\n  ・スカイダイビングトレイルx4\r\n  ・1300 V-Bucks\r\n  ・他にも色々！",
+                "pl": "Sezon 3: 22 lutego - 30 kwietnia\r\n\r\nOtrzymasz od razu poniższe przedmioty o wartości ponad 8000 V-dolców!\r\n  • Strój: Specjalista od Zadań\r\n  • Strój: Rdzawy Lord\r\n  • Lotnia Jeźdźca Tęczy\r\n  • Sezonowa premia +70% PD za grę\r\n  • Sezonowa premia +20% PD za grę ze znajomym\r\n  • Dodatkowe wyzwanie dnia z karnetu bojowego\r\n\r\nGraj dalej, aby awansować karnet bojowy i zdobyć ponad 75 kolejnych nagród (ich zebranie normalnie zajmuje od 75 do 150 godz. gry). Chcesz się rozwijać szybciej? W każdej chwili możesz kupić poziomy za V-dolce!\r\n  • Żniwiarz plus 3 inne stroje\r\n  • 1 zbierak\r\n  • 1 lotnia\r\n  • 2 plecaki\r\n  • 4 smugi lotni\n  • 1300 V-dolców\r\n  • I dużo więcej!",
+                "es-419": "Temporada 3: Del 22 de feb. al 30 de abr.\r\n\r\n¡Obtén al instante estos objetos que cuestan más de 8000 monedas V!\r\n  • Atuendo Especialista de misión\r\n  • Atuendo Señor del óxido\r\n  • Herramienta de recolección Dientes de sierra\r\n  • Planeador Jinete de arcoíris\r\n  • Rastro de caída libre Arcoíris\r\n  • 70% de bonificación de PE para partidas de la temporada\r\n  • 20 % de PE de bonificación para partidas con amigos en la temporada\r\n  • Acceso a los desafíos semanales\r\n  • ¡Y mucho más!\r\n\r\nJuega para subir de nivel tu pase de batalla y desbloquear más de 75 recompensas (esto lleva entre 75 y 150 horas de juego). ¿Lo quieres todo más rápido? ¡Puedes utilizar monedas V para comprar niveles cuando quieras!\r\n  • Segador más otros 3 atuendos\r\n  • 1 herramienta de recolección\r\n  • 1 planeador\r\n  • 2 mochilas retro\r\n  • 4 rastros de caída libre\r\n  • 1300 monedas V\r\n  • ¡Y mucho más!",
+                "tr": "3. Sezon: 22 Şubat - 30 Nisan\r\n\r\n8000 V-Papel’in üzerinde değeri olan bu içerikleri hemen edin.\r\n  • Görev Uzmanı Kıyafeti\r\n  • Pasın Efendisi Kıyafeti\r\n  • Testere Dişli Kazma\r\n  • Gökkuşağının Kanatları Planörü\r\n  • %70 Bonus Sezon Maçı TP’si\r\n  • %20 Bonus Sezon Arkadaş Maçı TP’si\r\n  • Haftalık Görevlere Erişim\r\n  • ve daha pek çok şey!\r\n\r\nSavaş Bileti’nin seviyesini yükseltmek için oyna, 75’ten fazla ödülü aç (75-150 saat arası vakit alabilir)! Hepsini daha mı çabuk istiyorsun? V-Papel kullanarak aşamaları istediğin zaman açabilirsin!\r\n  • Ölüm Meleği ve 3 kıyafet daha\r\n  • 1 Toplama Aleti\r\n  • 1 Planör\r\n  • 2 Sırt Süsü\r\n • 4 Dalış İzi\r\n • 1300 V-Papel\r\n  • ve dahası!"
+            },
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season3_BattlePassWithLevels.DA_BR_Season3_BattlePassWithLevels",
+            "itemGrants": []
+        },
+        {
+            "offerId": "2331626809474871A3A44C47C1D8742E",
+            "devName": "BR.Season3.BattlePass.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 950,
+                    "finalPrice": 950,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 950
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "2B4936F24F3179416FEFD49DA5C4B64B",
+                    "minQuantity": 1
+                }
+            ],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 1,
+            "title": {
+                "de": "Battle Pass",
+                "ru": "Боевой пропуск",
+                "ko": "배틀패스",
+                "zh-hant": "英雄季卡",
+                "pt-br": "Passe de Batalha",
+                "en": "Battle Pass",
+                "it": "Pass battaglia",
+                "fr": "Passe de combat",
+                "zh-cn": "英雄季卡",
+                "es": "Pase de batalla",
+                "ar": "Battle Pass",
+                "ja": "バトルパス",
+                "pl": "Karnet bojowy",
+                "es-419": "Pase de batalla",
+                "tr": "Savaş Bileti"
+            },
+            "shortDescription": {
+                "de": "Saison 3",
+                "ru": "Сезон 3",
+                "ko": "시즌 3",
+                "zh-hant": "第3季度",
+                "pt-br": "Temporada 3",
+                "en": "Season 3",
+                "it": "Stagione 3",
+                "fr": "Saison 3",
+                "zh-cn": "第3赛季",
+                "es": "Temporada 3",
+                "ar": "Season 3",
+                "ja": "シーズン3",
+                "pl": "Sezon 3",
+                "es-419": "Temporada 3",
+                "tr": "3. Sezon"
+            },
+            "description": {
+                "de": "Saison 3: 22. Februar – 30. April\r\n\r\nErhalte sofort diese Gegenstände im Wert von über 2.000 V-Bucks.\r\n  • Missionsspezialist (Outfit)\r\n  • +50 % Saison-Match-EP\r\n  • +10 % Saison-Match-EP für Freunde\r\n  • Zugang zu Wöchentlichen Herausforderungen\r\n\r\nSpiele weiter und stufe deinen Battle Pass auf, um bis zu 100 Belohnungen freizuschalten (im Normalfall werden dafür 75 bis 150 Spielstunden benötigt). Das dauert dir zu lange? Mit V-Bucks kannst du jederzeit Stufen kaufen!\r\n  • Der Sensenmann und 4 weitere Outfits\r\n  • 2 Erntewerkzeuge\r\n  • 2 Hängegleiter\r\n  • 2 Rücken-Accessoires\r\n  • 5 Flugspuren\r\n  • 1.300 V-Bucks\r\n  • und noch eine ganze Menge mehr!",
+                "ru": "Третий сезон: 22 февраля — 30 апреля\r\n\r\nСразу же получите предметы стоимостью более 2000 В-баксов!\r\n  • Экипировка «Миссия выполнима»;\r\n  • +50% к опыту за матчи сезона;\r\n  • +10% к опыту друзей за матчи сезона;\r\n  • доступ к еженедельным испытаниям.\r\n\r\nИграйте, повышайте уровень боевого пропуска — и вас ждут до 100 наград. Обычно, чтобы открыть все награды, требуется 75–150 часов игры; но если вы не хотите ждать, этот процесс можно ускорить за В-баксы.\r\n  • Экипировка «Душегуб» и ещё 4 костюма;\r\n  • 2 кирки;\r\n  • 2 дельтаплана;\r\n  • 2 украшения на спину;\r\n  • 5 воздушных следов при падении;\r\n  • 1300 В-баксов;\r\n  • и это ещё не всё!",
+                "ko": "시즌 3: 2월 22일 - 4월 30일\r\n\r\n2000 V-Bucks 이상의 가치가 있는 여러 아이템을 즉시 받아가세요.\r\n  • 우주선 비행사 의상\r\n  • 50% 보너스 시즌 매치 XP\r\n  • 10% 보너스 시즌 친구 매치 XP\r\n  • 주간 도전 이용 권한\r\n\r\n배틀패스 티어를 올려서 최대 100개의 보상을 얻으세요(보통 75-150시간 소요). 더 빨리 얻고 싶으신가요? V-Bucks를 사용해서 언제든지 티어를 구매할 수 있습니다!\r\n  • 사신 의상 및 다른 의상 4개\r\n  • 수확 도구 2개\r\n  • 글라이더 2개\r\n  • 등 장신구 2개\r\n  • 스카이다이빙 트레일 5개\r\n  • 1300 V-Bucks\r\n  • 그 외 많은 혜택!",
+                "zh-hant": "第3賽季：2月22日——4月30日\r\n\r\n立即獲得這些價值2000V幣的物品。\r\n  • 任務專家服裝\r\n  • 50% 額外賽季比賽經驗\r\n  • 10%額外賽季好友比賽經驗\r\n  •獲得每週挑戰許可權\r\n\r\n通過遊玩提升英雄季卡戰階，解鎖100多個獎勵(通常需要75到150個小時的遊玩時間)。希望更快嗎？你可以隨時使用V幣購買戰階！\r\n  •收割者以及其他4套服裝\r\n  • 2個採集工具\r\n  • 2個滑翔傘\r\n  • 2個背部裝飾\r\n  • 5個滑翔軌跡\r\n  • 1300V幣\r\n  • 以及更多獎勵！",
+                "pt-br": "Temporada 3: 22 de fevereiro — 30 de abril\r\n\r\nReceba instantaneamente estes itens avaliados em mais de 2.000 V-Bucks!\r\n  • Traje Especialista em Missão\r\n  • 50% de Bônus de EXP da Temporada em Partidas\r\n  • 10% de Bônus de EXP da Temporada em Partidas com Amigos\r\n  • Acesso a Desafios Semanais\r\n\r\nJogue para subir o nível do seu Passe de Batalha, desbloqueando até 100 recompensas (leva em média 75 a 150 horas de jogo). Quer mais rápido? Você pode usar V-Bucks para comprar categorias a qualquer momento!\r\n  • O Ceifador e mais 4 outros trajes\r\n  • 2 Ferramentas de Coleta\r\n  • 2 Asas-deltas\r\n  • 2 Acessórios para as Costas\r\n  • 5 Rastros de Queda Livre\r\n  • 1.300 V-Bucks\r\n  • e muito mais!",
+                "en": "Season 3: Feb 22 - April 30\r\n\r\nInstantly get these items valued at over 2000 V-Bucks.\r\n  • Mission Specialist Outfit\r\n  • 50% Bonus Season Match XP\r\n  • 10% Bonus Season Friend Match XP\r\n  • Access to Weekly Challenges\r\n\r\nPlay to level up your Battle Pass, unlocking up to 100 rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\r\n  • The Reaper plus 4 other outfits\r\n  • 2 Harvesting Tools\r\n  • 2 Gliders\r\n  • 2 Back Blings\r\n  • 5 Skydiving Trails\r\n  • 1300 V-Bucks\r\n  • and so much more!",
+                "it": "Stagione 3: 22 feb. - 30 apr.\r\n\r\nOttieni subito questi oggetti dal valore di oltre 2000 V-buck!\r\n  • Costume Specialista di missione\r\n  • Bonus del 50% dei PE partite stagionali\r\n  • Bonus del 10% dei PE partite amico\r\n  • Accesso alle sfide settimanali\r\n\r\nGioca per aumentare di livello il tuo Pass battaglia, sbloccando fino a 100 ricompense (necessarie tra le 75-150 ore di gioco). Vuoi tutto più in fretta? Puoi usare i V-buck per acquistare i livelli in qualsiasi momento!\r\n  • Il Mietitore e altri 4 costumi\r\n  • 2 strumenti di raccolta\r\n  • 2 deltaplani\r\n  • 2 Dorsi decorativi\r\n  • 5 Scie Skydive\r\n  • 1300 V-buck\r\n  • ...e molto altro ancora!",
+                "fr": "Saison 3 : 22 février - 30 avril\r\n\r\nRecevez immédiatement ces objets d'une valeur supérieure à 2000 V-bucks.\r\n  • Tenue de Spationaute\r\n  • Bonus d'EXP de saison de 50%\r\n  • Bonus d'EXP de saison de 10% pour des amis\r\n  • L'accès aux défis hebdomadaires\r\n\r\n Jouez pour augmenter le niveau de votre Passe de combat et déverrouiller jusqu'à 100 récompenses (nécessitant de 75 à 150 heures de jeu). Envie d'aller plus vite ? Utilisez vos V-bucks pour acheter des niveaux à tout moment !\r\n  • Le Faucheur, ainsi que 4 autres tenues\r\n  • 2 outils de collecte\r\n  • 2 planeurs\r\n  • 2 accessoires de dos\r\n  • 5 traînées de condensation\r\n  • 1300 V-bucks\r\n  • Et plus !",
+                "zh-cn": "第3赛季：2月22日——4月30日\r\n\r\n立即获得这些价值2000V币的物品。\r\n  • 任务专家服装\r\n  • 50% 额外赛季比赛经验\r\n  • 10%额外赛季好友比赛经验\r\n  •获得每周挑战权限\r\n\r\n通过游玩提升英雄季卡战阶，解锁100多个奖励(通常需要75到150个小时的游玩时间)。希望更快吗？你可以随时使用V币购买战阶！\r\n  •收割者以及其他4套服装\r\n  • 2个采集工具\r\n  • 2个滑翔伞\r\n  • 2个背部装饰\r\n  • 5个滑翔轨迹\r\n  • 1300V币\r\n  • 以及更多奖励！",
+                "es": "Temporada 3: 22 feb - 30 abr\r\n\r\nConsigue instantáneamente estos objetos valorados en más de 2000 paVos.\r\n  • Traje de especialista en misiones.\r\n  • Bonificación de PE de partida de temporada del 50%.\r\n  • Bonificación de PE de partida amistosa de temporada del 10%.\r\n  • Acceso a los desafíos semanales.\r\n\r\nJuega para subir de nivel tu pase de batalla y desbloquea hasta 100 recompensas (suele llevar entre 75 y 150 horas de juego). ¿Lo quieres más rápido? ¡Puedes usar paVos para comprar niveles siempre que quieras!\r\n  • Señor Muerte más otros 4 trajes.\r\n  • 2 herramientas de recolección.\r\n  • 2 alas delta.\r\n  • 2 popurrí de regalitos.\r\n  • 5 estelas de descenso.\r\n  • 1300 paVos.\r\n  • ¡Y mucho más!",
+                "ar": "Season 3: Feb 22 - April 30\r\n\r\nInstantly get these items valued at over 2000 V-Bucks.\r\n  • Mission Specialist Outfit\r\n  • 50% Bonus Season Match XP\r\n  • 10% Bonus Season Friend Match XP\r\n  • Access to Weekly Challenges\r\n\r\nPlay to level up your Battle Pass, unlocking up to 100 rewards (typically takes 75 to 150 hours of play). Want it all faster? You can use V-Bucks to buy tiers any time!\r\n  • The Reaper plus 4 other outfits\r\n  • 2 Harvesting Tools\r\n  • 2 Gliders\r\n  • 2 Back Blings\r\n  • 5 Skydiving Trails\r\n  • 1300 V-Bucks\r\n  • and so much more!",
+                "ja": "シーズン3: 2月22日～4月30日\r\n\r\n2000 V-Bucks以上の価値があるアイテムをすぐに手に入れよう。\r\n  ・ミッションスペシャリスト\r\n  ・シーズンマッチXPの50%ボーナス\r\n  ・シーズンフレンドマッチXPの10%ボーナス\r\n  ・ウィークリーチャレンジへの挑戦権\r\n\r\nプレイしてバトルパスのレベルを上げると、最大100個の報酬をアンロックする事ができます。すぐに報酬が欲しい場合は、V-Bucksでいつでもティアを購入する事ができます！\r\n  ・ザ・リーパーや他のコスチューム4点\r\n  ・ピックアックス 2点\r\n  ・グライダー 2点\r\n  ・バックアクセサリー 2点\r\n  ・トレイル 5点\r\n  ・1300 V-Bucks\r\n  ・他にも色々！",
+                "pl": "Sezon 3: 22 lutego - 30 kwietnia\r\n\r\nOtrzymasz od razu poniższe przedmioty o wartości ponad 2000 V-dolców!\r\n  • Strój: Specjalista od Zadań\r\n  • Sezonowa premia +50% PD za grę\r\n  • Sezonowa premia +10% PD za grę ze znajomym\r\n  • Dodatkowe wyzwanie dnia z karnetu bojowego\r\n\r\nGraj dalej, aby awansować karnet bojowy i zdobyć do 100 kolejnych nagród (ich zebranie normalnie zajmuje od 75 do 150 godz. gry). Chcesz się rozwijać szybciej? W każdej chwili możesz kupić poziomy za V-dolce!\r\n  • Żniwiarz plus 4 inne stroje\r\n  • 2 zbieraki\r\n  • 2 lotnie\r\n  • 2 plecaki\r\n  • 5 smug lotni\n  • 1300 V-dolców\r\n  • I dużo więcej!",
+                "es-419": "Temporada 3: Del 22 de feb. al 30 de abr.\r\n\r\n¡Obtén al instante estos objetos que cuestan más de 2000 monedas V!\r\n  • Atuendo Especialista de misión\r\n  • 50 % de bonificación de PE para partidas de la temporada\r\n  • 10 % de PE de bonificación para partidas con amigos en la temporada\r\n  • Acceso a los desafíos semanales\r\n\r\nJuega para subir de nivel tu pase de batalla y desbloquear hasta 100 recompensas (esto lleva entre 75 y 150 horas de juego). ¿Lo quieres todo más rápido? ¡Puedes utilizar monedas V para comprar niveles cuando quieras!\r\n  • Segador más otros 4 atuendos\r\n  • 2 herramientas de recolección\r\n  • 2 planeadores\r\n  • 2 mochilas retro\r\n  • 5 rastros de caída libre\r\n  • 1300 monedas V\r\n  • ¡Y mucho más!",
+                "tr": "3. Sezon: 22 Şubat - 30 Nisan\r\n\r\n2000 V-Papel'in üzerinde değeri olan bu içerikleri hemen edin.\r\n  • Görev Uzmanı Kıyafeti\r\n  • %50 Bonus Sezon Maçı TP'si\r\n  • %10 Bonus Sezon Arkadaş Maç TP'si\r\n  • Haftalık Görevlere Erişim\r\n\r\nSavaş Bileti’nin seviyesini yükseltmek için oyna, 100 ödülü de aç (75-150 saat arası vakit alabilir)! Hepsini daha mı çabuk istiyorsun? V-Papel kullanarak aşamaları istediğin zaman açabilirsin!\r\n  • Ölüm Meleği ve 4 kıyafet daha\r\n  • 2 Toplama Aleti\r\n  • 2 Planör\r\n  • 2 Sırt Süsü\r\n •5 Dalış İzi\r\n • 1300 V-Papel \r\n • ve daha pek çok şey!"
+            },
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season3_BattlePass.DA_BR_Season3_BattlePass",
+            "itemGrants": []
+        },
+        {
+            "offerId": "E2D7975EFEC54A45900D8D9A6D9D273C",
+            "devName": "BR.Season3.SingleTier.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 150,
+                    "finalPrice": 150,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 150
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 0,
+            "title": {
+                "de": "Battle-Pass-Level",
+                "ru": "Уровень боевого пропуска",
+                "ko": "배틀패스 레벨",
+                "zh-hant": "英雄季卡戰階",
+                "pt-br": "Nível de Passe de Batalha",
+                "en": "Battle Pass Level",
+                "it": "Livello Pass battaglia",
+                "fr": "Niveau de Passe de combat",
+                "zh-cn": "英雄季卡战阶",
+                "es": "Pase de batalla de nivel",
+                "ar": "Battle Pass Level",
+                "ja": "バトルバスレベル",
+                "pl": "Poziom karnetu bojowego",
+                "es-419": "Nivel de pase de batalla",
+                "tr": "Savaş Bileti Aşaması"
+            },
+            "shortDescription": "",
+            "description": {
+                "de": "Hol dir jetzt tolle Belohnungen!",
+                "ru": "Получите отличные награды!",
+                "ko": "지금 푸짐한 보상을 얻어보세요!",
+                "zh-hant": "現在獲得豐厚獎勵！",
+                "pt-br": "Ganhe recompensas ótimas agora!",
+                "en": "Get great rewards now!",
+                "it": "Ricevi subito magnifiche ricompense!",
+                "fr": "Obtenez de grandes récompenses !",
+                "zh-cn": "现在获得丰厚奖励！",
+                "es": "¡Consigue recompensas increíbles!",
+                "ar": "Get great rewards now!",
+                "ja": "素晴らしい報酬を今すぐゲット！",
+                "pl": "Zdobądź super nagrody już teraz!",
+                "es-419": "¡Consigue grandes recompensas ahora!",
+                "tr": "Harika ödüllerin sahibi ol!"
+            },
+            "displayAssetPath": "",
+            "itemGrants": []
+        }
+    ]
+}

@@ -1,0 +1,232 @@
+{
+  "_id": "",
+  "createdAt": "",
+  "updatedAt": "",
+  "rvn": 0,
+  "wipeNumber": 1,
+  "accountId": "",
+  "profileId": "common_core",
+  "version": "no_version",
+  "items": {
+    "CampaignAccess": {
+      "templateId": "Token:campaignaccess",
+      "attributes": {
+        "level": 1
+      },
+      "quantity": 1
+    },
+    "Founders": {
+      "templateId": "Token:founderspack_1",
+      "attributes": {
+        "level": 1
+      },
+      "quantity": 1
+    },
+    "Token:FounderChatUnlock": {
+      "templateId": "Token:FounderChatUnlock",
+      "attributes": {
+        "level": 1
+      },
+      "quantity": 1
+    },
+    "Currency:MtxPurchased": {
+      "templateId": "Currency:MtxPurchased",
+      "attributes": {
+        "platform": "EpicPC"
+      },
+      "quantity": 0
+    },
+    "HomebaseBannerColor:DefaultColor1": {
+      "templateId": "HomebaseBannerColor:DefaultColor1",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor2": {
+      "templateId": "HomebaseBannerColor:DefaultColor2",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor3": {
+      "templateId": "HomebaseBannerColor:DefaultColor3",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor4": {
+      "templateId": "HomebaseBannerColor:DefaultColor4",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor5": {
+      "templateId": "HomebaseBannerColor:DefaultColor5",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor6": {
+      "templateId": "HomebaseBannerColor:DefaultColor6",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor7": {
+      "templateId": "HomebaseBannerColor:DefaultColor7",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor8": {
+      "templateId": "HomebaseBannerColor:DefaultColor8",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor9": {
+      "templateId": "HomebaseBannerColor:DefaultColor9",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor10": {
+      "templateId": "HomebaseBannerColor:DefaultColor10",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor11": {
+      "templateId": "HomebaseBannerColor:DefaultColor11",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor12": {
+      "templateId": "HomebaseBannerColor:DefaultColor12",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor13": {
+      "templateId": "HomebaseBannerColor:DefaultColor13",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor14": {
+      "templateId": "HomebaseBannerColor:DefaultColor14",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor15": {
+      "templateId": "HomebaseBannerColor:DefaultColor15",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor16": {
+      "templateId": "HomebaseBannerColor:DefaultColor16",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor17": {
+      "templateId": "HomebaseBannerColor:DefaultColor17",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor18": {
+      "templateId": "HomebaseBannerColor:DefaultColor18",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor19": {
+      "templateId": "HomebaseBannerColor:DefaultColor19",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor20": {
+      "templateId": "HomebaseBannerColor:DefaultColor20",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    },
+    "HomebaseBannerColor:DefaultColor21": {
+      "templateId": "HomebaseBannerColor:DefaultColor21",
+      "attributes": {
+        "item_seen": true
+      },
+      "quantity": 1
+    }
+  },
+  "stats": {
+    "attributes": {
+      "survey_data": {},
+      "personal_offers": {},
+      "intro_game_played": true,
+      "import_friends_claimed": {},
+      "mtx_purchase_history": {
+        "refundsUsed": 0,
+        "refundCredits": 3,
+        "purchases": []
+      },
+      "undo_cooldowns": [],
+      "mtx_affiliate_set_time": "None",
+      "inventory_limit_bonus": 0,
+      "current_mtx_platform": "EpicPC",
+      "mtx_affiliate": "None",
+      "forced_intro_played": "Coconut",
+      "weekly_purchases": {},
+      "daily_purchases": {},
+      "ban_history": {
+        "banCount": 0,
+        "banTier": {}
+      },
+      "in_app_purchases": {},
+      "permissions": [],
+      "undo_timeout": "min",
+      "monthly_purchases": {},
+      "allowed_to_send_gifts": true,
+      "mfa_enabled": true,
+      "allowed_to_receive_gifts": true,
+      "gift_history": {},
+      "gifts": [],
+      "ban_status": {
+        "bRequiresUserAck": false,
+        "bBanHasStarted": false,
+        "banReasons": [],
+        "banStartTimeUtc": null,
+        "banDurationDays": null,
+        "additionalInfo": "",
+        "exploitProgramName": "",
+        "competitiveBanReason": "None"
+      }
+    }
+  },
+  "commandRevision": 0
+}

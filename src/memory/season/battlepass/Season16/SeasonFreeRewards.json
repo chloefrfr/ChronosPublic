@@ -1,0 +1,112 @@
+[
+  {
+    "TemplateId": "HomebaseBannerIcon:brs16_agentjonesy",
+    "Quantity": 1,
+    "Tier": 2
+  },
+  {
+    "TemplateId": "Currency:mtxgiveaway",
+    "Quantity": 100,
+    "Tier": 4
+  },
+  {
+    "TemplateId": "AthenaDance:eid_custodial",
+    "Quantity": 1,
+    "Tier": 7
+  },
+  {
+    "TemplateId": "AthenaLoadingScreen:lsid_289_yogurtjonesy",
+    "Quantity": 1,
+    "Tier": 9
+  },
+  {
+    "TemplateId": "AthenaDance:spid_252_temple",
+    "Quantity": 1,
+    "Tier": 13
+  },
+  {
+    "TemplateId": "AthenaSkyDiveContrail:trails_id_114_temple",
+    "Quantity": 1,
+    "Tier": 17
+  },
+  {
+    "TemplateId": "AthenaGlider:glider_id_284_templefemale",
+    "Quantity": 1,
+    "Tier": 20
+  },
+  {
+    "TemplateId": "AthenaItemWrap:wrap_336_dinohunter",
+    "Quantity": 1,
+    "Tier": 23
+  },
+  {
+    "TemplateId": "HomebaseBannerIcon:brs16_dinohunter",
+    "Quantity": 1,
+    "Tier": 31
+  },
+  {
+    "TemplateId": "AthenaBackpack:bid_715_dinohunterfemale",
+    "Quantity": 1,
+    "Tier": 34
+  },
+  {
+    "TemplateId": "AthenaMusicPack:musicpack_078_raisetheroof",
+    "Quantity": 1,
+    "Tier": 42
+  },
+  {
+    "TemplateId": "Currency:mtxgiveaway",
+    "Quantity": 100,
+    "Tier": 47
+  },
+  {
+    "TemplateId": "AthenaSkyDiveContrail:trails_id_115_tube",
+    "Quantity": 1,
+    "Tier": 54
+  },
+  {
+    "TemplateId": "HomebaseBannerIcon:brs16_chickenwarrior",
+    "Quantity": 1,
+    "Tier": 57
+  },
+  {
+    "TemplateId": "AthenaDance:emoji_s16_chickenwarrior",
+    "Quantity": 1,
+    "Tier": 65
+  },
+  {
+    "TemplateId": "AthenaDance:spid_246_obsidian",
+    "Quantity": 1,
+    "Tier": 71
+  },
+  {
+    "TemplateId": "Token:athena_s16_nobattlebundleoption_token",
+    "Quantity": 1,
+    "Tier": 76
+  },
+  {
+    "TemplateId": "AthenaPickaxe:pickaxe_id_568_obsidianfemale",
+    "Quantity": 1,
+    "Tier": 78
+  },
+  {
+    "TemplateId": "HomebaseBannerIcon:brs16_obsidian",
+    "Quantity": 1,
+    "Tier": 81
+  },
+  {
+    "TemplateId": "AthenaLoadingScreen:lsid_280_sentinel",
+    "Quantity": 1,
+    "Tier": 87
+  },
+  {
+    "TemplateId": "AthenaBackpack:bid_717_towersentinel",
+    "Quantity": 1,
+    "Tier": 93
+  },
+  {
+    "TemplateId": "Currency:mtxgiveaway",
+    "Quantity": 100,
+    "Tier": 99
+  }
+]

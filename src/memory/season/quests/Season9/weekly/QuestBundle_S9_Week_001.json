@@ -1,0 +1,202 @@
+{
+  "Name": "QuestBundle_S9_Week_001",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season9_free_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:Quest_BR_Use_WindTunnel_Chain_NeoTilted",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_Use_WindTunnel_Chain_MegaMall",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_use_wind_tunnel_tilted",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Visit_SkyPlatforms",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_visit_athena_location_generic_4",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_visit_athena_location_generic_5",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_visit_athena_location_generic_6",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_visit_athena_location_generic_7",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_visit_athena_location_generic_8",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_visit_athena_location_generic_9",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_visit_athena_location_seal_07",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Damage_After_ShadowBomb",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_place_athena_damage_after_shadow_bomb",
+          "Count": 200,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Collect_LegendaryItem_DifferentMatches",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_collect_legendaryitem_differentmatches",
+          "Count": 5,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Interact_Chests_TwoLocations_01",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_interact_chests_twolocations_01",
+          "Count": 7,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Eliminate_ScopedWeapon",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_killingblow_athena_player_scoped_weapon",
+          "Count": 3,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Use_WindTunnel_Chain_MegaMall",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_use_wind_tunnel_retail",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Damage_Above_2Stories",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_Damage_Above_4Stories",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_damage_athena_player_above_2stories",
+          "Count": 300,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Damage_Above_4Stories",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": true
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_Damage_Above_6Stories",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_damage_athena_player_above_4stories",
+          "Count": 200,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Damage_Above_6Stories",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_damage_athena_player_above_6stories",
+          "Count": 100,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}

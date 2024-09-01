@@ -1,0 +1,225 @@
+{
+    "name": "BRSeason8",
+    "catalogEntries": [
+        {
+            "devName": "BR.Season8.BattleBundle.01",
+            "offerId": "4F7D3A92B8E6C1E5D0A9B6C8F2D4E3A1",
+            "fulfillmentIds": null,
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "categories": [],
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 4700,
+                    "finalPrice": 2800,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 2800
+                }
+            ],
+            "meta": null,
+            "matchFilter": "",
+            "filterWeight": 0,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "battlepass8",
+                    "minQuantity": 1
+                }
+            ],
+            "offerType": "StaticPrice",
+            "giftInfo": null,
+            "refundable": false,
+            "metaInfo": [],
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season8_BattlePassWithLevels.DA_BR_Season8_BattlePassWithLevels",
+            "itemGrants": [],
+            "sortPriority": 0,
+            "catalogGroupPriority": 0,
+            "title": "Battle Bundle",
+            "shortDescription": "Battle Pass + 25 tiers!",
+            "description": "Season 8 \n\nInstantly get these items \u003cBold\u003evalued at over 10,000 V-Bucks\u003c/\u003e.\n  • \u003cItemName\u003eBlackheart\u003c/\u003e Progressive Outfit\n  • \u003cItemName\u003eHybrid\u003c/\u003e Progressive Outfit\n  • \u003cItemName\u003eSidewinder\u003c/\u003e Outfit\n  • \u003cItemName\u003eTropical Camo\u003c/\u003e Wrap\n  • \u003cItemName\u003eWoodsy\u003c/\u003e Pet\n  • \u003cItemName\u003eSky Serpents\u003c/\u003e Glider\n  • \u003cItemName\u003eCobra\u003c/\u003e Back Bling\n  • \u003cItemName\u003eFlying Standard\u003c/\u003e Contrail\n  • 300 V-Bucks\n  • 1 Music Track\n  • \u003cBold\u003e70% Bonus\u003c/\u003e Season Match XP\n  • \u003cBold\u003e20% Bonus\u003c/\u003e Season Friend Match XP\n  • \u003cBold\u003eExtra Weekly Challenges\u003c/\u003e\n  • and more!\n\nPlay to level up your Battle Pass, unlocking \u003cBold\u003eover 75 rewards\u003c/\u003e (typically takes 75 to 150 hours of play).\n  • \u003cBold\u003e4 more Outfits\u003c/\u003e\n  • \u003cBold\u003e1,000 V-Bucks\u003c/\u003e\n  • 6 Emotes\n  • 5 Wraps\n  • 3 Gliders\n  • 3 Back Blings\n  • 4 Harvesting Tools\n  • 4 Contrails\n  • 1 Pet\n  • 12 Sprays\n  • 2 Music Tracks\n  • and so much more!\nWant it all faster? You can use V-Bucks to buy tiers any time!"
+        },
+        {
+            "offerId": "E07E41D52D4A425F8DC6592496B75301",
+            "devName": "BR.Season8.SingleTier.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 150,
+                    "finalPrice": 150,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 150
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 0,
+            "title": {
+                "de": "Battle Pass-Stufe",
+                "ru": "Уровень боевого пропуска",
+                "ko": "배틀패스 티어",
+                "zh-hant": "英雄季卡戰階",
+                "pt-br": "Categoria de Passe de Batalha",
+                "en": "Battle Pass Tier",
+                "it": "Livello Pass battaglia",
+                "fr": "Palier du Passe de combat",
+                "zh-cn": "英雄季卡战阶",
+                "es": "Nivel del pase de batalla",
+                "ar": "Battle Pass Tier",
+                "ja": "バトルパスティア",
+                "pl": "Stopień karnetu bojowego",
+                "es-419": "Nivel de pase de batalla",
+                "tr": "Savaş Bileti Aşaması"
+            },
+            "shortDescription": "",
+            "description": {
+                "de": "Hol dir jetzt tolle Belohnungen!",
+                "ru": "Получите отличные награды!",
+                "ko": "지금 푸짐한 보상을 얻어보세요!",
+                "zh-hant": "現在獲得豐厚獎勵！",
+                "pt-br": "Ganhe recompensas ótimas agora!",
+                "en": "Get great rewards now!",
+                "it": "Ricevi subito magnifiche ricompense!",
+                "fr": "Obtenez de grandes récompenses !",
+                "zh-cn": "现在获得丰厚奖励！",
+                "es": "¡Consigue recompensas increíbles!",
+                "ar": "Get great rewards now!",
+                "ja": "ステキな報酬を今すぐゲット！",
+                "pl": "Zdobądź super nagrody już teraz!",
+                "es-419": "¡Consigue grandes recompensas ahora!",
+                "tr": "Harika ödüllerin sahibi ol!"
+            },
+            "displayAssetPath": "",
+            "itemGrants": []
+        },
+        {
+            "offerId": "77F31B7F83FB422195DA60CDE683671D",
+            "devName": "BR.Season8.BattlePass.01",
+            "offerType": "StaticPrice",
+            "prices": [
+                {
+                    "currencyType": "MtxCurrency",
+                    "currencySubType": "",
+                    "regularPrice": 950,
+                    "finalPrice": 950,
+                    "saleExpiration": "9999-12-31T23:59:59.999Z",
+                    "basePrice": 950
+                }
+            ],
+            "categories": [],
+            "dailyLimit": -1,
+            "weeklyLimit": -1,
+            "monthlyLimit": -1,
+            "appStoreId": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "requirements": [
+                {
+                    "requirementType": "DenyOnFulfillment",
+                    "requiredId": "9DF02EA14FB15E475EBBEBBFDBB988DB",
+                    "minQuantity": 1
+                }
+            ],
+            "metaInfo": [],
+            "catalogGroup": "",
+            "catalogGroupPriority": 0,
+            "sortPriority": 1,
+            "title": {
+                "de": "Battle Pass",
+                "ru": "Боевой пропуск",
+                "ko": "배틀패스",
+                "zh-hant": "英雄季卡",
+                "pt-br": "Passe de Batalha",
+                "en": "Battle Pass",
+                "it": "Pass battaglia",
+                "fr": "Passe de combat",
+                "zh-cn": "英雄季卡",
+                "es": "Pase de batalla",
+                "ar": "Battle Pass",
+                "ja": "バトルパス",
+                "pl": "Karnet bojowy",
+                "es-419": "Pase de batalla",
+                "tr": "Savaş Bileti"
+            },
+            "shortDescription": {
+                "de": "Saison 8",
+                "ru": "Сезон 8",
+                "ko": "시즌 8",
+                "zh-hant": "第8賽季",
+                "pt-br": "Temporada 8",
+                "en": "Season 8",
+                "it": "Stagione 8",
+                "fr": "Saison 8",
+                "zh-cn": "第8赛季",
+                "es": "Temporada 8",
+                "ar": "Season 8",
+                "ja": "シーズン8",
+                "pl": "Sezon 8",
+                "es-419": "Temporada 8",
+                "tr": "8. Sezon"
+            },
+            "description": {
+                "de": "Saison 8 – Ab sofort bis einschließlich 8. Mai\n\nErhalte sofort diese Gegenstände <Bold>im Wert von über 3.500 V-Bucks</>.\n  • <ItemName>Schwarzherz</> (aufrüstbares Outfit)\n  • <ItemName>Hybrid</> (aufrüstbares Outfit)\n  • <Bold>+50 %</> Saison-Match-EP\n  • <Bold>+10 %</> Saison-Match-EP für Freunde\n  • <Bold>zusätzliche wöchentliche Herausforderungen</>\n\nSpiele weiter und stufe deinen Battle Pass auf, um <Bold>über 100 Belohnungen</> freizuschalten (im Normalfall werden dafür 75 bis 150 Spielstunden benötigt).\n  • <ItemName>Klapperschlange</> und <Bold>4 weitere Outfits</>\n  • <Bold>1.300 V-Bucks</>\n  • 7 Emotes\n  • 6 Lackierungen\n  • 2 Gefährten\n  • 5 Erntewerkzeuge\n  • 4 Hängegleiter\n  • 4 Rücken-Accessoires\n  • 5 Kondensstreifen\n  • 14 Spraymotive\n  • 3 Musikstücke\n  • 1 Spielzeug\n  • 20 Ladebildschirme\n  • und noch eine ganze Menge mehr!\nDas dauert dir zu lange? Du kannst dir mit V-Bucks jederzeit Stufen kaufen!",
+                "ru": "Восьмой сезон: до 8 мая \n\nСразу же получите предметы <Bold>стоимостью более 3500 В-баксов!</>\n  • Улучшающаяся экипировка <ItemName>Флибустьера</>;\n  • улучшающаяся экипировка <ItemName>Гибрида</>;\n  • <Bold>+50% к опыту</> за матчи сезона;\n  • <Bold>+10% к опыту</> друзей за матчи сезона;\n  • <Bold>дополнительные еженедельные испытания</>.\n\nИграйте, повышайте уровень боевого пропуска — и вас ждут <Bold>более 100 наград</>. Обычно, чтобы открыть все награды, требуется 75–150 часов игры.\n  • экипировка <ItemName>Горгоны</> и <Bold>ещё 4 костюма;</>\n  • <Bold>1300 В-баксов;</>\n  • 7 эмоций;\n  • 6 обёрток;\n  • 2 питомца;\n  • 5 инструментов;\n  • 4 дельтаплана;\n  • 4 украшения на спину;\n  • 5 воздушных следов;\n  • 14 граффити;\n  • 3 музыкальные композиции;\n  • 1 игрушка;\n  • 20 экранов загрузки\n  и это ещё не всё!\nНе хотите ждать? Уровни можно быстро получить за В-баксы!",
+                "ko": "시즌 8: 5월 8일 종료\n\n<Bold>3,500 V-Bucks 이상의 가치</>가 있는 여러 아이템을 즉시 받아가세요.\n  • <ItemName>블랙하트</> 진화형 의상\n  • <ItemName>하이브리드</> 진화형 의상\n  • <Bold>50% 보너스</> 시즌 매치 XP\n  • <Bold>10% 보너스</> 시즌 친구 매치 XP\n  • <Bold>추가 주간 도전</>\n\n게임을 플레이하고 배틀패스 티어를 올려서 <Bold>100개 이상의 보상</>을 획득해보세요(보통 75-150시간 소요).\n  • <ItemName>사이드와인더</> 외 <Bold>의상 4개</>\n  • <Bold>1,300 V-Bucks</>\n  • 이모트 7개\n  • 외관 6개\n  • 애완동물 2마리\n  • 수확 도구 5개\n  • 글라이더 4개\n  • 등 장신구 4개\n  • 트레일 5개\n  • 스프레이 14개\n  • 음악 트랙 3개\n  • 장난감 1개\n  • 로딩 화면 20개\n  • 그 외 많은 혜택!\n더 빨리 보상을 얻고 싶으신가요? V-Bucks를 사용해서 언제든지 티어를 구매할 수 있습니다!",
+                "zh-hant": "第八賽季：現在起至5月8日\n\n立即獲得這些<Bold>價值逾3500V幣</>的物品。\n  • <ItemName>黑鬍子</>可進化服裝\n  • <ItemName>忍者龍</>可進化服裝\n  • <Bold>50%額外</>賽季匹配經驗\n  • <Bold>10%額外</>賽季好友匹配經驗\n  • <Bold>額外每週挑戰</>\n\n通過遊玩提升英雄季卡戰階，解鎖<Bold>百餘獎勵</>（通常需要75到150個小時的遊玩時間）。\n  • <ItemName>響尾蛇</>和<Bold>4個額外服裝</>\n  • <Bold>1300V幣</>\n  • 7個姿勢\n  • 6個皮膚\n  • 2個寵物\n  • 5個鎬\n  • 4個滑翔傘\n  • 4個背部裝飾\n  • 5個滑翔軌跡\n  • 14個塗鴉\n  • 3個音軌\n  • 1個玩具\n  • 20張載入介面\n  • 以及更多獎勵！\n希望更快得到所有獎勵嗎？你可以隨時使用V幣購買戰階！",
+                "pt-br": "Temporada 8: de hoje até 8 de maio \n\nReceba instantaneamente estes itens <Bold>avaliados em mais de 3.500 V-Bucks</>.\n  • Traje Progressivo <ItemName>Coração Negro</>\n  • Traje Progressivo <ItemName>Híbrido</>\n  • <Bold>50% de Bônus</> de EXP da Temporada em Partidas\n  • <Bold>10% de Bônus</> de EXP da Temporada em Partidas com Amigos\n  • <Bold>Desafios Semanais Extras</>\n\nJogue para subir o nível do seu Passe de Batalha, desbloqueando <Bold>mais de 100 recompensas</> (leva em média de 75 a 150 horas de jogo).\n  • <ItemName>Cascavel</> e <Bold>mais 4 Trajes</>\n  • <Bold>1.300 V-Bucks</>\n  • 7 Gestos\n  • 6 Envelopamentos\n  • 2 Mascotes\n  • 5 Ferramentas de Coleta\n  • 4 Asas-deltas\n  • 4 Acessórios para as Costas\n  • 5 Rastros de Fumaça\n  • 14 Sprays\n  • 3 Faixas Musicais\n  • 1 Brinquedo\n  • 20 Telas de Carregamento\n  • e muito mais!\nQuer obter tudo mais rápido? Você pode comprar categorias com V-Bucks a qualquer hora!",
+                "en": "Season 8 Now thru May 8 \n\nInstantly get these items <Bold>valued at over 3,500 V-Bucks</>.\n  • <ItemName>Blackheart</> Progressive Outfit\n  • <ItemName>Hybrid</> Progressive Outfit\n  • <Bold>50% Bonus</> Season Match XP\n  • <Bold>10% Bonus</> Season Friend Match XP\n  • <Bold>Extra Weekly Challenges</>\n\nPlay to level up your Battle Pass, unlocking <Bold>over 100 rewards</> (typically takes 75 to 150 hours of play).\n  • <ItemName>Sidewinder</> and <Bold>4 more Outfits</>\n  • <Bold>1,300 V-Bucks</>\n  • 7 Emotes\n  • 6 Wraps\n  • 2 Pets\n  • 5 Harvesting Tools\n  • 4 Gliders\n  • 4 Back Blings\n  • 5 Contrails\n  • 14 Sprays\n  • 3 Music Tracks\n  • 1 Toy\n  • 20 Loading Screens\n  • and so much more!\nWant it all faster? You can use V-Bucks to buy tiers any time!",
+                "it": "Stagione 8, da ora fino all'8 maggio\n\nOttieni subito questi oggetti <Bold>dal valore di oltre 3.500 V-buck</>!\n • Costume progressivo <ItemName>Cuore nero</>\n • Costume progressivo <ItemName>Ibrido</>\n • <Bold>Bonus del 50%</> dei PE partite stagionali\n • <Bold>Bonus del 10%</> dei PE partite amico stagionali\n • <Bold>Sfide settimanali extra</>\n\nGioca per aumentare il livello del tuo Pass battaglia, sbloccando <Bold>più di 100 ricompense</> (per un totale indicativo di 75-150 ore di gioco).\n • <ItemName>Sidewinder</> e <Bold>altri 4 costumi</>\n • <Bold>1.300 V-buck</>\n • 7 emote\n • 6 coperture\n • 2 piccoli amici\n • 5 strumenti raccolta\n • 4 deltaplani\n • 4 dorsi decorativi\n • 5 scie\n • 14 spray\n • 3 brani musicali\n • 1 giocattolo\n • 20 schermate di caricamento\n • E altro ancora!\nVuoi tutto e subito? Puoi acquistare livelli usando V-buck in qualsiasi momento!",
+                "fr": "Saison 8 : jusqu'au 8 mai\n\nRecevez immédiatement ces objets <Bold>d'une valeur supérieure à 3500 V-bucks</>.\n  • Tenue évolutive <ItemName>Cœur Noir</>\n  • Tenue évolutive <ItemName>Hybride</>\n  • Bonus d'EXP de saison de <Bold>50%</>\n  • Bonus d'EXP de saison de <Bold>10%</> pour des amis\n  • <Bold>Des défis hebdomadaires supplémentaires</>\n\n Jouez pour augmenter le niveau de votre Passe de combat et déverrouiller <Bold>plus de 100 récompenses</> (nécessitant de 75 à 150 heures de jeu).\n  • <ItemName>Vipère</> plus <Bold>4 autres tenues</>\n  • <Bold>1300 V-bucks</>\n  • 7 emotes\n  • 6 revêtements\n  • 2 compagnons\n  • 5 pioches\n  • 4 planeurs\n  • 4 accessoires de dos\n  • 5 traînées de condensation\n  • 14 aérosols\n  • 3 pistes musicales\n  • 1 jouet\n  • 20 écrans de chargement\n  • Et plus !\nEnvie d'aller plus vite ? Utilisez vos V-bucks pour acheter des niveaux à tout moment !",
+                "zh-cn": "第八赛季：现在起至5月8日\n\n立即获得这些<Bold>价值逾3500V币</>的物品。\n  • <ItemName>黑胡子</>可进化服装\n  • <ItemName>忍者龙</>可进化服装\n  • <Bold>50%额外</>赛季匹配经验\n  • <Bold>10%额外</>赛季好友匹配经验\n  • <Bold>额外每周挑战</>\n\n通过游玩提升英雄季卡战阶，解锁<Bold>百余奖励</>（通常需要75到150个小时的游玩时间）。\n  • <ItemName>响尾蛇</>和<Bold>4个额外服装</>\n  • <Bold>1300V币</>\n  • 7个姿势\n  • 6个皮肤\n  • 2个宠物\n  • 5个镐\n  • 4个滑翔伞\n  • 4个背部装饰\n  • 5个滑翔轨迹\n  • 14个涂鸦\n  • 3个音轨\n  • 1个玩具\n  • 20张载入界面\n  • 以及更多奖励！\n希望更快得到所有奖励吗？你可以随时使用V币购买战阶！",
+                "es": "Desde ahora hasta el 8 de mayo \n\nConsigue instantáneamente estos objetos<Bold> valorados en más de 3.500 paVos</>.\n  • Traje progresivo de <ItemName>Parchenegro</>\n  • Traje progresivo de<ItemName>Híbrido</>\n  • <Bold>Bonificación del 50 %</> de PE por partida de temporada\n  • <Bold>Bonificación del 10 %</> de PE de partida amistosa de temporada\n  • <Bold>Desafíos semanales adicionales</>\n\nJugad para subir de nivel el pase de batalla, que desbloquea más de <Bold>100 recompensas</> (suele dar para entre 75 y 150 horas de juego).\n  • <ItemName>Áspid</> y <Bold>4 trajes más</>\n  • <Bold>1300 paVos</>\n  • 7 gestos\n  • 6 envoltorios\n  • 2 mascotas\n  • 5 herramientas de recolección\n  • 4 alas delta\n  • 4 accesorios mochileros\n  • 5 estelas\n  • 14 grafitis\n  • 3 temas musicales\n  • 1 juguete\n  • 20 pantallas de carga\n  • ¡y mucho más!\n¿Lo queréis más rápido? ¡Puedes usar paVos para comprar niveles siempre que quieras!",
+                "ar": "Season 8 Now thru May 8 \n\nInstantly get these items <Bold>valued at over 3,500 V-Bucks</>.\n  • <ItemName>Blackheart</> Progressive Outfit\n  • <ItemName>Hybrid</> Progressive Outfit\n  • <Bold>50% Bonus</> Season Match XP\n  • <Bold>10% Bonus</> Season Friend Match XP\n  • <Bold>Extra Weekly Challenges</>\n\nPlay to level up your Battle Pass, unlocking <Bold>over 100 rewards</> (typically takes 75 to 150 hours of play).\n  • <ItemName>Sidewinder</> and <Bold>4 more Outfits</>\n  • <Bold>1,300 V-Bucks</>\n  • 7 Emotes\n  • 6 Wraps\n  • 2 Pets\n  • 5 Harvesting Tools\n  • 4 Gliders\n  • 4 Back Blings\n  • 5 Contrails\n  • 14 Sprays\n  • 3 Music Tracks\n  • 1 Toy\n  • 20 Loading Screens\n  • and so much more!\nWant it all faster? You can use V-Bucks to buy tiers any time!",
+                "ja": "シーズン8: 5月8日まで\n\n<Bold>3,500 V-Bucks以上の価値</>があるアイテムを今すぐ手に入れましょう。\n  • プログレッシブコスチューム<ItemName>「ブラックハート」</>\n  • プログレッシブコスチューム<ItemName>「ハイブリッド」</>\n  • シーズンマッチXPの<Bold>50%ボーナス</>\n  • シーズンフレンドマッチXPの<Bold>10%ボーナス</>\n  • <Bold>追加のウィークリーチャレンジ</>\n\nプレイしてバトルパスのレベルを上げると、<Bold>100以上の報酬</>をアンロックできます(通常、プレイにかかる時間は75～150時間程度)。\n  • <ItemName>「サイドワインダー」</>及びコスチューム<Bold>x4以上</>\n  • <Bold>1,300 V-Bucks</>\n  • エモートx7\n  • ラップx6\n  • ペットx2\n  • 収集ツールx5\n  • グライダーx4\n  • バックアクセサリーx4\n  • コントレイルx5\n  • スプレーx14\n  • ミュージックトラックx3\n  • おもちゃx1\n  • ロード画面x20\n • 他にも盛りだくさん！\nもっと早く報酬を全部集めたいという方は、V-Bucksでいつでもティアを購入できます！",
+                "pl": "Sezon 8: od teraz do 8 maja\n\nOtrzymasz od razu poniższe przedmioty <Bold>o wartości ponad 3500 V-dolców</>:\n  • Strój progresywny: <ItemName>Czarnosercy</>\n  • Strój progresywny: <ItemName>Hybryda</>\n  • Sezonowa <Bold>premia +50% PD za grę</>\n  • Sezonowa <Bold>premia +10% PD za grę ze znajomymi</>\n  • Dostęp do <Bold>dodatkowych wyzwań tygodnia</>\n\nGraj, aby awansować karnet bojowy i zdobyć <Bold>ponad 100 nagród</> (ich zebranie zajmuje zwykle od 75 do 150 godz. gry).\n  • <ItemName>Grzechotnica</> i <Bold>4 inne stroje</>\n  • <Bold>1300 V-dolców</>\n  • 7 emotek\n  • 6 malowań\n  • 2 pupile\n  • 5 zbieraków\n  • 4 lotnie\n  • 4 plecaki\n  • 5 smug\n  • 14 graffiti\n  • 3 tła muzyczne\n  • 1 zabawka\n  • I dużo więcej!\nChcesz rozwijać się szybciej? W każdej chwili możesz kupić stopnie za V-dolce!",
+                "es-419": "Temporada 8: ahora hasta el 8 de mayo\n\nObtén al instante estos objetos <Bold>que cuestan más de 3500 monedas V</>.\n  • Atuendo progresivo <ItemName>Parche Negro</>\n  • Atuendo progresivo <ItemName>Híbrido</>\n  • <Bold>50 % de bonificación</> de PE para partidas en la temporada\n  • <Bold>10 % de bonificación</> de PE para partidas con amigos en la temporada\n  • <Bold>Desafíos semanales adicionales</>\n\nJuega para subir de nivel el pase de batalla y desbloquear <Bold>más de 100 recompensas</> (esto lleva entre 75 y 150 horas de juego).\n  • <ItemName>Cascabel</> y <Bold>4 atuendos más</>\n  • <Bold>1300 monedas V</>\n  • 7 gestos\n  • 6 papeles\n  • 2 mascotas\n  • 5 herramientas de recolección\n  • 4 planeadores\n  • 4 mochilas retro\n  • 5 estelas\n  • 14 aerosoles\n  • 3 pistas de música\n  • 1 juguete\n  • 20 pantallas de carga\n  • ¡Y mucho más!\n¿Lo quieres todo más rápido? ¡Puedes usar las monedas V para comprar niveles cuando quieras!",
+                "tr": "8. Sezon: Şu andan 8 Mayıs’a kadar \n\n<Bold>3.500 V-Papel’in üzerinde değeri olan</> bu içerikleri hemen kap.\n  • İlerlemeli <ItemName>Karasakal</> Kıyafeti\n  • İlerlemeli <ItemName>Melez</> Kıyafeti\n  • <Bold>%50 Bonus</> Sezonluk Maç TP’si\n  • Arkadaşların için <Bold>%10 Bonus</> Sezonluk Maç TP’si\n  • <Bold>İlave Haftalık Görevler</>\n\nBattle Royale oynayarak Savaş Bileti’nin aşamasını yükselt ve <Bold>100’den fazla ödülü</> aç (genelde 75 ila 150 saat oynama gerektirir).\n  • <ItemName>Engerek</> ve <Bold>4 Kıyafet</> daha\n  • <Bold>1.300 V-Papel</>\n  • 7 İfade\n  • 6 Kaplama\n  • 2 Sadık Dost\n  • 5 Toplama Aleti\n  • 4 Planör\n  • 4 Sırt Süsü\n  • 5 Dalış İzi\n  • 14 Sprey\n  • 3 Müzik Parçası\n  • 1 Oyuncak\n  • 20 Yükleme Ekranı\n  • ve çok daha fazlası!\nHepsini daha hızlı mı almak istiyorsun? V-Papel karşılığında istediğin zaman aşama açabilirsin!"
+            },
+            "displayAssetPath": "/Game/Catalog/DisplayAssets/DA_BR_Season8_BattlePass.DA_BR_Season8_BattlePass",
+            "itemGrants": []
+        }
+    ]
+}

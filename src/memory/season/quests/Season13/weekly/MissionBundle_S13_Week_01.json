@@ -1,0 +1,192 @@
+{
+  "Name": "MissionBundle_S13_Week_01",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season13_mission_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:quest_s13_w1_q01",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AccountResource:athenaseasonalxp",
+          "Quantity": 35000
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_w1_q01_obj0",
+          "Count": 200,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:quest_s13_w1_q01",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AccountResource:athenaseasonalxp",
+          "Quantity": 35000
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_w1_q01_obj0",
+          "Count": 200,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:quest_s13_w1_q02",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AccountResource:athenaseasonalxp",
+          "Quantity": 35000
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_w1_q02_obj0",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:quest_s13_w1_q03",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AccountResource:athenaseasonalxp",
+          "Quantity": 35000
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_w1_q03_obj0",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:quest_s13_w1_q04",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AccountResource:athenaseasonalxp",
+          "Quantity": 35000
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_w1_q04_obj0",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "quest_s13_w1_q04_obj1",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "quest_s13_w1_q04_obj2",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "quest_s13_w1_q04_obj3",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "quest_s13_w1_q04_obj4",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:quest_s13_w1_q05",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AccountResource:athenaseasonalxp",
+          "Quantity": 35000
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_w1_q05_obj0",
+          "Count": 7,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:quest_s13_w1_q06",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AccountResource:athenaseasonalxp",
+          "Quantity": 35000
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_w1_q06_obj0",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "quest_s13_w1_q06_obj1",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:quest_s13_w1_q07",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AccountResource:athenaseasonalxp",
+          "Quantity": 35000
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_w1_q07_obj0",
+          "Count": 3,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}

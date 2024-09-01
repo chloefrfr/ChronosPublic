@@ -1,0 +1,2162 @@
+[
+    {
+        "dtstart": {
+            "year": 2023,
+            "month": 11,
+            "day": 30,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2024,
+            "month": 2,
+            "day": 23,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "4shrh17rknmfib096boedifv29@google.com",
+        "created": {
+            "year": 2023,
+            "month": 3,
+            "day": 31,
+            "hour": 19,
+            "minute": 18,
+            "second": 17,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season28.json",
+        "lastModified": {
+            "year": 2023,
+            "month": 3,
+            "day": 31,
+            "hour": 19,
+            "minute": 18,
+            "second": 17,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season28 (CH5S1)",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2023,
+            "month": 3,
+            "day": 9,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2023,
+            "month": 6,
+            "day": 18,
+            "hour": 12,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "4slnncjc3qtidjrn1r7r0r0785@google.com",
+        "created": {
+            "year": 2022,
+            "month": 12,
+            "day": 7,
+            "hour": 2,
+            "minute": 15,
+            "second": 53,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season24.json",
+        "lastModified": {
+            "year": 2023,
+            "month": 3,
+            "day": 6,
+            "hour": 20,
+            "minute": 41,
+            "second": 36,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Season24 (CH4S2)",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2023,
+            "month": 6,
+            "day": 1,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2023,
+            "month": 9,
+            "day": 10,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "6vqo81nhfppk4gucd5ps2h9qfa@google.com",
+        "created": {
+            "year": 2023,
+            "month": 2,
+            "day": 24,
+            "hour": 18,
+            "minute": 42,
+            "second": 43,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season25.json",
+        "lastModified": {
+            "year": 2023,
+            "month": 2,
+            "day": 24,
+            "hour": 22,
+            "minute": 8,
+            "second": 2,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season25 (CH4S3)",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2022,
+            "month": 12,
+            "day": 1,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2023,
+            "month": 3,
+            "day": 26,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "3d4kgokef1qmvi3itsbootch8v@google.com",
+        "created": {
+            "year": 2022,
+            "month": 8,
+            "day": 30,
+            "hour": 15,
+            "minute": 27,
+            "second": 47,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season23.json",
+        "lastModified": {
+            "year": 2022,
+            "month": 8,
+            "day": 30,
+            "hour": 15,
+            "minute": 27,
+            "second": 47,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season23",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2022,
+            "month": 9,
+            "day": 15,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2022,
+            "month": 12,
+            "day": 18,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "10gjmg64n22lmd0qke7go2q1ni@google.com",
+        "created": {
+            "year": 2022,
+            "month": 5,
+            "day": 31,
+            "hour": 22,
+            "minute": 30,
+            "second": 55,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season22.json",
+        "lastModified": {
+            "year": 2022,
+            "month": 5,
+            "day": 31,
+            "hour": 22,
+            "minute": 30,
+            "second": 55,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season22",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2022,
+            "month": 6,
+            "day": 2,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2022,
+            "month": 10,
+            "day": 2,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "1tlk5ssnv0429sana868hvgoh7@google.com",
+        "created": {
+            "year": 2022,
+            "month": 3,
+            "day": 15,
+            "hour": 20,
+            "minute": 51,
+            "second": 30,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season21.json",
+        "lastModified": {
+            "year": 2022,
+            "month": 3,
+            "day": 15,
+            "hour": 20,
+            "minute": 51,
+            "second": 30,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season21",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2022,
+            "month": 3,
+            "day": 17,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2022,
+            "month": 6,
+            "day": 19,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "2gbm43a60bugot03g6ctl6m4q6@google.com",
+        "created": {
+            "year": 2022,
+            "month": 1,
+            "day": 10,
+            "hour": 18,
+            "minute": 0,
+            "second": 25,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season20.json",
+        "lastModified": {
+            "year": 2022,
+            "month": 1,
+            "day": 10,
+            "hour": 18,
+            "minute": 0,
+            "second": 25,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season20",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2021,
+            "month": 12,
+            "day": 2,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2022,
+            "month": 3,
+            "day": 29,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "5f2522mgv4gk6pgfn1o3is6k46@google.com",
+        "created": {
+            "year": 2021,
+            "month": 9,
+            "day": 27,
+            "hour": 14,
+            "minute": 41,
+            "second": 14,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season19.json",
+        "lastModified": {
+            "year": 2021,
+            "month": 11,
+            "day": 3,
+            "hour": 20,
+            "minute": 47,
+            "second": 34,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Season19",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2021,
+            "month": 9,
+            "day": 11,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2021,
+            "month": 12,
+            "day": 21,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "069k81bs0e5f647fdbdulltgej@google.com",
+        "created": {
+            "year": 2021,
+            "month": 5,
+            "day": 6,
+            "hour": 16,
+            "minute": 28,
+            "second": 9,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season18.json",
+        "lastModified": {
+            "year": 2021,
+            "month": 9,
+            "day": 28,
+            "hour": 20,
+            "minute": 5,
+            "second": 43,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 2,
+        "status": "CONFIRMED",
+        "summary": "Season18",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2021,
+            "month": 6,
+            "day": 5,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2021,
+            "month": 9,
+            "day": 24,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "0osilfuhiej4qltt4ddu94pdp5@google.com",
+        "created": {
+            "year": 2021,
+            "month": 3,
+            "day": 25,
+            "hour": 17,
+            "minute": 39,
+            "second": 56,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season17.json",
+        "lastModified": {
+            "year": 2021,
+            "month": 5,
+            "day": 19,
+            "hour": 18,
+            "minute": 7,
+            "second": 56,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 5,
+        "status": "CONFIRMED",
+        "summary": "Season17",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2021,
+            "month": 3,
+            "day": 13,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2021,
+            "month": 6,
+            "day": 19,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "2jmmm269ipja4sdseoc640f3g5@google.com",
+        "created": {
+            "year": 2021,
+            "month": 1,
+            "day": 14,
+            "hour": 19,
+            "minute": 10,
+            "second": 12,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season16.json",
+        "lastModified": {
+            "year": 2021,
+            "month": 1,
+            "day": 15,
+            "hour": 0,
+            "minute": 12,
+            "second": 24,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Season16",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2020,
+            "month": 11,
+            "day": 30,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2021,
+            "month": 3,
+            "day": 31,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "15ofj9g13k5nfiikta2r709otf@google.com",
+        "created": {
+            "year": 2020,
+            "month": 10,
+            "day": 5,
+            "hour": 20,
+            "minute": 37,
+            "second": 16,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season15.json",
+        "lastModified": {
+            "year": 2021,
+            "month": 1,
+            "day": 14,
+            "hour": 19,
+            "minute": 9,
+            "second": 39,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 7,
+        "status": "CONFIRMED",
+        "summary": "Season15",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2020,
+            "month": 8,
+            "day": 24,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2020,
+            "month": 12,
+            "day": 11,
+            "hour": 15,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "0kqbpomb471dbqipksadh843nn@google.com",
+        "created": {
+            "year": 2020,
+            "month": 7,
+            "day": 15,
+            "hour": 21,
+            "minute": 18,
+            "second": 1,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season14.json",
+        "lastModified": {
+            "year": 2020,
+            "month": 8,
+            "day": 14,
+            "hour": 12,
+            "minute": 19,
+            "second": 44,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Season14",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2020,
+            "month": 3,
+            "day": 19,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2020,
+            "month": 6,
+            "day": 17,
+            "hour": 7,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "0duofa3h3seug00gl0j62hp5o1@google.com",
+        "created": {
+            "year": 2020,
+            "month": 3,
+            "day": 10,
+            "hour": 17,
+            "minute": 34,
+            "second": 47,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\"$min_build\":\"12.20\",\"[0].operations[0].value.eventName\":\"CalendarEvent_Season12_SpyGames\",\"[1].eventType\":\"EventFlag.LTE_SpyGames\",\"[2].operations[0].value.eventName\":\"CalendarEvent_Season12_SpyGames\",\"[2].operations[0].value.eventType\":\"EventFlag.LTE_SpyGames\"}",
+        "lastModified": {
+            "year": 2020,
+            "month": 6,
+            "day": 11,
+            "hour": 18,
+            "minute": 6,
+            "second": 48,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 4,
+        "status": "CONFIRMED",
+        "summary": "Event_Season12_SpyGames",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2020,
+            "month": 2,
+            "day": 20,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2020,
+            "month": 6,
+            "day": 17,
+            "hour": 7,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "6up5sufmj09qdr8od7h78stfkj@google.com",
+        "created": {
+            "year": 2020,
+            "month": 2,
+            "day": 27,
+            "hour": 14,
+            "minute": 55,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\"$min_build\":\"12.20\",\"[0].operations[0].value.eventName\":\"CalendarEvent_FactionLTMTech\",\"[1].eventType\":\"EventFlag.LTE_FactionLTMTech\",\"[2].operations[0].value.eventName\":\"CalendarEvent_FactionLTMTech\",\"[2].operations[0].value.eventType\":\"EventFlag.LTE_FactionLTMTech\"}",
+        "lastModified": {
+            "year": 2020,
+            "month": 6,
+            "day": 11,
+            "hour": 18,
+            "minute": 6,
+            "second": 35,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Event_FactionLTMTech",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2020,
+            "month": 2,
+            "day": 17,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2020,
+            "month": 6,
+            "day": 25,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "188m0l99sdm0pgmk23o957j4v2@google.com",
+        "created": {
+            "year": 2020,
+            "month": 1,
+            "day": 6,
+            "hour": 21,
+            "minute": 39,
+            "second": 23,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season12.json",
+        "lastModified": {
+            "year": 2020,
+            "month": 6,
+            "day": 3,
+            "hour": 20,
+            "minute": 2,
+            "second": 7,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 3,
+        "status": "CONFIRMED",
+        "summary": "Season12",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2020,
+            "month": 6,
+            "day": 14,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2020,
+            "month": 9,
+            "day": 29,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "2pas2786ll97cv6kij1rqrguih@google.com",
+        "created": {
+            "year": 2020,
+            "month": 3,
+            "day": 12,
+            "hour": 20,
+            "minute": 37,
+            "second": 9,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season13.json  ",
+        "lastModified": {
+            "year": 2020,
+            "month": 6,
+            "day": 3,
+            "hour": 20,
+            "minute": 1,
+            "second": 25,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 3,
+        "status": "CONFIRMED",
+        "summary": "Season13",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 10,
+            "day": 14,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2020,
+            "month": 2,
+            "day": 29,
+            "hour": 15,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "6q16pduu9trmv7fs07ulujv00t@google.com",
+        "created": {
+            "year": 2019,
+            "month": 8,
+            "day": 20,
+            "hour": 17,
+            "minute": 27,
+            "second": 43,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season11.json",
+        "lastModified": {
+            "year": 2020,
+            "month": 1,
+            "day": 20,
+            "hour": 17,
+            "minute": 44,
+            "second": 40,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Season11",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 10,
+            "day": 3,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 10,
+            "day": 13,
+            "hour": 18,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "7cf7jpdj33thlftsd93flifnet@google.com",
+        "created": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 41,
+            "second": 6,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\n\"$min_build\":\"10.0\",\n\"[0].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_10\",\n\"[1].eventType\":\"EventFlag.Season10_UrgentMission_10\",\n\"[2].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_10\",\n\"[2].operations[0].value.eventType\":\"EventFlag.Season10_UrgentMission_10\"\n}",
+        "lastModified": {
+            "year": 2019,
+            "month": 10,
+            "day": 1,
+            "hour": 18,
+            "minute": 14,
+            "second": 30,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Season10_UrgentMission_010",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 7,
+            "day": 30,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 10,
+            "day": 17,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "22p46v91au7ahkbe4qtic1s3et@google.com",
+        "created": {
+            "year": 2019,
+            "month": 6,
+            "day": 14,
+            "hour": 20,
+            "minute": 51,
+            "second": 50,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season10.json",
+        "lastModified": {
+            "year": 2019,
+            "month": 10,
+            "day": 1,
+            "hour": 18,
+            "minute": 12,
+            "second": 47,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Season 10",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 9,
+            "day": 19,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 9,
+            "day": 26,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "561v5ja7l1uts1f8ic5dhhbsc8@google.com",
+        "created": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 21,
+            "minute": 46,
+            "second": 6,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\n\"$min_build\":\"10.0\",\n\"[0].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_8\",\n\"[1].eventType\":\"EventFlag.Season10_UrgentMission_8\",\n\"[2].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_8\",\n\"[2].operations[0].value.eventType\":\"EventFlag.Season10_UrgentMission_8\"\n}",
+        "lastModified": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 21,
+            "minute": 46,
+            "second": 6,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season10_UrgentMission_008",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 9,
+            "day": 26,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 10,
+            "day": 3,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "6p5bmfu83h4savjtral1abr9kk@google.com",
+        "created": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 40,
+            "second": 47,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\n\"$min_build\":\"10.0\",\n\"[0].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_9\",\n\"[1].eventType\":\"EventFlag.Season10_UrgentMission_9\",\n\"[2].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_9\",\n\"[2].operations[0].value.eventType\":\"EventFlag.Season10_UrgentMission_9\"\n}",
+        "lastModified": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 21,
+            "minute": 45,
+            "second": 50,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Season10_UrgentMission_009",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 9,
+            "day": 12,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 9,
+            "day": 19,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "3r7tc6lickm9h8ki0ji4h9ip2f@google.com",
+        "created": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 40,
+            "second": 30,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\n\"$min_build\":\"10.0\",\n\"[0].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_7\",\n\"[1].eventType\":\"EventFlag.Season10_UrgentMission_7\",\n\"[2].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_7\",\n\"[2].operations[0].value.eventType\":\"EventFlag.Season10_UrgentMission_7\"\n}",
+        "lastModified": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 21,
+            "minute": 45,
+            "second": 46,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season10_UrgentMission_007",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 9,
+            "day": 5,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 9,
+            "day": 12,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "4o4opd9gue86r749ujjsa0lgoj@google.com",
+        "created": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 40,
+            "second": 15,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\n\"$min_build\":\"10.0\",\n\"[0].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_6\",\n\"[1].eventType\":\"EventFlag.Season10_UrgentMission_6\",\n\"[2].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_6\",\n\"[2].operations[0].value.eventType\":\"EventFlag.Season10_UrgentMission_6\"\n}",
+        "lastModified": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 21,
+            "minute": 45,
+            "second": 35,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season10_UrgentMission_006",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 8,
+            "day": 29,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 9,
+            "day": 5,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "2trc9knqcjid3ii5117tm1oaq4@google.com",
+        "created": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 39,
+            "second": 50,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\n\"$min_build\":\"10.0\",\n\"[0].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_5\",\n\"[1].eventType\":\"EventFlag.Season10_UrgentMission_5\",\n\"[2].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_5\",\n\"[2].operations[0].value.eventType\":\"EventFlag.Season10_UrgentMission_5\"\n}",
+        "lastModified": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 39,
+            "second": 50,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season10_UrgentMission_005",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 8,
+            "day": 22,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 8,
+            "day": 29,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "4opbjk305pqo6fstjkkgk0ju9h@google.com",
+        "created": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 38,
+            "second": 7,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\n\"$min_build\":\"10.0\",\n\"[0].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_4\",\n\"[1].eventType\":\"EventFlag.Season10_UrgentMission_4\",\n\"[2].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_4\",\n\"[2].operations[0].value.eventType\":\"EventFlag.Season10_UrgentMission_4\"\n}",
+        "lastModified": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 38,
+            "second": 7,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season10_UrgentMission_004",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 8,
+            "day": 15,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 8,
+            "day": 22,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "32gl9dnvuh0hqc786p2h23iqus@google.com",
+        "created": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 37,
+            "second": 49,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\n\"$min_build\":\"10.0\",\n\"[0].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_3\",\n\"[1].eventType\":\"EventFlag.Season10_UrgentMission_3\",\n\"[2].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_3\",\n\"[2].operations[0].value.eventType\":\"EventFlag.Season10_UrgentMission_3\"\n}",
+        "lastModified": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 37,
+            "second": 49,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season10_UrgentMission_003",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 8,
+            "day": 8,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 8,
+            "day": 15,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "66vd9tbtmi1qsjgc4f5ns5aat0@google.com",
+        "created": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 37,
+            "second": 30,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\n\"$min_build\":\"10.0\",\n\"[0].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_2\",\n\"[1].eventType\":\"EventFlag.Season10_UrgentMission_2\",\n\"[2].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_2\",\n\"[2].operations[0].value.eventType\":\"EventFlag.Season10_UrgentMission_2\"\n}",
+        "lastModified": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 37,
+            "second": 30,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season10_UrgentMission_002",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 8,
+            "day": 1,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 8,
+            "day": 8,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "5fl9n2e5inpt2ede46ukht16ud@google.com",
+        "created": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 36,
+            "second": 10,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Events/DefaultChallengeEvent.json:{\n\"$min_build\":\"10.0\",\n\"[0].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_1\",\n\"[1].eventType\":\"EventFlag.Season10_UrgentMission_1\",\n\"[2].operations[0].value.eventName\":\"CalendarEvent_Season10_UrgentMission_1\",\n\"[2].operations[0].value.eventType\":\"EventFlag.Season10_UrgentMission_1\"\n}",
+        "lastModified": {
+            "year": 2019,
+            "month": 7,
+            "day": 16,
+            "hour": 17,
+            "minute": 36,
+            "second": 50,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Season10_UrgentMission_001",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 5,
+            "day": 7,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 8,
+            "day": 15,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "4j12usd16hc1hob7u1oivv3e4q@google.com",
+        "created": {
+            "year": 2019,
+            "month": 4,
+            "day": 16,
+            "hour": 18,
+            "minute": 35,
+            "second": 48,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season9.json",
+        "lastModified": {
+            "year": 2019,
+            "month": 4,
+            "day": 24,
+            "hour": 13,
+            "minute": 41,
+            "second": 44,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 2,
+        "status": "CONFIRMED",
+        "summary": "Season 9",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2019,
+            "month": 2,
+            "day": 26,
+            "hour": 14,
+            "minute": 30,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 5,
+            "day": 23,
+            "hour": 14,
+            "minute": 30,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "7qam4uu4o93u4ihf2jqav898ai@google.com",
+        "created": {
+            "year": 2019,
+            "month": 1,
+            "day": 29,
+            "hour": 19,
+            "minute": 15,
+            "second": 51,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season8.json",
+        "lastModified": {
+            "year": 2019,
+            "month": 1,
+            "day": 29,
+            "hour": 19,
+            "minute": 16,
+            "second": 30,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season 8",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2018,
+            "month": 12,
+            "day": 4,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2019,
+            "month": 3,
+            "day": 7,
+            "hour": 13,
+            "minute": 30,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "2dvaft4t65mp843g6es9aphl12@google.com",
+        "created": {
+            "year": 2018,
+            "month": 11,
+            "day": 8,
+            "hour": 19,
+            "minute": 10,
+            "second": 23,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season7.json",
+        "lastModified": {
+            "year": 2018,
+            "month": 11,
+            "day": 29,
+            "hour": 7,
+            "minute": 17,
+            "second": 31,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 1,
+        "status": "CONFIRMED",
+        "summary": "Season 7",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2018,
+            "month": 9,
+            "day": 24,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2018,
+            "month": 12,
+            "day": 16,
+            "hour": 13,
+            "minute": 30,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "7km0v8aucvlvhpkorkie4nr04j@google.com",
+        "created": {
+            "year": 2018,
+            "month": 8,
+            "day": 21,
+            "hour": 20,
+            "minute": 13,
+            "second": 54,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season6.json",
+        "lastModified": {
+            "year": 2018,
+            "month": 8,
+            "day": 21,
+            "hour": 20,
+            "minute": 13,
+            "second": 54,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season 6",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2018,
+            "month": 7,
+            "day": 11,
+            "hour": 13,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2018,
+            "month": 10,
+            "day": 2,
+            "hour": 12,
+            "minute": 30,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "00nedcljb447t5v6uo440ibc4l@google.com",
+        "created": {
+            "year": 2018,
+            "month": 6,
+            "day": 20,
+            "hour": 23,
+            "minute": 44,
+            "second": 38,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season5.json",
+        "lastModified": {
+            "year": 2018,
+            "month": 7,
+            "day": 2,
+            "hour": 21,
+            "minute": 53,
+            "second": 14,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 0,
+        "status": "CONFIRMED",
+        "summary": "Season 5",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2018,
+            "month": 5,
+            "day": 1,
+            "hour": 8,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2018,
+            "month": 7,
+            "day": 12,
+            "hour": 7,
+            "minute": 30,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "4r4g236pfvh9tmc6lp68nivnjl@google.com",
+        "created": {
+            "year": 2018,
+            "month": 4,
+            "day": 18,
+            "hour": 23,
+            "minute": 51,
+            "second": 10,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season4.json",
+        "lastModified": {
+            "year": 2018,
+            "month": 6,
+            "day": 21,
+            "hour": 1,
+            "minute": 11,
+            "second": 22,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 2,
+        "status": "CONFIRMED",
+        "summary": "Season 4",
+        "transp": "OPAQUE",
+        "eventInfo": {}
+    },
+    {
+        "dtstart": {
+            "year": 2018,
+            "month": 2,
+            "day": 22,
+            "hour": 9,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtend": {
+            "year": 2018,
+            "month": 5,
+            "day": 8,
+            "hour": 14,
+            "minute": 0,
+            "second": 0,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "dtstamp": {
+            "year": 2023,
+            "month": 5,
+            "day": 12,
+            "hour": 15,
+            "minute": 17,
+            "second": 37,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "uid": "5ig7arupjh0fu1mad5165f4j4p@google.com",
+        "created": {
+            "year": 2018,
+            "month": 1,
+            "day": 30,
+            "hour": 23,
+            "minute": 21,
+            "second": 40,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "description": "@./Calendars/Snippets/BattleRoyale/Seasons/Season3.json",
+        "lastModified": {
+            "year": 2018,
+            "month": 4,
+            "day": 18,
+            "hour": 23,
+            "minute": 49,
+            "second": 13,
+            "isDate": false,
+            "timezone": "UTC"
+        },
+        "location": "",
+        "sequence": 4,
+        "status": "CONFIRMED",
+        "summary": "Season 3",
+        "transp": "TRANSPARENT",
+        "eventInfo": {}
+    }
+]

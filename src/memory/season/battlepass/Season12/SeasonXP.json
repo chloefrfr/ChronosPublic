@@ -1,0 +1,596 @@
+[
+    {
+        "Level": 1,
+        "XpToNextLevel": 10000,
+        "XpTotal": 0,
+        "RowId": "1"
+    },
+    {
+        "Level": 2,
+        "XpToNextLevel": 20000,
+        "XpTotal": 10000,
+        "RowId": "2"
+    },
+    {
+        "Level": 3,
+        "XpToNextLevel": 40000,
+        "XpTotal": 30000,
+        "RowId": "3"
+    },
+    {
+        "Level": 4,
+        "XpToNextLevel": 40000,
+        "XpTotal": 70000,
+        "RowId": "4"
+    },
+    {
+        "Level": 5,
+        "XpToNextLevel": 40000,
+        "XpTotal": 110000,
+        "RowId": "5"
+    },
+    {
+        "Level": 6,
+        "XpToNextLevel": 40000,
+        "XpTotal": 150000,
+        "RowId": "6"
+    },
+    {
+        "Level": 7,
+        "XpToNextLevel": 50000,
+        "XpTotal": 190000,
+        "RowId": "7"
+    },
+    {
+        "Level": 8,
+        "XpToNextLevel": 60000,
+        "XpTotal": 240000,
+        "RowId": "8"
+    },
+    {
+        "Level": 9,
+        "XpToNextLevel": 70000,
+        "XpTotal": 300000,
+        "RowId": "9"
+    },
+    {
+        "Level": 10,
+        "XpToNextLevel": 80000,
+        "XpTotal": 370000,
+        "RowId": "10"
+    },
+    {
+        "Level": 11,
+        "XpToNextLevel": 80000,
+        "XpTotal": 450000,
+        "RowId": "11"
+    },
+    {
+        "Level": 12,
+        "XpToNextLevel": 80000,
+        "XpTotal": 530000,
+        "RowId": "12"
+    },
+    {
+        "Level": 13,
+        "XpToNextLevel": 80000,
+        "XpTotal": 610000,
+        "RowId": "13"
+    },
+    {
+        "Level": 14,
+        "XpToNextLevel": 80000,
+        "XpTotal": 690000,
+        "RowId": "14"
+    },
+    {
+        "Level": 15,
+        "XpToNextLevel": 80000,
+        "XpTotal": 770000,
+        "RowId": "15"
+    },
+    {
+        "Level": 16,
+        "XpToNextLevel": 80000,
+        "XpTotal": 850000,
+        "RowId": "16"
+    },
+    {
+        "Level": 17,
+        "XpToNextLevel": 80000,
+        "XpTotal": 930000,
+        "RowId": "17"
+    },
+    {
+        "Level": 18,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1010000,
+        "RowId": "18"
+    },
+    {
+        "Level": 19,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1090000,
+        "RowId": "19"
+    },
+    {
+        "Level": 20,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1170000,
+        "RowId": "20"
+    },
+    {
+        "Level": 21,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1250000,
+        "RowId": "21"
+    },
+    {
+        "Level": 22,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1330000,
+        "RowId": "22"
+    },
+    {
+        "Level": 23,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1410000,
+        "RowId": "23"
+    },
+    {
+        "Level": 24,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1490000,
+        "RowId": "24"
+    },
+    {
+        "Level": 25,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1570000,
+        "RowId": "25"
+    },
+    {
+        "Level": 26,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1650000,
+        "RowId": "26"
+    },
+    {
+        "Level": 27,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1730000,
+        "RowId": "27"
+    },
+    {
+        "Level": 28,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1810000,
+        "RowId": "28"
+    },
+    {
+        "Level": 29,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1890000,
+        "RowId": "29"
+    },
+    {
+        "Level": 30,
+        "XpToNextLevel": 80000,
+        "XpTotal": 1970000,
+        "RowId": "30"
+    },
+    {
+        "Level": 31,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2050000,
+        "RowId": "31"
+    },
+    {
+        "Level": 32,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2130000,
+        "RowId": "32"
+    },
+    {
+        "Level": 33,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2210000,
+        "RowId": "33"
+    },
+    {
+        "Level": 34,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2290000,
+        "RowId": "34"
+    },
+    {
+        "Level": 35,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2370000,
+        "RowId": "35"
+    },
+    {
+        "Level": 36,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2450000,
+        "RowId": "36"
+    },
+    {
+        "Level": 37,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2530000,
+        "RowId": "37"
+    },
+    {
+        "Level": 38,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2610000,
+        "RowId": "38"
+    },
+    {
+        "Level": 39,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2690000,
+        "RowId": "39"
+    },
+    {
+        "Level": 40,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2770000,
+        "RowId": "40"
+    },
+    {
+        "Level": 41,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2850000,
+        "RowId": "41"
+    },
+    {
+        "Level": 42,
+        "XpToNextLevel": 80000,
+        "XpTotal": 2930000,
+        "RowId": "42"
+    },
+    {
+        "Level": 43,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3010000,
+        "RowId": "43"
+    },
+    {
+        "Level": 44,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3090000,
+        "RowId": "44"
+    },
+    {
+        "Level": 45,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3170000,
+        "RowId": "45"
+    },
+    {
+        "Level": 46,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3250000,
+        "RowId": "46"
+    },
+    {
+        "Level": 47,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3330000,
+        "RowId": "47"
+    },
+    {
+        "Level": 48,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3410000,
+        "RowId": "48"
+    },
+    {
+        "Level": 49,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3490000,
+        "RowId": "49"
+    },
+    {
+        "Level": 50,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3570000,
+        "RowId": "50"
+    },
+    {
+        "Level": 51,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3650000,
+        "RowId": "51"
+    },
+    {
+        "Level": 52,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3730000,
+        "RowId": "52"
+    },
+    {
+        "Level": 53,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3810000,
+        "RowId": "53"
+    },
+    {
+        "Level": 54,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3890000,
+        "RowId": "54"
+    },
+    {
+        "Level": 55,
+        "XpToNextLevel": 80000,
+        "XpTotal": 3970000,
+        "RowId": "55"
+    },
+    {
+        "Level": 56,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4050000,
+        "RowId": "56"
+    },
+    {
+        "Level": 57,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4130000,
+        "RowId": "57"
+    },
+    {
+        "Level": 58,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4210000,
+        "RowId": "58"
+    },
+    {
+        "Level": 59,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4290000,
+        "RowId": "59"
+    },
+    {
+        "Level": 60,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4370000,
+        "RowId": "60"
+    },
+    {
+        "Level": 61,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4450000,
+        "RowId": "61"
+    },
+    {
+        "Level": 62,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4530000,
+        "RowId": "62"
+    },
+    {
+        "Level": 63,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4610000,
+        "RowId": "63"
+    },
+    {
+        "Level": 64,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4690000,
+        "RowId": "64"
+    },
+    {
+        "Level": 65,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4770000,
+        "RowId": "65"
+    },
+    {
+        "Level": 66,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4850000,
+        "RowId": "66"
+    },
+    {
+        "Level": 67,
+        "XpToNextLevel": 80000,
+        "XpTotal": 4930000,
+        "RowId": "67"
+    },
+    {
+        "Level": 68,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5010000,
+        "RowId": "68"
+    },
+    {
+        "Level": 69,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5090000,
+        "RowId": "69"
+    },
+    {
+        "Level": 70,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5170000,
+        "RowId": "70"
+    },
+    {
+        "Level": 71,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5250000,
+        "RowId": "71"
+    },
+    {
+        "Level": 72,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5330000,
+        "RowId": "72"
+    },
+    {
+        "Level": 73,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5410000,
+        "RowId": "73"
+    },
+    {
+        "Level": 74,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5490000,
+        "RowId": "74"
+    },
+    {
+        "Level": 75,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5570000,
+        "RowId": "75"
+    },
+    {
+        "Level": 76,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5650000,
+        "RowId": "76"
+    },
+    {
+        "Level": 77,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5730000,
+        "RowId": "77"
+    },
+    {
+        "Level": 78,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5810000,
+        "RowId": "78"
+    },
+    {
+        "Level": 79,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5890000,
+        "RowId": "79"
+    },
+    {
+        "Level": 80,
+        "XpToNextLevel": 80000,
+        "XpTotal": 5970000,
+        "RowId": "80"
+    },
+    {
+        "Level": 81,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6050000,
+        "RowId": "81"
+    },
+    {
+        "Level": 82,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6130000,
+        "RowId": "82"
+    },
+    {
+        "Level": 83,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6210000,
+        "RowId": "83"
+    },
+    {
+        "Level": 84,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6290000,
+        "RowId": "84"
+    },
+    {
+        "Level": 85,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6370000,
+        "RowId": "85"
+    },
+    {
+        "Level": 86,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6450000,
+        "RowId": "86"
+    },
+    {
+        "Level": 87,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6530000,
+        "RowId": "87"
+    },
+    {
+        "Level": 88,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6610000,
+        "RowId": "88"
+    },
+    {
+        "Level": 89,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6690000,
+        "RowId": "89"
+    },
+    {
+        "Level": 90,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6770000,
+        "RowId": "90"
+    },
+    {
+        "Level": 91,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6850000,
+        "RowId": "91"
+    },
+    {
+        "Level": 92,
+        "XpToNextLevel": 80000,
+        "XpTotal": 6930000,
+        "RowId": "92"
+    },
+    {
+        "Level": 93,
+        "XpToNextLevel": 80000,
+        "XpTotal": 7010000,
+        "RowId": "93"
+    },
+    {
+        "Level": 94,
+        "XpToNextLevel": 80000,
+        "XpTotal": 7090000,
+        "RowId": "94"
+    },
+    {
+        "Level": 95,
+        "XpToNextLevel": 80000,
+        "XpTotal": 7170000,
+        "RowId": "95"
+    },
+    {
+        "Level": 96,
+        "XpToNextLevel": 80000,
+        "XpTotal": 7250000,
+        "RowId": "96"
+    },
+    {
+        "Level": 97,
+        "XpToNextLevel": 80000,
+        "XpTotal": 7330000,
+        "RowId": "97"
+    },
+    {
+        "Level": 98,
+        "XpToNextLevel": 80000,
+        "XpTotal": 7410000,
+        "RowId": "98"
+    },
+    {
+        "Level": 99,
+        "XpToNextLevel": 80000,
+        "XpTotal": 7490000,
+        "RowId": "99"
+    }
+]

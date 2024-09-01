@@ -1,0 +1,195 @@
+[
+    {
+        "Type": "AthenaDailyQuestDefinition",
+        "Name": "Quest_S13_Repeatable_Interact_Fireworks",
+        "Class": "UScriptClass'AthenaDailyQuestDefinition'",
+        "Properties": {
+            "DisplayName": "Set off fireworks around Lazy Lake",
+            "Description": "Set off fireworks around Lazy Lake",
+            "SeasonXP": "14000",
+            "SeasonBattleStars": 0,
+            "Objectives": [
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj0",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj1",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj2",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj3",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj4",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj5",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj6",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj7",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj8",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj9",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj10",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj11",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj12",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj13",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                },
+                {
+                    "BackendName": "quest_s13_interact_fireworks_candyapple_obj14",
+                    "ObjectiveState": "None",
+                    "ItemEvent": "EFortQuestObjectiveItemEvent::Max_None",
+                    "ItemReference": "",
+                    "ItemTemplateIdOverride": "",
+                    "Description": "Set off fireworks around Lazy Lake",
+                    "HudShortDescription": "Set off fireworks around Lazy Lake",
+                    "Count": 1,
+                    "Stage": -1,
+                    "bHidden": false
+                }
+            ]
+        }
+    }
+]

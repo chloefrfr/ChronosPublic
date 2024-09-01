@@ -1,0 +1,92 @@
+[
+  {
+    "TemplateId": "AthenaDance:spid_112_rockpeople",
+    "Quantity": 1,
+    "Tier": 2
+  },
+  {
+    "TemplateId": "AthenaLoadingScreen:lsid_122_aztec",
+    "Quantity": 1,
+    "Tier": 4
+  },
+  {
+    "TemplateId": "AthenaSkyDiveContrail:trails_id_051_neontubes",
+    "Quantity": 1,
+    "Tier": 6
+  },
+  {
+    "TemplateId": "AthenaDance:emoji_cuddleteamhead",
+    "Quantity": 1,
+    "Tier": 8
+  },
+  {
+    "TemplateId": "Currency:mtxgiveaway",
+    "Quantity": 100,
+    "Tier": 11
+  },
+  {
+    "TemplateId": "AthenaDance:eid_yayexcited",
+    "Quantity": 1,
+    "Tier": 14
+  },
+  {
+    "TemplateId": "HomebaseBannerIcon:brs9plane",
+    "Quantity": 1,
+    "Tier": 18
+  },
+  {
+    "TemplateId": "AthenaGlider:glider_id_032_tacticalwoodland",
+    "Quantity": 1,
+    "Tier": 22
+  },
+  {
+    "TemplateId": "AthenaDance:spid_121_sunbird",
+    "Quantity": 1,
+    "Tier": 26
+  },
+  {
+    "TemplateId": "AthenaItemWrap:wrap_046_demon",
+    "Quantity": 1,
+    "Tier": 30
+  },
+  {
+    "TemplateId": "Currency:mtxgiveaway",
+    "Quantity": 100,
+    "Tier": 34
+  },
+  {
+    "TemplateId": "AthenaPickaxe:pickaxe_id_210_bunkerman",
+    "Quantity": 1,
+    "Tier": 38
+  },
+  {
+    "TemplateId": "HomebaseBannerIcon:brs9paintbrush",
+    "Quantity": 1,
+    "Tier": 42
+  },
+  {
+    "TemplateId": "AthenaDance:eid_sadtrombone",
+    "Quantity": 1,
+    "Tier": 46
+  },
+  {
+    "TemplateId": "AthenaLoadingScreen:lsid_124_airroyale",
+    "Quantity": 1,
+    "Tier": 50
+  },
+  {
+    "TemplateId": "AthenaMusicPack:musicpack_013_robotrack",
+    "Quantity": 1,
+    "Tier": 54
+  },
+  {
+    "TemplateId": "AthenaDance:emoji_skulltrooper",
+    "Quantity": 1,
+    "Tier": 58
+  },
+  {
+    "TemplateId": "AthenaDance:spid_114_bush",
+    "Quantity": 1,
+    "Tier": 62
+  }
+]

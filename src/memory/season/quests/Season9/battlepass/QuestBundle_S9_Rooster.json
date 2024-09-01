@@ -1,0 +1,57 @@
+{
+  "Name": "QuestBundle_S9_Rooster",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season9_paid_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:Quest_BR_S9_Rooster_CollectGlyphs_01_A",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_S9_Rooster_CollectGlyphs_01_B",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "athena_battlepass_rooster_collectglyphs_01_a",
+          "Count": 10,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Rooster_CollectGlyphs_02",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_battlepass_rooster_collectglyphs_02",
+          "Count": 20,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_S9_Rooster_CollectGlyphs_01_B",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "athena_battlepass_rooster_collectglyphs_01_b",
+          "Count": 99,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}

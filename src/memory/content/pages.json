@@ -1,0 +1,165 @@
+{
+  "jcr:isCheckedOut": true,
+  "_title": "Fortnite Game",
+  "jcr:baseVersion": "a7ca237317f1e74e4b8154-226a-4450-a3cd-c77af841e798",
+  "_activeDate": "2024-07-06T05:47:30.195Z",
+  "lastModified": "2024-07-06T05:47:30.195Z",
+  "_locale": "en-US",
+  "creative": {
+    "_type": "CommonUI Simple Message",
+    "message": {
+      "image": "https://cdn2.unrealengine.com/subgameselect-cr-512x1024-371f42541731.png",
+      "hidden": false,
+      "messagetype": "normal",
+      "_type": "CommonUI Simple Message Base",
+      "title": "New Featured Islands!",
+      "body": "Your Island. Your Friends. Your Rules.\n\nDiscover new ways to play Fortnite, play community made games with friends and build your dream island.",
+      "spotlight": false
+    }
+  },
+  "lobby": {
+    "backgroundimage": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/lobby/T_Lobby_SeasonX-2048x1024-24e02780ed533da8001016f4e6fb14dd15e2f860.png",
+    "stage": "seasonx",
+    "_title": "lobby",
+    "_activeDate": "2019-05-31T21:24:39.892Z",
+    "lastModified": "2019-07-31T21:24:17.119Z",
+    "_locale": "en-US"
+  },
+  "dynamicbackgrounds": {
+    "backgrounds": {
+      "backgrounds": [],
+      "_type": "DynamicBackgroundList"
+    },
+    "_title": "dynamicbackgrounds",
+    "_noIndex": false,
+    "_activeDate": "2019-08-21T15:59:59.342Z",
+    "lastModified": "2019-10-29T13:07:27.936Z",
+    "_locale": "en-US"
+  },
+  "battleroyalenews": {
+    "news": {
+      "_type": "Battle Royale News",
+      "messages": [],
+      "motds": [],
+      "platform_messages": []
+    },
+    "_title": "battleroyalenews",
+    "header": "",
+    "style": "None",
+    "_noIndex": false,
+    "alwaysShow": true,
+    "_activeDate": "2024-07-06T05:47:30.195Z",
+    "lastModified": "2024-07-06T05:47:30.195Z",
+    "_locale": "en-US",
+    "_templateName": "FortniteGameMOTD"
+  },
+  "battleroyalenewsv2": {
+    "news": {
+      "_type": "Battle Royale News v2",
+      "motds": []
+    },
+    "_title": "battleroyalenewsv2",
+    "_noIndex": false,
+    "alwaysShow": true,
+    "_activeDate": "2024-07-06T05:47:30.195Z",
+    "lastModified": "2024-07-06T05:47:30.195Z",
+    "_locale": "en-US",
+    "_templateName": "FortniteGameMOTD"
+  },
+  "tournamentinformation": {
+    "tournament_info": {
+      "tournaments": [
+        {
+          "loading_screen_image": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Duos_ModeTile-1024x512-cbd3591ad3f947abc96302dfa987252838877dd5.jpg",
+          "title_color": "0BFFAC",
+          "background_right_color": "41108C",
+          "background_text_color": "390087",
+          "_type": "Tournament Display Info",
+          "tournament_display_id": "chronos_arena_duos",
+          "highlight_color": "FFFFFF",
+          "primary_color": "0BFFAC",
+          "title_line_1": "ARENA",
+          "shadow_color": "5000BE",
+          "background_left_color": "B537FB",
+          "poster_fade_color": "420793",
+          "secondary_color": "FF1A40",
+          "playlist_tile_image": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Duos_ModeTile-1024x512-cbd3591ad3f947abc96302dfa987252838877dd5.jpg",
+          "base_color": "FFFFFF"
+        },
+        {
+          "loading_screen_image": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
+          "title_color": "0BFFAC",
+          "background_right_color": "41108C",
+          "background_text_color": "390087",
+          "_type": "Tournament Display Info",
+          "tournament_display_id": "chronos_arena_solo",
+          "highlight_color": "FFFFFF",
+          "primary_color": "0BFFAC",
+          "title_line_1": "ARENA",
+          "shadow_color": "5000BE",
+          "background_left_color": "B537FB",
+          "poster_fade_color": "420793",
+          "secondary_color": "FF1A40",
+          "playlist_tile_image": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
+          "base_color": "FFFFFF"
+        }
+      ],
+      "_type": "Tournaments Info"
+    },
+    "_title": "tournamentinformation",
+    "_noIndex": false,
+    "_activeDate": "2018-11-13T22:32:47.734Z",
+    "lastModified": "2019-11-01T17:33:35.346Z",
+    "_locale": "en-US"
+  },
+  "playlistinformation": {
+    "frontend_matchmaking_header_style": "None",
+    "_title": "playlistinformation",
+    "frontend_matchmaking_header_text": "",
+    "playlist_info": {
+      "_type": "Playlist Information",
+      "playlists": [
+        {
+          "image": "",
+          "playlist_name": "Playlist_DefaultSolo",
+          "hidden": false,
+          "special_border": "None",
+          "_type": "FortPlaylistInfo",
+          "display_name": "Solo"
+        },
+        {
+          "image": "",
+          "playlist_name": "Playlist_DefaultDuo",
+          "hidden": false,
+          "special_border": "None",
+          "_type": "FortPlaylistInfo"
+        },
+        {
+          "image": "https://static2.srcdn.com/wordpress/wp-content/uploads/2020/06/Fortnite-Creative-Mode.jpg",
+          "playlist_name": "Playlist_BattleLab",
+          "hidden": false,
+          "special_border": "None",
+          "_type": "FortPlaylistInfo"
+        },
+        {
+          "image": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Solo_ModeTile-1024x512-f0ecee555f69c65e8a0eace05372371bebcb050f.jpg",
+          "playlist_name": "Playlist_ShowdownAlt_Solo",
+          "hidden": false,
+          "_type": "FortPlaylistInfo",
+          "display_name": "Arena"
+        },
+        {
+          "image": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/tournaments/12BR_Arena_Duos_ModeTile-1024x512-cbd3591ad3f947abc96302dfa987252838877dd5.jpg",
+          "playlist_name": "Playlist_ShowdownAlt_Duos",
+          "hidden": true,
+          "_type": "FortPlaylistInfo",
+          "display_name": "Arena"
+        }
+      ]
+    },
+    "_noIndex": false,
+    "_activeDate": "2018-04-25T15:05:39.956Z",
+    "lastModified": "2019-10-29T14:05:17.030Z",
+    "_locale": "en-US"
+  }
+}

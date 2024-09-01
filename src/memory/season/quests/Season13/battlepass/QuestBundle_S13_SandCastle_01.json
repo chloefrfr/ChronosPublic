@@ -1,0 +1,27 @@
+{
+  "Name": "QuestBundle_S13_SandCastle_01",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season13_sandcastle_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:quest_s13_sandcastle_q01",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "AthenaLoadingScreen:LSID_239_Sandcastle",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "quest_s13_sandcastle_q01_obj0",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}

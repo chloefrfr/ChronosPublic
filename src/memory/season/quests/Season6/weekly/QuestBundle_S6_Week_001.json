@@ -1,0 +1,402 @@
+{
+  "Name": "QuestBundle_S6_Week_001",
+  "ChallengeBundleSchedule": "ChallengeBundleSchedule:season6_free_schedule",
+  "Level": 1,
+  "Objects": [
+    {
+      "Name": "Quest:Quest_BR_Collect_LegendaryItem_DifferentMatches",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_collect_legendaryitem_differentmatches",
+          "Count": 3,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Heal_CozyCampfire_",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_heal_athena_camp_fire",
+          "Count": 150,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Interact_Chests_ChainSearch",
+      "Options": {
+        "bRequiresVIP": false,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_Interact_SupplyDrops_ChainSearch",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_chain_search_chests",
+          "Count": 3,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Heal_Shields",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_heal_athena_shields",
+          "Count": 500,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Land_Junk_Chain_01A",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_Land_Tomato_Chain_01B",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_land_athena_location_junk_chain_01a",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Land_Tomato_Chain_01B",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_Land_Tilted_Chain_01C",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_land_athena_location_tomato_chain_01b",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Land_Tilted_Chain_01C",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_Land_Fatal_Chain_01D",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_land_athena_location_tilted_chain_01c",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Land_Fatal_Chain_01D",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [
+        {
+          "TemplateId": "Quest:Quest_BR_Land_Flush_Chain_01E",
+          "Quantity": 1
+        }
+      ],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_land_athena_location_fatal_chain_01d",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Land_Flush_Chain_01E",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": true
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_land_athena_location_flush_chain_01e",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Dance_ScavengerHunt_Streetlights",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_01",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_02",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_03",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_04",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_05",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_06",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_07",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_08",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_09",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_10",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_11",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_12",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_13",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_14",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_15",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_16",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_17",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_18",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_19",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_dance_athena_location_streetlights_20",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    },
+    {
+      "Name": "Quest:Quest_BR_Eliminate_Location_Different",
+      "Options": {
+        "bRequiresVIP": true,
+        "hasExtra": false
+      },
+      "Rewards": [],
+      "Objectives": [
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_junkjunction",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_hauntedhills",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_pleasantpartk",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_lootlake",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_lazylinks",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_tomatotemple",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_riskyreels",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_wailingwoods",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_snobbyshores",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_greasygrove",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_tiltedtowers",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_shiftyshafts",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_dustydivot",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_saltysprings",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_retailrow",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_lonelylodge",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_flushfactory",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_luckylanding",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_fatalfields",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_paradisepalms",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_polarpeak",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_frostyflights",
+          "Count": 1,
+          "Stage": -1
+        },
+        {
+          "BackendName": "battlepass_killingblow_athena_player_different_happyhamlet",
+          "Count": 1,
+          "Stage": -1
+        }
+      ]
+    }
+  ]
+}
