@@ -56,6 +56,14 @@ interface Invites {
   sent_to: string;
 }
 
+export type StatusInfo = {
+  Properties: Record<string, StatusData>;
+};
+
+interface StatusData {
+  partyId: string;
+}
+
 export namespace XmppService {
   export const clients: XmppClient[] = [];
   export let isUserLoggedIn: boolean = false;

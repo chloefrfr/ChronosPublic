@@ -1,8 +1,10 @@
 import type { ServerWebSocket } from "bun";
 import { logger } from "../..";
 import { Client } from "./client";
-import { XmppService } from "./saved/XmppServices";
+import { XmppService, type StatusInfo } from "./saved/XmppServices";
 import { updatePresenceForFriend } from "./utilities/UpdatePresenceForFriend";
+import xmlbuilder from "xmlbuilder";
+import { v4 as uuid } from "uuid";
 
 export interface ChronosSocket extends ServerWebSocket {
   isLoggedIn?: boolean;
@@ -48,6 +50,51 @@ export const xmppServer = Bun.serve<ChronosSocket>({
 
           if (MUCIndex !== -1) MUCRoom.members.splice(MUCIndex, 1);
         }
+      }
+
+      const clientStatus = client.lastPresenceUpdate.status;
+      let partyId: string | undefined = "";
+
+      if (clientStatus) {
+        const parsedStatus: StatusInfo = JSON.parse(clientStatus);
+
+        for (const [key, property] of Object.entries(parsedStatus.Properties)) {
+          if (key.toLowerCase().startsWith("party.joininfo")) {
+            if (!property.partyId) {
+              return logger.error("Property 'partyId' is not valid.");
+            }
+            partyId = property.partyId;
+          }
+        }
+      }
+
+      if (partyId) {
+        XmppService.clients.forEach(({ accountId, jid, socket }) => {
+          if (client.accountId !== accountId) {
+            socket.send(
+              xmlbuilder
+                .create("message")
+                .attribute("id", uuid())
+                .attribute("from", client.jid)
+                .attribute("xmlns", "jabber:client")
+                .attribute("to", jid)
+                .element(
+                  "body",
+                  JSON.stringify({
+                    type: "com.epicgames.party.memberexited",
+                    payload: {
+                      partyId,
+                      memberId: client.accountId,
+                      wasKicked: false,
+                    },
+                    timestamp: new Date().toISOString(),
+                  }),
+                )
+                .up()
+                .toString(),
+            );
+          }
+        });
       }
 
       logger.info(`Closed Socket Connection for client with the username ${client.displayName}`);

@@ -28,11 +28,15 @@ git clone https://github.com/chloefrfr/ChronosPublic
 bun install
 ```
 
-3. **Configure environment variables**
+3. **Configure environment variables:**
 
-Rename `.example.env` to .env and add the necessary information.
+Rename `.example.env` to `.env` and provide the necessary information.
 
-3. **Run**
+4. **Configure hosting:**
+
+To set up your game server and choose regional IP addresses for matchmaking, go to `hosting/hostOptions.ts`.
+
+5. **Run**
 
 ```bash
 bun run src/index.ts

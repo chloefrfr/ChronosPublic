@@ -1,7 +1,8 @@
 import { accountService, app, config, logger, userService } from "..";
+import { GameserverIps } from "../../hosting/hostOptions";
 import { Validation } from "../middleware/validation";
 import { servers } from "../sockets/matchmaker/server";
-import { XmppService, type PartyInfo } from "../sockets/xmpp/saved/XmppServices";
+import { XmppService, type PartyInfo, type StatusInfo } from "../sockets/xmpp/saved/XmppServices";
 import { Encryption } from "../utilities/encryption";
 import errors from "../utilities/errors";
 import uaparser from "../utilities/uaparser";
@@ -62,14 +63,6 @@ export default function () {
           return hasMember ? party : null;
         }, null as PartyInfo | null) ?? {};
 
-      if (partyId === "party_not_found")
-        return c.json(errors.createError(404, c.req.url, "Party not found.", timestamp), 404);
-
-      const membersInParty: string[] = partyMembers
-        .filter((member) => member.account_id)
-        .map((member) => member.account_id);
-
-      const currentBuildUniqueId = bucketIds![0];
       const playlist = bucketIds![3];
       const region = bucketIds![2];
 
@@ -81,6 +74,32 @@ export default function () {
       const inputType = c.req.query("player.inputTypes");
       const input = c.req.query("player.input");
       const partyPlayerIds = c.req.query("partyPlayerIds");
+
+      const client = XmppService.clients.find((client) => client.accountId === user.accountId);
+
+      if (!client)
+        return c.json(errors.createError(404, c.req.url, "Client not found.", timestamp), 404);
+
+      const clientStatus = client.lastPresenceUpdate.status;
+      let selectedPartyId: string | undefined = "";
+
+      if (clientStatus) {
+        const parsedStatus: StatusInfo = JSON.parse(clientStatus);
+
+        if (parsedStatus) {
+          for (const key in parsedStatus.Properties) {
+            const joinInfo = key.toLowerCase().startsWith("party.joininfo");
+
+            if (parsedStatus.Properties[key].partyId === "")
+              return logger.error(`Property 'partyId' is not valid.`);
+
+            if (joinInfo && parsedStatus.Properties) {
+              selectedPartyId = parsedStatus.Properties[key].partyId;
+              break;
+            }
+          }
+        }
+      }
 
       const payload = {
         playerId: user.accountId,
@@ -95,7 +114,7 @@ export default function () {
           "player.teamFormat": "fun",
           "player.subregions": region,
           "player.season": uahelper.season,
-          "player.option.partyId": partyId,
+          "player.option.partyId": partyId === "party_not_found" ? selectedPartyId : partyId,
           "player.platform": platform,
           "player.option.linkType": "DEFAULT",
           "player.input": input,
@@ -184,12 +203,6 @@ export default function () {
         404,
       );
 
-    const VPSIps: { [key: string]: string } = {
-      "45.143.196.193": "45.143.196.193",
-      "34.46.111.45": "34.46.111.45",
-      "72.23.79.24": "72.23.79.24",
-    };
-
     const currentBucketId = session.identifier.split(":")[0];
 
     logger.debug(`Session ${session.address}:${session.port} - ${currentBucketId}`);
@@ -199,7 +212,7 @@ export default function () {
       ownerId: uuid().replace(/-/gi, "").toUpperCase(),
       ownerName: "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
       serverName: "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
-      serverAddress: VPSIps[session.address],
+      serverAddress: GameserverIps[session.address],
       serverPort: session.port,
       maxPublicPlayers: 220,
       openPublicPlayers: 175,

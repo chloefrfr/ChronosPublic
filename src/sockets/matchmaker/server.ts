@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid";
 import { isPartyMemberExists } from "./utilities/isPartyMemberExists";
 import { removeClientFromQueue } from "./utilities/removeClientFromQueue";
 import { ServerStatus, type HostServer } from "../gamesessions/types";
-import { hosters } from "./hosters/regionhosters";
+import { RegionIps } from "../../../hosting/hostOptions";
 
 interface MatchmakerAttributes {
   "player.userAgent": string;
@@ -57,7 +57,7 @@ function findOrCreateServer(payload: MatchmakerSocket): HostServer {
   );
 
   if (!existingServer) {
-    const config = hosters[payload.region];
+    const config = RegionIps[payload.region];
     if (!config) {
       logger.error(`No hoster found for the region: ${payload.region}`);
     }
