@@ -1,9 +1,20 @@
+import type { XmppClient } from "../../xmpp/client";
 import type { PartyInfo } from "../../xmpp/saved/XmppServices";
 
-export function removeClientFromQueue(party: PartyInfo, queue: string[]) {
-  for (const members of party.members) {
-    const index = queue.findIndex((id) => id === members.account_id);
+type PartyOrClientInfo = PartyInfo | XmppClient;
 
-    if (index === -1) queue.splice(index, 1);
+export function removeClientFromQueue(partyOrClient: PartyOrClientInfo, queue: string[]) {
+  if ("members" in partyOrClient) {
+    for (const member of partyOrClient.members) {
+      const index = queue.indexOf(member.account_id);
+      if (index !== -1) {
+        queue.splice(index, 1);
+      }
+    }
+  } else {
+    const index = queue.indexOf(partyOrClient.accountId);
+    if (index !== -1) {
+      queue.splice(index, 1);
+    }
   }
 }

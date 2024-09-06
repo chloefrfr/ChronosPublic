@@ -2,6 +2,9 @@ import type { ServerWebSocket } from "bun";
 import type { Socket } from "./server";
 import type { PartyInfo } from "../xmpp/saved/XmppServices";
 import { getQueueLength } from "./utilities/getQueueLength";
+import type { XmppClient } from "../xmpp/client";
+
+type PartyOrClientInfo = PartyInfo | XmppClient | undefined;
 
 export class MatchmakerStates {
   public static connecting(socket: ServerWebSocket<Socket>) {
@@ -15,32 +18,39 @@ export class MatchmakerStates {
     );
   }
 
-  public static waiting(socket: ServerWebSocket<Socket>, party: PartyInfo | undefined) {
-    if (!party) return;
+  public static waiting(socket: ServerWebSocket<Socket>, partyOrClient: PartyOrClientInfo) {
+    if (!partyOrClient) return;
 
     return socket.send(
       JSON.stringify({
         name: "StatusUpdate",
         payload: {
           state: "Waiting",
-          totalPlayers: party.members.length,
-          connectedPlayers: party.members.length,
+          totalPlayers: "members" in partyOrClient ? partyOrClient.members.length : 1,
+          connectedPlayers: "members" in partyOrClient ? partyOrClient.members.length : 1,
         },
       }),
     );
   }
 
   public static queueFull(socket: ServerWebSocket<Socket>) {
-    return socket.send(JSON.stringify({ payload: { state: "QueueFull" }, name: "StatusUpdate" }));
+    return socket.send(
+      JSON.stringify({
+        name: "StatusUpdate",
+        payload: {
+          state: "QueueFull",
+        },
+      }),
+    );
   }
 
   public static queued(
     socket: ServerWebSocket<Socket>,
     ticketId: string,
-    party: PartyInfo,
+    partyOrClient: PartyOrClientInfo,
     queue: string[],
   ) {
-    const length = getQueueLength(party);
+    const length = partyOrClient && "members" in partyOrClient ? getQueueLength(partyOrClient) : 1;
 
     if (!length) return;
 
